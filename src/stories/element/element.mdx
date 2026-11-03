@@ -1,0 +1,95 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { DocBullet, DocMasthead, DocPage, DocPara, DocSection, DocTable } from '../foundations/_components/ds-doc'
+
+<Meta title="Element/소개" />
+
+<DocPage>
+
+<DocMasthead
+  eyebrow="Element"
+  title="컴포넌트를 만드는 재료"
+  meta={[
+    ['최종 업데이트', '2026-11-03'],
+    ['갈래', 'Basic · Spacing · Decorate'],
+    ['완성된 UI', 'Component 쪽'],
+  ]}
+/>
+
+<DocSection title="이 페이지의 범위">
+  <DocPara>
+    버튼이나 카드 같은 완성된 UI가 아니라, 그것들을 만들 때 쓰는 재료입니다. 혼자서는 화면에 의미를 갖지 않지만,
+    여러 컴포넌트가 같은 규칙을 공유하게 만들어 줍니다.
+  </DocPara>
+  <DocTable
+    rows={[
+      ['갈래', '무엇', '어디에'],
+      ['Basic', '비율 틀', '이미지·썸네일 자리 잡기'],
+      ['Spacing', '안전영역 여백', '화면 하단에 붙는 막대·시트'],
+      ['Decorate', '상태 표시층, 오버레이', '누를 수 있다는 신호, 모달 뒤 막'],
+    ]}
+  />
+</DocSection>
+
+<DocSection title="Basic — 비율">
+  <DocPara>
+    요소를 정해진 비율로 잡아 두는 틀입니다. 내용이 무엇이든 자리가 먼저 정해지므로 이미지가 늦게 도착해도 레이아웃이 밀리지 않습니다.
+  </DocPara>
+  <DocTable
+    rows={[
+      ['비율', 'CSS', '쓰는 자리'],
+      ['1 : 1', 'aspect-ratio: 1 / 1', '아바타, 정사각 썸네일'],
+      ['4 : 3', 'aspect-ratio: 4 / 3', '목록 썸네일'],
+      ['16 : 9', 'aspect-ratio: 16 / 9', '배너, 동영상, 차트 영역'],
+    ]}
+  />
+</DocSection>
+
+<DocSection title="Spacing — 안전영역">
+  <DocPara>
+    화면 맨 아래에 붙는 막대가 iOS 홈 인디케이터나 안드로이드 제스처 바에 가리지 않도록 확보하는 여백입니다.
+  </DocPara>
+  <DocTable
+    rows={[
+      ['값', '쓰는 자리'],
+      ['padding-bottom: max(var(--dw-spacing-x3), env(safe-area-inset-bottom))', '하단 고정 액션 바'],
+      ['padding-bottom: max(var(--dw-spacing-x6), env(safe-area-inset-bottom))', '바텀 시트 본문'],
+    ]}
+  />
+  <DocBullet lead="env()만 쓰지 않고 max()로 감싼다">
+    인디케이터가 없는 기기에서는 env()가 0이라, 최소 여백을 깔아 둬야 버튼이 화면 끝에 붙지 않습니다.
+  </DocBullet>
+  <DocBullet lead="viewport-fit=cover가 있어야 env()가 값을 갖는다">
+    `meta name="viewport"`에 `viewport-fit=cover`를 넣습니다.
+  </DocBullet>
+</DocSection>
+
+<DocSection title="Decorate — 상태 표시층">
+  <DocPara>
+    누를 수 있는 것이 지금 어떤 상태인지 알리는 층입니다. 요소마다 다르게 만들지 않고 모든 요소가 같은 규칙을 씁니다.
+    DW는 상태 색을 계산하지 않고 `-pressed` 토큰 짝으로 둡니다.
+  </DocPara>
+  <DocTable
+    rows={[
+      ['상태', '무엇을 하나'],
+      ['Hovered · Pressed', '바탕을 -pressed 짝 토큰으로 + 누를 때 scale 축소'],
+      ['Selected', 'bg-transparent-selected (투명 면)'],
+      ['Focused', 'outline 2px stroke-focus-ring, offset 2px'],
+      ['Disabled', 'bg-disabled + fg-disabled, 누를 수 없음'],
+    ]}
+  />
+</DocSection>
+
+<DocSection title="Decorate — 오버레이">
+  <DocPara>
+    다이얼로그·시트 뒤를 덮어 뒤 화면을 잠시 비활성으로 보이게 하는 막입니다. 테마와 무관하게 검정 반투명입니다.
+  </DocPara>
+  <DocTable
+    rows={[
+      ['토큰', '쓰는 자리'],
+      ['bg-overlay', '다이얼로그, 시트, 바텀 시트'],
+      ['bg-overlay-muted', '덜 가려도 되는 자리 — 이미지 위 글자 받침 등'],
+    ]}
+  />
+</DocSection>
+
+</DocPage>

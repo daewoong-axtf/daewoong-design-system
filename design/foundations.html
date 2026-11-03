@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DW Foundations</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--dw-font-sans); background: var(--dw-bg-layer-basement); color: var(--dw-fg-neutral); font-size: var(--dw-font-t4-size); line-height: var(--dw-font-t4-line-height); }
+    header { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: var(--dw-spacing-x3); padding: var(--dw-spacing-x3) var(--dw-spacing-x4); background: var(--dw-bg-layer-default); border-bottom: 1px solid var(--dw-stroke-neutral-subtle); }
+    header h1 { margin: 0; font-size: var(--dw-font-t6-size); line-height: var(--dw-font-t6-line-height); }
+    nav { display: flex; flex-wrap: wrap; gap: var(--dw-spacing-x1) var(--dw-spacing-x3); }
+    @media (max-width: 639px) { nav { display: none; } }
+    nav a { color: var(--dw-fg-neutral-muted); text-decoration: none; }
+    nav a:hover { color: var(--dw-fg-neutral); }
+    main { max-width: 1040px; margin: 0 auto; padding: var(--dw-spacing-x6) var(--dw-spacing-x4) var(--dw-spacing-x14); }
+    section { margin-bottom: var(--dw-spacing-x8); padding: var(--dw-spacing-x5); background: var(--dw-bg-layer-default); border-radius: var(--dw-radius-r4); }
+    h2 { margin: 0 0 var(--dw-spacing-x4); font-size: var(--dw-font-t7-size); line-height: var(--dw-font-t7-line-height); }
+    h3 { margin: var(--dw-spacing-x5) 0 var(--dw-spacing-x2); font-size: var(--dw-font-t5-size); line-height: var(--dw-font-t5-line-height); color: var(--dw-fg-neutral-muted); }
+    code { font-size: var(--dw-font-t2-size); }
+    .ramp { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: var(--dw-spacing-x1); }
+    .sw { border-radius: var(--dw-radius-r2); overflow: hidden; border: 1px solid var(--dw-stroke-neutral-subtle); }
+    .sw i { display: block; height: 48px; }
+    .sw span { display: block; padding: var(--dw-spacing-x1) var(--dw-spacing-x1_5); font-size: var(--dw-font-t1-size); line-height: var(--dw-font-t1-line-height); color: var(--dw-fg-neutral-muted); word-break: break-all; }
+    .roles { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--dw-spacing-x2); }
+    .role { display: flex; align-items: center; gap: var(--dw-spacing-x2); }
+    .role i { flex: none; width: 32px; height: 32px; border-radius: var(--dw-radius-r2); border: 1px solid var(--dw-stroke-neutral-subtle); }
+    .row { display: flex; align-items: baseline; gap: var(--dw-spacing-x4); padding: var(--dw-spacing-x2) 0; border-bottom: 1px solid var(--dw-stroke-neutral-subtle); }
+    .row:last-child { border-bottom: 0; }
+    .row code { flex: none; width: 88px; color: var(--dw-fg-neutral-subtle); }
+    .bar { height: 16px; background: var(--dw-bg-brand-weak); border-left: 2px solid var(--dw-stroke-brand-solid); }
+    .boxes { display: flex; flex-wrap: wrap; gap: var(--dw-spacing-x4); }
+    .box { display: grid; place-items: center; width: 96px; height: 72px; background: var(--dw-bg-neutral-weak); font-size: var(--dw-font-t2-size); }
+    .shadow { background: var(--dw-bg-layer-floating); }
+    .motion { display: flex; flex-wrap: wrap; gap: var(--dw-spacing-x3); }
+    .ball { width: 40px; height: 40px; border-radius: var(--dw-radius-full); background: var(--dw-bg-brand-solid); transition-property: transform; }
+    .track { position: relative; width: min(100%, 320px); padding: var(--dw-spacing-x1); border-radius: var(--dw-radius-full); background: var(--dw-bg-neutral-weak); }
+    .track.go .ball { transform: translateX(calc(min(100vw - 120px, 320px) - 48px)); }
+    button.dw-plain { min-height: 44px; padding: 0 var(--dw-spacing-x4); border: 1px solid var(--dw-stroke-neutral-weak); border-radius: var(--dw-radius-full); background: var(--dw-bg-layer-default); color: var(--dw-fg-neutral); font: inherit; white-space: nowrap; cursor: pointer; }
+    button.dw-plain:focus-visible { outline: 2px solid var(--dw-stroke-focus-ring); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>DW Foundations</h1>
+    <nav aria-label="섹션">
+      <a href="#palette">팔레트</a><a href="#roles">역할</a><a href="#type">타이포</a><a href="#spacing">간격</a><a href="#radius">모서리</a><a href="#shadow">깊이</a><a href="#motion">모션</a>
+    </nav>
+    <button class="dw-plain" type="button" id="theme" aria-pressed="false">다크 모드</button>
+  </header>
+  <main>
+    <section id="palette"><h2>팔레트</h2><div id="palette-list"></div></section>
+    <section id="roles"><h2>역할 토큰</h2><div id="role-list"></div></section>
+    <section id="type"><h2>타이포그래피</h2><div id="type-list"></div></section>
+    <section id="spacing"><h2>간격</h2><div id="spacing-list"></div></section>
+    <section id="radius"><h2>모서리</h2><div class="boxes" id="radius-list"></div></section>
+    <section id="shadow"><h2>깊이</h2><div class="boxes">
+      <div class="box shadow" style="box-shadow: var(--dw-shadow-s1)">s1</div>
+      <div class="box shadow" style="box-shadow: var(--dw-shadow-s2)">s2</div>
+      <div class="box shadow" style="box-shadow: var(--dw-shadow-s3)">s3</div>
+    </div></section>
+    <section id="motion"><h2>모션</h2>
+      <p><button class="dw-plain" type="button" id="play">재생</button></p>
+      <div id="motion-list"></div>
+    </section>
+  </main>
+  <script>
+    // 값은 tokens.css에서 읽는다 — 이 페이지에는 수치를 하드코딩하지 않는다
+    const css = getComputedStyle(document.documentElement)
+    // file://로 열면 cssRules를 읽을 수 없어, 계산된 스타일에서 --dw-* 이름을 모은다
+    const vars = [...css].filter((p) => p.startsWith('--dw-'))
+    const key = (v) => v.replace(/(\d+)(_5)?$/, (_, n, h) => String(Number(n) + (h ? 0.5 : 0)).padStart(8, '0'))
+    const names = (re) => [...new Set(vars.filter((v) => re.test(v)))].sort((a, b) => key(a).localeCompare(key(b)))
+    const el = (tag, attrs = {}, html = '') => Object.assign(document.createElement(tag), attrs, { innerHTML: html })
+
+    const families = ['gray', 'gray-alpha', 'orange', 'blue', 'green', 'yellow', 'red', 'purple', 'static-black-alpha', 'static-white-alpha']
+    for (const f of families) {
+      const list = names(new RegExp(`^--dw-${f}-(\\d+)$`))
+      const box = el('div', { className: 'ramp' })
+      for (const v of list) box.append(el('div', { className: 'sw' }, `<i style="background:${f.startsWith('static-white') ? `linear-gradient(var(${v}), var(${v})), var(--dw-static-black)` : `var(${v})`}"></i><span>${v.slice(5)}</span>`))
+      document.getElementById('palette-list').append(el('h3', {}, f), box)
+    }
+
+    for (const layer of ['bg', 'fg', 'stroke']) {
+      const box = el('div', { className: 'roles' })
+      for (const v of names(new RegExp(`^--dw-${layer}-`))) {
+        box.append(el('div', { className: 'role' }, `<i style="${layer === 'stroke' ? `border:3px solid var(${v})` : `background:var(${v})`}"></i><code>${v.slice(5)}</code>`))
+      }
+      document.getElementById('role-list').append(el('h3', {}, layer), box)
+    }
+
+    for (let i = 14; i >= 1; i--) {
+      document.getElementById('type-list').append(el('div', { className: 'row' },
+        `<code>t${i} · ${css.getPropertyValue(`--dw-font-t${i}-size`).trim()}/${css.getPropertyValue(`--dw-font-t${i}-line-height`).trim()}</code>` +
+        `<span style="font-size:var(--dw-font-t${i}-size);line-height:var(--dw-font-t${i}-line-height);font-weight:var(--dw-font-weight-bold)">다람쥐 헌 쳇바퀴 Aa 123</span>`))
+    }
+
+    for (const v of names(/^--dw-spacing-x[\d_]+$/)) {
+      document.getElementById('spacing-list').append(el('div', { className: 'row' }, `<code>${v.slice(13)} · ${css.getPropertyValue(v).trim()}</code><div class="bar" style="width:var(${v})"></div>`))
+    }
+
+    for (const v of names(/^--dw-radius-/)) {
+      document.getElementById('radius-list').append(el('div', { className: 'box', style: `border-radius:var(${v})` }, `${v.slice(12)}<br>${css.getPropertyValue(v).trim()}`))
+    }
+
+    const motions = [['enter', 'd6'], ['exit', 'd4'], ['easing', 'd3'], ['enter-expressive', 'd6'], ['exit-expressive', 'd4'], ['linear', 'd6']]
+    for (const [e, d] of motions) {
+      document.getElementById('motion-list').append(el('div', { className: 'row' },
+        `<code>${e} · ${d}</code><div class="track"><div class="ball" style="transition-duration:var(--dw-duration-${d});transition-timing-function:var(--dw-easing-${e})"></div></div>`))
+    }
+    document.getElementById('play').addEventListener('click', () => document.querySelectorAll('.track').forEach((t) => t.classList.toggle('go')))
+
+    const btn = document.getElementById('theme')
+    const isDark = () => document.documentElement.dataset.theme === 'dark' ||
+      (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches)
+    const sync = () => {
+      btn.setAttribute('aria-pressed', String(isDark()))
+      btn.textContent = isDark() ? '라이트 모드' : '다크 모드'
+    }
+    btn.addEventListener('click', () => {
+      document.documentElement.dataset.theme = isDark() ? 'light' : 'dark'
+      sync()
+    })
+    sync()
+  </script>
+</body>
+</html>

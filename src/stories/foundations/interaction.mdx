@@ -1,0 +1,73 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Foundations/Interaction" />
+
+# Interaction
+
+사용자가 요소와 상호작용할 때 주는 피드백입니다. 상태 색(states), 포커스(focus), 링크(link)를 다룹니다.
+
+## States
+
+DW는 상태 색을 **토큰으로 따로 둡니다**. 투명도나 color-mix로 계산하지 않고 `-pressed` 짝을 씁니다. `hover`는 정밀 포인터(`@media (hover: hover) and (pointer: fine)`)에서만, `pressed`는 `:active`일 때 적용하며 두 상태의 색은 같습니다.
+
+export const states = [
+  ['Default', 'bg-brand-solid', 'fg-on-brand-solid'],
+  ['Hover · Pressed', 'bg-brand-solid-pressed', 'fg-on-brand-solid'],
+  ['Disabled', 'bg-disabled', 'fg-disabled'],
+]
+
+<div style={{ display: 'flex', gap: 'var(--dw-spacing-x3)', flexWrap: 'wrap' }}>
+  {states.map(([label, bg, fg]) => (
+    <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--dw-spacing-x1_5)' }}>
+      <div style={{ background: `var(--dw-${bg})`, color: `var(--dw-${fg})`, height: 40, padding: '0 var(--dw-spacing-x4)', display: 'grid', placeItems: 'center', borderRadius: 'var(--dw-radius-r2)', fontWeight: 700, fontSize: 'var(--dw-font-t4-size)' }}>{label}</div>
+      <code style={{ fontSize: 'var(--dw-font-t1-size)' }}>{bg}</code>
+    </div>
+  ))}
+</div>
+
+| 바탕 | 기본 | hover · pressed |
+| --- | --- | --- |
+| 채운 면 | `bg-<의미>-solid` | `bg-<의미>-solid-pressed` |
+| 옅은 면 | `bg-<의미>-weak` | `bg-<의미>-weak-pressed` |
+| 투명 면(outline·ghost·리스트 행) | `bg-transparent` | `bg-transparent-pressed` |
+| 선택된 투명 면 | `bg-transparent-selected` | `bg-transparent-selected-pressed` |
+| 비활성 | `bg-disabled` + `fg-disabled` | — (누를 수 없음) |
+
+누를 수 있는 면은 색과 함께 크기도 살짝 줄입니다 — [Motion](?path=/docs/foundations-motion--docs)의 누름 축소 배율.
+
+## Focus
+
+키보드 포커스(`:focus-visible`)는 모든 상호작용 요소에 같은 모양으로 보입니다. 마우스로 눌렀을 때는 보이지 않습니다. 버튼에 Tab으로 이동해 보세요.
+
+```css
+outline: 2px solid var(--dw-stroke-focus-ring);
+outline-offset: 2px;
+```
+
+<style>{`
+.dw-focus-demo { height: 40px; padding: 0 var(--dw-spacing-x4); border: 0; border-radius: var(--dw-radius-r2); background: var(--dw-bg-neutral-weak); color: var(--dw-fg-neutral); font-weight: 700; cursor: pointer; }
+.dw-focus-demo:focus-visible { outline: 2px solid var(--dw-stroke-focus-ring); outline-offset: 2px; }
+.dw-focus-input { height: 40px; padding: 0 var(--dw-spacing-x3_5); border: 1px solid var(--dw-stroke-neutral-weak); border-radius: var(--dw-radius-r2); background: var(--dw-bg-layer-default); color: var(--dw-fg-neutral); outline: none; }
+.dw-focus-input:focus { border: 2px solid var(--dw-stroke-neutral-contrast); padding: 0 calc(var(--dw-spacing-x3_5) - 1px); }
+.dw-link { color: var(--dw-fg-brand); text-decoration: underline; text-underline-offset: 4px; }
+.dw-link:focus-visible { outline: 2px solid var(--dw-stroke-focus-ring); outline-offset: 2px; border-radius: 2px; }
+`}</style>
+
+<div style={{ display: 'flex', gap: 'var(--dw-spacing-x3)', flexWrap: 'wrap', alignItems: 'center' }}>
+  <button type="button" className="dw-focus-demo">첫 번째</button>
+  <button type="button" className="dw-focus-demo">두 번째</button>
+  <input className="dw-focus-input" aria-label="포커스 예시 입력" placeholder="입력 필드는 테두리로" />
+</div>
+
+입력 필드는 outline 대신 테두리를 2px `stroke-neutral-contrast`로 바꿉니다.
+
+- 포커스 표시를 지우지 않습니다. 키보드만 쓰는 사람에게는 지금 어디에 있는지 알려주는 유일한 표시입니다.
+- 포커스 링은 `:focus-visible`로만 그립니다.
+
+## Link
+
+본문 속 링크는 `fg-brand` + 밑줄입니다. 색만으로 링크임을 알리지 않습니다.
+
+<p style={{ color: 'var(--dw-fg-neutral)' }}>
+  자세한 내용은 <a className="dw-link" href="#">이용 안내</a>에서 확인하세요.
+</p>

@@ -1,0 +1,44 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Foundations/Control Height" />
+
+# Control Height
+
+버튼과 입력 필드가 함께 쓰는 **높이 스케일**입니다. 같은 size를 주면 높이가 같아져 나란히 놓아도 정렬됩니다. 높이는 간격 스케일 안의 값입니다.
+
+export const scale = [
+  ['xsmall', 'x8', '32px', 'full', '조밀한 표 안 액션, 칩 모양 버튼'],
+  ['small', 'x9', '36px', 'r2', '보조 액션, 필터 바'],
+  ['medium', 'x10', '40px', 'r2', '기본 폼·버튼'],
+  ['large', 'x13', '52px', 'r3', '주요 CTA, 모바일 하단 고정 버튼'],
+]
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--dw-spacing-x4)' }}>
+  {scale.map(([size, sp, px, r]) => (
+    <div key={size} style={{ display: 'flex', alignItems: 'center', gap: 'var(--dw-spacing-x4)', flexWrap: 'wrap' }}>
+      <code style={{ width: 64 }}>{size}</code>
+      <span style={{ width: 96, fontSize: 'var(--dw-font-t2-size)', color: 'var(--dw-fg-neutral-subtle)' }}>{sp} · {px}</span>
+      <div style={{ height: `var(--dw-spacing-${sp})`, padding: '0 var(--dw-spacing-x4)', display: 'grid', placeItems: 'center', borderRadius: `var(--dw-radius-${r})`, background: 'var(--dw-bg-brand-solid)', color: 'var(--dw-fg-on-brand-solid)', fontWeight: 700, fontSize: 'var(--dw-font-t4-size)' }}>확인</div>
+      {size === 'medium' || size === 'large' ? (
+        <div style={{ height: `var(--dw-spacing-${sp})`, width: 180, padding: '0 var(--dw-spacing-x3_5)', display: 'flex', alignItems: 'center', boxSizing: 'border-box', border: '1px solid var(--dw-stroke-neutral-weak)', borderRadius: `var(--dw-radius-${r})`, color: 'var(--dw-fg-placeholder)', fontSize: 'var(--dw-font-t4-size)' }}>이름</div>
+      ) : null}
+    </div>
+  ))}
+</div>
+
+## 사용 기준
+
+<table>
+  <thead><tr><th>size</th><th>height</th><th>radius</th><th>용도 예시</th></tr></thead>
+  <tbody>
+    {scale.map(([size, sp, px, r, use]) => (
+      <tr key={size}><td><code>{size}</code></td><td>{px} <code>{sp}</code></td><td><code>{r}</code></td><td>{use}</td></tr>
+    ))}
+  </tbody>
+</table>
+
+- 입력 필드는 `medium`(40px)·`large`(52px) 두 가지입니다.
+- 32·36px 버튼은 터치 화면에서 히트 영역을 44px로 넓힙니다(시각 크기는 그대로).
+- 상세 수치는 `design/components/button.md`, `text-input.md`가 정본입니다.
+
+> shadcn 원본 Button은 `sm` 32px · `default` 36px · `lg` 40px이라 명세의 `large`(52px)가 없습니다. shadcn 소스를 고치지 않는 원칙이라 Storybook의 Button 스토리는 원본 높이를 보여줍니다.

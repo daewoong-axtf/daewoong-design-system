@@ -1,0 +1,56 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { tokens } from './_components/tokens'
+
+<Meta title="Foundations/Depth" />
+
+# Depth
+
+깊이는 **색으로 먼저** 만듭니다. 표면 층위로 구분하고, 그림자는 떠 있는 요소(메뉴·다이얼로그·토스트)에만 씁니다.
+
+## 표면 층위
+
+export const layers = [
+  ['bg-layer-basement', '가장 아래 — 앱 바탕, 회색 배경 화면'],
+  ['bg-layer-default', '기본 화면 면'],
+  ['bg-layer-floating', '위에 뜨는 면 — 메뉴, 다이얼로그, 시트'],
+]
+
+<div style={{ padding: 'var(--dw-spacing-x6)', background: 'var(--dw-bg-layer-basement)', borderRadius: 'var(--dw-radius-r4)' }}>
+  <code>bg-layer-basement</code>
+  <div style={{ marginTop: 'var(--dw-spacing-x3)', padding: 'var(--dw-spacing-x6)', background: 'var(--dw-bg-layer-default)', borderRadius: 'var(--dw-radius-r3)' }}>
+    <code>bg-layer-default</code>
+    <div style={{ marginTop: 'var(--dw-spacing-x3)', padding: 'var(--dw-spacing-x5)', width: 'min(280px, 100%)', background: 'var(--dw-bg-layer-floating)', borderRadius: 'var(--dw-radius-r3)', boxShadow: 'var(--dw-shadow-s2)' }}>
+      <code>bg-layer-floating</code> + <code>shadow-s2</code>
+    </div>
+  </div>
+</div>
+
+## Elevation (shadow)
+
+export const where = { s1: '카드(선택), 스위치 thumb', s2: '드롭다운 메뉴, 팝오버, 토스트', s3: '다이얼로그, 시트' }
+
+<div style={{ display: 'flex', gap: 'var(--dw-spacing-x6)', flexWrap: 'wrap', padding: 'var(--dw-spacing-x6)', background: 'var(--dw-bg-layer-basement)', borderRadius: 'var(--dw-radius-r4)' }}>
+  {Object.keys(tokens.shadow.light).map((k) => (
+    <div key={k} style={{ width: 180, height: 96, padding: 'var(--dw-spacing-x3)', background: 'var(--dw-bg-layer-floating)', borderRadius: 'var(--dw-radius-r3)', boxShadow: `var(--dw-shadow-${k})`, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+      <code>shadow-{k}</code>
+      <span style={{ fontSize: 'var(--dw-font-t2-size)', color: 'var(--dw-fg-neutral-subtle)' }}>{where[k]}</span>
+    </div>
+  ))}
+</div>
+
+다크 모드는 알파가 훨씬 큽니다(`tokens.json` `shadow.dark`). 그림자를 한 화면에 여러 단계로 겹쳐 쓰지 않습니다.
+
+## Overlay
+
+모달 뒤를 덮는 막은 `bg-overlay`(다이얼로그·시트), 덜 가리는 막은 `bg-overlay-muted`입니다. 테마와 무관하게 검정 반투명입니다.
+
+<div style={{ display: 'flex', gap: 'var(--dw-spacing-x4)', flexWrap: 'wrap' }}>
+  {['bg-overlay', 'bg-overlay-muted'].map((t) => (
+    <div key={t} style={{ position: 'relative', width: 220, height: 120, borderRadius: 'var(--dw-radius-r3)', overflow: 'hidden', background: 'var(--dw-bg-layer-default)', border: '1px solid var(--dw-stroke-neutral-muted)', padding: 'var(--dw-spacing-x3)' }}>
+      <span style={{ color: 'var(--dw-fg-neutral)' }}>뒤 화면 내용</span>
+      <div style={{ position: 'absolute', inset: 0, background: `var(--dw-${t})`, display: 'grid', placeItems: 'center' }}>
+        <code style={{ background: 'var(--dw-bg-layer-floating)', padding: '2px 6px', borderRadius: 4 }}>{t}</code>
+      </div>
+    </div>
+  ))}
+</div>

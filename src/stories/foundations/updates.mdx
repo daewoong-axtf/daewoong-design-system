@@ -1,0 +1,20 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { DocUpdates } from './_components/ds-doc'
+
+{/* 버전 번호는 쓰지 않고 날짜만 적는다. 최신 항목이 위. */}
+
+<Meta title="Updates" />
+
+<DocUpdates
+  title="업데이트"
+  entries={[
+    {
+      date: '2026-11-03',
+      lines: [
+        '대웅 디자인 시스템을 처음 공개합니다.',
+        '디자인 토큰과 컴포넌트 명세 34종, shadcn 컴포넌트 스토리를 담았습니다.',
+        '브랜드 색은 지킴이 오렌지(#F18A00)이고, 그 위 글자는 검정입니다.',
+      ],
+    },
+  ]}
+/>

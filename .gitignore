@@ -1,0 +1,7 @@
+node_modules/
+.cache/
+.superpowers/
+.DS_Store
+storybook-static/
+*.log
+docs/

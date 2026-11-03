@@ -1,0 +1,97 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { DocBullet, DocGroup, DocMasthead, DocPage, DocPara, DocSection } from './_components/ds-doc'
+import { tokens } from './_components/tokens'
+
+{/* 정본은 design/이다. 이 페이지의 수치는 design/tokens.json에서 읽는다. */}
+
+<Meta title="Overview" />
+
+export const roleCount = Object.keys(tokens.role.light).length
+export const paletteCount = Object.keys(tokens.palette.light).length
+
+<DocPage>
+
+<DocMasthead
+  eyebrow="Design System"
+  title="대웅 디자인 시스템"
+  meta={[
+    ['최종 업데이트', '2026-11-03'],
+    ['역할 토큰', `${roleCount}개 · Light/Dark`],
+    ['팔레트', `${paletteCount}단계`],
+    ['정본', 'design/ 폴더'],
+  ]}
+/>
+
+<DocSection title="시작하며">
+  <DocPara>
+    대웅 디자인 시스템은 사내 여러 서비스가 같은 색·글자·컴포넌트로 화면을 만들도록 모아 둔 곳입니다.
+  </DocPara>
+  <DocPara>
+    서비스마다 쓰는 언어와 프레임워크가 달라서 패키지로 배포하지 않습니다. 대신 Figma, 이 Storybook,
+    그리고 언어와 무관한 `design/` 폴더(토큰·컴포넌트 명세)를 함께 넘깁니다.
+  </DocPara>
+</DocSection>
+
+<DocSection title="기대하며">
+  <DocBullet lead="같은 말로 이야기하게 됩니다">
+    "그 회색" 대신 `fg-neutral-muted`, "조금 더 크게" 대신 `heading-md`로 말하면 옮겨 적다 생기는 어긋남이 줄어듭니다.
+  </DocBullet>
+  <DocBullet lead="어떤 언어로 만들어도 같은 화면이 나옵니다">
+    React든 Java 템플릿이든 `design/components/*.md` 명세를 따르면 생김새와 동작이 같아집니다.
+  </DocBullet>
+  <DocBullet lead="바꿀 때 한 곳만 고칩니다">
+    화면은 역할 토큰만 쓰므로 브랜드 색을 바꾸거나 다크 모드를 손볼 때 `tokens.json` 하나만 고칩니다.
+  </DocBullet>
+</DocSection>
+
+<DocSection title="범위">
+  <DocGroup
+    label="Foundations"
+    lines={[
+      `역할 토큰 ${roleCount}개(bg · fg · stroke)를 Light · Dark 두 모드로 정리했습니다.`,
+      '타이포는 스케일 14단계와 텍스트 스타일 12개로 고정했습니다.',
+      '간격 · 모서리 · 그림자 · 모션 · 브레이크포인트를 모두 토큰으로 묶었습니다.',
+    ]}
+  />
+  <DocGroup label="Element" lines={['컴포넌트를 만드는 재료 — 비율 틀, 안전영역 여백, 상태 표시층, 오버레이.']} />
+  <DocGroup
+    label="Component"
+    lines={[
+      '서비스 공통 UI를 Actions · Inputs · Feedback · Display · Navigation · State로 나눠 담습니다.',
+      '이 Storybook의 컴포넌트는 shadcn/ui 원본에 DW 토큰을 연결한 것입니다.',
+    ]}
+  />
+</DocSection>
+
+<DocSection title="사용하기 전에">
+  <DocBullet lead="정본은 design/ 폴더입니다">
+    Storybook과 Figma는 `design/`을 보여주는 창입니다. 값이나 동작이 다르면 `design/`이 맞습니다.
+  </DocBullet>
+  <DocBullet lead="shadcn 모양은 명세와 조금 다를 수 있습니다">
+    shadcn 원본 구조를 바꾸지 않아서 크기·변형 이름이 명세와 다른 곳이 있습니다. 각 스토리 설명에 차이를 적었습니다.
+  </DocBullet>
+  <DocBullet lead="브랜드 색은 역할 토큰으로만 부릅니다">
+    브랜드 색은 지킴이 오렌지(`#F18A00`)입니다. 화면에서는 `orange-*` 대신 `bg-brand-solid`처럼 역할 토큰으로만 부르세요.
+  </DocBullet>
+  <DocBullet lead="색 값은 oklch입니다">
+    `tokens.json`의 색은 oklch로 적혀 있고, Figma의 색은 그것을 sRGB로 옮긴 것이라 미세하게 다를 수 있습니다.
+  </DocBullet>
+</DocSection>
+
+<DocSection title="목차">
+  <DocGroup label="Theme" lines={['브랜드 색과 아이콘']} />
+  <DocGroup label="Element" lines={['Basic(비율) · Spacing(안전영역) · Decorate(상태 표시층 · 오버레이)']} />
+  <DocGroup
+    label="Foundations"
+    lines={['Colors · Typography · Spacing · Shape · Depth · Motion · Interaction · Control Height']}
+  />
+  <DocGroup label="Component" lines={['Actions · Inputs · Feedback · Display · Navigation · State']} />
+</DocSection>
+
+<DocSection title="마치며">
+  <DocPara>
+    디자인 시스템은 만들어 두는 것으로 끝나지 않습니다. 화면이 늘어나면 규칙도 같이 자라야 하고, 쓰이지 않는 규칙은 지워야 합니다.
+  </DocPara>
+</DocSection>
+
+</DocPage>

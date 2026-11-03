@@ -1,0 +1,76 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { resolve, tokens } from './_components/tokens'
+
+<Meta title="Foundations/Motion" />
+
+# Motion
+
+지속 시간(duration)과 움직임 곡선(easing), 누름 축소 배율(scale)을 다룹니다. 아래 막대는 무한 반복하면서 실제 속도와 곡선을 보여줍니다. `prefers-reduced-motion: reduce`이면 이동·확대 애니메이션을 끄고 투명도 전환만 남깁니다.
+
+<style>{`
+@keyframes dw-slide { 0% { transform: translateX(0) } 50% { transform: translateX(min(180px, 40vw)) } 100% { transform: translateX(0) } }
+@media (prefers-reduced-motion: reduce) { .dw-motion-dot { animation: none !important } }
+`}</style>
+
+export const Track = ({ name, duration, easing, note }) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--dw-spacing-x3)' }}>
+    <code style={{ width: 190, flexShrink: 0 }}>{name}</code>
+    <div style={{ flex: 1, height: 24, background: 'var(--dw-bg-neutral-weak)', borderRadius: 'var(--dw-radius-r1_5)', overflow: 'hidden' }}>
+      <div className="dw-motion-dot" style={{ width: 24, height: 24, borderRadius: 'var(--dw-radius-r1_5)', background: 'var(--dw-bg-brand-solid)', animation: `dw-slide calc(${duration} * 4) ${easing} infinite` }} />
+    </div>
+    <span style={{ width: 120, flexShrink: 0, fontSize: 'var(--dw-font-t2-size)', color: 'var(--dw-fg-neutral-subtle)' }}>{note}</span>
+  </div>
+)
+
+## Duration
+
+막대는 왕복이 보이도록 값의 4배로 돌립니다. easing은 `easing-easing` 고정.
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--dw-spacing-x2_5)' }}>
+  {Object.entries(tokens.motion.duration).map(([k, v]) => (
+    <Track key={k} name={`duration-${k}`} duration={`var(--dw-duration-${k})`} easing="var(--dw-easing-easing)" note={resolve(v)} />
+  ))}
+</div>
+
+## Easing
+
+duration은 `duration-d6`(300ms) 고정.
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--dw-spacing-x2_5)' }}>
+  {Object.entries(tokens.motion.easing).map(([k, v]) => (
+    <Track key={k} name={`easing-${k}`} duration="var(--dw-duration-d6)" easing={`var(--dw-easing-${k})`} note={v.replace('cubic-bezier', '')} />
+  ))}
+</div>
+
+## 쓰는 규칙
+
+| 구분 | 조합 |
+| --- | --- |
+| 마이크로 모션(누름·포커스·색 변화) | 200ms 이하 — 색 전환은 `duration-color-transition` + `easing-easing` |
+| 등장(다이얼로그·시트·페이지) | `duration-d6` + `easing-enter` |
+| 퇴장 | `duration-d4` + `easing-exit` |
+| 누름 피드백 | `:active`에서 `scale` — `duration-pressed-scale` + `easing-pressed-scale` |
+
+## 누름 축소 배율
+
+| 토큰 | 값 | 쓰는 자리 |
+| --- | --- | --- |
+| `scale-s95` | 0.95 | 높이 40px 이하 컨트롤 |
+| `scale-s97` | 0.97 | 41–64px |
+| `scale-s98` | 0.98 | 그보다 큰 면(카드·리스트 행) |
+
+아래 상자를 눌러 보세요.
+
+<div style={{ display: 'flex', gap: 'var(--dw-spacing-x4)', flexWrap: 'wrap' }}>
+  {[['s95', 40, 120], ['s97', 52, 160], ['s98', 96, 240]].map(([s, h, w]) => (
+    <button key={s} type="button" className="dw-press" style={{ '--press': `var(--dw-scale-${s})`, height: h, width: w, border: 0, borderRadius: 'var(--dw-radius-r3)', background: 'var(--dw-bg-neutral-weak)', color: 'var(--dw-fg-neutral)', fontWeight: 700, cursor: 'pointer' }}>
+      scale-{s}
+    </button>
+  ))}
+</div>
+
+<style>{`
+.dw-press { transition: transform var(--dw-duration-pressed-scale) var(--dw-easing-pressed-scale); }
+.dw-press:active { transform: scale(var(--press)); }
+.dw-press:focus-visible { outline: 2px solid var(--dw-stroke-focus-ring); outline-offset: 2px; }
+`}</style>

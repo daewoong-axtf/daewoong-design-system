@@ -1,0 +1,340 @@
+# DW Design System — Foundations
+
+> 값의 정본은 [`tokens.json`](tokens.json)이고, 이 문서는 그 값을 **언제·어디에** 쓰는지 정한다.
+> 표의 값과 `tokens.json`이 다르면 `tokens.json`이 맞다. CSS 변수는 [`tokens.css`](tokens.css)에 `--dw-<이름>`으로 있다.
+
+## 1. 원칙
+
+- **색은 역할로 부른다.** 화면은 역할 토큰(`bg-*` · `fg-*` · `stroke-*`)만 쓴다. 컴포넌트 명세는 역할 토큰을 우선하되, 다크 모드에서 대응하는 역할이 없는 중립 회색 몇 자리에 한해 `gray-*`·`static-*` 팔레트를 직접 쓴다. **유채색 팔레트(`orange`·`blue`·`green`·`yellow`·`red`·`purple`)는 어디서도 직접 쓰지 않는다** — 브랜드 교체가 역할 토큰만으로 끝나게 하기 위해서다.
+- **깊이는 색으로 먼저 만든다.** 표면 층위(`bg-layer-basement` → `bg-layer-default` → `bg-layer-floating`)로 구분하고, 그림자는 떠 있는 요소(메뉴·다이얼로그·토스트)에만 쓴다.
+- **브랜드 색은 꼭 필요한 곳에만 쓴다.** 화면의 주된 행동 1개, 선택 상태, 강조 링크 정도로 제한한다.
+- **상태를 색 하나로만 알리지 않는다.** 오류·경고·성공에는 항상 아이콘이나 텍스트를 함께 붙인다(WCAG 1.4.1).
+- **임의의 수치를 만들지 않는다.** 간격·크기·모서리·그림자·모션은 아래 스케일 안에서만 고른다.
+
+## 2. 색
+
+### 2.1 테마
+
+| 방식 | 동작 |
+| --- | --- |
+| 기본 | OS 설정(`prefers-color-scheme`)을 따른다 |
+| `<html data-theme="light">` | 라이트 고정 |
+| `<html data-theme="dark">` | 다크 고정 |
+
+다크 값은 팔레트를 통째로 바꿔 만든다. 역할 이름은 두 테마에서 같다.
+
+### 2.2 팔레트
+
+| 계열 | 단계 | 용도 |
+| --- | --- | --- |
+| `gray` | 00, 100–1000 | 뉴트럴. 00은 흰색(라이트) |
+| `gray-alpha` | 100–1000 | 반투명 뉴트럴 |
+| `orange` | 100–1000 | **브랜드** (지킴이 오렌지 `#F18A00` — 4장 참고) |
+| `blue` | 100–1000 | 정보(informative), 포커스 링 |
+| `green` | 100–1000 | 성공(positive) |
+| `yellow` | 100–1000 | 경고(warning) |
+| `red` | 100–1000 | 오류·파괴(critical) |
+| `purple` | 100–1000 | 예비. 역할에 연결하지 않음 |
+| `static-white` / `static-black` | — | 테마와 무관하게 고정 |
+| `static-white-alpha` / `static-black-alpha` | 50·100–1000 | 스크림·오버레이 등 테마 무관 반투명 |
+
+### 2.3 역할 토큰
+
+이름 규칙: `<층>-<의미>[-<강도>][-<상태>]`
+
+- **층** `bg`(배경) · `fg`(글자·아이콘) · `stroke`(테두리·구분선)
+- **의미** `brand` · `neutral` · `critical` · `informative` · `positive` · `warning` · `layer` · `overlay` · `transparent` · `disabled` · `placeholder` · `focus-ring`
+- **강도** `solid`(채운 면) · `weak`(옅은 면) · `muted` · `subtle` · `contrast` · `inverted`
+- **상태** `pressed` · `selected`
+
+짝 규칙 — 배경 위 글자는 아래 짝으로만 쓴다.
+
+| 배경 | 글자·아이콘 |
+| --- | --- |
+| `bg-layer-default` · `bg-layer-floating` · `bg-neutral-subtle` | `fg-neutral`, `fg-neutral-muted`, `fg-neutral-subtle` |
+| `bg-brand-solid` | `fg-on-brand-solid` |
+| `bg-neutral-solid` | `fg-on-neutral-solid` |
+| `bg-critical-solid` · `bg-positive-solid` · `bg-informative-solid` · `bg-warning-solid` | `fg-on-<의미>-solid` |
+| `bg-<의미>-weak` | `fg-<의미>-contrast` |
+| `bg-disabled` | `fg-disabled` |
+
+| 역할 | 라이트 | 다크 |
+| --- | --- | --- |
+| `bg-brand-solid` | `orange-600` | `orange-700` |
+| `bg-brand-solid-pressed` | `orange-700` | `orange-800` |
+| `bg-brand-weak` | `orange-100` | `orange-100` |
+| `bg-brand-weak-pressed` | `orange-200` | `orange-200` |
+| `bg-critical-solid` | `red-700` | `red-600` |
+| `bg-critical-solid-pressed` | `red-800` | `red-700` |
+| `bg-critical-weak` | `red-100` | `red-100` |
+| `bg-critical-weak-pressed` | `red-200` | `red-200` |
+| `bg-disabled` | `gray-200` | `gray-300` |
+| `bg-informative-solid` | `blue-700` | `blue-600` |
+| `bg-informative-solid-pressed` | `blue-800` | `blue-700` |
+| `bg-informative-weak` | `blue-100` | `blue-100` |
+| `bg-informative-weak-pressed` | `blue-200` | `blue-200` |
+| `bg-layer-basement` | `gray-200` | `gray-00` |
+| `bg-layer-default` | `gray-00` | `gray-100` |
+| `bg-layer-default-pressed` | `gray-100` | `gray-300` |
+| `bg-layer-floating` | `gray-00` | `gray-200` |
+| `bg-layer-floating-pressed` | `gray-100` | `gray-300` |
+| `bg-neutral-inverted` | `gray-900` | `gray-1000` |
+| `bg-neutral-inverted-pressed` | `gray-800` | `gray-800` |
+| `bg-neutral-muted` | `gray-100` | `gray-200` |
+| `bg-neutral-solid` | `gray-900` | `gray-1000` |
+| `bg-neutral-solid-muted` | `gray-800` | `gray-400` |
+| `bg-neutral-solid-muted-pressed` | `gray-900` | `gray-500` |
+| `bg-neutral-solid-pressed` | `gray-800` | `gray-800` |
+| `bg-neutral-subtle` | `gray-00` | `gray-100` |
+| `bg-neutral-weak` | `gray-200` | `gray-300` |
+| `bg-neutral-weak-alpha` | `static-black-alpha-200` | `static-white-alpha-200` |
+| `bg-neutral-weak-alpha-pressed` | `static-black-alpha-300` | `static-white-alpha-300` |
+| `bg-neutral-weak-pressed` | `gray-300` | `gray-400` |
+| `bg-overlay` | `static-black-alpha-700` | `static-black-alpha-700` |
+| `bg-overlay-muted` | `static-black-alpha-500` | `static-black-alpha-500` |
+| `bg-positive-solid` | `green-700` | `green-500` |
+| `bg-positive-solid-pressed` | `green-800` | `green-600` |
+| `bg-positive-weak` | `green-100` | `green-100` |
+| `bg-positive-weak-pressed` | `green-200` | `green-200` |
+| `bg-transparent` | oklch(0 0 0 / 0) | oklch(1 0 0 / 0) |
+| `bg-transparent-pressed` | `static-black-alpha-100` | `static-white-alpha-50` |
+| `bg-transparent-selected` | `static-black-alpha-200` | `static-white-alpha-100` |
+| `bg-transparent-selected-pressed` | `static-black-alpha-300` | `static-white-alpha-200` |
+| `bg-warning-solid` | `yellow-300` | `yellow-800` |
+| `bg-warning-solid-pressed` | `yellow-400` | `yellow-900` |
+| `bg-warning-weak` | `yellow-100` | `yellow-100` |
+| `bg-warning-weak-pressed` | `yellow-200` | `yellow-200` |
+| `fg-brand` | `orange-800` | `orange-700` |
+| `fg-brand-contrast` | `orange-900` | `orange-800` |
+| `fg-critical` | `red-700` | `red-700` |
+| `fg-critical-contrast` | `red-900` | `red-900` |
+| `fg-disabled` | `gray-500` | `gray-500` |
+| `fg-informative` | `blue-700` | `blue-700` |
+| `fg-informative-contrast` | `blue-900` | `blue-900` |
+| `fg-neutral` | `gray-1000` | `gray-1000` |
+| `fg-neutral-inverted` | `gray-00` | `gray-100` |
+| `fg-neutral-muted` | `gray-800` | `gray-800` |
+| `fg-neutral-subtle` | `gray-700` | `gray-700` |
+| `fg-on-brand-solid` | `static-black` | `static-black` |
+| `fg-on-critical-solid` | `static-white` | `static-white` |
+| `fg-on-informative-solid` | `static-white` | `static-white` |
+| `fg-on-neutral-solid` | `gray-00` | `gray-100` |
+| `fg-on-positive-solid` | `static-white` | `static-white` |
+| `fg-on-warning-solid` | `static-black-alpha-900` | `static-black-alpha-900` |
+| `fg-placeholder` | `gray-600` | `gray-600` |
+| `fg-positive` | `green-700` | `green-700` |
+| `fg-positive-contrast` | `green-900` | `green-900` |
+| `fg-warning` | `yellow-700` | `yellow-700` |
+| `fg-warning-contrast` | `yellow-900` | `yellow-900` |
+| `stroke-brand-solid` | `orange-700` | `orange-700` |
+| `stroke-brand-weak` | `orange-300` | `orange-300` |
+| `stroke-critical-solid` | `red-700` | `red-700` |
+| `stroke-critical-weak` | `red-300` | `red-300` |
+| `stroke-focus-ring` | `blue-600` | `blue-600` |
+| `stroke-informative-solid` | `blue-700` | `blue-700` |
+| `stroke-informative-weak` | `blue-300` | `blue-300` |
+| `stroke-neutral-contrast` | `gray-1000` | `gray-1000` |
+| `stroke-neutral-muted` | `static-black-alpha-300` | `static-white-alpha-100` |
+| `stroke-neutral-solid` | `gray-800` | `gray-800` |
+| `stroke-neutral-subtle` | `static-black-alpha-200` | `static-white-alpha-50` |
+| `stroke-neutral-weak` | `gray-400` | `gray-400` |
+| `stroke-positive-solid` | `green-700` | `green-700` |
+| `stroke-positive-weak` | `green-300` | `green-300` |
+| `stroke-warning-solid` | `yellow-700` | `yellow-700` |
+| `stroke-warning-weak` | `yellow-300` | `yellow-300` |
+
+## 3. 타이포그래피
+
+### 3.1 서체
+
+`--dw-font-sans` — 시스템 서체 스택(Apple SD Gothic Neo → Pretendard → Segoe UI → Roboto …). 웹폰트를 따로 싣지 않아도 되며, 서비스가 Pretendard를 싣는 경우 그것을 쓴다. 두께는 `regular 400` · `medium 500` · `bold 700` 세 가지만 쓴다.
+
+### 3.2 스케일
+
+| 토큰 | 크기 | 줄 높이 |
+| --- | --- | --- |
+| `t1` | 11px | 15px |
+| `t2` | 12px | 16px |
+| `t3` | 13px | 18px |
+| `t4` | 14px | 19px |
+| `t5` | 16px | 22px |
+| `t6` | 18px | 24px |
+| `t7` | 20px | 27px |
+| `t8` | 22px | 30px |
+| `t9` | 24px | 32px |
+| `t10` | 26px | 35px |
+| `t11` | 28px | 38px |
+| `t12` | 32px | 42px |
+| `t13` | 40px | 52px |
+| `t14` | 48px | 60px |
+
+CSS 변수: `--dw-font-<t>-size`, `--dw-font-<t>-line-height`. 글자 간격(letter-spacing)은 0.
+
+### 3.3 텍스트 스타일
+
+화면과 컴포넌트는 스케일을 직접 고르지 않고 아래 스타일을 쓴다.
+
+| 스타일 | 스케일 | 두께 | 쓰는 자리 |
+| --- | --- | --- | --- |
+| `display` | t12 (32/42) | bold | 랜딩·빈 화면의 큰 제목 |
+| `heading-xl` | t9 (24/32) | bold | 페이지 제목 |
+| `heading-lg` | t7 (20/27) | bold | 섹션 제목, 다이얼로그 제목 |
+| `heading-md` | t6 (18/24) | bold | 카드 제목, 시트 제목 |
+| `heading-sm` | t5 (16/22) | bold | 목록 그룹 제목 |
+| `body-lg` | t5 (16/22) | regular | 본문 기본 |
+| `body-md` | t4 (14/19) | regular | 보조 본문, 표 셀 |
+| `body-sm` | t3 (13/18) | regular | 설명 문구, 필드 안내 |
+| `label-lg` | t5 (16/22) | medium | 큰 버튼, 탭 |
+| `label-md` | t4 (14/19) | medium | 기본 버튼, 입력 라벨 |
+| `label-sm` | t3 (13/18) | medium | 작은 버튼, 칩, 뱃지 |
+| `caption` | t2 (12/16) | regular | 타임스탬프, 각주 |
+
+## 4. 브랜드 교체
+
+브랜드 램프 `orange-*`는 지킴이 오렌지(`#F18A00`, `oklch(0.729 0.169 61.3)`)를 라이트 600·다크 700에 둔 램프다. 밝은 오렌지라 흰 글자는 대비가 모자라므로(2.5:1) `fg-on-brand-solid`는 `static-black`(8.4:1), 흰 바탕 위 `fg-brand`는 `orange-800`(5.2:1)을 쓴다. 다시 바꿀 때의 절차:
+
+1. `tokens.json`의 `palette.light.orange-100 … orange-1000`과 `palette.dark.orange-*`를 새 값으로 바꾼다(단계 의미 유지: 100 가장 옅음 → 1000 가장 짙음, 600이 라이트 `bg-brand-solid`, 700이 다크 `bg-brand-solid`).
+2. `pnpm build:tokens`로 `tokens.css`를 다시 만든다.
+3. 대비를 다시 잰다 — `bg-brand-solid` 위 `fg-on-brand-solid` 4.5:1 이상(WCAG AA), `bg-layer-default` 위 `fg-brand` 4.5:1 이상. 미달이면 `role.*.fg-on-brand-solid`를 어두운 색(`{palette.gray-1000}` 또는 `{palette.static-black}`)으로 바꾼다.
+4. `pnpm test`.
+
+컴포넌트 명세와 CSS는 역할 토큰만 쓰므로 다른 파일은 고치지 않는다.
+
+## 5. 간격
+
+| 토큰 | 값 |
+| --- | --- |
+| `x0_5` | 2px |
+| `x1` | 4px |
+| `x1_5` | 6px |
+| `x2` | 8px |
+| `x2_5` | 10px |
+| `x3` | 12px |
+| `x3_5` | 14px |
+| `x4` | 16px |
+| `x4_5` | 18px |
+| `x5` | 20px |
+| `x6` | 24px |
+| `x7` | 28px |
+| `x8` | 32px |
+| `x9` | 36px |
+| `x10` | 40px |
+| `x12` | 48px |
+| `x13` | 52px |
+| `x14` | 56px |
+| `x16` | 64px |
+
+CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
+
+의미 간격:
+
+| 토큰 | 값 | 쓰는 자리 |
+| --- | --- | --- |
+| `spacing-x-global-gutter` | x4 (16px) | 화면 좌우 여백(모바일) |
+| `spacing-x-between-chips` | x2 (8px) | 칩·뱃지 사이 |
+| `spacing-y-component-default` | x3 (12px) | 같은 그룹 안 컴포넌트 사이 |
+| `spacing-y-between-text` | x1_5 (6px) | 제목과 설명 사이 |
+| `spacing-y-nav-to-title` | x5 (20px) | 상단 내비게이션과 페이지 제목 사이 |
+| `spacing-y-screen-bottom` | x14 (56px) | 스크롤 끝 하단 여백 |
+
+## 6. 모서리
+
+| 토큰 | 값 | 쓰는 자리 |
+| --- | --- | --- |
+| `r1` | 4px | 체크박스 |
+| `r2` | 8px | 버튼(small·medium), 입력 필드(medium) |
+| `r3` | 12px | 버튼(large), 입력 필드(large), 카드, 다이얼로그 닫기 버튼 |
+| `r4` | 16px | 큰 카드·패널 |
+| `r5` | 20px | 다이얼로그, 바텀 시트 상단 |
+| `full` | 9999px | 버튼(xsmall), 칩, 스위치, 아바타, 뱃지 |
+
+그 밖의 `r0_5`(2px) · `r1_5`(6px) · `r2_5`(10px) · `r3_5`(14px) · `r6`(24px)은 컴포넌트 명세가 지정할 때만 쓴다. 중첩된 면은 바깥 radius = 안쪽 radius + 사이 간격.
+
+## 7. 깊이
+
+| 토큰 | 라이트 | 쓰는 자리 |
+| --- | --- | --- |
+| `shadow-s1` | 0 1px 4px 0 / 7.8% | 카드(선택), 스위치 thumb |
+| `shadow-s2` | 0 2px 10px 0 / 10.2% | 드롭다운 메뉴, 팝오버, 토스트 |
+| `shadow-s3` | 0 4px 16px 0 / 12.2% | 다이얼로그, 시트 |
+
+다크 모드는 알파가 훨씬 크다(`tokens.json` `shadow.dark`). 한 벌만 쓰지 않는다.
+
+## 8. 모션
+
+| 토큰 | 값 |
+| --- | --- |
+| `duration-d1` | 50ms |
+| `duration-d2` | 100ms |
+| `duration-d3` | 150ms |
+| `duration-d4` | 200ms |
+| `duration-d5` | 250ms |
+| `duration-d6` | 300ms |
+| `duration-color-transition` | {motion.duration.d3} |
+| `duration-pressed-scale` | {motion.duration.d3} |
+| `easing-linear` | `cubic-bezier(0, 0, 1, 1)` |
+| `easing-easing` | `cubic-bezier(0.35, 0, 0.35, 1)` |
+| `easing-enter` | `cubic-bezier(0, 0, 0.15, 1)` |
+| `easing-exit` | `cubic-bezier(0.35, 0, 1, 1)` |
+| `easing-enter-expressive` | `cubic-bezier(0.03, 0.4, 0.1, 1)` |
+| `easing-exit-expressive` | `cubic-bezier(0.35, 0, 0.95, 0.55)` |
+| `easing-pressed-scale` | `cubic-bezier(0, 0, 0.15, 1)` |
+| `scale-s95` · `s97` · `s98` | 0.95 · 0.97 · 0.98 (`prefers-reduced-motion: reduce`에서 1) |
+
+- **마이크로 모션**(누름·포커스·색 변화)은 200ms 이하 — 색 전환은 `duration-color-transition` + `easing-easing`.
+- **매크로 모션**(다이얼로그·시트·페이지)은 200ms 초과 — 등장 `duration-d6` + `easing-enter`, 퇴장 `duration-d4` + `easing-exit`.
+- **누름 피드백**: 누를 수 있는 면은 `:active`에서 `scale`을 줄인다(`duration-pressed-scale` + `easing-pressed-scale`). 높이 40px 이하 컨트롤 → `scale-s95`, 41–64px → `scale-s97`, 그보다 큰 면(카드·리스트 행) → `scale-s98`.
+- `prefers-reduced-motion: reduce`이면 이동·확대 애니메이션을 끄고 투명도 전환만 남긴다.
+
+## 9. 레이아웃과 브레이크포인트
+
+| 이름 | 최소 너비 | 화면 좌우 여백 |
+| --- | --- | --- |
+| (기본) | 0 | 16px (`spacing-x-global-gutter`) |
+| `sm` | 640px | 16px |
+| `md` | 768px | 24px |
+| `lg` | 1024px | 32px |
+| `xl` | 1280px | 32px |
+| `2xl` | 1536px | 32px |
+
+- 모바일 우선 — 기본 스타일이 모바일이고, 위 너비부터 덮어쓴다.
+- 콘텐츠 최대 너비: 정보형 페이지 1040px, 넓은 목록·대시보드 1280px.
+- 사이드 내비게이션은 `md`(768px) 이상에서 펼치고, 미만에서는 상단 메뉴 버튼으로 여는 off-canvas가 된다.
+- 다이얼로그는 768px 미만에서 화면 폭의 90%, 이상에서 고정 폭(480/800px)으로 가운데 뜬다. 아래서 올라오는 형태가 필요하면 Bottom Sheet를 쓴다.
+- 터치 타깃은 최소 44×44px. 보이는 크기가 작으면 투명 히트 영역을 넓힌다.
+
+## 10. 아이콘
+
+[Lucide](https://lucide.dev) (ISC). 쓰는 아이콘만 [`icons/`](icons/)에 SVG로 들어 있다.
+
+| 크기 | 쓰는 자리 | stroke |
+| --- | --- | --- |
+| 16px | 작은 버튼·칩·뱃지 안 | 2 |
+| 20px | 기본 버튼·입력 필드 안 | 2 |
+| 24px | 내비게이션·아이콘 버튼 | 2 |
+
+색은 `currentColor` — 아이콘을 담은 요소의 `fg-*`를 따른다. 의미 있는 아이콘(단독 아이콘 버튼)은 접근 가능한 이름을 붙이고, 장식용은 `aria-hidden="true"`.
+
+## 11. 포커스
+
+키보드 포커스(`:focus-visible`)는 모든 상호작용 요소에 같은 모양으로 보인다.
+
+```css
+outline: 2px solid var(--dw-stroke-focus-ring);
+outline-offset: 2px;
+```
+
+마우스 클릭으로는 보이지 않는다(`:focus-visible`만 사용). 입력 필드는 outline 대신 테두리를 2px `stroke-neutral-contrast`로 바꾸는 방식을 쓴다([Text Input](components/text-input.md)).
+
+## 12. 하지 말 것
+
+- 유채색 팔레트(`--dw-orange-600`, `--dw-blue-700` 등)를 컴포넌트·화면 CSS에서 직접 쓰지 않는다. 화면 CSS는 회색 팔레트도 쓰지 않는다.
+- 브랜드 색을 넓은 배경에 칠하지 않는다.
+- 스케일 밖 수치(15px 간격, 7px radius 등)를 만들지 않는다.
+- 뱃지를 누를 수 있게 만들지 않는다. 구분선을 목록 마지막 항목 뒤에 넣지 않는다. 메뉴 항목 사이에 구분선을 넣지 않는다.
+- 그림자를 한 화면에 여러 단계로 겹쳐 쓰지 않는다.
+
+## 13. 알려진 빈칸
+
+- 다크 테마는 정의돼 있으나 서비스 화면에서 충분히 검증되지 않았다.
+- 텍스트 스타일(3.3)은 이 시스템이 정한 값이며 `tokens.json`에는 아직 없다.

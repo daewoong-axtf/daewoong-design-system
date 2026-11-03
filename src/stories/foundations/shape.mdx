@@ -1,0 +1,37 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { tokens } from './_components/tokens'
+
+<Meta title="Foundations/Shape" />
+
+# Shape
+
+모서리 둥글기(radius)와 테두리 두께를 다룹니다. CSS 변수는 `--dw-radius-<토큰>`입니다.
+
+## Radius
+
+export const where = {
+  r1: '체크박스',
+  r2: '버튼(small·medium), 입력 필드(medium)',
+  r3: '버튼(large), 입력 필드(large), 카드',
+  r4: '큰 카드·패널',
+  r5: '다이얼로그, 바텀 시트 상단',
+  full: '버튼(xsmall), 칩, 스위치, 아바타, 뱃지',
+}
+
+<div style={{ display: 'flex', gap: 'var(--dw-spacing-x4)', flexWrap: 'wrap', marginTop: 'var(--dw-spacing-x3)' }}>
+  {Object.entries(tokens.radius).map(([k, v]) => (
+    <div key={k} style={{ width: 120, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--dw-spacing-x1)', textAlign: 'center' }}>
+      <div style={{ width: 72, height: 72, background: 'var(--dw-bg-neutral-weak)', border: '2px solid var(--dw-stroke-brand-solid)', borderRadius: `var(--dw-radius-${k})` }} />
+      <code>{k}</code>
+      <span style={{ fontSize: 'var(--dw-font-t2-size)', color: 'var(--dw-fg-neutral-subtle)' }}>{v}{where[k] ? ` · ${where[k]}` : ''}</span>
+    </div>
+  ))}
+</div>
+
+이름 없는 단계(`r0_5` · `r1_5` · `r2_5` · `r3_5` · `r6`)는 컴포넌트 명세가 지정할 때만 씁니다. 중첩된 면은 **바깥 radius = 안쪽 radius + 사이 간격**입니다.
+
+## 테두리
+
+- 테두리는 1px `solid`가 기본입니다. 구분선은 `stroke-neutral-muted`.
+- 입력 필드 포커스는 테두리를 2px `stroke-neutral-contrast`로 바꿉니다.
+- 구분선을 목록 마지막 항목 뒤나 메뉴 항목 사이에 넣지 않습니다.

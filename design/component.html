@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DW Components</title>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    /* 카탈로그 페이지 자체 레이아웃 — 컴포넌트 명세가 아니다 */
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--dw-font-sans); background: var(--dw-bg-layer-basement); color: var(--dw-fg-neutral); font-size: var(--dw-font-t4-size); line-height: var(--dw-font-t4-line-height); }
+    .page-header { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: var(--dw-spacing-x3); padding: var(--dw-spacing-x3) var(--dw-spacing-x4); background: var(--dw-bg-layer-default); border-bottom: 1px solid var(--dw-stroke-neutral-subtle); }
+    .page-header h1 { margin: 0; font-size: var(--dw-font-t6-size); line-height: var(--dw-font-t6-line-height); white-space: nowrap; }
+    .page-nav { display: flex; gap: var(--dw-spacing-x3); overflow-x: auto; scrollbar-width: none; }
+    .page-nav a { color: var(--dw-fg-neutral-muted); text-decoration: none; white-space: nowrap; }
+    .page-nav a:hover { color: var(--dw-fg-neutral); }
+    @media (max-width: 639px) { .page-nav { display: none; } }
+    main { max-width: 1040px; margin: 0 auto; padding: var(--dw-spacing-x6) var(--dw-spacing-x4) var(--dw-spacing-x14); }
+    .demo { margin-bottom: var(--dw-spacing-x8); padding: var(--dw-spacing-x5); background: var(--dw-bg-layer-default); border-radius: var(--dw-radius-r4); scroll-margin-top: 72px; }
+    .demo > h2 { display: flex; align-items: baseline; gap: var(--dw-spacing-x2); margin: 0 0 var(--dw-spacing-x1); font-size: var(--dw-font-t7-size); line-height: var(--dw-font-t7-line-height); }
+    .demo > h2 a { font-size: var(--dw-font-t3-size); font-weight: var(--dw-font-weight-regular); color: var(--dw-fg-informative); }
+    .demo > p { margin: 0 0 var(--dw-spacing-x4); color: var(--dw-fg-neutral-muted); }
+    .demo h3 { margin: var(--dw-spacing-x6) 0 var(--dw-spacing-x3); font-size: var(--dw-font-t4-size); line-height: var(--dw-font-t4-line-height); color: var(--dw-fg-neutral-subtle); }
+    .scroll { overflow-x: auto; }
+    .grid { display: grid; gap: var(--dw-spacing-x3) var(--dw-spacing-x4); align-items: center; justify-items: start; }
+    .grid .label { color: var(--dw-fg-neutral-subtle); font-size: var(--dw-font-t2-size); line-height: var(--dw-font-t2-line-height); white-space: nowrap; }
+    .row { display: flex; flex-wrap: wrap; gap: var(--dw-spacing-x3); align-items: center; }
+    .stack { display: grid; gap: var(--dw-spacing-x5); max-width: 420px; }
+    .theme-btn { flex: none; }
+  </style>
+</head>
+<body>
+  <!--ICONS:start--><svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4" /><path d="M16 2v4" /><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M3 10h18" /></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></symbol>
+<symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></symbol>
+<symbol id="i-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6" /></symbol>
+<symbol id="i-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></symbol>
+<symbol id="i-chevron-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6" /></symbol>
+<symbol id="i-circle-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></symbol>
+<symbol id="i-circle-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></symbol>
+<symbol id="i-circle-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m15 9-6 6" /><path d="m9 9 6 6" /></symbol>
+<symbol id="i-ellipsis" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></symbol>
+<symbol id="i-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" /><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" /><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" /><path d="m2 2 20 20" /></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /><circle cx="12" cy="12" r="3" /></symbol>
+<symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></symbol>
+<symbol id="i-loader-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="M12 5v14" /></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></symbol>
+<symbol id="i-triangle-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /><path d="M12 9v4" /><path d="M12 17h.01" /></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" x2="12" y1="3" y2="15" /></symbol>
+<symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></symbol>
+</svg><!--ICONS:end-->
+
+  <header class="page-header">
+    <h1>DW Components</h1>
+    <nav class="page-nav" aria-label="컴포넌트">
+      <!--NAV:start--><a href="#button">Button</a><a href="#field">Field</a><a href="#text-input">Text Input</a><a href="#dialog">Dialog</a><!--NAV:end-->
+    </nav>
+    <button class="dw-button dw-button--neutral-outline dw-button--small theme-btn" type="button" id="theme" aria-pressed="false">다크 모드</button>
+  </header>
+
+  <main>
+    <!-- ── Button ─────────────────────────────── -->
+    <section class="demo" id="button">
+      <h2>Button <a href="components/button.md">명세</a></h2>
+      <p>명확한 행동을 실행한다. 화면당 brand-solid는 1개.</p>
+
+      <h3>variant × size</h3>
+      <div class="scroll">
+        <div class="grid" style="grid-template-columns: auto repeat(4, auto)">
+          <span></span><span class="label">xsmall</span><span class="label">small</span><span class="label">medium</span><span class="label">large</span>
+          <span class="label">brand-solid</span><button class="dw-button dw-button--brand-solid dw-button--xsmall" type="button">버튼</button><button class="dw-button dw-button--brand-solid dw-button--small" type="button">버튼</button><button class="dw-button dw-button--brand-solid dw-button--medium" type="button">버튼</button><button class="dw-button dw-button--brand-solid dw-button--large" type="button">버튼</button>
+          <span class="label">neutral-solid</span><button class="dw-button dw-button--neutral-solid dw-button--xsmall" type="button">버튼</button><button class="dw-button dw-button--neutral-solid dw-button--small" type="button">버튼</button><button class="dw-button dw-button--neutral-solid dw-button--medium" type="button">버튼</button><button class="dw-button dw-button--neutral-solid dw-button--large" type="button">버튼</button>
+          <span class="label">neutral-weak</span><button class="dw-button dw-button--neutral-weak dw-button--xsmall" type="button">버튼</button><button class="dw-button dw-button--neutral-weak dw-button--small" type="button">버튼</button><button class="dw-button dw-button--neutral-weak dw-button--medium" type="button">버튼</button><button class="dw-button dw-button--neutral-weak dw-button--large" type="button">버튼</button>
+          <span class="label">critical-solid</span><button class="dw-button dw-button--critical-solid dw-button--xsmall" type="button">버튼</button><button class="dw-button dw-button--critical-solid dw-button--small" type="button">버튼</button><button class="dw-button dw-button--critical-solid dw-button--medium" type="button">버튼</button><button class="dw-button dw-button--critical-solid dw-button--large" type="button">버튼</button>
+          <span class="label">brand-outline</span><button class="dw-button dw-button--brand-outline dw-button--xsmall" type="button">버튼</button><button class="dw-button dw-button--brand-outline dw-button--small" type="button">버튼</button><button class="dw-button dw-button--brand-outline dw-button--medium" type="button">버튼</button><button class="dw-button dw-button--brand-outline dw-button--large" type="button">버튼</button>
+          <span class="label">neutral-outline</span><button class="dw-button dw-button--neutral-outline dw-button--xsmall" type="button">버튼</button><button class="dw-button dw-button--neutral-outline dw-button--small" type="button">버튼</button><button class="dw-button dw-button--neutral-outline dw-button--medium" type="button">버튼</button><button class="dw-button dw-button--neutral-outline dw-button--large" type="button">버튼</button>
+          <span class="label">ghost</span><button class="dw-button dw-button--ghost dw-button--xsmall" type="button">버튼</button><button class="dw-button dw-button--ghost dw-button--small" type="button">버튼</button><button class="dw-button dw-button--ghost dw-button--medium" type="button">버튼</button><button class="dw-button dw-button--ghost dw-button--large" type="button">버튼</button>
+        </div>
+      </div>
+
+      <h3>아이콘 · icon-only</h3>
+      <div class="row">
+        <button class="dw-button dw-button--brand-solid dw-button--medium" type="button"><svg class="dw-button__icon" aria-hidden="true"><use href="#i-plus"/></svg>추가</button>
+        <button class="dw-button dw-button--neutral-weak dw-button--medium" type="button">더 보기<svg class="dw-button__icon" aria-hidden="true"><use href="#i-chevron-down"/></svg></button>
+        <button class="dw-button dw-button--neutral-weak dw-button--xsmall dw-button--icon-only" type="button" aria-label="검색"><svg class="dw-button__icon" aria-hidden="true"><use href="#i-search"/></svg></button>
+        <button class="dw-button dw-button--neutral-weak dw-button--small dw-button--icon-only" type="button" aria-label="검색"><svg class="dw-button__icon" aria-hidden="true"><use href="#i-search"/></svg></button>
+        <button class="dw-button dw-button--neutral-weak dw-button--medium dw-button--icon-only" type="button" aria-label="검색"><svg class="dw-button__icon" aria-hidden="true"><use href="#i-search"/></svg></button>
+        <button class="dw-button dw-button--ghost dw-button--large dw-button--icon-only" type="button" aria-label="메뉴"><svg class="dw-button__icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+      </div>
+
+      <h3>disabled · loading</h3>
+      <div class="row">
+        <button class="dw-button dw-button--brand-solid" type="button" disabled>비활성</button>
+        <button class="dw-button dw-button--neutral-weak" type="button" disabled>비활성</button>
+        <button class="dw-button dw-button--brand-outline" type="button" disabled>비활성</button>
+        <button class="dw-button dw-button--ghost" type="button" disabled>비활성</button>
+        <button class="dw-button dw-button--brand-solid" type="button" data-loading aria-busy="true"><span>저장</span><span class="dw-button__spinner" aria-hidden="true"></span></button>
+        <button class="dw-button dw-button--neutral-solid" type="button" data-loading aria-busy="true"><span>저장</span><span class="dw-button__spinner" aria-hidden="true"></span></button>
+        <button class="dw-button dw-button--neutral-weak" type="button" data-loading aria-busy="true"><span>저장</span><span class="dw-button__spinner" aria-hidden="true"></span></button>
+        <button class="dw-button dw-button--brand-outline" type="button" data-loading aria-busy="true"><span>저장</span><span class="dw-button__spinner" aria-hidden="true"></span></button>
+      </div>
+
+      <h3>full</h3>
+      <div class="stack">
+        <button class="dw-button dw-button--brand-solid dw-button--large dw-button--full" type="button">다음</button>
+      </div>
+    </section>
+
+    <!-- ── Field + Text Input ─────────────────── -->
+    <section class="demo" id="field">
+      <h2>Field <a href="components/field.md">명세</a></h2>
+      <p>입력 컨트롤에 라벨·필수 표시·설명·오류·글자 수를 붙인다. 아래 폼에서 [제출]을 누르면 첫 오류 필드로 포커스가 이동한다.</p>
+      <form class="stack" data-dw-validate novalidate>
+        <div class="dw-field">
+          <div class="dw-field__header">
+            <label class="dw-field__label" for="f-name">이름<span class="dw-field__indicator">(필수)</span></label>
+          </div>
+          <div class="dw-text-input dw-text-input--responsive">
+            <input class="dw-text-input__value" id="f-name" name="name" required maxlength="20" autocomplete="name" aria-describedby="f-name-desc">
+          </div>
+          <div class="dw-field__footer">
+            <p class="dw-field__description" id="f-name-desc">실명을 입력하세요</p>
+            <p class="dw-field__error" id="f-name-err"><svg aria-hidden="true"><use href="#i-circle-alert"/></svg>이름을 입력하세요</p>
+            <span class="dw-field__count" aria-hidden="true" data-empty><b>0</b>/20</span>
+          </div>
+        </div>
+
+        <div class="dw-field">
+          <div class="dw-field__header">
+            <label class="dw-field__label" for="f-email">이메일<span class="dw-field__indicator dw-field__indicator--dot"><span class="dw-visually-hidden">필수</span></span></label>
+          </div>
+          <div class="dw-text-input dw-text-input--responsive">
+            <input class="dw-text-input__value" id="f-email" type="email" required autocomplete="email" placeholder="name@example.com" aria-describedby="f-email-desc">
+          </div>
+          <div class="dw-field__footer">
+            <p class="dw-field__description" id="f-email-desc">회신받을 주소</p>
+            <p class="dw-field__error" id="f-email-err"><svg aria-hidden="true"><use href="#i-circle-alert"/></svg>이메일 형식으로 입력하세요(예: name@example.com)</p>
+          </div>
+        </div>
+
+        <div class="dw-field">
+          <div class="dw-field__header">
+            <label class="dw-field__label" for="f-memo">메모<span class="dw-field__indicator">(선택)</span></label>
+          </div>
+          <div class="dw-text-input dw-text-input--responsive">
+            <textarea class="dw-text-input__value" id="f-memo" maxlength="200" aria-describedby="f-memo-desc"></textarea>
+          </div>
+          <div class="dw-field__footer">
+            <p class="dw-field__description" id="f-memo-desc">요청 사항이 있으면 적어 주세요</p>
+            <span class="dw-field__count" aria-hidden="true" data-empty><b>0</b>/200</span>
+          </div>
+        </div>
+
+        <button class="dw-button dw-button--brand-solid dw-button--large dw-button--full" type="submit">제출</button>
+      </form>
+    </section>
+
+    <section class="demo" id="text-input">
+      <h2>Text Input <a href="components/text-input.md">명세</a></h2>
+      <p>한 줄·여러 줄 텍스트 입력. 라벨은 Field로 붙인다.</p>
+
+      <h3>outline · size</h3>
+      <div class="stack">
+        <div class="dw-text-input dw-text-input--medium"><input class="dw-text-input__value" aria-label="medium" placeholder="medium 40px"></div>
+        <div class="dw-text-input dw-text-input--large"><input class="dw-text-input__value" aria-label="large" placeholder="large 52px"></div>
+        <div class="dw-text-input dw-text-input--responsive"><input class="dw-text-input__value" aria-label="responsive" placeholder="responsive (1280 미만 large)"></div>
+      </div>
+
+      <h3>affix · icon · 지우기</h3>
+      <div class="stack">
+        <div class="dw-text-input dw-text-input--large">
+          <svg class="dw-text-input__icon" aria-hidden="true"><use href="#i-search"/></svg>
+          <input class="dw-text-input__value" type="search" aria-label="검색어" placeholder="검색어 입력" value="디자인 시스템">
+          <button class="dw-text-input__icon" type="button" aria-label="입력 지우기" data-dw-clear><svg aria-hidden="true"><use href="#i-circle-x"/></svg></button>
+        </div>
+        <div class="dw-text-input dw-text-input--large">
+          <span class="dw-text-input__affix">₩</span>
+          <input class="dw-text-input__value" inputmode="numeric" aria-label="금액" placeholder="0">
+          <span class="dw-text-input__affix">원</span>
+        </div>
+      </div>
+
+      <h3>states</h3>
+      <div class="stack">
+        <div class="dw-text-input dw-text-input--medium"><input class="dw-text-input__value" aria-label="invalid" aria-invalid="true" value="잘못된 값"></div>
+        <div class="dw-text-input dw-text-input--medium"><input class="dw-text-input__value" aria-label="disabled" disabled placeholder="disabled"></div>
+        <div class="dw-text-input dw-text-input--medium"><input class="dw-text-input__value" aria-label="readonly" readonly value="readonly"></div>
+      </div>
+
+      <h3>underline</h3>
+      <div class="stack">
+        <div class="dw-text-input dw-text-input--underline dw-text-input--medium"><input class="dw-text-input__value" aria-label="underline medium" placeholder="underline medium"></div>
+        <div class="dw-text-input dw-text-input--underline dw-text-input--large"><input class="dw-text-input__value" aria-label="underline large" placeholder="underline large"></div>
+        <div class="dw-text-input dw-text-input--underline dw-text-input--medium"><input class="dw-text-input__value" aria-label="underline readonly" readonly value="readonly"></div>
+      </div>
+    </section>
+
+    <!-- ── Dialog ─────────────────────────────── -->
+    <section class="demo" id="dialog">
+      <h2>Dialog <a href="components/dialog.md">명세</a></h2>
+      <p>작업 하나를 끝내게 하는 모달 창. Esc·바깥 클릭·X로 닫히고, 닫히면 연 버튼으로 포커스가 돌아온다.</p>
+      <div class="row">
+        <button class="dw-button dw-button--neutral-weak" type="button" data-dw-open="dlg-basic">기본(세로 버튼)</button>
+        <button class="dw-button dw-button--neutral-weak" type="button" data-dw-open="dlg-form">폼 · 가로 버튼</button>
+        <button class="dw-button dw-button--neutral-weak" type="button" data-dw-open="dlg-long">긴 본문 · large</button>
+      </div>
+    </section>
+  </main>
+
+  <div data-dw="dialog" id="dlg-basic" hidden>
+    <div class="dw-dialog__backdrop" data-state="closed"></div>
+    <div class="dw-dialog__positioner">
+      <div class="dw-dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-basic-t" aria-describedby="dlg-basic-d" data-state="closed" tabindex="-1">
+        <div class="dw-dialog__header" data-has-close>
+          <h2 class="dw-dialog__title" id="dlg-basic-t">알림을 켤까요?</h2>
+          <p class="dw-dialog__description" id="dlg-basic-d">새 소식이 있을 때 알려 드려요.
+설정에서 언제든 끌 수 있어요.</p>
+        </div>
+        <button class="dw-dialog__close" type="button" aria-label="닫기" data-dw-close><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+        <div class="dw-dialog__footer">
+          <button class="dw-button dw-button--brand-solid dw-button--large" type="button" data-dw-close>알림 켜기</button>
+          <button class="dw-button dw-button--neutral-weak dw-button--large" type="button" data-dw-close>나중에</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-dw="dialog" id="dlg-form" hidden>
+    <div class="dw-dialog__backdrop" data-state="closed"></div>
+    <div class="dw-dialog__positioner">
+      <div class="dw-dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-form-t" data-state="closed" tabindex="-1">
+        <div class="dw-dialog__header" data-has-close>
+          <h2 class="dw-dialog__title" id="dlg-form-t">이름 바꾸기</h2>
+        </div>
+        <button class="dw-dialog__close" type="button" aria-label="닫기" data-dw-close><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+        <div class="dw-dialog__body">
+          <div class="dw-field">
+            <div class="dw-field__header"><label class="dw-field__label" for="dlg-form-name">새 이름</label></div>
+            <div class="dw-text-input dw-text-input--large"><input class="dw-text-input__value" id="dlg-form-name" value="프로젝트 A"></div>
+          </div>
+        </div>
+        <div class="dw-dialog__footer dw-dialog__footer--row">
+          <button class="dw-button dw-button--neutral-weak dw-button--large" type="button" data-dw-close>취소</button>
+          <button class="dw-button dw-button--brand-solid dw-button--large" type="button" data-dw-close>저장</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-dw="dialog" id="dlg-long" hidden>
+    <div class="dw-dialog__backdrop" data-state="closed"></div>
+    <div class="dw-dialog__positioner">
+      <div class="dw-dialog dw-dialog--large" role="dialog" aria-modal="true" aria-labelledby="dlg-long-t" data-state="closed" tabindex="-1">
+        <div class="dw-dialog__header" data-has-close>
+          <h2 class="dw-dialog__title" id="dlg-long-t">이용 약관</h2>
+        </div>
+        <button class="dw-dialog__close" type="button" aria-label="닫기" data-dw-close><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+        <div class="dw-dialog__body">
+          <p>제1조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제2조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제3조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제4조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제5조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제6조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제7조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제8조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제9조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제10조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제11조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제12조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+        </div>
+        <div class="dw-dialog__footer">
+          <button class="dw-button dw-button--brand-solid dw-button--large" type="button" data-dw-close>동의</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/components.js"></script>
+  <script>
+    const btn = document.getElementById('theme')
+    const isDark = () => document.documentElement.dataset.theme === 'dark' ||
+      (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches)
+    const sync = () => {
+      btn.setAttribute('aria-pressed', String(isDark()))
+      btn.textContent = isDark() ? '라이트 모드' : '다크 모드'
+    }
+    btn.addEventListener('click', () => {
+      document.documentElement.dataset.theme = isDark() ? 'light' : 'dark'
+      sync()
+    })
+    sync()
+  </script>
+</body>
+</html>

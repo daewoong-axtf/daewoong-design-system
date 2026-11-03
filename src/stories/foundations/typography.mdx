@@ -1,0 +1,54 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { DsText, TEXT_STYLES } from './_components/ds-text'
+import { tokens } from './_components/tokens'
+
+<Meta title="Foundations/Typography" />
+
+# Typography
+
+서체는 `--dw-font-sans` 시스템 스택(Apple SD Gothic Neo → Pretendard → Segoe UI → Roboto …)입니다. 웹폰트를 따로 싣지 않아도 되고, 서비스가 Pretendard를 싣는다면 그것을 씁니다. 두께는 `regular 400` · `medium 500` · `bold 700` 세 가지만 씁니다. 글자 간격은 0입니다.
+
+## 텍스트 스타일
+
+화면과 컴포넌트는 스케일을 직접 고르지 않고 아래 스타일을 씁니다.
+
+export const usage = {
+  display: 't12 · bold — 랜딩·빈 화면의 큰 제목',
+  'heading-xl': 't9 · bold — 페이지 제목',
+  'heading-lg': 't7 · bold — 섹션 제목, 다이얼로그 제목',
+  'heading-md': 't6 · bold — 카드 제목, 시트 제목',
+  'heading-sm': 't5 · bold — 목록 그룹 제목',
+  'body-lg': 't5 · regular — 본문 기본',
+  'body-md': 't4 · regular — 보조 본문, 표 셀',
+  'body-sm': 't3 · regular — 설명 문구, 필드 안내',
+  'label-lg': 't5 · medium — 큰 버튼, 탭',
+  'label-md': 't4 · medium — 기본 버튼, 입력 라벨',
+  'label-sm': 't3 · medium — 작은 버튼, 칩, 뱃지',
+  caption: 't2 · regular — 타임스탬프, 각주',
+}
+
+<div style={{ display: 'flex', flexDirection: 'column' }}>
+  {Object.keys(TEXT_STYLES).map((name) => (
+    <div key={name} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', gap: 'var(--dw-spacing-x4)', padding: 'var(--dw-spacing-x3) 0', borderBottom: '1px solid var(--dw-stroke-neutral-muted)' }}>
+      <div style={{ width: 260, flexShrink: 0 }}>
+        <code>{name}</code>
+        <DsText style="caption" color="fg-neutral-subtle">{usage[name]}</DsText>
+      </div>
+      <DsText style={name}>다람쥐 헌 쳇바퀴에 타고파 Aa 123</DsText>
+    </div>
+  ))}
+</div>
+
+## 스케일
+
+CSS 변수는 `--dw-font-<t>-size`, `--dw-font-<t>-line-height`입니다.
+
+<div style={{ display: 'flex', flexDirection: 'column' }}>
+  {Object.entries(tokens.typography.scale).map(([t, v]) => (
+    <div key={t} style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--dw-spacing-x4)', padding: 'var(--dw-spacing-x2) 0', borderBottom: '1px solid var(--dw-stroke-neutral-muted)' }}>
+      <code style={{ width: 48, flexShrink: 0 }}>{t}</code>
+      <span style={{ width: 96, flexShrink: 0, fontSize: 'var(--dw-font-t2-size)', color: 'var(--dw-fg-neutral-subtle)' }}>{v.fontSize} / {v.lineHeight}</span>
+      <span style={{ fontSize: v.fontSize, lineHeight: v.lineHeight, color: 'var(--dw-fg-neutral)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>가나다 Aa 123</span>
+    </div>
+  ))}
+</div>

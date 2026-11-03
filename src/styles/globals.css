@@ -1,0 +1,105 @@
+/*
+ * shadcn/ui 변수 → DW 역할 토큰 연결.
+ * 값은 design/tokens.css가 정본이다(라이트·다크 모두 거기서 바뀐다). 여기서는 이름만 잇는다.
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../../design/tokens.css";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --radius: 8px; /* r2 — shadcn의 rounded-md 기준 */
+
+  --background: var(--dw-bg-layer-default);
+  --foreground: var(--dw-fg-neutral);
+  --card: var(--dw-bg-layer-default);
+  --card-foreground: var(--dw-fg-neutral);
+  --popover: var(--dw-bg-layer-floating);
+  --popover-foreground: var(--dw-fg-neutral);
+  --primary: var(--dw-bg-brand-solid);
+  --primary-foreground: var(--dw-fg-on-brand-solid);
+  --secondary: var(--dw-bg-neutral-weak);
+  --secondary-foreground: var(--dw-fg-neutral);
+  --muted: var(--dw-bg-neutral-weak);
+  --muted-foreground: var(--dw-fg-neutral-subtle);
+  --accent: var(--dw-bg-transparent-pressed);
+  --accent-foreground: var(--dw-fg-neutral);
+  --destructive: var(--dw-bg-critical-solid);
+  --destructive-foreground: var(--dw-fg-on-critical-solid);
+  --border: var(--dw-stroke-neutral-muted);
+  --input: var(--dw-stroke-neutral-weak);
+  --ring: var(--dw-stroke-focus-ring);
+
+  --chart-1: var(--dw-bg-brand-solid);
+  --chart-2: var(--dw-bg-informative-solid);
+  --chart-3: var(--dw-bg-positive-solid);
+  --chart-4: var(--dw-bg-warning-solid);
+  --chart-5: var(--dw-bg-critical-solid);
+
+  --sidebar: var(--dw-gray-100);
+  --sidebar-foreground: var(--dw-fg-neutral-muted);
+  --sidebar-primary: var(--dw-bg-brand-solid);
+  --sidebar-primary-foreground: var(--dw-fg-on-brand-solid);
+  --sidebar-accent: var(--dw-bg-transparent-selected);
+  --sidebar-accent-foreground: var(--dw-fg-neutral);
+  --sidebar-border: var(--dw-stroke-neutral-muted);
+  --sidebar-ring: var(--dw-stroke-focus-ring);
+}
+
+@theme inline {
+  --font-sans: var(--dw-font-sans);
+
+  --radius-sm: var(--dw-radius-r1);
+  --radius-md: var(--dw-radius-r2);
+  --radius-lg: var(--dw-radius-r3);
+  --radius-xl: var(--dw-radius-r4);
+  --radius-2xl: var(--dw-radius-r5);
+
+  --shadow-xs: var(--dw-shadow-s1);
+  --shadow-sm: var(--dw-shadow-s1);
+  --shadow-md: var(--dw-shadow-s2);
+  --shadow-lg: var(--dw-shadow-s3);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}

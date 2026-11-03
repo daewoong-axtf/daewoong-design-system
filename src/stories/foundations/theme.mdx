@@ -1,0 +1,82 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { DocBullet, DocIconGrid, DocMasthead, DocPage, DocPara, DocSection, DocTable } from './_components/ds-doc'
+import { ICON_GROUPS, ICON_TOTAL } from './_components/service-icons'
+
+{/* 아이콘 목록은 design/icons/와 _components/service-icons.tsx를 함께 고친다. */}
+
+<Meta title="Theme" />
+
+<DocPage>
+
+<DocMasthead
+  eyebrow="Theme"
+  title="브랜드 색과 아이콘"
+  meta={[
+    ['최종 업데이트', '2026-11-03'],
+    ['아이콘', `lucide · ${ICON_TOTAL}종`],
+    ['브랜드 색', '지킴이 오렌지 #F18A00'],
+  ]}
+/>
+
+<DocSection title="브랜드 색">
+  <DocPara>
+    브랜드 색은 화면의 주된 행동 하나, 선택 상태, 강조 링크에만 씁니다. 넓은 배경에 칠하지 않습니다.
+  </DocPara>
+  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--dw-spacing-x4)' }}>
+    {[
+      ['bg-brand-solid', 'fg-on-brand-solid', '주요 버튼'],
+      ['bg-brand-weak', 'fg-brand-contrast', '옅은 강조'],
+    ].map(([bg, fg, label]) => (
+      <div
+        key={bg}
+        style={{
+          flex: '1 1 220px',
+          padding: 'var(--dw-spacing-x6)',
+          borderRadius: 'var(--dw-radius-r4)',
+          background: `var(--dw-${bg})`,
+          color: `var(--dw-${fg})`,
+          fontWeight: 700,
+        }}
+      >
+        {label}
+        <div style={{ fontWeight: 400, fontSize: 'var(--dw-font-t2-size)', marginTop: 'var(--dw-spacing-x2)' }}>
+          {bg} + {fg}
+        </div>
+      </div>
+    ))}
+  </div>
+  <DocBullet lead="브랜드 색 위 글자는 검정이다">
+    지킴이 오렌지(`#F18A00`)는 밝아서 흰 글자를 올리면 대비가 2.5:1로 모자랍니다. 그래서 `fg-on-brand-solid`는 검정(8.4:1)이고, 흰 바탕 위 브랜드 글자 `fg-brand`는 한 단계 짙은 `orange-800`(5.2:1)입니다. 색을 다시 바꾸는 절차는 `design/design.md` §4에 있습니다.
+  </DocBullet>
+  <DocBullet lead="팔레트 이름으로 부르지 않는다">
+    `--dw-orange-600`을 직접 쓰면 브랜드를 바꿀 때 그 자리를 하나씩 찾아야 합니다. 화면은 `bg-brand-solid`·`fg-brand`만 씁니다.
+  </DocBullet>
+</DocSection>
+
+<DocSection title="아이콘">
+  <DocPara>
+    [Lucide](https://lucide.dev) 아이콘을 씁니다. 지금 쓰는 {ICON_TOTAL}종은 `design/icons/`에 SVG로 들어 있습니다. 아래 이름은 lucide-react에서 가져다 쓰는 이름이고, lucide.dev에서 찾을 때는 뒤의 Icon을 떼고 검색합니다.
+  </DocPara>
+  <DocIconGrid groups={ICON_GROUPS} />
+</DocSection>
+
+<DocSection title="아이콘 쓰는 규칙">
+  <DocTable
+    rows={[
+      ['크기', '쓰는 자리', 'stroke'],
+      ['16px', '작은 버튼 · 칩 · 뱃지 안', '2'],
+      ['20px', '기본 버튼 · 입력 필드 안', '2'],
+      ['24px', '내비게이션 · 아이콘 버튼', '2'],
+    ]}
+  />
+  <DocBullet lead="색은 currentColor">아이콘을 담은 요소의 `fg-*`를 따릅니다.</DocBullet>
+  <DocBullet lead="아이콘만 있는 버튼에는 접근 가능한 이름">
+    라벨 없는 아이콘은 보조기술이 읽을 이름이 없습니다. 장식용 아이콘은 `aria-hidden="true"`.
+  </DocBullet>
+  <DocBullet lead="색만으로 뜻을 전하지 않는다">경고와 성공에는 아이콘이나 텍스트를 함께 둡니다.</DocBullet>
+  <DocBullet lead="*Icon 접미사로 import한다">
+    `import {'{'} XIcon {'}'} from 'lucide-react'`처럼 씁니다. `X` 같은 짧은 이름은 지역 변수와 헷갈리고, 옛 별칭(`AlertCircle` 등)은 같은 아이콘을 두 이름으로 부르게 만듭니다.
+  </DocBullet>
+</DocSection>
+
+</DocPage>
