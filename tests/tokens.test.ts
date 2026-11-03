@@ -8,7 +8,7 @@ const raw: string = readFileSync(new URL('../design/tokens.json', import.meta.ur
 const tokens: Tokens = JSON.parse(raw)
 
 // 원본 디자인 시스템의 식별자 — 이 파일에도 글자 그대로 남지 않도록 이스케이프로 적는다
-export const FORBIDDEN = /\u0073eed|\u0063arrot|\u006barrot|\uB2F9\uADFC|\u0064aangn|\u006danner|\uB9E4\uB108\uC628\uB3C4/i
+export const FORBIDDEN = /\u0073eed|\u0063arrot|\u006barrot|\uB2F9\uADFC|\u0064aangn|\u006danner|\uB9E4\uB108\uC628\uB3C4|\uC9C0\uD0B4\uC774|\u006aikimi/i
 
 test('role count is 82', () => {
   assert.equal(Object.keys(tokens.role.light).length, 82)

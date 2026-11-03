@@ -2,6 +2,7 @@
 
 > 값의 정본은 [`tokens.json`](tokens.json)이고, 이 문서는 그 값을 **언제·어디에** 쓰는지 정한다.
 > 표의 값과 `tokens.json`이 다르면 `tokens.json`이 맞다. CSS 변수는 [`tokens.css`](tokens.css)에 `--dw-<이름>`으로 있다.
+> 프로젝트에 붙이는 방법은 [14장 환경별 적용](#14-환경별-적용)에 있다.
 
 ## 1. 원칙
 
@@ -29,7 +30,7 @@
 | --- | --- | --- |
 | `gray` | 00, 100–1000 | 뉴트럴. 00은 흰색(라이트) |
 | `gray-alpha` | 100–1000 | 반투명 뉴트럴 |
-| `orange` | 100–1000 | **브랜드** (지킴이 오렌지 `#F18A00` — 4장 참고) |
+| `orange` | 100–1000 | **브랜드** (대웅 오렌지 `#F18A00` — 4장 참고) |
 | `blue` | 100–1000 | 정보(informative), 포커스 링 |
 | `green` | 100–1000 | 성공(positive) |
 | `yellow` | 100–1000 | 경고(warning) |
@@ -191,7 +192,7 @@ CSS 변수: `--dw-font-<t>-size`, `--dw-font-<t>-line-height`. 글자 간격(let
 
 ## 4. 브랜드 교체
 
-브랜드 램프 `orange-*`는 지킴이 오렌지(`#F18A00`, `oklch(0.729 0.169 61.3)`)를 라이트 600·다크 700에 둔 램프다. 밝은 오렌지라 흰 글자는 대비가 모자라므로(2.5:1) `fg-on-brand-solid`는 `static-black`(8.4:1), 흰 바탕 위 `fg-brand`는 `orange-800`(5.2:1)을 쓴다. 다시 바꿀 때의 절차:
+브랜드 램프 `orange-*`는 대웅 오렌지(`#F18A00`, `oklch(0.729 0.169 61.3)`)를 라이트 600·다크 700에 둔 램프다. 밝은 오렌지라 흰 글자는 대비가 모자라므로(2.5:1) `fg-on-brand-solid`는 `static-black`(8.4:1), 흰 바탕 위 `fg-brand`는 `orange-800`(5.2:1)을 쓴다. 다시 바꿀 때의 절차:
 
 1. `tokens.json`의 `palette.light.orange-100 … orange-1000`과 `palette.dark.orange-*`를 새 값으로 바꾼다(단계 의미 유지: 100 가장 옅음 → 1000 가장 짙음, 600이 라이트 `bg-brand-solid`, 700이 다크 `bg-brand-solid`).
 2. `pnpm build:tokens`로 `tokens.css`를 다시 만든다.
@@ -305,7 +306,33 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 
 ## 10. 아이콘
 
-[Lucide](https://lucide.dev) (ISC). 쓰는 아이콘만 [`icons/`](icons/)에 SVG로 들어 있다.
+[Lucide](https://lucide.dev) (ISC). 쓰는 아이콘만 [`icons/`](icons/)에 들어 있고, 언어와 상관없이 파일만 읽으면 된다.
+
+| 파일 | 내용 |
+| --- | --- |
+| `icons/<name>.svg` | 아이콘 하나 (24×24, stroke 2, `currentColor`) |
+| `icons/sprite.svg` | 전체를 `<symbol id="<name>">`로 묶은 파일 |
+| `icons/icons.json` | 이름·분류·파일·React 이름·SVG 원문 목록. 어떤 아이콘이 있는지는 여기서 찾는다 |
+
+세 파일은 `pnpm build:icons`가 lucide-react(고정 버전, `icons.json`의 `version`)에서 만든다. 손으로 고치지 않는다. 목록에 없는 아이콘이 필요하면 lucide.dev에서 같은 이름을 찾아 `scripts/build-icons.ts`의 `GROUPS`에 넣는다.
+
+환경별로 쓰는 방법:
+
+| 환경 | 방법 |
+| --- | --- |
+| 서버 템플릿 (Jinja·Django, Thymeleaf·JSP) | SVG 원문을 그대로 넣거나 `<svg><use href="/icons/sprite.svg#search"/></svg>` (스프라이트는 같은 출처에서 서빙) |
+| React | `lucide-react`의 `<SearchIcon />` (`icons.json`의 `react`) |
+| Vue · Svelte · Angular · React Native | 각 Lucide 패키지(`lucide-vue-next` · `lucide-svelte` · `lucide-angular` · `lucide-react-native`)에서 같은 이름 |
+| Python 데이터 앱 (Streamlit 등) | `icons.json`의 `svg`를 HTML로 렌더 |
+| PDF · 메일 · 리포트 | SVG를 PNG로 변환 (`cairosvg`, Apache Batik). 메일은 SVG를 못 띄우는 클라이언트가 많아 PNG를 쓴다 |
+| Java 데스크탑 (JavaFX · Swing) | SVG 로더 라이브러리로 읽는다. `path`만 쓰지 않고 `circle`·`line`도 섞여 있어 JavaFX `SVGPath`로 바로 그리기는 어렵다 |
+
+```html
+<!-- Jinja · Thymeleaf 공통: 크기는 width/height, 색은 감싼 요소의 color(fg-* 토큰) -->
+<button class="dw-button" aria-label="검색">
+  <svg width="20" height="20" aria-hidden="true"><use href="/icons/sprite.svg#search"/></svg>
+</button>
+```
 
 | 크기 | 쓰는 자리 | stroke |
 | --- | --- | --- |
@@ -338,3 +365,67 @@ outline-offset: 2px;
 
 - 다크 테마는 정의돼 있으나 서비스 화면에서 충분히 검증되지 않았다.
 - 텍스트 스타일(3.3)은 이 시스템이 정한 값이며 `tokens.json`에는 아직 없다.
+
+## 14. 환경별 적용
+
+백엔드 언어가 무엇이든 **화면이 브라우저에 뜨면 스타일은 CSS로 들어간다.** 그래서 갈래는 셋이다.
+
+| 환경 | 쓰는 것 | 컴포넌트 |
+| --- | --- | --- |
+| Next.js · React | `tokens.css` + `shadcn.css` + Tailwind CSS v4 | shadcn/ui |
+| 서버가 HTML을 만드는 웹 (Python: Django·Flask·FastAPI + Jinja, Java: Spring + Thymeleaf·JSP 등) | `tokens.css` + `components.css` + `js/components.js` | `component.html`의 `dw-*` 클래스 |
+| 웹이 아닌 곳 (Android · iOS · Flutter · JavaFX · PDF 리포트) | `tokens.json`의 값 | 각 플랫폼 방식으로 구현, 치수는 `components/<name>.md` |
+
+어느 갈래든 색·간격·모서리는 토큰으로만 부른다(1장). 다크 모드는 `<html data-theme="dark">`이고, 속성이 없으면 OS 설정을 따른다(2.1).
+
+### 14.1 Next.js · React — shadcn 우선
+
+1. shadcn/ui를 설치하고 필요한 컴포넌트를 `npx shadcn add <name>`으로 가져온다. **컴포넌트 소스의 구조·변형 이름·색 클래스는 고치지 않는다.**
+2. `design/tokens.css`와 `design/shadcn.css`를 프로젝트에 복사하고 전역 CSS에서 순서대로 불러온다.
+
+```css
+/* app/globals.css */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./design/tokens.css";   /* 값 */
+@import "./design/shadcn.css";   /* shadcn 변수(--primary 등) → 역할 토큰 */
+```
+
+3. 다크 모드를 next-themes로 켜면 `<ThemeProvider attribute="data-theme">`로 둔다(`class` 방식이 아니다).
+4. 색을 바꾸고 싶으면 컴포넌트나 `shadcn.css`가 아니라 `tokens.json`을 고치고 `tokens.css`를 다시 만든다.
+5. shadcn에 없는 컴포넌트(Callout · Chip · Bottom Sheet 등)는 `components/<name>.md` 치수대로 Tailwind로 만들고, 색은 `bg-[var(--dw-bg-brand-solid)]`처럼 역할 토큰으로 부른다.
+
+shadcn 원본은 명세와 크기·변형이 조금 다를 수 있다(예: Button에 52px `large`가 없다). 차이는 Storybook 각 스토리 설명에 적었다.
+
+### 14.2 서버 템플릿 웹 — CSS 파일 + 클래스
+
+React 없이 HTML에 클래스만 붙이면 같은 모양이 된다. 다이얼로그 열고 닫기·포커스 이동 같은 동작은 `components.js`가 맡는다.
+
+```html
+<!-- base 템플릿 <head> (Jinja·Thymeleaf·JSP 공통) -->
+<link rel="stylesheet" href="/design/tokens.css">
+<link rel="stylesheet" href="/design/components.css">
+<script src="/design/js/components.js" defer></script>
+```
+
+```html
+<button class="dw-button dw-button--brand-solid dw-button--medium" type="button">저장</button>
+
+<button class="dw-button dw-button--neutral-outline dw-button--medium" type="button" data-dw-open="confirm">삭제</button>
+<!-- 다이얼로그 마크업은 component.html의 Dialog 예시를 그대로 복사한다 -->
+```
+
+- 클래스 이름과 마크업 구조는 [`component.html`](component.html)에서 복사한다. 직접 만들지 않는다.
+- 동작 훅은 `data-dw="<name>"`(컴포넌트 루트), `data-dw-open="<id>"`(여는 버튼), `data-dw-close`(닫는 버튼)이다.
+- 아이콘은 10장의 `icons/sprite.svg`를 쓴다.
+- 화면 고유 레이아웃 CSS를 쓸 때도 값은 `var(--dw-spacing-x4)`처럼 토큰으로 부른다.
+- **아직 비어 있다.** `components.css`에는 지금 Button · Dialog · Field · Text Input만 있다. 나머지는 채우는 중이며, 그전에는 `components/<name>.md` 치수대로 직접 만든다.
+
+### 14.3 웹이 아닌 곳 — tokens.json
+
+CSS를 쓸 수 없으므로 `tokens.json`을 읽어 각 플랫폼의 색·치수 정의로 옮긴다.
+
+- 색은 `role.light`·`role.dark`의 역할 토큰 이름을 그대로 쓰고(`bgBrandSolid` 등), 값은 `{palette.<name>}` 참조를 풀어 넣는다. 색 값은 oklch라서 sRGB(HEX)로 변환해야 하는 플랫폼이 많다.
+- 간격·모서리·글자 크기는 px 값을 플랫폼 단위(dp · pt)로 1:1 옮긴다.
+- 컴포넌트는 `components/<name>.md`의 Anatomy · Specification을 따라 만든다.
+

@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url'
 const DESIGN = fileURLToPath(new URL('../design', import.meta.url))
 
 function symbols(): string {
-  const files = readdirSync(join(DESIGN, 'icons')).filter((f) => f.endsWith('.svg')).sort()
+  const files = readdirSync(join(DESIGN, 'icons')).filter((f) => f.endsWith('.svg') && f !== 'sprite.svg').sort()
   const body = files.map((f) => {
     const svg = readFileSync(join(DESIGN, 'icons', f), 'utf8')
     const inner = svg.replace(/^[\s\S]*?>/, '').replace(/<\/svg>\s*$/, '').replace(/\s*\n\s*/g, '')

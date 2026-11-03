@@ -10,8 +10,9 @@
   },
   "scripts": {
     "build:tokens": "node scripts/build-tokens.ts",
+    "build:icons": "node scripts/build-icons.ts",
     "build:catalog": "node scripts/build-catalog.ts",
-    "build": "pnpm build:tokens && pnpm build:catalog",
+    "build": "pnpm build:tokens && pnpm build:icons && pnpm build:catalog",
     "test": "node --test \"tests/**/*.test.ts\"",
     "typecheck": "tsc -p tsconfig.node.json && tsc -p tsconfig.json",
     "storybook": "storybook dev -p 6006",
@@ -44,7 +45,7 @@
   "dependencies": {
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^1.66.0",
+    "lucide-react": "1.66.0",
     "next-themes": "^0.4.6",
     "radix-ui": "^1.8.1",
     "react": "~19.2.9",

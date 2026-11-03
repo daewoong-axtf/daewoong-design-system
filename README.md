@@ -11,6 +11,8 @@
 | Storybook 링크 | 개발자 | 동작하는 React 컴포넌트 카탈로그 _(준비 중)_ |
 | [`design/`](design/) | 개발자·AI 에이전트 | 언어 무관 정본 — 토큰, 컴포넌트 명세, 순수 HTML/CSS 레퍼런스, 가이드 |
 
+프로젝트에 붙이는 방법(Next.js·React는 shadcn + `tokens.css` + `shadcn.css`, 서버 템플릿 웹은 `tokens.css` + `components.css`)은 [`design/design.md` 14장](design/design.md#14-환경별-적용)에 있다.
+
 ## 정본 우선순위
 
 `design/tokens.json` > `design/components/<name>.md` > `design/component.html`
@@ -21,6 +23,7 @@
 
 ```bash
 pnpm build:tokens   # tokens.json → tokens.css
+pnpm build:icons    # lucide-react → design/icons/ (*.svg · sprite.svg · icons.json)
 pnpm test               # 토큰·가드 테스트
 ```
 

@@ -2,7 +2,7 @@ import { Meta } from '@storybook/addon-docs/blocks'
 import { DocBullet, DocIconGrid, DocMasthead, DocPage, DocPara, DocSection, DocTable } from './_components/ds-doc'
 import { ICON_GROUPS, ICON_TOTAL } from './_components/service-icons'
 
-{/* 아이콘 목록은 design/icons/와 _components/service-icons.tsx를 함께 고친다. */}
+{/* 아이콘 목록은 design/icons/icons.json에서 읽는다 — scripts/build-icons.ts의 GROUPS를 고치고 pnpm build:icons. */}
 
 <Meta title="Theme" />
 
@@ -14,7 +14,7 @@ import { ICON_GROUPS, ICON_TOTAL } from './_components/service-icons'
   meta={[
     ['최종 업데이트', '2026-11-03'],
     ['아이콘', `lucide · ${ICON_TOTAL}종`],
-    ['브랜드 색', '지킴이 오렌지 #F18A00'],
+    ['브랜드 색', '대웅 오렌지 #F18A00'],
   ]}
 />
 
@@ -46,7 +46,7 @@ import { ICON_GROUPS, ICON_TOTAL } from './_components/service-icons'
     ))}
   </div>
   <DocBullet lead="브랜드 색 위 글자는 검정이다">
-    지킴이 오렌지(`#F18A00`)는 밝아서 흰 글자를 올리면 대비가 2.5:1로 모자랍니다. 그래서 `fg-on-brand-solid`는 검정(8.4:1)이고, 흰 바탕 위 브랜드 글자 `fg-brand`는 한 단계 짙은 `orange-800`(5.2:1)입니다. 색을 다시 바꾸는 절차는 `design/design.md` §4에 있습니다.
+    대웅 오렌지(`#F18A00`)는 밝아서 흰 글자를 올리면 대비가 2.5:1로 모자랍니다. 그래서 `fg-on-brand-solid`는 검정(8.4:1)이고, 흰 바탕 위 브랜드 글자 `fg-brand`는 한 단계 짙은 `orange-800`(5.2:1)입니다. 색을 다시 바꾸는 절차는 `design/design.md` §4에 있습니다.
   </DocBullet>
   <DocBullet lead="팔레트 이름으로 부르지 않는다">
     `--dw-orange-600`을 직접 쓰면 브랜드를 바꿀 때 그 자리를 하나씩 찾아야 합니다. 화면은 `bg-brand-solid`·`fg-brand`만 씁니다.
