@@ -4,7 +4,7 @@
 
 이 문서는 무엇을 어디에 둘지를 정한다. 그것이 어떻게 움직이는지는 [interaction.md](interaction.md)가 정본이다. 접근성은 [accessibility.md](accessibility.md), 문구는 [ux-writing.md](ux-writing.md), 날짜·숫자는 [content-i18n.md](content-i18n.md)를 따른다. 언어·프레임워크별 구현은 [design.md 14장](../design.md#14-환경별-적용)을 따른다.
 
-"모바일"은 `md`(768px) 미만을 뜻한다([design.md 9장](../design.md#9-레이아웃과-브레이크포인트)). "URL"은 웹 기준이며, URL이 없는 환경에서는 화면 상태로 유지한다.
+"모바일"은 `md`(768px) 미만을 뜻한다([design.md 9.1](../design.md#91-브레이크포인트)). "URL"은 웹 기준이며, URL이 없는 환경에서는 화면 상태로 유지한다.
 
 ## 1. 사용성 휴리스틱
 

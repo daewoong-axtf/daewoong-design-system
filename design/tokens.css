@@ -107,6 +107,11 @@
   --dw-radius-r5: 20px;
   --dw-radius-r6: 24px;
   --dw-radius-full: 9999px;
+  --dw-breakpoint-sm: 640px;
+  --dw-breakpoint-md: 768px;
+  --dw-breakpoint-lg: 1024px;
+  --dw-breakpoint-xl: 1280px;
+  --dw-breakpoint-2xl: 1536px;
   --dw-z-base: 0;
   --dw-z-raised: 10;
   --dw-z-notice: 20;

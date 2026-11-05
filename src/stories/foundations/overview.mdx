@@ -50,7 +50,7 @@ export const paletteCount = Object.keys(tokens.palette.light).length
     lines={[
       `역할 토큰 ${roleCount}개(bg · fg · stroke)를 Light · Dark 두 모드로 정리했습니다.`,
       '타이포는 스케일 14단계와 텍스트 스타일 12개로 고정했습니다.',
-      '간격 · 모서리 · 그림자 · 모션 · 브레이크포인트를 모두 토큰으로 묶었습니다.',
+      '간격 · 모서리 · 그림자 · 쌓임 순서 · 모션 · 브레이크포인트를 모두 토큰으로 묶었습니다.',
     ]}
   />
   <DocGroup label="Element" lines={['컴포넌트를 만드는 재료 — 비율 틀, 안전영역 여백, 상태 표시층, 오버레이.']} />
@@ -83,7 +83,7 @@ export const paletteCount = Object.keys(tokens.palette.light).length
   <DocGroup label="Element" lines={['Basic(비율) · Spacing(안전영역) · Decorate(상태 표시층 · 오버레이)']} />
   <DocGroup
     label="Foundations"
-    lines={['Colors · Typography · Spacing · Shape · Depth · Motion · Interaction · Control Height']}
+    lines={['CI · Colors · Typography · Spacing · Shape · Depth · Z-index · Motion · Interaction · Control Height · Breakpoints']}
   />
   <DocGroup label="Component" lines={['Actions · Inputs · Feedback · Display · Navigation · State']} />
 </DocSection>

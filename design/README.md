@@ -26,13 +26,14 @@
 
 | 파일 | 내용 | 수정 |
 | --- | --- | --- |
-| `tokens.json` | 색·간격·모서리·글자·모션 토큰 | 직접 |
+| `tokens.json` | 색·간격·모서리·글자·모션·쌓임 순서·브레이크포인트 토큰 | 직접 |
 | `tokens.css` | `--dw-*` CSS 변수 | 생성 — `pnpm build:tokens` |
 | `shadcn.css` | shadcn 변수를 토큰에 연결 (Next.js·React) | 직접 |
 | `components.css` | 서버 템플릿 웹용 `dw-*` 클래스 | 직접 |
 | `js/components.ts` | 컴포넌트 동작 원본 | 직접 |
 | `js/components.js` | 브라우저가 읽는 동작 파일 | 생성 — `pnpm build:catalog` |
 | `icons/` | 아이콘 SVG·`sprite.svg`·`icons.json` | 생성 — `pnpm build:icons` |
+| `brand/` | 회사 로고(CI) SVG·PNG·원본 AI | 수정 금지. 교체할 때 통째로 바꾼다 |
 | `fonts/` | Pretendard 공식 동적 서브셋·라이선스 | 수정 금지. 버전을 올릴 때 통째로 교체 |
 | `storybook.html` | 토큰과 컴포넌트를 한 페이지에서 보는 카탈로그. 마크업 레퍼런스 | 절은 직접, 아이콘·메뉴 구역은 생성 — `pnpm build:catalog` |
 | `catalog.css` · `js/catalog.js` | 카탈로그 페이지 틀. 제품에 쓰지 않는다 | 직접 |

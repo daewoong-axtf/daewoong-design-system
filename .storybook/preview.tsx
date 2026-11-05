@@ -34,7 +34,7 @@ const preview: Preview = {
           'Element',
           ['소개', 'Basic', 'Spacing', 'Decorate'],
           'Foundations',
-          ['Colors', 'Typography', 'Spacing', 'Shape', 'Depth', 'Z-index', 'Motion', 'Interaction', 'Control Height'],
+          ['CI', 'Colors', 'Typography', 'Spacing', 'Shape', 'Depth', 'Z-index', 'Motion', 'Interaction', 'Control Height', 'Breakpoints'],
           'Component',
           ['Actions', 'Inputs', 'Feedback', 'Display', 'Navigation', 'State'],
         ],

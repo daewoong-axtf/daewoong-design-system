@@ -13,6 +13,7 @@ export interface Tokens {
   role: ModeMap
   spacing: TokenMap
   radius: TokenMap
+  breakpoint: TokenMap
   zIndex: TokenMap
   shadow: ModeMap
   typography: {

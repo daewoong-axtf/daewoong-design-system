@@ -73,3 +73,23 @@ test('React controls share the control height scale', () => {
     assert.match(ui('input'), new RegExp(`\\b${size}: "h-${h}\\b`))
   }
 })
+
+test('media queries only use breakpoint tokens', () => {
+  const bp = Object.values(JSON.parse(read('tokens.json')).breakpoint as Record<string, string>).map((v) => Number.parseInt(v, 10))
+  const allowed = new Set([...bp, ...bp.map((v) => v - 1)])
+  const bad = [...read('components.css').matchAll(/@(?:media|container) \((?:min|max)-width: (\d+)px\)/g)].map((m) => Number(m[1])).filter((v) => !allowed.has(v))
+  assert.deepEqual(bad, [])
+})
+
+test('design.md lists every breakpoint with its token value', () => {
+  const doc = read('design.md')
+  for (const [name, value] of Object.entries(JSON.parse(read('tokens.json')).breakpoint as Record<string, string>)) {
+    assert.match(doc, new RegExp(`\`breakpoint-${name}\` \\| ${value} \\|`))
+  }
+})
+
+test('brand files exist and the unofficial white logo stays out', () => {
+  const files = readdirSync(join(DESIGN, 'brand'))
+  for (const f of ['ci-kor.svg', 'ci-kor.png', 'ci-kor-on-dark.svg', 'ci-kor-on-dark.png', 'emblem.svg', 'emblem.png', 'ci-kor.ai']) assert.ok(files.includes(f), f)
+  assert.equal(files.length, 7)
+})

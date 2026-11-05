@@ -249,6 +249,19 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 | `spacing-y-nav-to-title` | x5 (20px) | 상단 내비게이션과 페이지 제목 사이 |
 | `spacing-y-screen-bottom` | x14 (56px) | 스크롤 끝 하단 여백 |
 
+### 컨트롤 높이
+
+버튼과 입력 필드는 같은 높이 스케일을 쓴다. 같은 크기는 나란히 놓아도 정렬된다. `underline` Text Input은 예외로 medium 34px, large 40px이다.
+
+| 크기 | 높이 | `dw-*` | React Button `size` | React Input `inputSize` | React Select `size` |
+| --- | --- | --- | --- | --- | --- |
+| xsmall | 32px `x8` | `--xsmall` | `xs` · `icon-xs` | `xs` | 없음 |
+| small | 36px `x9` | `--small` | `sm` · `icon-sm` | `sm` | `sm` |
+| medium | 40px `x10` | `--medium` | `default` · `icon` | `default` | `default` |
+| large | 52px `x13` | `--large` | `lg` · `icon-lg` | `lg` | `lg` |
+
+`dw-*` Select는 medium·large만 있다.
+
 ## 6. 모서리
 
 | 토큰 | 값 | 쓰는 자리 |
@@ -324,14 +337,25 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 
 ## 9. 레이아웃과 브레이크포인트
 
-| 이름 | 최소 너비 | 화면 좌우 여백 |
-| --- | --- | --- |
-| (기본) | 0 | 16px (`spacing-x-global-gutter`) |
-| `sm` | 640px | 16px |
-| `md` | 768px | 24px |
-| `lg` | 1024px | 32px |
-| `xl` | 1280px | 32px |
-| `2xl` | 1536px | 32px |
+### 9.1 브레이크포인트
+
+값은 `tokens.json`의 `breakpoint`에 있다. 카탈로그의 [브레이크포인트](storybook.html#breakpoint)에서 지금 화면이 어느 구간인지 볼 수 있다.
+
+| 토큰 | 최소 너비 | 기준 기기 | 화면 좌우 여백 |
+| --- | --- | --- | --- |
+| (기본) | 0 | 휴대폰 | 16px (`spacing-x-global-gutter`) |
+| `breakpoint-sm` | 640px | 큰 휴대폰 | 16px |
+| `breakpoint-md` | 768px | 태블릿 | 24px |
+| `breakpoint-lg` | 1024px | 작은 데스크톱 | 32px |
+| `breakpoint-xl` | 1280px | 데스크톱 | 32px |
+| `breakpoint-2xl` | 1536px | 넓은 데스크톱 | 32px |
+
+- CSS `@media`에는 변수를 쓸 수 없다. 위 숫자를 그대로 적는다. `--dw-breakpoint-*`는 JS에서 값을 읽을 때 쓴다.
+- 위로 올라가는 기준은 `min-width: <값>`, 아래를 뜻할 때는 `max-width: <값 - 1>`이다. 예: `md` 미만은 `max-width: 767px`. 다른 숫자는 만들지 않는다.
+- Tailwind 기본 `sm`~`2xl`과 같은 값이라 React에서는 `md:`처럼 그대로 쓴다.
+- "모바일"은 `md`(768px) 미만을 뜻한다.
+
+### 9.2 레이아웃
 
 - 모바일 우선 — 기본 스타일이 모바일이고, 위 너비부터 덮어쓴다.
 - 콘텐츠 최대 너비: 정보형 페이지 1040px, 넓은 목록·대시보드 1280px.
@@ -395,7 +419,7 @@ outline-offset: 2px;
 
 - 유채색 팔레트(`--dw-orange-600`, `--dw-blue-700` 등)를 컴포넌트·화면 CSS에서 직접 쓰지 않는다. 화면 CSS는 회색 팔레트도 쓰지 않는다.
 - 브랜드 색을 넓은 배경에 칠하지 않는다.
-- 스케일 밖 수치(15px 간격, 7px radius 등)를 만들지 않는다.
+- 스케일 밖 수치(15px 간격, 7px radius 등)를 만들지 않는다. `z-index` 숫자와 브레이크포인트 밖 분기점도 만들지 않는다.
 - 뱃지를 누를 수 있게 만들지 않는다. 구분선을 목록 마지막 항목 뒤에 넣지 않는다. 메뉴 항목 사이에 구분선을 넣지 않는다.
 - 그림자를 한 화면에 여러 단계로 겹쳐 쓰지 않는다.
 
@@ -422,6 +446,7 @@ outline-offset: 2px;
 
 ```css
 /* app/globals.css */
+@import "./design/fonts/pretendard.css";
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "./design/tokens.css";   /* 값 */
@@ -432,7 +457,7 @@ outline-offset: 2px;
 4. 색을 바꾸고 싶으면 컴포넌트나 `shadcn.css`가 아니라 `tokens.json`을 고치고 `tokens.css`를 다시 만든다.
 5. shadcn에 없는 컴포넌트(Callout · Chip · Bottom Sheet 등)는 `components/<name>.md` 치수대로 Tailwind로 만들고, 색은 `bg-[var(--dw-bg-brand-solid)]`처럼 역할 토큰으로 부른다.
 
-shadcn 원본은 명세와 크기·변형이 조금 다를 수 있다(예: Button에 52px `large`가 없다). 차이는 Storybook 각 스토리 설명에 적었다.
+컨트롤 높이는 예외로 이 저장소의 `src/components/ui`에서 5장 스케일에 맞췄다. 프로젝트에서 shadcn을 새로 받았다면 Button·Input·Select·Toggle의 높이를 같은 값으로 맞춘다. 그 밖의 크기·변형은 명세와 조금 다를 수 있고, 차이는 Storybook 각 스토리 설명에 적었다.
 
 ### 14.2 서버 템플릿 웹 — CSS 파일 + 클래스
 
@@ -455,6 +480,9 @@ React 없이 HTML에 클래스만 붙이면 같은 모양이 된다. 다이얼�
 
 - 있는 컴포넌트의 클래스 이름과 마크업 구조는 [`storybook.html`](storybook.html)에서 복사한다. 없는 컴포넌트는 프로젝트에서 토큰을 써서 만든다([README](README.md#사용-방법)).
 - 동작 훅은 `data-dw="<name>"`(컴포넌트 루트), `data-dw-open="<id>"`(여는 버튼), `data-dw-close`(닫는 버튼)이다.
+- 코드에서 열고 닫을 때는 `window.dw`의 `openModal`·`closeModal`·`showToast`를 쓴다.
+- 폼은 `data-dw-validate`를 붙인다. 오류가 있으면 첫 오류로 포커스를 옮기고, 통과하면 그대로 제출한다. JS로 전송할 때는 `dw:form-valid`를 받는다([Form](components/form.md)).
+- 입력하며 서버를 검색하는 선택 입력은 Combobox async를 쓴다. `data-dw-combobox-url`만 넣으면 화면 JS 없이 동작한다([Combobox](components/combobox.md)).
 - 아이콘은 10장의 `icons/sprite.svg`를 쓴다.
 - 화면 고유 레이아웃 CSS를 쓸 때도 값은 `var(--dw-spacing-x4)`처럼 토큰으로 부른다.
 
@@ -464,6 +492,7 @@ CSS를 쓸 수 없으므로 `tokens.json`을 읽어 각 플랫폼의 색·치수
 
 - 색은 `role.light`·`role.dark`의 역할 토큰 이름을 그대로 쓰고(`bgBrandSolid` 등), 값은 `{palette.<name>}` 참조를 풀어 넣는다. 색 값은 oklch라서 sRGB(HEX)로 변환해야 하는 플랫폼이 많다.
 - 간격·모서리는 px 값을 플랫폼 단위(dp · pt)로, 글자 크기는 sp · pt로 1:1 옮긴다.
+- 브레이크포인트는 창 너비 기준으로 같은 값을 쓴다. 쌓임 순서는 숫자가 아니라 앞뒤 순서를 따른다.
 - 컴포넌트는 `components/<name>.md`의 Anatomy · Specification을 따라 만든다.
 
 Kotlin은 화면이 어디에 뜨느냐로 갈린다. Spring·Ktor로 HTML을 만들면 14.2, Android 앱이면 이 절을 따른다. Jetpack Compose에서는 토큰을 이름 그대로 Kotlin 상수로 옮긴다.
@@ -489,3 +518,18 @@ Button(
 
 라이트·다크 값이 다른 토큰은 두 벌로 두고 `isSystemInDarkTheme()`으로 고른다.
 
+## 15. CI
+
+회사 로고 파일은 [`brand/`](brand/)에 있다. 카탈로그의 [CI](storybook.html#ci)에서 볼 수 있다.
+
+| 파일 | 쓰는 곳 |
+| --- | --- |
+| `ci-kor.svg` · `ci-kor.png` | 밝은 배경 |
+| `ci-kor-on-dark.svg` · `ci-kor-on-dark.png` | 어두운 배경. 엠블럼은 오렌지, 글자는 흰색 |
+| `emblem.svg` · `emblem.png` | 좁은 자리. 앱 아이콘, 파비콘 후보 |
+| `ci-kor.ai` | 원본. 인쇄와 디자인 작업 |
+
+- 색과 비율을 바꾸거나 다시 그리지 않는다. 흰색 단색 로고는 공식 파일이 아니므로 쓰지 않는다.
+- 다크 모드를 지원하는 화면은 테마에 맞춰 파일을 바꾼다.
+- SVG는 원본 `ci-kor.ai`의 벡터를 여백만 잘라 옮긴 것이다. 로고의 오렌지는 `#F28B00`이고 UI 토큰 `#F18A00`과 조금 다르다. 로고 파일의 색을 토큰에 맞추지 않는다.
+- 최소 크기와 보호 여백은 회사 CI 가이드를 따른다.
