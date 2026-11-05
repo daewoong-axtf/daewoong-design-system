@@ -1,6 +1,6 @@
 # Alert Dialog
 
-> 클래스 `.dw-alert-dialog` · 레퍼런스 [component.html#alert-dialog](../component.html#alert-dialog)
+> 클래스 `.dw-alert-dialog` · 레퍼런스 [storybook.html#alert-dialog](../storybook.html#alert-dialog)
 
 ## 개요
 

@@ -1,4 +1,4 @@
-// component.html · foundations.html 공통 동작 — 테마 전환, 메뉴 검색, 좁은 화면 메뉴, 현재 위치 표시
+// 카탈로그 페이지 동작 — 테마 전환, 메뉴 검색, 좁은 화면 메뉴, 현재 위치 표시
 ;(() => {
   const root = document.documentElement
   const header = document.querySelector('.page-header')
@@ -71,8 +71,7 @@
   })
 
   /* ── 지금 보고 있는 절을 사이드바에 표시한다 ── */
-  const page = location.pathname.split('/').pop()
-  const links = new Map(allLinks.filter((a) => a.pathname.split('/').pop() === page).map((a) => [a.hash.slice(1), a]))
+  const links = new Map(allLinks.map((a) => [a.hash.slice(1), a]))
   const spy = new IntersectionObserver((entries) => {
     const current = entries.find((e) => e.isIntersecting)
     const link = current && links.get(current.target.id)

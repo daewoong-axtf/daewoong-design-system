@@ -1,6 +1,6 @@
 # Bottom Sheet
 
-> 클래스 `.dw-bottom-sheet` · 레퍼런스 [component.html#bottom-sheet](../component.html#bottom-sheet)
+> 클래스 `.dw-bottom-sheet` · 레퍼런스 [storybook.html#bottom-sheet](../storybook.html#bottom-sheet)
 
 ## 개요
 

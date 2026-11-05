@@ -1,10 +1,10 @@
 # Toast (Snackbar)
 
-> 클래스 `.dw-toast` · 레퍼런스 [component.html#toast](../component.html#toast)
+> 클래스 `.dw-toast` · 레퍼런스 [storybook.html#toast](../storybook.html#toast)
 
 ## 개요
 
-방금 한 행동의 결과를 화면 아래에 잠깐 알린다("저장했습니다"). 저절로 사라지며, 선택적으로 행동 하나(실행 취소 등)를 둔다.
+방금 한 행동의 결과를 화면 아래에 잠깐 알린다("저장했어요"). 저절로 사라지며, 선택적으로 행동 하나(실행 취소 등)를 둔다.
 **쓰지 말 것** — 사라지면 안 되는 정보(Callout), 결정이 필요한 확인(Alert Dialog), 입력 오류(Field).
 
 ## Anatomy
@@ -22,7 +22,7 @@
   <div class="dw-toast dw-toast--positive" role="status" data-state="open">
     <svg class="dw-toast__icon" aria-hidden="true">…circle-check…</svg>
     <div class="dw-toast__content">
-      <p class="dw-toast__message">저장했습니다</p>
+      <p class="dw-toast__message">저장했어요</p>
       <button type="button" class="dw-toast__action">실행 취소</button>
     </div>
   </div>
@@ -81,5 +81,5 @@
 
 ## Do / Don't
 
-- **Do** 과거형 한 문장("삭제했습니다").
+- **Do** 과거형 한 문장("삭제했어요").
 - **Don't** 오류 원인 설명처럼 긴 문장을 넣지 않는다.

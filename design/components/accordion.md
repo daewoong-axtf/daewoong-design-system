@@ -1,6 +1,6 @@
 # Accordion
 
-> 클래스 `.dw-accordion` · 레퍼런스 [component.html#accordion](../component.html#accordion)
+> 클래스 `.dw-accordion` · 레퍼런스 [storybook.html#accordion](../storybook.html#accordion)
 
 ## 개요
 

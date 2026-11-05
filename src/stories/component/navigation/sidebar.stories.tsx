@@ -67,7 +67,7 @@ function AppShell() {
           <SidebarTrigger />
           <h1 className="text-base font-bold">홈</h1>
         </header>
-        <main className="p-4 text-sm text-muted-foreground">본문 영역</main>
+        <div className="p-4 text-sm text-muted-foreground">본문 영역</div>
       </SidebarInset>
     </SidebarProvider>
   )

@@ -24,15 +24,15 @@ ARIA 속성과 CSS 표기는 웹 기준이다. 웹이 아닌 환경은 같은 �
 | `fg-on-brand-solid` / `bg-brand-solid` | 8.38 | 8.38 | 본문 가능 |
 | `fg-critical-contrast` / `bg-critical-weak` | 8.03 | 9.84 | 본문 가능 |
 | `fg-warning-contrast` / `bg-warning-weak` | 9.59 | 9.85 | 본문 가능 |
-| `fg-on-positive-solid` / `bg-positive-solid` | 3.96 | 5.40 | 라이트는 큰 텍스트만 |
-| `fg-on-informative-solid` / `bg-informative-solid` | 3.95 | 3.85 | 큰 텍스트만 |
-| `fg-on-critical-solid` / `bg-critical-solid` | 3.76 | 3.83 | 큰 텍스트만 |
-| `fg-critical` / `bg-layer-default` | 3.76 | 6.53 | 라이트는 큰 텍스트만 |
-| `fg-neutral-subtle` / `bg-layer-default` | 3.42 | 8.52 | 라이트는 큰 텍스트만 |
+| `fg-on-positive-solid` / `bg-positive-solid` | 5.72 | 5.40 | 본문 가능 |
+| `fg-on-informative-solid` / `bg-informative-solid` | 5.92 | 5.45 | 본문 가능 |
+| `fg-on-critical-solid` / `bg-critical-solid` | 5.69 | 5.58 | 본문 가능 |
+| `fg-critical` / `bg-layer-default` | 5.69 | 6.53 | 본문 가능 |
+| `fg-neutral-subtle` / `bg-layer-default` | 5.28 | 8.52 | 본문 가능 |
 
-- 표에서 "큰 텍스트만"인 짝을 새 화면의 본문 크기에 쓰지 않는다. 컴포넌트 명세가 지정한 자리 중 Field 오류·설명 문구, `critical-solid` 버튼 라벨은 라이트에서 AA에 못 미치는 알려진 빈칸이다.
+- 표의 짝은 모두 4.5:1을 넘는다. `tests/contrast.test.ts`가 역할 토큰 조합을 검사한다.
 - `fg-disabled`는 비활성 요소 전용이다. 비활성 요소는 WCAG 대비 기준의 예외이므로 일반 본문에 쓰지 않는다.
-- `fg-placeholder`는 라이트에서 2.10:1이다. placeholder에 꼭 필요한 정보를 담지 않는다.
+- `fg-placeholder`는 대비가 낮다. placeholder에 꼭 필요한 정보를 담지 않는다.
 - `bg-warning-solid` 위에는 항상 `fg-on-warning-solid`를 쓴다. 흰 글자를 올리지 않는다.
 - `bg-brand-solid` 위에 흰 글자를 올리지 않는다(2.5:1).
 

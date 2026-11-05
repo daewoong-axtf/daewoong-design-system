@@ -13,12 +13,12 @@ const ICONS_DIR = join(ROOT, 'design', 'icons')
 const LUCIDE = join(ROOT, 'node_modules', 'lucide-react')
 
 export const GROUPS: { label: string; names: string[] }[] = [
-  { label: '이동 · 방향', names: ['chevron-down', 'chevron-up', 'chevron-left', 'chevron-right', 'menu'] },
+  { label: '이동 · 방향', names: ['chevron-down', 'chevron-up', 'chevron-left', 'chevron-right', 'arrow-right', 'menu'] },
   {
     label: '상태 · 알림',
     names: ['info', 'circle-alert', 'triangle-alert', 'circle-check', 'circle-x', 'check', 'loader-circle'],
   },
-  { label: '액션', names: ['plus', 'minus', 'x', 'search', 'upload', 'share-2', 'trash', 'ellipsis'] },
+  { label: '액션', names: ['plus', 'minus', 'x', 'search', 'upload', 'share-2', 'trash', 'pencil', 'copy', 'download', 'list-filter', 'ellipsis'] },
   { label: '표시 · 기타', names: ['eye', 'eye-off', 'calendar', 'user'] },
 ]
 

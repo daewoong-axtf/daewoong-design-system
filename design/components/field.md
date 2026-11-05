@@ -1,6 +1,6 @@
 # Field
 
-> 클래스 `.dw-field` · 레퍼런스 [component.html#field](../component.html#field)
+> 클래스 `.dw-field` · 레퍼런스 [storybook.html#field](../storybook.html#field)
 
 ## 개요
 
@@ -78,6 +78,14 @@
 - 오류 시 컨트롤에 `aria-invalid="true"`. Error message에 `role="alert"`를 붙이지 않는다 — 제출 실패 시 **첫 오류 필드로 포커스를 옮기면** 스크린리더가 라벨·오류를 함께 읽는다.
 - 필수 필드는 컨트롤에 `required`(또는 `aria-required="true"`). 점 표시만 쓸 때는 라벨에 시각적으로 숨긴 "필수"를 넣는다.
 - Character count는 `aria-hidden="true"`로 두고, 최대 길이 도달 시에만 시각적으로 숨긴 안내를 갱신한다.
+
+### 구현 세부
+
+- Error: `<p class="dw-field__error" id="…"><svg aria-hidden="true">…</svg>문구</p>`. Root에 `data-invalid`가 없으면 숨기고, 있으면 Description을 숨긴다.
+- 필수 점 표시: `<span class="dw-field__indicator dw-field__indicator--dot"><span class="dw-visually-hidden">필수</span></span>`.
+- 시각적 숨김은 `.dw-visually-hidden`을 쓴다. 이 이름을 새로 만들지 않는다.
+- Character count: `<span class="dw-field__count" aria-hidden="true" data-empty><b>0</b>/20</span>`. 숫자는 `<b>`, 값이 0이면 `data-empty`다.
+- 넣을 내용이 없으면 Footer 요소를 두지 않는다.
 
 ## Responsive
 

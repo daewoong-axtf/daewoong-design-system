@@ -65,13 +65,13 @@
 | `bg-brand-solid-pressed` | `orange-700` | `orange-800` |
 | `bg-brand-weak` | `orange-100` | `orange-100` |
 | `bg-brand-weak-pressed` | `orange-200` | `orange-200` |
-| `bg-critical-solid` | `red-700` | `red-600` |
-| `bg-critical-solid-pressed` | `red-800` | `red-700` |
+| `bg-critical-solid` | `red-800` | `red-500` |
+| `bg-critical-solid-pressed` | `red-900` | `red-400` |
 | `bg-critical-weak` | `red-100` | `red-100` |
 | `bg-critical-weak-pressed` | `red-200` | `red-200` |
 | `bg-disabled` | `gray-200` | `gray-300` |
-| `bg-informative-solid` | `blue-700` | `blue-600` |
-| `bg-informative-solid-pressed` | `blue-800` | `blue-700` |
+| `bg-informative-solid` | `blue-800` | `blue-500` |
+| `bg-informative-solid-pressed` | `blue-900` | `blue-400` |
 | `bg-informative-weak` | `blue-100` | `blue-100` |
 | `bg-informative-weak-pressed` | `blue-200` | `blue-200` |
 | `bg-layer-basement` | `gray-200` | `gray-00` |
@@ -93,8 +93,8 @@
 | `bg-neutral-weak-pressed` | `gray-300` | `gray-400` |
 | `bg-overlay` | `static-black-alpha-700` | `static-black-alpha-700` |
 | `bg-overlay-muted` | `static-black-alpha-500` | `static-black-alpha-500` |
-| `bg-positive-solid` | `green-700` | `green-500` |
-| `bg-positive-solid-pressed` | `green-800` | `green-600` |
+| `bg-positive-solid` | `green-800` | `green-500` |
+| `bg-positive-solid-pressed` | `green-900` | `green-400` |
 | `bg-positive-weak` | `green-100` | `green-100` |
 | `bg-positive-weak-pressed` | `green-200` | `green-200` |
 | `bg-transparent` | oklch(0 0 0 / 0) | oklch(1 0 0 / 0) |
@@ -107,10 +107,10 @@
 | `bg-warning-weak-pressed` | `yellow-200` | `yellow-200` |
 | `fg-brand` | `orange-800` | `orange-700` |
 | `fg-brand-contrast` | `orange-900` | `orange-800` |
-| `fg-critical` | `red-700` | `red-700` |
+| `fg-critical` | `red-800` | `red-700` |
 | `fg-critical-contrast` | `red-900` | `red-900` |
 | `fg-disabled` | `gray-500` | `gray-500` |
-| `fg-informative` | `blue-700` | `blue-700` |
+| `fg-informative` | `blue-800` | `blue-700` |
 | `fg-informative-contrast` | `blue-900` | `blue-900` |
 | `fg-neutral` | `gray-1000` | `gray-1000` |
 | `fg-neutral-inverted` | `gray-00` | `gray-100` |
@@ -123,9 +123,9 @@
 | `fg-on-positive-solid` | `static-white` | `static-white` |
 | `fg-on-warning-solid` | `static-black-alpha-900` | `static-black-alpha-900` |
 | `fg-placeholder` | `gray-600` | `gray-600` |
-| `fg-positive` | `green-700` | `green-700` |
+| `fg-positive` | `green-800` | `green-700` |
 | `fg-positive-contrast` | `green-900` | `green-900` |
-| `fg-warning` | `yellow-700` | `yellow-700` |
+| `fg-warning` | `yellow-800` | `yellow-700` |
 | `fg-warning-contrast` | `yellow-900` | `yellow-900` |
 | `stroke-brand-solid` | `orange-700` | `orange-700` |
 | `stroke-brand-weak` | `orange-300` | `orange-300` |
@@ -173,7 +173,7 @@ CSS 변수: `--dw-font-<t>-size`, `--dw-font-<t>-line-height`. 글자 간격(let
 
 ### 3.3 텍스트 스타일
 
-화면과 컴포넌트는 스케일을 직접 고르지 않고 아래 스타일을 쓴다. 값은 `tokens.json`의 `typography.style`에 있고, CSS 변수는 `--dw-text-<스타일>-size` · `-line-height` · `-weight`다.
+화면의 글자는 스케일을 직접 고르지 않고 아래 스타일을 쓴다. 컴포넌트 안의 글자는 그 컴포넌트 명세의 값을 따른다. 값은 `tokens.json`의 `typography.style`에 있고, CSS 변수는 `--dw-text-<스타일>-size` · `-line-height` · `-weight`다.
 
 | 스타일 | 스케일 | 두께 | 쓰는 자리 |
 | --- | --- | --- | --- |
@@ -256,10 +256,20 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 | 토큰 | 라이트 | 쓰는 자리 |
 | --- | --- | --- |
 | `shadow-s1` | 0 1px 4px 0 / 7.8% | 테두리 있는 컨트롤(outline 버튼, 입력, Select, 체크박스, 라디오), 스위치 트랙, 슬라이더 손잡이, outline 카드, Segmented Control의 선택 표시 |
-| `shadow-s2` | 0 2px 10px 0 / 10.2% | 드롭다운 메뉴, 팝오버, 토스트 |
-| `shadow-s3` | 0 4px 16px 0 / 12.2% | 다이얼로그, 시트 |
+| `shadow-s2` | 0 2px 10px 0 / 10.2% | 토스트, elevated 카드 |
+| `shadow-s3` | 0 4px 16px 0 / 12.2% | 다이얼로그, 시트, 드롭다운 메뉴, 팝오버, Select 목록 |
 
 다크 모드는 알파가 훨씬 크다(`tokens.json` `shadow.dark`). 한 벌만 쓰지 않는다.
+
+쌓임 순서는 토큰이 아니라 고정값이다. 같은 값을 쓴다.
+
+| `z-index` | 자리 |
+| --- | --- |
+| 10 | Top Navigation |
+| 20 | Select 목록 |
+| 50 | Dialog·Alert Dialog·Sheet의 Backdrop과 Content |
+| 60 | Tooltip |
+| 70 | Toast |
 
 ## 8. 모션
 
@@ -338,7 +348,7 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 | 크기 | 쓰는 자리 | stroke |
 | --- | --- | --- |
 | 16px | 작은 버튼·칩·뱃지 안 | 2 |
-| 20px | 기본 버튼·입력 필드 안 | 2 |
+| 20px | 화면에 직접 놓는 기본 크기. 컴포넌트 안은 그 명세의 값을 따른다 | 2 |
 | 24px | 내비게이션·아이콘 버튼 | 2 |
 
 색은 `currentColor` — 아이콘을 담은 요소의 `fg-*`를 따른다. 의미 있는 아이콘(단독 아이콘 버튼)은 접근 가능한 이름을 붙이고, 장식용은 `aria-hidden="true"`.
@@ -373,7 +383,7 @@ outline-offset: 2px;
 | 환경 | 쓰는 것 | 컴포넌트 |
 | --- | --- | --- |
 | Next.js · React | `tokens.css` + `shadcn.css` + Tailwind CSS v4 | shadcn/ui |
-| 서버가 HTML을 만드는 웹 (Python: Django·Flask·FastAPI + Jinja, Java·Kotlin: Spring + Thymeleaf·JSP, Kotlin: Ktor + FreeMarker 등) | `tokens.css` + `components.css` + `js/components.js` | `component.html`의 `dw-*` 클래스 |
+| 서버가 HTML을 만드는 웹 (Python: Django·Flask·FastAPI + Jinja, Java·Kotlin: Spring + Thymeleaf·JSP, Kotlin: Ktor + FreeMarker 등) | `tokens.css` + `components.css` + `js/components.js` | `storybook.html`의 `dw-*` 클래스 |
 | 웹이 아닌 곳 (Android(Kotlin) · iOS · Flutter · JavaFX · PDF 리포트) | `tokens.json`의 값 | 각 플랫폼 방식으로 구현, 치수는 `components/<name>.md` |
 
 어느 갈래든 색·간격·모서리는 토큰으로만 부른다(1장). 다크 모드는 `<html data-theme="dark">`이고, 속성이 없으면 OS 설정을 따른다(2.1).
@@ -412,10 +422,10 @@ React 없이 HTML에 클래스만 붙이면 같은 모양이 된다. 다이얼�
 <button class="dw-button dw-button--brand-solid dw-button--medium" type="button">저장</button>
 
 <button class="dw-button dw-button--neutral-outline dw-button--medium" type="button" data-dw-open="confirm">삭제</button>
-<!-- 다이얼로그 마크업은 component.html의 Dialog 예시를 그대로 복사한다 -->
+<!-- 다이얼로그 마크업은 storybook.html의 Dialog 예시를 그대로 복사한다 -->
 ```
 
-- 클래스 이름과 마크업 구조는 [`component.html`](component.html)에서 복사한다. 직접 만들지 않는다.
+- 클래스 이름과 마크업 구조는 [`storybook.html`](storybook.html)에서 복사한다. 직접 만들지 않는다.
 - 동작 훅은 `data-dw="<name>"`(컴포넌트 루트), `data-dw-open="<id>"`(여는 버튼), `data-dw-close`(닫는 버튼)이다.
 - 아이콘은 10장의 `icons/sprite.svg`를 쓴다.
 - 화면 고유 레이아웃 CSS를 쓸 때도 값은 `var(--dw-spacing-x4)`처럼 토큰으로 부른다.

@@ -1,6 +1,6 @@
 # Slider
 
-> 클래스 `.dw-slider` · 레퍼런스 [component.html#slider](../component.html#slider)
+> 클래스 `.dw-slider` · 레퍼런스 [storybook.html#slider](../storybook.html#slider)
 
 ## 개요
 

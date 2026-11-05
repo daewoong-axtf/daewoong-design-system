@@ -1,6 +1,6 @@
 # Popover
 
-> 클래스 `.dw-popover` · 레퍼런스 [component.html#popover](../component.html#popover)
+> 클래스 `.dw-popover` · 레퍼런스 [storybook.html#popover](../storybook.html#popover)
 
 ## 개요
 

@@ -1,6 +1,6 @@
 # Top Navigation (App Bar)
 
-> 클래스 `.dw-topbar` · 레퍼런스 [component.html#top-navigation](../component.html#top-navigation)
+> 클래스 `.dw-topbar` · 레퍼런스 [storybook.html#top-navigation](../storybook.html#top-navigation)
 
 ## 개요
 

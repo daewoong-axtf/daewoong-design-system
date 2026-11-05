@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>대웅 Components</title>
+  <title>대웅 Design System</title>
   <link rel="stylesheet" href="tokens.css">
   <link rel="stylesheet" href="components.css">
   <link rel="stylesheet" href="catalog.css">
@@ -19,10 +19,36 @@
     .grid .label { color: var(--dw-fg-neutral-subtle); font-size: var(--dw-font-t2-size); line-height: var(--dw-font-t2-line-height); white-space: nowrap; }
     .row { display: flex; flex-wrap: wrap; gap: var(--dw-spacing-x3); align-items: center; }
     .stack { display: grid; gap: var(--dw-spacing-x5); max-width: 420px; }
+    .demo code { font-size: var(--dw-font-t2-size); }
+    .ramp { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: var(--dw-spacing-x1); }
+    .sw { border-radius: var(--dw-radius-r2); overflow: hidden; border: 1px solid var(--dw-stroke-neutral-subtle); }
+    .sw i { display: block; height: 48px; }
+    .sw span { display: block; padding: var(--dw-spacing-x1) var(--dw-spacing-x1_5); font-size: var(--dw-font-t1-size); line-height: var(--dw-font-t1-line-height); color: var(--dw-fg-neutral-muted); word-break: break-all; }
+    .roles { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--dw-spacing-x2); }
+    .role { display: flex; align-items: center; gap: var(--dw-spacing-x2); }
+    .role i { flex: none; width: 32px; height: 32px; border-radius: var(--dw-radius-r2); border: 1px solid var(--dw-stroke-neutral-subtle); }
+    .token-row { display: flex; align-items: baseline; gap: var(--dw-spacing-x4); padding: var(--dw-spacing-x2) 0; border-bottom: 1px solid var(--dw-stroke-neutral-subtle); }
+    .token-row:last-child { border-bottom: 0; }
+    .token-row code { flex: none; width: 88px; color: var(--dw-fg-neutral-subtle); }
+    .bar { height: 16px; background: var(--dw-bg-brand-weak); border-left: 2px solid var(--dw-stroke-brand-solid); }
+    .boxes { display: flex; flex-wrap: wrap; gap: var(--dw-spacing-x4); }
+    .box { display: grid; place-items: center; width: 96px; height: 72px; background: var(--dw-bg-neutral-weak); font-size: var(--dw-font-t2-size); }
+    .shadow { background: var(--dw-bg-layer-floating); }
+    .demo-row { display: flex; flex-wrap: wrap; gap: var(--dw-spacing-x3); align-items: center; margin-bottom: var(--dw-spacing-x3); }
+    .note { margin: 0 0 var(--dw-spacing-x4); color: var(--dw-fg-neutral-muted); }
+    .icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: var(--dw-spacing-x2); }
+    .icon { display: grid; justify-items: center; gap: var(--dw-spacing-x2); padding: var(--dw-spacing-x3) var(--dw-spacing-x1); border: 1px solid var(--dw-stroke-neutral-subtle); border-radius: var(--dw-radius-r2); font-size: var(--dw-font-t1-size); line-height: var(--dw-font-t1-line-height); color: var(--dw-fg-neutral-muted); }
+    .icon svg { width: 24px; height: 24px; color: var(--dw-fg-neutral); }
+    @media (max-width: 639px) { .token-row code { width: 72px; } }
+    .motion { display: flex; flex-wrap: wrap; gap: var(--dw-spacing-x3); }
+    .ball { width: 40px; height: 40px; border-radius: var(--dw-radius-full); background: var(--dw-bg-brand-solid); transition-property: transform; }
+    .track { position: relative; width: min(100%, 320px); padding: var(--dw-spacing-x1); border-radius: var(--dw-radius-full); background: var(--dw-bg-neutral-weak); }
+    .track.go .ball { transform: translateX(calc(min(100vw - 120px, 320px) - 48px)); }
   </style>
 </head>
 <body>
   <!--ICONS:start--><svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></symbol>
 <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3" /><path d="M16 2v3" /><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /></symbol>
 <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></symbol>
 <symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></symbol>
@@ -32,13 +58,17 @@
 <symbol id="i-circle-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></symbol>
 <symbol id="i-circle-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m16 9-5.5 5.5L8 12" /></symbol>
 <symbol id="i-circle-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m15 9-6 6" /><path d="m9 9 6 6" /></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></symbol>
+<symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3" /><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="m7 10 5 5 5-5" /></symbol>
 <symbol id="i-ellipsis" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></symbol>
 <symbol id="i-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" /><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" /><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" /><path d="m2 2 20 20" /></symbol>
 <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /><circle cx="12" cy="12" r="3" /></symbol>
 <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></symbol>
+<symbol id="i-list-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5h20" /><path d="M6 12h12" /><path d="M9 19h6" /></symbol>
 <symbol id="i-loader-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></symbol>
 <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16" /><path d="M4 12h16" /><path d="M4 19h16" /></symbol>
 <symbol id="i-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /></symbol>
+<symbol id="i-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /><path d="m15 5 4 4" /></symbol>
 <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="M12 5v14" /></symbol>
 <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34" /><circle cx="11" cy="11" r="8" /></symbol>
 <symbol id="i-share-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" x2="15.42" y1="13.51" y2="17.49" /><line x1="15.41" x2="8.59" y1="6.51" y2="10.49" /></symbol>
@@ -50,23 +80,23 @@
 </svg><!--ICONS:end-->
 
   <header class="page-header">
-    <h1>대웅 Components</h1>
+    <h1>대웅 Design System</h1>
     <div class="dw-text-input dw-text-input--medium page-search">
       <svg class="dw-text-input__icon" aria-hidden="true"><use href="#i-search"/></svg>
       <input class="dw-text-input__value" type="search" id="page-search" placeholder="메뉴 검색" aria-label="메뉴 검색" autocomplete="off">
       <button class="dw-text-input__icon" type="button" aria-label="입력 지우기" data-dw-clear hidden><svg aria-hidden="true"><use href="#i-circle-x"/></svg></button>
     </div>
     <nav class="page-nav" id="page-nav" aria-label="디자인 시스템 메뉴">
-      <p class="page-nav__empty" id="page-nav-empty" hidden>찾는 메뉴가 없습니다</p>
+      <p class="page-nav__empty" id="page-nav-empty" hidden>찾는 메뉴가 없어요</p>
       <!--NAV:start-->
-<p class="page-nav__title">Foundations</p><a href="foundations.html#palette" data-q="color 색 컬러">팔레트</a><a href="foundations.html#roles" data-q="role token 토큰 색 bg fg stroke">역할 토큰</a><a href="foundations.html#type" data-q="typography font 글자 폰트">타이포그래피</a><a href="foundations.html#text-style" data-q="text style 글자">텍스트 스타일</a><a href="foundations.html#spacing" data-q="spacing margin padding 여백">간격</a><a href="foundations.html#radius" data-q="radius 라운드">모서리</a><a href="foundations.html#shadow" data-q="shadow depth 그림자">깊이</a><a href="foundations.html#control-height" data-q="height size 크기">컨트롤 높이</a><a href="foundations.html#motion" data-q="motion animation easing 애니메이션">모션</a><a href="foundations.html#interaction" data-q="interaction focus hover pressed 포커스 상태">상호작용</a><a href="foundations.html#icons" data-q="icon lucide">아이콘</a><a href="foundations.html#layout" data-q="layout breakpoint 브레이크포인트 반응형">레이아웃</a>
+<p class="page-nav__title">Foundations</p><a href="#palette" data-q="color 색 컬러">팔레트</a><a href="#roles" data-q="role token 토큰 색 bg fg stroke">역할 토큰</a><a href="#type" data-q="typography font 글자 폰트">타이포그래피</a><a href="#text-style" data-q="text style 글자">텍스트 스타일</a><a href="#spacing" data-q="spacing margin padding 여백">간격</a><a href="#radius" data-q="radius 라운드">모서리</a><a href="#shadow" data-q="shadow depth 그림자">깊이</a><a href="#control-height" data-q="height size 크기">컨트롤 높이</a><a href="#motion" data-q="motion animation easing 애니메이션">모션</a><a href="#interaction" data-q="interaction focus hover pressed 포커스 상태">상호작용</a><a href="#icons" data-q="icon lucide">아이콘</a><a href="#layout" data-q="layout breakpoint 브레이크포인트 반응형">레이아웃</a>
 <p class="page-nav__title">Components</p>
-<p class="page-nav__group">Actions</p><a href="component.html#button" data-q="버튼">Button</a>
-<p class="page-nav__group">Inputs</p><a href="component.html#field" data-q="필드 폼 라벨">Field</a><a href="component.html#text-input" data-q="입력 인풋 검색 텍스트">Text Input</a><a href="component.html#checkbox" data-q="체크박스">Checkbox</a><a href="component.html#radio" data-q="라디오">Radio</a><a href="component.html#switch" data-q="스위치 토글">Switch</a><a href="component.html#slider" data-q="슬라이더">Slider</a><a href="component.html#select" data-q="셀렉트 드롭다운">Select</a><a href="component.html#segmented-control" data-q="세그먼트 토글">Segmented Control</a>
-<p class="page-nav__group">Feedback</p><a href="component.html#dialog" data-q="다이얼로그 모달">Dialog</a><a href="component.html#alert-dialog" data-q="확인 경고 모달">Alert Dialog</a><a href="component.html#bottom-sheet" data-q="바텀시트 드로어">Bottom Sheet</a><a href="component.html#side-sheet" data-q="사이드시트 패널">Side Sheet</a><a href="component.html#popover" data-q="팝오버">Popover</a><a href="component.html#dropdown-menu" data-q="드롭다운 메뉴">Dropdown Menu</a><a href="component.html#tooltip" data-q="툴팁">Tooltip</a><a href="component.html#toast" data-q="토스트 알림">Toast</a><a href="component.html#callout" data-q="콜아웃 안내 alert">Callout</a>
-<p class="page-nav__group">Display</p><a href="component.html#accordion" data-q="아코디언 접기">Accordion</a><a href="component.html#avatar" data-q="아바타 프로필">Avatar</a><a href="component.html#badge" data-q="뱃지 배지">Badge</a><a href="component.html#card" data-q="카드">Card</a><a href="component.html#chip" data-q="칩 필터">Chip</a><a href="component.html#divider" data-q="구분선 separator">Divider</a><a href="component.html#list" data-q="목록 리스트">List</a><a href="component.html#table" data-q="테이블 표">Table</a>
-<p class="page-nav__group">Navigation</p><a href="component.html#breadcrumb" data-q="브레드크럼 경로">Breadcrumb</a><a href="component.html#pagination" data-q="페이지네이션 페이지">Pagination</a><a href="component.html#side-navigation" data-q="사이드바 sidebar 메뉴">Side Navigation</a><a href="component.html#tabs" data-q="탭">Tabs</a><a href="component.html#top-navigation" data-q="상단 헤더 gnb">Top Navigation</a>
-<p class="page-nav__group">State</p><a href="component.html#empty-state" data-q="빈 상태">Empty State</a><a href="component.html#progress-circle" data-q="로딩 스피너 spinner">Progress Circle</a><a href="component.html#skeleton" data-q="스켈레톤 로딩">Skeleton</a>
+<p class="page-nav__group">Actions</p><a href="#button" data-q="버튼">Button</a>
+<p class="page-nav__group">Inputs</p><a href="#field" data-q="필드 폼 라벨">Field</a><a href="#text-input" data-q="입력 인풋 검색 텍스트">Text Input</a><a href="#checkbox" data-q="체크박스">Checkbox</a><a href="#radio" data-q="라디오">Radio</a><a href="#switch" data-q="스위치 토글">Switch</a><a href="#slider" data-q="슬라이더">Slider</a><a href="#select" data-q="셀렉트 드롭다운">Select</a><a href="#segmented-control" data-q="세그먼트 토글">Segmented Control</a>
+<p class="page-nav__group">Feedback</p><a href="#dialog" data-q="다이얼로그 모달">Dialog</a><a href="#alert-dialog" data-q="확인 경고 모달">Alert Dialog</a><a href="#bottom-sheet" data-q="바텀시트 드로어">Bottom Sheet</a><a href="#side-sheet" data-q="사이드시트 패널">Side Sheet</a><a href="#popover" data-q="팝오버">Popover</a><a href="#dropdown-menu" data-q="드롭다운 메뉴">Dropdown Menu</a><a href="#tooltip" data-q="툴팁">Tooltip</a><a href="#toast" data-q="토스트 알림">Toast</a><a href="#callout" data-q="콜아웃 안내 alert">Callout</a>
+<p class="page-nav__group">Display</p><a href="#accordion" data-q="아코디언 접기">Accordion</a><a href="#avatar" data-q="아바타 프로필">Avatar</a><a href="#badge" data-q="뱃지 배지">Badge</a><a href="#card" data-q="카드">Card</a><a href="#chip" data-q="칩 필터">Chip</a><a href="#divider" data-q="구분선 separator">Divider</a><a href="#list" data-q="목록 리스트">List</a><a href="#table" data-q="테이블 표">Table</a>
+<p class="page-nav__group">Navigation</p><a href="#breadcrumb" data-q="브레드크럼 경로">Breadcrumb</a><a href="#pagination" data-q="페이지네이션 페이지">Pagination</a><a href="#side-navigation" data-q="사이드바 sidebar 메뉴">Side Navigation</a><a href="#tabs" data-q="탭">Tabs</a><a href="#top-navigation" data-q="상단 헤더 gnb">Top Navigation</a>
+<p class="page-nav__group">State</p><a href="#empty-state" data-q="빈 상태">Empty State</a><a href="#progress-circle" data-q="로딩 스피너 spinner">Progress Circle</a><a href="#skeleton" data-q="스켈레톤 로딩">Skeleton</a>
 <!--NAV:end-->
     </nav>
     <button class="dw-button dw-button--neutral-outline dw-button--small" type="button" id="theme" aria-pressed="false">다크 모드</button>
@@ -74,6 +104,57 @@
   </header>
 
   <main>
+    <!-- ── Foundations ─────────────────────────── -->
+    <section class="demo" id="palette"><h2>팔레트</h2><div id="palette-list"></div></section>
+    <section class="demo" id="roles"><h2>역할 토큰</h2><div id="role-list"></div></section>
+    <section class="demo" id="type"><h2>타이포그래피</h2><div id="type-list"></div></section>
+    <section class="demo" id="text-style"><h2>텍스트 스타일</h2><div id="text-style-list"></div></section>
+    <section class="demo" id="spacing"><h2>간격</h2><div id="spacing-list"></div></section>
+    <section class="demo" id="radius"><h2>모서리</h2><div class="boxes" id="radius-list"></div></section>
+    <section class="demo" id="shadow"><h2>깊이</h2><div class="boxes">
+      <div class="box shadow" style="box-shadow: var(--dw-shadow-s1)">s1</div>
+      <div class="box shadow" style="box-shadow: var(--dw-shadow-s2)">s2</div>
+      <div class="box shadow" style="box-shadow: var(--dw-shadow-s3)">s3</div>
+    </div></section>
+    <section class="demo" id="control-height"><h2>컨트롤 높이</h2>
+      <p class="note">버튼과 입력 필드는 같은 높이 스케일을 쓴다. 같은 크기는 나란히 놓아도 정렬된다.</p>
+      <div class="demo-row">
+        <button class="dw-button dw-button--neutral-weak dw-button--xsmall" type="button">xsmall</button>
+        <button class="dw-button dw-button--neutral-weak dw-button--small" type="button">small</button>
+        <button class="dw-button dw-button--neutral-weak dw-button--medium" type="button">medium</button>
+        <button class="dw-button dw-button--neutral-weak dw-button--large" type="button">large</button>
+      </div>
+      <div class="demo-row">
+        <div class="dw-text-input dw-text-input--medium" style="width: 200px"><input class="dw-text-input__value" aria-label="medium" placeholder="medium"></div>
+        <div class="dw-text-input dw-text-input--large" style="width: 200px"><input class="dw-text-input__value" aria-label="large" placeholder="large"></div>
+      </div>
+    </section>
+    <section class="demo" id="motion"><h2>모션</h2>
+      <p><button class="dw-button dw-button--neutral-outline" type="button" id="play">재생</button></p>
+      <div id="motion-list"></div>
+    </section>
+    <section class="demo" id="interaction"><h2>상호작용</h2>
+      <p class="note">상태 색은 <code>-pressed</code> 토큰 짝을 쓴다. 키보드 포커스는 모든 요소에서 같은 모양이다.</p>
+      <div class="demo-row">
+        <button class="dw-button dw-button--brand-solid" type="button">기본</button>
+        <button class="dw-button dw-button--brand-solid" type="button" style="background: var(--dw-bg-brand-solid-pressed)">pressed</button>
+        <button class="dw-button dw-button--brand-solid" type="button" style="outline-color: var(--dw-stroke-focus-ring)">focus-visible</button>
+        <button class="dw-button dw-button--brand-solid" type="button" disabled>disabled</button>
+      </div>
+    </section>
+    <section class="demo" id="icons"><h2>아이콘</h2>
+      <p class="note">Lucide 기반. 색은 감싼 요소의 글자색을 따른다. 환경별 사용법은 design.md 10장에 있다.</p>
+      <div class="icons" id="icon-list"></div>
+    </section>
+    <section class="demo" id="layout"><h2>레이아웃</h2>
+      <p class="note">브레이크포인트는 CSS 변수로 쓸 수 없어 토큰이 아니다. 값의 정본은 design.md 9장이다.</p>
+      <div class="token-row"><code>sm · 640px</code><span>좌우 여백 16px</span></div>
+      <div class="token-row"><code>md · 768px</code><span>좌우 여백 24px</span></div>
+      <div class="token-row"><code>lg · 1024px</code><span>좌우 여백 32px, 사이드 내비게이션 펼침</span></div>
+      <div class="token-row"><code>xl · 1280px</code><span>좌우 여백 32px</span></div>
+      <div class="token-row"><code>2xl · 1536px</code><span>좌우 여백 32px</span></div>
+    </section>
+
     <!-- ── Button ─────────────────────────────── -->
     <section class="demo" id="button">
       <h2>Button <a href="components/button.md">명세</a></h2>
@@ -785,7 +866,7 @@
         <div class="dw-popover" id="popover-bottom-end" role="dialog" aria-labelledby="popover-bottom-end-t" tabindex="-1" data-placement="bottom-end" hidden>
           <div class="dw-popover__header">
             <h2 class="dw-popover__title" id="popover-bottom-end-t">도움말</h2>
-            <p class="dw-popover__description">Title과 Description만 있는 형태입니다.</p>
+            <p class="dw-popover__description">Title과 Description만 있는 형태이에요.</p>
           </div>
         </div>
 
@@ -816,7 +897,7 @@
         <div class="dw-popover" id="popover-width" role="dialog" aria-labelledby="popover-width-t" tabindex="-1" style="width: 320px" hidden>
           <div class="dw-popover__header">
             <h2 class="dw-popover__title" id="popover-width-t">너비 지정</h2>
-            <p class="dw-popover__description">기본은 내용 폭(240~360px)이고, 인라인 스타일로 정할 수 있습니다.</p>
+            <p class="dw-popover__description">기본은 내용 폭(240~360px)이고, 인라인 스타일로 정할 수 있어요.</p>
           </div>
         </div>
 
@@ -959,12 +1040,12 @@
         <button class="dw-button dw-button--ghost dw-button--medium dw-button--icon-only" type="button" aria-label="정보" aria-describedby="tooltip-title" data-dw-tooltip="tooltip-title"><svg class="dw-button__icon" aria-hidden="true"><use href="#i-info"/></svg></button>
         <div class="dw-tooltip" id="tooltip-title" role="tooltip" hidden>
           <p class="dw-tooltip__title">안내</p>
-          <p class="dw-tooltip__description">제목이 있는 말풍선입니다. 포인터를 말풍선으로 옮겨도 닫히지 않습니다.</p>
+          <p class="dw-tooltip__description">제목이 있는 말풍선이에요. 포인터를 말풍선으로 옮겨도 닫히지 않아요.</p>
           <svg class="dw-tooltip__arrow" viewBox="0 0 12 8" aria-hidden="true"><path d="M0 0h12L6 8z"/></svg>
         </div>
         <button class="dw-button dw-button--ghost dw-button--medium dw-button--icon-only" type="button" aria-label="검색" aria-describedby="tooltip-search" data-dw-tooltip="tooltip-search"><svg class="dw-button__icon" aria-hidden="true"><use href="#i-search"/></svg></button>
         <div class="dw-tooltip" id="tooltip-search" role="tooltip" hidden>
-          <p class="dw-tooltip__description">제목과 본문에서 찾습니다</p>
+          <p class="dw-tooltip__description">제목과 본문에서 찾아요</p>
           <svg class="dw-tooltip__arrow" viewBox="0 0 12 8" aria-hidden="true"><path d="M0 0h12L6 8z"/></svg>
         </div>
       </div>
@@ -1002,25 +1083,25 @@
 
       <h3>variant · action</h3>
       <div class="row">
-        <button class="dw-button dw-button--neutral-weak" type="button" data-dw-toast="복사했습니다">default</button>
-        <button class="dw-button dw-button--neutral-weak" type="button" data-dw-toast="저장했습니다" data-toast-variant="positive">positive</button>
-        <button class="dw-button dw-button--neutral-weak" type="button" data-dw-toast="저장하지 못했습니다" data-toast-variant="critical">critical</button>
-        <button class="dw-button dw-button--neutral-weak" type="button" data-dw-toast="삭제했습니다" data-toast-action="실행 취소">action</button>
-        <button class="dw-button dw-button--neutral-weak" type="button" data-dw-toast="저장했습니다" data-toast-variant="positive" data-toast-action="실행 취소">positive · action</button>
+        <button class="dw-button dw-button--neutral-weak" type="button" data-dw-toast="복사했어요">default</button>
+        <button class="dw-button dw-button--neutral-weak" type="button" data-dw-toast="저장했어요" data-toast-variant="positive">positive</button>
+        <button class="dw-button dw-button--neutral-weak" type="button" data-dw-toast="저장하지 못했어요" data-toast-variant="critical">critical</button>
+        <button class="dw-button dw-button--neutral-weak" type="button" data-dw-toast="삭제했어요" data-toast-action="실행 취소">action</button>
+        <button class="dw-button dw-button--neutral-weak" type="button" data-dw-toast="저장했어요" data-toast-variant="positive" data-toast-action="실행 취소">positive · action</button>
       </div>
 
       <h3>펼친 모습</h3>
       <div class="stack" style="max-width: 464px">
         <div class="dw-toast dw-toast--default">
-          <div class="dw-toast__content"><p class="dw-toast__message">복사했습니다</p></div>
+          <div class="dw-toast__content"><p class="dw-toast__message">복사했어요</p></div>
         </div>
         <div class="dw-toast dw-toast--positive">
           <svg class="dw-toast__icon" aria-hidden="true"><use href="#i-circle-check"/></svg>
-          <div class="dw-toast__content"><p class="dw-toast__message">저장했습니다</p><button class="dw-toast__action" type="button">실행 취소</button></div>
+          <div class="dw-toast__content"><p class="dw-toast__message">저장했어요</p><button class="dw-toast__action" type="button">실행 취소</button></div>
         </div>
         <div class="dw-toast dw-toast--critical">
           <svg class="dw-toast__icon" aria-hidden="true"><use href="#i-circle-alert"/></svg>
-          <div class="dw-toast__content"><p class="dw-toast__message">저장하지 못했습니다</p><button class="dw-toast__action" type="button">다시 시도</button></div>
+          <div class="dw-toast__content"><p class="dw-toast__message">저장하지 못했어요</p><button class="dw-toast__action" type="button">다시 시도</button></div>
         </div>
       </div>
     </section>
@@ -1032,23 +1113,23 @@
 
       <h3>tone</h3>
       <div class="stack" style="max-width: none">
-        <div class="dw-callout dw-callout--neutral"><svg class="dw-callout__icon" aria-hidden="true"><use href="#i-info"/></svg><p class="dw-callout__content"><strong class="dw-callout__title">안내</strong><span class="dw-callout__description">변경 사항은 저장 후 반영됩니다.</span></p></div>
-        <div class="dw-callout dw-callout--informative"><svg class="dw-callout__icon" aria-hidden="true"><use href="#i-info"/></svg><p class="dw-callout__content"><strong class="dw-callout__title">새 소식</strong><span class="dw-callout__description">새 기능이 추가되었습니다.</span></p></div>
-        <div class="dw-callout dw-callout--positive"><svg class="dw-callout__icon" aria-hidden="true"><use href="#i-circle-check"/></svg><p class="dw-callout__content"><strong class="dw-callout__title">완료</strong><span class="dw-callout__description">내보내기가 끝났습니다.</span></p></div>
-        <div class="dw-callout dw-callout--warning"><svg class="dw-callout__icon" aria-hidden="true"><use href="#i-triangle-alert"/></svg><p class="dw-callout__content"><strong class="dw-callout__title">점검 안내</strong><span class="dw-callout__description">11월 5일 02:00–04:00에는 접속할 수 없습니다.</span></p></div>
-        <div class="dw-callout dw-callout--critical"><svg class="dw-callout__icon" aria-hidden="true"><use href="#i-circle-alert"/></svg><p class="dw-callout__content"><strong class="dw-callout__title">오류</strong><span class="dw-callout__description">일부 항목을 저장하지 못했습니다.</span></p></div>
+        <div class="dw-callout dw-callout--neutral"><svg class="dw-callout__icon" aria-hidden="true"><use href="#i-info"/></svg><p class="dw-callout__content"><strong class="dw-callout__title">안내</strong><span class="dw-callout__description">변경 사항은 저장 후 반영돼요.</span></p></div>
+        <div class="dw-callout dw-callout--informative"><svg class="dw-callout__icon" aria-hidden="true"><use href="#i-info"/></svg><p class="dw-callout__content"><strong class="dw-callout__title">새 소식</strong><span class="dw-callout__description">새 기능이 추가되었어요.</span></p></div>
+        <div class="dw-callout dw-callout--positive"><svg class="dw-callout__icon" aria-hidden="true"><use href="#i-circle-check"/></svg><p class="dw-callout__content"><strong class="dw-callout__title">완료</strong><span class="dw-callout__description">내보내기가 끝났어요.</span></p></div>
+        <div class="dw-callout dw-callout--warning"><svg class="dw-callout__icon" aria-hidden="true"><use href="#i-triangle-alert"/></svg><p class="dw-callout__content"><strong class="dw-callout__title">점검 안내</strong><span class="dw-callout__description">11월 5일 02:00–04:00에는 접속할 수 없어요.</span></p></div>
+        <div class="dw-callout dw-callout--critical"><svg class="dw-callout__icon" aria-hidden="true"><use href="#i-circle-alert"/></svg><p class="dw-callout__content"><strong class="dw-callout__title">오류</strong><span class="dw-callout__description">일부 항목을 저장하지 못했어요.</span></p></div>
       </div>
 
       <h3>링크 · 닫기</h3>
       <div class="stack" style="max-width: none">
         <div class="dw-callout dw-callout--warning">
           <svg class="dw-callout__icon" aria-hidden="true"><use href="#i-triangle-alert"/></svg>
-          <p class="dw-callout__content"><strong class="dw-callout__title">점검 안내</strong><span class="dw-callout__description">11월 5일 02:00–04:00에는 접속할 수 없습니다.</span><a class="dw-callout__link" href="#callout">자세히</a></p>
+          <p class="dw-callout__content"><strong class="dw-callout__title">점검 안내</strong><span class="dw-callout__description">11월 5일 02:00–04:00에는 접속할 수 없어요.</span><a class="dw-callout__link" href="#callout">자세히</a></p>
           <button class="dw-callout__close" type="button" aria-label="점검 안내 닫기"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
         </div>
         <div class="dw-callout dw-callout--neutral">
           <svg class="dw-callout__icon" aria-hidden="true"><use href="#i-info"/></svg>
-          <p class="dw-callout__content"><span class="dw-callout__description">제목 없이 설명만 두어도 됩니다.</span></p>
+          <p class="dw-callout__content"><span class="dw-callout__description">제목 없이 설명만 두어도 돼요.</span></p>
           <button class="dw-callout__close" type="button" aria-label="안내 닫기"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
         </div>
       </div>
@@ -1079,7 +1160,7 @@
               </button>
             </h3>
             <div class="dw-accordion__panel" id="accordion-inline-1-panel" role="region" aria-labelledby="accordion-inline-1">
-              <div class="dw-accordion__panel-inner">주문 내역에서 환불을 신청하면 영업일 기준 3일 안에 처리됩니다.</div>
+              <div class="dw-accordion__panel-inner">주문 내역에서 환불을 신청하면 영업일 기준 3일 안에 처리돼요.</div>
             </div>
           </div>
           <div class="dw-accordion__item">
@@ -1119,7 +1200,7 @@
               </button>
             </h3>
             <div class="dw-accordion__panel" id="accordion-single-1-panel" role="region" aria-labelledby="accordion-single-1">
-              <div class="dw-accordion__panel-inner">결제 후 평균 2일이 걸립니다.</div>
+              <div class="dw-accordion__panel-inner">결제 후 평균 2일이 걸려요.</div>
             </div>
           </div>
           <div class="dw-accordion__item">
@@ -1130,7 +1211,7 @@
               </button>
             </h3>
             <div class="dw-accordion__panel" id="accordion-single-2-panel" role="region" aria-labelledby="accordion-single-2" hidden>
-              <div class="dw-accordion__panel-inner">출고 전까지 주문 상세에서 바꿀 수 있습니다.</div>
+              <div class="dw-accordion__panel-inner">출고 전까지 주문 상세에서 바꿀 수 있어요.</div>
             </div>
           </div>
         </div>
@@ -1413,7 +1494,7 @@
       <div class="stack">
         <ul class="dw-list">
           <li class="dw-list__item"><div class="dw-list__content"><span class="dw-list__prefix"><svg aria-hidden="true"><use href="#i-calendar"/></svg></span><span class="dw-list__body"><span class="dw-list__title">가입일</span></span><span class="dw-list__suffix">2024.03.01</span></div></li>
-          <li class="dw-list__item"><div class="dw-list__content"><span class="dw-list__prefix"><svg aria-hidden="true"><use href="#i-info"/></svg></span><span class="dw-list__body"><span class="dw-list__title">버전</span><span class="dw-list__detail">최신 상태입니다</span></span><span class="dw-list__suffix">1.2.0</span></div></li>
+          <li class="dw-list__item"><div class="dw-list__content"><span class="dw-list__prefix"><svg aria-hidden="true"><use href="#i-info"/></svg></span><span class="dw-list__body"><span class="dw-list__title">버전</span><span class="dw-list__detail">최신 상태이에요</span></span><span class="dw-list__suffix">1.2.0</span></div></li>
         </ul>
       </div>
 
@@ -1878,7 +1959,7 @@
           <div class="dw-topbar__left">
             <button type="button" class="dw-topbar__icon-button" aria-label="뒤로 가기"><svg aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
           </div>
-          <h1 class="dw-topbar__title">이름이 아주 길어서 양쪽 영역에 닿으면 말줄임이 되는 화면 제목입니다 이름이 아주 길어서 양쪽 영역에 닿으면 말줄임이 되는 화면 제목입니다</h1>
+          <h1 class="dw-topbar__title">이름이 아주 길어서 양쪽 영역에 닿으면 말줄임이 되는 화면 제목이에요 이름이 아주 길어서 양쪽 영역에 닿으면 말줄임이 되는 화면 제목이에요</h1>
           <div class="dw-topbar__right">
             <button type="button" class="dw-topbar__icon-button" aria-label="공유"><svg aria-hidden="true"><use href="#i-share-2"/></svg></button>
             <button type="button" class="dw-topbar__icon-button" aria-label="더 보기"><svg aria-hidden="true"><use href="#i-ellipsis"/></svg></button>
@@ -2084,18 +2165,18 @@
         </div>
         <button class="dw-dialog__close" type="button" aria-label="닫기" data-dw-close><svg aria-hidden="true"><use href="#i-x"/></svg></button>
         <div class="dw-dialog__body">
-          <p>제1조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
-          <p>제2조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
-          <p>제3조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
-          <p>제4조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
-          <p>제5조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
-          <p>제6조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
-          <p>제7조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
-          <p>제8조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
-          <p>제9조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
-          <p>제10조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
-          <p>제11조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
-          <p>제12조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정합니다. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제1조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정해요. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제2조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정해요. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제3조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정해요. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제4조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정해요. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제5조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정해요. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제6조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정해요. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제7조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정해요. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제8조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정해요. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제9조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정해요. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제10조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정해요. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제11조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정해요. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
+          <p>제12조 — 이 약관은 서비스 이용 조건과 절차, 이용자와 회사의 권리·의무를 정해요. 본문이 길어 창 높이를 넘으면 본문만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
         </div>
         <div class="dw-dialog__footer">
           <button class="dw-button dw-button--brand-solid dw-button--large" type="button" data-dw-close>동의</button>
@@ -2204,7 +2285,7 @@
       <div class="dw-bottom-sheet__handle" aria-hidden="true"></div>
       <div class="dw-bottom-sheet__header">
         <h2 class="dw-bottom-sheet__title" id="bottom-sheet-center-t">앱에서 계속할까요?</h2>
-        <p class="dw-bottom-sheet__description" id="bottom-sheet-center-d">가운데 정렬 헤더입니다.</p>
+        <p class="dw-bottom-sheet__description" id="bottom-sheet-center-d">가운데 정렬 헤더이에요.</p>
       </div>
       <div class="dw-bottom-sheet__footer">
         <button class="dw-button dw-button--brand-solid dw-button--large" type="button" data-dw-close>계속</button>
@@ -2220,7 +2301,7 @@
         <h2 class="dw-bottom-sheet__title" id="bottom-sheet-no-handle-t">Handle 없이 Close만</h2>
       </div>
       <div class="dw-bottom-sheet__body" style="padding-bottom: var(--dw-spacing-x4)">
-        <p>Handle이 없으면 Close·Backdrop·Esc로 닫습니다.</p>
+        <p>Handle이 없으면 Close·Backdrop·Esc로 닫아요.</p>
       </div>
       <button class="dw-bottom-sheet__close" type="button" aria-label="닫기" data-dw-close><svg aria-hidden="true"><use href="#i-x"/></svg></button>
     </div>
@@ -2238,16 +2319,16 @@
           <div class="dw-field__header"><label class="dw-field__label" for="bottom-sheet-long-search">약관 검색</label></div>
           <div class="dw-text-input dw-text-input--large"><input class="dw-text-input__value" id="bottom-sheet-long-search" type="search"></div>
         </div>
-        <p>제1조 — 본문이 길면 Body만 스크롤됩니다. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있습니다.</p>
-        <p>제2조 — 본문이 길면 Body만 스크롤됩니다. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있습니다.</p>
-        <p>제3조 — 본문이 길면 Body만 스크롤됩니다. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있습니다.</p>
-        <p>제4조 — 본문이 길면 Body만 스크롤됩니다. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있습니다.</p>
-        <p>제5조 — 본문이 길면 Body만 스크롤됩니다. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있습니다.</p>
-        <p>제6조 — 본문이 길면 Body만 스크롤됩니다. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있습니다.</p>
-        <p>제7조 — 본문이 길면 Body만 스크롤됩니다. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있습니다.</p>
-        <p>제8조 — 본문이 길면 Body만 스크롤됩니다. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있습니다.</p>
-        <p>제9조 — 본문이 길면 Body만 스크롤됩니다. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있습니다.</p>
-        <p>제10조 — 본문이 길면 Body만 스크롤됩니다. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있습니다.</p>
+        <p>제1조 — 본문이 길면 Body만 스크롤돼요. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있어요.</p>
+        <p>제2조 — 본문이 길면 Body만 스크롤돼요. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있어요.</p>
+        <p>제3조 — 본문이 길면 Body만 스크롤돼요. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있어요.</p>
+        <p>제4조 — 본문이 길면 Body만 스크롤돼요. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있어요.</p>
+        <p>제5조 — 본문이 길면 Body만 스크롤돼요. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있어요.</p>
+        <p>제6조 — 본문이 길면 Body만 스크롤돼요. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있어요.</p>
+        <p>제7조 — 본문이 길면 Body만 스크롤돼요. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있어요.</p>
+        <p>제8조 — 본문이 길면 Body만 스크롤돼요. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있어요.</p>
+        <p>제9조 — 본문이 길면 Body만 스크롤돼요. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있어요.</p>
+        <p>제10조 — 본문이 길면 Body만 스크롤돼요. Body가 맨 위일 때만 Handle·Header를 끌어 닫을 수 있어요.</p>
       </div>
       <div class="dw-bottom-sheet__footer">
         <button class="dw-button dw-button--brand-solid dw-button--large" type="button" data-dw-close>동의</button>
@@ -2286,38 +2367,38 @@
       <div class="dw-side-sheet__body">
         <p>medium 720px — 본문이 넘치면 Body만 스크롤되고, 위에는 구분선이, 아래에는 페이드가 생깁니다.</p>
         <p>컨트롤이 없는 Body라 처음 포커스는 Close에 갑니다.</p>
-        <p>1번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>2번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>3번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>4번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>5번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>6번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>7번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>8번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>9번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>10번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>11번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>12번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>13번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>14번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>15번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>16번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>17번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>18번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>19번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>20번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>21번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>22번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>23번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>24번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>25번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>26번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>27번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>28번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>29번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>30번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>31번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
-        <p>32번 항목 — 설정을 바꿨습니다. 본문이 길어 창 높이를 넘으면 Body만 스크롤됩니다.</p>
+        <p>1번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>2번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>3번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>4번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>5번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>6번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>7번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>8번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>9번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>10번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>11번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>12번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>13번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>14번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>15번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>16번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>17번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>18번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>19번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>20번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>21번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>22번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>23번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>24번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>25번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>26번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>27번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>28번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>29번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>30번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>31번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
+        <p>32번 항목 — 설정을 바꿨어요. 본문이 길어 창 높이를 넘으면 Body만 스크롤돼요.</p>
       </div>
       <div class="dw-side-sheet__footer">
         <button class="dw-button dw-button--neutral-weak dw-button--large dw-button--full" type="button" data-dw-close>닫기</button>
@@ -2400,6 +2481,69 @@
       <button type="button" class="dw-side-sheet__close" aria-label="닫기" data-dw-close><svg aria-hidden="true"><use href="#i-x"/></svg></button>
     </div>
   </div>
+  <script>
+    // Foundations 절은 값을 tokens.css에서 읽어 그린다
+    ;(() => {
+      // 값은 tokens.css에서 읽는다 — 이 페이지에는 토큰 수치를 하드코딩하지 않는다
+      const css = getComputedStyle(document.documentElement)
+      // file://로 열면 cssRules를 읽을 수 없어, 계산된 스타일에서 --dw-* 이름을 모은다
+      const vars = [...css].filter((p) => p.startsWith('--dw-'))
+      const key = (v) => v.replace(/(\d+)(_5)?$/, (_, n, h) => String(Number(n) + (h ? 0.5 : 0)).padStart(8, '0'))
+      const names = (re) => [...new Set(vars.filter((v) => re.test(v)))].sort((a, b) => key(a).localeCompare(key(b)))
+      const el = (tag, attrs = {}, html = '') => Object.assign(document.createElement(tag), attrs, { innerHTML: html })
+
+      const families = ['gray', 'gray-alpha', 'orange', 'blue', 'green', 'yellow', 'red', 'purple', 'static-black-alpha', 'static-white-alpha']
+      for (const f of families) {
+        const list = names(new RegExp(`^--dw-${f}-(\\d+)$`))
+        const box = el('div', { className: 'ramp' })
+        for (const v of list) box.append(el('div', { className: 'sw' }, `<i style="background:${f.startsWith('static-white') ? `linear-gradient(var(${v}), var(${v})), var(--dw-static-black)` : `var(${v})`}"></i><span>${v.slice(5)}</span>`))
+        document.getElementById('palette-list').append(el('h3', {}, f), box)
+      }
+
+      for (const layer of ['bg', 'fg', 'stroke']) {
+        const box = el('div', { className: 'roles' })
+        for (const v of names(new RegExp(`^--dw-${layer}-`))) {
+          box.append(el('div', { className: 'role' }, `<i style="${layer === 'stroke' ? `border:3px solid var(${v})` : `background:var(${v})`}"></i><code>${v.slice(5)}</code>`))
+        }
+        document.getElementById('role-list').append(el('h3', {}, layer), box)
+      }
+
+      for (let i = 14; i >= 1; i--) {
+        document.getElementById('type-list').append(el('div', { className: 'token-row' },
+          `<code>t${i} · ${css.getPropertyValue(`--dw-font-t${i}-size`).trim()}/${css.getPropertyValue(`--dw-font-t${i}-line-height`).trim()}</code>` +
+          `<span style="font-size:var(--dw-font-t${i}-size);line-height:var(--dw-font-t${i}-line-height);font-weight:var(--dw-font-weight-bold)">다람쥐 헌 쳇바퀴 Aa 123</span>`))
+      }
+
+      // 큰 글자부터, 같은 크기는 굵은 것부터 보여 준다
+      const textOrder = (n) => parseFloat(css.getPropertyValue(n)) * 1000 + Number(css.getPropertyValue(n.replace('-size', '-weight')))
+      for (const v of names(/^--dw-text-.+-size$/).sort((x, y) => textOrder(y) - textOrder(x))) {
+        const name = v.slice(10, -5)
+        const value = (p) => css.getPropertyValue(`--dw-text-${name}-${p}`).trim()
+        document.getElementById('text-style-list').append(el('div', { className: 'token-row' },
+          `<code>${name}</code><span style="font-size:var(--dw-text-${name}-size);line-height:var(--dw-text-${name}-line-height);font-weight:var(--dw-text-${name}-weight)">다람쥐 헌 쳇바퀴 ${value('size')}/${value('line-height')}</span>`))
+      }
+
+      for (const v of names(/^--dw-spacing-x[\d_]+$/)) {
+        document.getElementById('spacing-list').append(el('div', { className: 'token-row' }, `<code>${v.slice(13)} · ${css.getPropertyValue(v).trim()}</code><div class="bar" style="width:var(${v})"></div>`))
+      }
+
+      for (const v of names(/^--dw-radius-/)) {
+        document.getElementById('radius-list').append(el('div', { className: 'box', style: `border-radius:var(${v})` }, `${v.slice(12)}<br>${css.getPropertyValue(v).trim()}`))
+      }
+
+      const motions = [['enter', 'd6'], ['exit', 'd4'], ['easing', 'd3'], ['enter-expressive', 'd6'], ['exit-expressive', 'd4'], ['linear', 'd6']]
+      for (const [e, d] of motions) {
+        document.getElementById('motion-list').append(el('div', { className: 'token-row' },
+          `<code>${e} · ${d}</code><div class="track"><div class="ball" style="transition-duration:var(--dw-duration-${d});transition-timing-function:var(--dw-easing-${e})"></div></div>`))
+      }
+      document.getElementById('play').addEventListener('click', () => document.querySelectorAll('.track').forEach((t) => t.classList.toggle('go')))
+
+      for (const s of document.querySelectorAll('symbol')) {
+        const name = s.id.slice(2)
+        document.getElementById('icon-list').append(el('div', { className: 'icon' }, `<svg aria-hidden="true"><use href="#${s.id}"/></svg>${name}`))
+      }
+    })()
+  </script>
   <script src="js/components.js"></script>
   <script src="js/catalog.js"></script>
 </body>

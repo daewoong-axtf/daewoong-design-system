@@ -1,6 +1,6 @@
 # Side Navigation
 
-> 클래스 `.dw-sidenav` · 레퍼런스 [component.html#side-navigation](../component.html#side-navigation)
+> 클래스 `.dw-sidenav` · 레퍼런스 [storybook.html#side-navigation](../storybook.html#side-navigation)
 
 ## 개요
 

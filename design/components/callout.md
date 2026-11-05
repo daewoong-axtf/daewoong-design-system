@@ -1,6 +1,6 @@
 # Callout (Alert)
 
-> 클래스 `.dw-callout` · 레퍼런스 [component.html#callout](../component.html#callout)
+> 클래스 `.dw-callout` · 레퍼런스 [storybook.html#callout](../storybook.html#callout)
 
 ## 개요
 
@@ -24,7 +24,7 @@
   <svg class="dw-callout__icon" aria-hidden="true">…triangle-alert…</svg>
   <p class="dw-callout__content">
     <strong class="dw-callout__title">점검 안내</strong>
-    <span class="dw-callout__description">11월 5일 02:00–04:00에는 접속할 수 없습니다.</span>
+    <span class="dw-callout__description">11월 5일 02:00–04:00에는 접속할 수 없어요.</span>
     <a class="dw-callout__link" href="#">자세히</a>
   </p>
   <button type="button" class="dw-callout__close" aria-label="안내 닫기">…x…</button>
@@ -47,7 +47,7 @@
 | Icon | 16px `x4`, `flex-shrink: 0` |
 | Content | `margin-right: auto`, 줄높이 19px. Title t4 14/19 **bold** · Description t4 regular · Link t4 regular, `underline`, `text-underline-offset: 2px` |
 | 부위 사이 | Title 뒤·Description 뒤(마지막이 아니면)에 공백 2칸(`::after { content: "  "; white-space: pre }`) |
-| Close | 16px 아이콘, 히트 영역 40×40px `x10`(아이콘 둘레로 음수 margin -12px), radius 8px `r2`, hover `bg-transparent-pressed` |
+| Close | 16px 아이콘, 크기 40×40px `x10`(아이콘 둘레로 음수 margin -12px), 터치 화면에서 히트 영역 44px, radius 8px `r2`, hover `bg-transparent-pressed` |
 
 | tone | bg | 글자·아이콘 | 눌리는 Root hover |
 | --- | --- | --- | --- |

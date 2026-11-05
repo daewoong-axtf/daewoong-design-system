@@ -144,14 +144,15 @@
 .dw-button--icon-only { padding: 0; aspect-ratio: 1; }
 .dw-button--icon-only .dw-button__icon { width: var(--dw-button-only-icon); height: var(--dw-button-only-icon); }
 
-/* 32·36px 버튼의 터치 히트 영역 44px */
+/* 32·36·40px 버튼의 터치 히트 영역 44px */
 @media (pointer: coarse) {
-  .dw-button--xsmall::before,
-  .dw-button--small::before {
+  .dw-button:not(.dw-button--large)::before {
     content: "";
     position: absolute;
-    inset: -6px 0;
+    inset: -2px 0;
   }
+  .dw-button--xsmall::before,
+  .dw-button--small::before { inset: -6px 0; }
   .dw-button--xsmall.dw-button--icon-only::before,
   .dw-button--small.dw-button--icon-only::before { inset: -6px; }
 }
@@ -230,7 +231,7 @@
 }
 
 /* 로딩 */
-.dw-button[data-loading] > :not(.dw-button__spinner) { visibility: hidden; }
+.dw-button[data-loading] > :not(.dw-button__spinner) { opacity: 0; } /* visibility를 쓰면 접근 가능한 이름이 사라진다 */
 .dw-button[data-loading] { color: transparent; }
 
 .dw-button__spinner {
@@ -244,6 +245,9 @@
   border-radius: var(--dw-radius-full);
   box-sizing: border-box;
   animation: dw-spin 0.8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dw-button__spinner { animation-duration: 3s; }
 }
 
 /* ── Field ────────────────────────────────────────── */
@@ -441,11 +445,15 @@ button.dw-text-input__icon {
 }
 
 button.dw-text-input__icon[hidden] { display: none; }
+@media (pointer: coarse) {
+  button.dw-text-input__icon { position: relative; }
+  button.dw-text-input__icon::before { content: ""; position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; translate: -50% -50%; }
+}
 button.dw-text-input__icon > svg { width: 100%; height: 100%; }
 button.dw-text-input__icon:focus-visible { outline: 2px solid var(--dw-stroke-focus-ring); outline-offset: 2px; border-radius: var(--dw-radius-r1); }
 
-.dw-text-input:has(.dw-text-input__value:focus):not(:has(.dw-text-input__value[readonly]))::after { border-color: var(--dw-stroke-neutral-contrast); }
-.dw-text-input:has(.dw-text-input__value[aria-invalid="true"])::after { border-color: var(--dw-stroke-critical-solid); }
+.dw-text-input:has(.dw-text-input__value:focus)::after { border-color: var(--dw-stroke-neutral-contrast); }
+.dw-text-input:has(.dw-text-input__value[aria-invalid="true"]):not(:has(.dw-text-input__value:disabled))::after { border-color: var(--dw-stroke-critical-solid); }
 
 .dw-text-input:has(.dw-text-input__value:disabled),
 .dw-text-input:has(.dw-text-input__value[readonly]):not(.dw-text-input--underline) { background-color: var(--dw-bg-disabled); }
@@ -515,6 +523,7 @@ button.dw-text-input__icon:focus-visible { outline: 2px solid var(--dw-stroke-fo
 }
 
 .dw-dialog {
+  box-shadow: var(--dw-shadow-s3);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1490,6 +1499,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
 }
 
 .dw-alert-dialog__content {
+  box-shadow: var(--dw-shadow-s3);
   position: relative;
   box-sizing: border-box;
   width: 100%;
@@ -1562,6 +1572,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
 }
 
 .dw-bottom-sheet__content {
+  box-shadow: var(--dw-shadow-s3);
   --dw-sheet-offset: translateY(100%);
   position: relative;
   display: flex;
@@ -1744,6 +1755,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
 }
 
 .dw-side-sheet__content {
+  box-shadow: var(--dw-shadow-s3);
   --dw-sheet-offset: translateX(100%);
   position: absolute;
   top: 0;
@@ -2216,6 +2228,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
 }
 
 .dw-toast {
+  box-shadow: var(--dw-shadow-s2);
   --dw-floating-scale: 0.8;
   display: flex;
   align-items: center;
@@ -4080,6 +4093,10 @@ tbody > .dw-table__row:last-child > .dw-table__cell { border-bottom: 0; }
 }
 
 .dw-callout__close > svg { width: var(--dw-spacing-x4); height: var(--dw-spacing-x4); }
+@media (pointer: coarse) {
+  .dw-callout__close { position: relative; }
+  .dw-callout__close::before { content: ""; position: absolute; inset: -2px; }
+}
 .dw-callout__close:focus-visible { outline-color: var(--dw-stroke-focus-ring); }
 .dw-callout__close:active { scale: var(--dw-scale-s97); background: var(--dw-bg-transparent-pressed); }
 

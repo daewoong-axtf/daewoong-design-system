@@ -15,7 +15,7 @@
 
 ## 정본 우선순위
 
-`design/tokens.json` > `design/components/<name>.md` > `design/component.html`
+`design/tokens.json` > `design/components/<name>.md` > `design/storybook.html`
 
 `tokens.css`는 `tokens.json`에서 생성된다(`pnpm build:tokens`). 충돌하면 `tokens.json`이 이긴다.
 

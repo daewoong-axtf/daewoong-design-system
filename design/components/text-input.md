@@ -1,6 +1,6 @@
 # Text Input
 
-> 클래스 `.dw-text-input` · 레퍼런스 [component.html#text-input](../component.html#text-input)
+> 클래스 `.dw-text-input` · 레퍼런스 [storybook.html#text-input](../storybook.html#text-input)
 
 ## 개요
 
@@ -89,10 +89,10 @@ underline은 좌우 여백·모서리가 없다.
 | 상태 | 트리거 | 변화 | 전환 |
 | --- | --- | --- | --- |
 | Enabled | — | 1px weak 테두리 | — |
-| Focus | Value에 포커스(`:focus-within`) | 2px contrast 테두리. readonly면 바뀌지 않음 | `border-color` 100ms `easing-easing` |
+| Focus | Value에 포커스(`:focus-within`) | 2px contrast 테두리. readonly도 같다(키보드 사용자에게 위치를 보인다) | `border-color` 100ms `easing-easing` |
 | Invalid | `aria-invalid="true"` | 2px critical 테두리 | 같음 |
 | Disabled | `disabled` | `bg-disabled`(outline), 글자 `fg-disabled`, `cursor: not-allowed` | — |
-| Readonly | `readonly` | outline: `bg-disabled`, underline: 글자 `fg-neutral-muted`. 포커스 테두리 없음 | — |
+| Readonly | `readonly` | outline: `bg-disabled`, underline: 글자 `fg-neutral-muted` | — |
 
 포커스 표시는 outline 링이 아니라 위 테두리로 한다(`outline: none`). 자동완성 노란 배경은 지운다.
 
@@ -109,6 +109,14 @@ underline은 좌우 여백·모서리가 없다.
 | --- | --- |
 | Tab | Value로 진입·이탈 |
 | Esc | (검색 입력에서) 값 지우기 — 선택 사항 |
+
+### 구현 세부
+
+- 상태는 Value(`disabled`·`readonly`·`aria-invalid`)에 걸고, Root 스타일은 `:has()`로 잡는다. 예: `.dw-text-input:has(.dw-text-input__value:disabled)`.
+- 포커스·오류 테두리는 Root의 `::after`(absolute, `inset: 0`, 투명 2px border)로 그리고 `border-color`를 바꾼다.
+- 지우기 버튼 마크업은 `<button class="dw-text-input__icon" type="button" aria-label="입력 지우기" data-dw-clear>`이고 값이 없으면 `hidden`이다. 터치 화면에서 히트 영역은 44px다.
+- disabled·readonly에서도 `shadow-s1`을 유지한다. disabled와 invalid가 함께 오면 disabled가 이긴다.
+- textarea `min-height`는 표의 값을 그대로 쓴다. 줄 높이로 계산한 값과 1px 다를 수 있다.
 
 ## Responsive
 

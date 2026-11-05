@@ -1,6 +1,6 @@
 # Segmented Control
 
-> 클래스 `.dw-segmented` · 레퍼런스 [component.html#segmented-control](../component.html#segmented-control)
+> 클래스 `.dw-segmented` · 레퍼런스 [storybook.html#segmented-control](../storybook.html#segmented-control)
 
 ## 개요
 

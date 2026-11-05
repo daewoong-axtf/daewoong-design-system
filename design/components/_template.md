@@ -1,6 +1,6 @@
 # <Name>
 
-> 클래스 `.dw-<name>` · 레퍼런스 [component.html#<name>](../component.html#<name>)
+> 클래스 `.dw-<name>` · 레퍼런스 [storybook.html#<name>](../storybook.html#<name>)
 
 ## 개요
 

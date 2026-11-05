@@ -1,6 +1,6 @@
 # Card
 
-> 클래스 `.dw-card` · 레퍼런스 [component.html#card](../component.html#card)
+> 클래스 `.dw-card` · 레퍼런스 [storybook.html#card](../storybook.html#card)
 
 ## 개요
 

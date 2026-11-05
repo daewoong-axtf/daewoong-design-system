@@ -14,7 +14,7 @@ test('every spec has its class in components.css', () => {
   for (const f of specs) {
     const cls = /클래스 `(\.dw-[\w-]+)`/.exec(read(`components/${f}`))?.[1]
     assert.ok(cls, `${f}: 머리글에 클래스가 없다`)
-    assert.ok(css.includes(cls) || read('component.html').includes(cls.slice(1)), `${f}: ${cls}`)
+    assert.ok(css.includes(cls) || read('storybook.html').includes(cls.slice(1)), `${f}: ${cls}`)
   }
 })
 

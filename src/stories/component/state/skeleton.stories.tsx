@@ -24,7 +24,7 @@ export const Default: Story = {}
 
 export const ListRow: Story = {
   render: () => (
-    <div className="flex w-80 items-center gap-3" aria-busy="true" aria-label="불러오는 중">
+    <div className="flex w-80 items-center gap-3" role="status" aria-busy="true" aria-label="불러오는 중">
       <Skeleton className="size-10 rounded-full" />
       <div className="flex flex-1 flex-col gap-2">
         <Skeleton className="h-[19px] w-full" />

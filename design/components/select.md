@@ -1,6 +1,6 @@
 # Select
 
-> 클래스 `.dw-select` · 레퍼런스 [component.html#select](../component.html#select)
+> 클래스 `.dw-select` · 레퍼런스 [storybook.html#select](../storybook.html#select)
 
 ## 개요
 

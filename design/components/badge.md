@@ -1,6 +1,6 @@
 # Badge
 
-> 클래스 `.dw-badge` · 레퍼런스 [component.html#badge](../component.html#badge)
+> 클래스 `.dw-badge` · 레퍼런스 [storybook.html#badge](../storybook.html#badge)
 
 ## 개요
 

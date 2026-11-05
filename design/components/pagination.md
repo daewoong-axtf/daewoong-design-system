@@ -1,6 +1,6 @@
 # Pagination
 
-> 클래스 `.dw-pagination` · 레퍼런스 [component.html#pagination](../component.html#pagination)
+> 클래스 `.dw-pagination` · 레퍼런스 [storybook.html#pagination](../storybook.html#pagination)
 
 ## 개요
 

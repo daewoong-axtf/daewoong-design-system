@@ -1,6 +1,6 @@
 # Dialog
 
-> 클래스 `.dw-dialog` · 레퍼런스 [component.html#dialog](../component.html#dialog)
+> 클래스 `.dw-dialog` · 레퍼런스 [storybook.html#dialog](../storybook.html#dialog)
 
 ## 개요
 
@@ -109,6 +109,19 @@ WAI-ARIA APG **Dialog (Modal)** 패턴을 따른다.
 | --- | --- |
 | Tab / Shift+Tab | Content 안에서 다음/이전 요소, 끝에서 처음으로 순환 |
 | Esc | 닫기(dismissible일 때) |
+
+### 구현 세부
+
+- 트리거 하나에 `data-dw-open="<id>"`를 붙인다. `<button>`에는 항상 `type="button"`과 Button 클래스를 쓴다.
+- Backdrop·Content의 `data-state`는 `open`·`closed` 두 값이다. Closing은 `closed` 상태의 CSS 애니메이션이고, 끝나면 Root를 `hidden`으로 바꾼다. 열기와 닫기 모션이 달라 transition이 아니라 keyframes를 쓴다.
+- Positioner가 Backdrop을 덮는다. 바깥 클릭은 Positioner의 클릭 대상이 Content 밖일 때로 판단한다.
+- `data-dismissible="false"`는 Root에 붙인다.
+- 처음 포커스: `data-dw-autofocus` → Close 버튼과 critical 버튼을 뺀 첫 포커스 가능 요소 → Content 순서다.
+- Body가 스크롤되면 `data-scrolled`, 아래로 더 넘치면 `data-overflow`를 붙인다. 넘치는 Body는 키보드로 스크롤할 수 있게 `tabindex="0"`이다.
+- Close의 위치 28px·24px은 아이콘 기준이다. 버튼은 `margin: -15px`, `padding: 15px`로 아이콘을 둘러싼다.
+- 그림자는 [`design.md` 7장](../design.md#7-깊이)의 `shadow-s3`다.
+- 뒤 화면 `inert`는 Root를 `body` 바로 아래로 옮긴 뒤 그 형제에 건다.
+- 주 버튼은 자동으로 닫지 않는다. 화면이 작업을 끝내고 닫는다. 보조 버튼은 `neutral-weak`, 닫기만 하면 `data-dw-close`를 붙인다.
 
 ## Responsive
 

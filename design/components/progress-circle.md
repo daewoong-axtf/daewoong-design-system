@@ -1,6 +1,6 @@
 # Progress Circle (Spinner)
 
-> 클래스 `.dw-progress-circle` · 레퍼런스 [component.html#progress-circle](../component.html#progress-circle)
+> 클래스 `.dw-progress-circle` · 레퍼런스 [storybook.html#progress-circle](../storybook.html#progress-circle)
 
 ## 개요
 

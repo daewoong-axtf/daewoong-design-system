@@ -1,6 +1,6 @@
 # Button
 
-> 클래스 `.dw-button` · 레퍼런스 [component.html#button](../component.html#button)
+> 클래스 `.dw-button` · 레퍼런스 [storybook.html#button](../storybook.html#button)
 
 ## 개요
 
@@ -50,7 +50,7 @@
 - 폰트 두께는 모든 variant에서 `font-weight-bold`(700). `ghost`도 같다.
 - 아이콘 색은 글자색(`currentColor`)을 따른다.
 - `outline` 계열 테두리는 1px `solid`, 그림자 `shadow-s1`.
-- 높이 32·36px 버튼은 터치 화면에서 히트 영역을 44px로 넓힌다(투명 `::before { inset: -6px … }`). 시각 크기는 바꾸지 않는다.
+- 높이 32·36·40px 버튼은 터치 화면에서 히트 영역을 44px로 넓힌다(투명 `::before`). 시각 크기는 바꾸지 않는다.
 
 ### 색
 
@@ -112,6 +112,15 @@
 | --- | --- |
 | Enter · Space | 실행(`<button>` 기본 동작) |
 | Tab | 다음 요소로 이동(disabled `<button>`은 건너뜀) |
+
+### 구현 세부
+
+- Label은 항상 `<span>`으로 감싼다. loading일 때 Label을 `opacity: 0`으로 숨겨 폭과 접근 가능한 이름을 유지한다. `visibility: hidden`을 쓰면 이름이 사라진다.
+- 스피너는 Root의 마지막 자식 `<span class="dw-button__spinner" aria-hidden="true">`이고 `border` 2px로 그린다. Root에 `data-loading aria-busy="true"`를 붙이며 `disabled`는 붙이지 않는다. 키보드 포커스가 유지돼야 한다.
+- loading은 cursor `progress`, 누름 축소 없음. disabled와 함께 쓰지 않는다. `prefers-reduced-motion`에서는 회전 주기를 3초로 늦춘다.
+- outline 계열의 1px 테두리는 border로 그려 Root 폭에 포함한다(`box-sizing: border-box`).
+- "터치 화면"은 `@media (pointer: coarse)`다. 히트 영역은 투명 `::before`로 넓혀 레이아웃을 바꾸지 않는다.
+- `.dw-button`만 쓰면 모양이 없다. variant·size 클래스를 항상 같이 쓴다.
 
 ## Responsive
 

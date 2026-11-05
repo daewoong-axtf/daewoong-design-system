@@ -1,6 +1,6 @@
 # Tooltip
 
-> 클래스 `.dw-tooltip` · 레퍼런스 [component.html#tooltip](../component.html#tooltip)
+> 클래스 `.dw-tooltip` · 레퍼런스 [storybook.html#tooltip](../storybook.html#tooltip)
 
 ## 개요
 

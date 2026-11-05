@@ -1,6 +1,6 @@
 # Dropdown Menu
 
-> 클래스 `.dw-menu` · 레퍼런스 [component.html#dropdown-menu](../component.html#dropdown-menu)
+> 클래스 `.dw-menu` · 레퍼런스 [storybook.html#dropdown-menu](../storybook.html#dropdown-menu)
 
 ## 개요
 
