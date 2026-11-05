@@ -39,7 +39,7 @@ export const NAV_GROUPS: { label: string; ids: string[] }[] = [
 /** 메뉴 검색 별칭 — 메뉴에 보이는 말과 다른 언어로 찾아도 나오게 한다 */
 const SEARCH_ALIASES: Record<string, string> = {
   font: '폰트 서체 글꼴 pretendard font typeface', 'z-index': 'z-index 쌓임 순서 레이어 앞뒤 겹침 overlay 딤 modal',
-  ci: 'ci 로고 logo 엠블럼 심볼 브랜드 대웅제약',
+  ci: 'ci 로고 logo 엠블럼 심볼 브랜드 대웅제약 영문 english daewoong',
   introduction: '소개 시작 사용법 개요 overview readme',
   palette: 'color 색 컬러', roles: 'role token 토큰 색 bg fg stroke', type: 'typography font 글자 폰트', 'text-style': 'text style 글자', spacing: 'spacing margin padding 여백',
   radius: 'radius 라운드', shadow: 'shadow depth 그림자', 'control-height': 'height size 크기', motion: 'motion animation easing 애니메이션', interaction: 'interaction focus hover pressed 포커스 상태',

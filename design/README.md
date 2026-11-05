@@ -14,7 +14,7 @@
 2. [`tokens.json`](tokens.json) — 값의 정본
 3. `components/<name>.md` — 구현할 컴포넌트 명세 ([템플릿](components/_template.md))
 4. [`storybook.html`](storybook.html) — 동작하는 예시. 마크업은 여기서 복사한다
-5. 필요할 때 [`guides/`](guides/) — [접근성](guides/accessibility.md), [상호작용](guides/interaction.md), [UX 문구](guides/ux-writing.md), [콘텐츠·다국어](guides/content-i18n.md), [UX 가이드라인](guides/ux-guideline.md)
+5. 필요할 때 [`guides/`](guides/) — [접근성](guides/accessibility.md), [상호작용](guides/interaction.md), [UX 문구](guides/ux-writing.md), [콘텐츠·다국어](guides/content-i18n.md), [UX 가이드라인](guides/ux-guideline.md). 기본안이므로 서비스에 맞게 고쳐 쓴다
 
 ## 정본 우선순위
 
@@ -34,6 +34,7 @@
 | `js/components.js` | 브라우저가 읽는 동작 파일 | 생성 — `pnpm build:catalog` |
 | `icons/` | 아이콘 SVG·`sprite.svg`·`icons.json` | 생성 — `pnpm build:icons` |
 | `brand/` | 회사 로고(CI) SVG·PNG·원본 AI | 수정 금지. 교체할 때 통째로 바꾼다 |
+| `guides/*.md` | UX·문구·인터랙션·콘텐츠·접근성 기본안. 정본 우선순위에 들지 않는다 | 서비스 성격에 맞게 자유롭게 |
 | `fonts/` | Pretendard 공식 동적 서브셋·라이선스 | 수정 금지. 버전을 올릴 때 통째로 교체 |
 | `storybook.html` | 토큰과 컴포넌트를 한 페이지에서 보는 카탈로그. 마크업 레퍼런스 | 절은 직접, 아이콘·메뉴 구역은 생성 — `pnpm build:catalog` |
 | `catalog.css` · `js/catalog.js` | 카탈로그 페이지 틀. 제품에 쓰지 않는다 | 직접 |

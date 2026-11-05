@@ -1,6 +1,8 @@
 # UX 가이드
 
 > 유저플로우를 설계할 때 따르는 사용성 원칙과 화면 형태·목록·요소 배치 기준을 정한다.
+>
+> 기본안이다. 서비스 성격에 맞게 고쳐 쓴다.
 
 이 문서는 무엇을 어디에 둘지를 정한다. 그것이 어떻게 움직이는지는 [interaction.md](interaction.md)가 정본이다. 접근성은 [accessibility.md](accessibility.md), 문구는 [ux-writing.md](ux-writing.md), 날짜·숫자는 [content-i18n.md](content-i18n.md)를 따른다. 언어·프레임워크별 구현은 [design.md 14장](../design.md#14-환경별-적용)을 따른다.
 

@@ -90,6 +90,6 @@ test('design.md lists every breakpoint with its token value', () => {
 
 test('brand files exist and the unofficial white logo stays out', () => {
   const files = readdirSync(join(DESIGN, 'brand'))
-  for (const f of ['ci-kor.svg', 'ci-kor.png', 'ci-kor-on-dark.svg', 'ci-kor-on-dark.png', 'emblem.svg', 'emblem.png', 'ci-kor.ai']) assert.ok(files.includes(f), f)
-  assert.equal(files.length, 7)
+  for (const f of ['ci-en.svg', 'ci-en-on-dark.svg', 'ci-kor.svg', 'ci-kor.png', 'ci-kor-on-dark.svg', 'ci-kor-on-dark.png', 'emblem.svg', 'emblem.png', 'ci-kor.ai']) assert.ok(files.includes(f), f)
+  assert.equal(files.length, 9)
 })
