@@ -54,6 +54,8 @@ export function buildCss(tokens: Tokens): string {
     ...lines(tokens.spacing, 'spacing-'),
     ...lines(tokens.radius, 'radius-'),
     ...lines(tokens.breakpoint, 'breakpoint-'),
+    ...lines(tokens.grid, 'grid-'),
+    ...lines(tokens.ratio, 'ratio-'),
     ...lines(tokens.zIndex, 'z-'),
     ...lines(motion.duration, 'duration-'),
     ...lines(motion.easing, 'easing-'),

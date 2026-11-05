@@ -103,6 +103,14 @@ test('shadcn.css adds the breakpoints Tailwind does not have', () => {
 test('foundation spec links point at a design.md heading', () => {
   const slugs = [...read('design.md').matchAll(/^#{2,3} (.+)$/gm)].map((m) => m[1].toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu, '').trim().replace(/\s+/g, '-'))
   const links = [...read('storybook.html').matchAll(/<h2>[^<]+<a href="design\.md#([^"]+)">명세<\/a><\/h2>/g)].map((m) => m[1])
-  assert.equal(links.length, 16)
+  assert.equal(links.length, 18)
   for (const slug of links) assert.ok(slugs.includes(slug), slug)
+})
+
+test('design.md lists every grid and ratio token', () => {
+  const doc = read('design.md')
+  const tokens = JSON.parse(read('tokens.json')) as Record<'grid' | 'ratio', Record<string, string>>
+  for (const group of ['grid', 'ratio'] as const) {
+    for (const name of Object.keys(tokens[group])) assert.ok(doc.includes(`${group}-${name}`), name)
+  }
 })

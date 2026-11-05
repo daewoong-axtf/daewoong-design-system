@@ -5,7 +5,7 @@
 ## 개요
 
 버튼(주로 `ellipsis` 아이콘 버튼)을 누르면 **행동 목록**을 띄운다(수정·공유·삭제).
-**쓰지 말 것** — 값 선택(Select), 페이지 이동 내비게이션(Side/Top Navigation), 설명·폼(Popover).
+**쓰지 말 것** — 폼에 제출할 값 선택(Select), 페이지 이동 내비게이션(Side/Top Navigation), 설명·폼(Popover).
 
 ## Anatomy
 
@@ -18,6 +18,7 @@
 | Item | `.dw-menu__item` | ✓ | `role="menuitem"` `<button>` |
 | Item icon | `.dw-menu__item-icon` | | 앞 아이콘 |
 | Item label · description | `.dw-menu__item-label` · `.dw-menu__item-description` | ✓ · | |
+| Item check | `.dw-menu__item-check` | 선택 항목일 때 | 맨 뒤 체크 아이콘. `aria-checked="true"`일 때 보인다 |
 
 ```html
 <button type="button" class="dw-button dw-button--ghost dw-button--icon-only" aria-label="더 보기"
@@ -41,6 +42,14 @@
 | size | `small` · `medium` · `responsive` | `responsive` | `.dw-menu--<size>` (`responsive`는 1280 미만 medium) |
 | item tone | `neutral` · `critical` | `neutral` | `.dw-menu__item--critical` |
 | item disabled | boolean | false | `disabled` / `aria-disabled="true"` |
+| item role | `menuitem` · `menuitemcheckbox` · `menuitemradio` | `menuitem` | `role`, 선택 항목은 `aria-checked` |
+
+선택 항목은 Root에 `dw:menu-change`를 낸다.
+
+| role | 누르면 | 쓰는 곳 |
+| --- | --- | --- |
+| `menuitemcheckbox` | 켜고 끄며 메뉴는 열려 있다 | 표의 보이는 열 |
+| `menuitemradio` | 같은 `role="group"` 안에서 하나만 켜지고 메뉴가 닫힌다 | 정렬 기준 |
 
 ## Specification
 

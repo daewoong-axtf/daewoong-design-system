@@ -24,12 +24,12 @@ function symbols(): string {
 
 /** 페이지의 절도 아래 순서로 놓는다 */
 const INTRO_ID = 'introduction'
-const FOUNDATION_IDS = ['ci', 'palette', 'roles', 'font', 'type', 'text-style', 'spacing', 'radius', 'shadow', 'z-index', 'control-height', 'pattern', 'motion', 'interaction', 'icons', 'breakpoint', 'layout']
+const FOUNDATION_IDS = ['ci', 'palette', 'roles', 'font', 'type', 'text-style', 'spacing', 'radius', 'shadow', 'z-index', 'control-height', 'pattern', 'motion', 'interaction', 'icons', 'breakpoint', 'layout', 'grid', 'ratio']
 
 /** 사이드바 묶음 — Storybook Component 메뉴와 같다 */
 export const NAV_GROUPS: { label: string; ids: string[] }[] = [
-  { label: 'Actions', ids: ['button', 'filter-button'] },
-  { label: 'Inputs', ids: ['field', 'form', 'text-input', 'password-input', 'input-group', 'search-input', 'checkbox', 'radio', 'switch', 'slider', 'select', 'searchable-select', 'combobox', 'calendar', 'date-picker', 'time-select', 'time-picker', 'segmented-control', 'filter-sheet', 'filter-tags'] },
+  { label: 'Actions', ids: ['button', 'filter-button', 'action-area'] },
+  { label: 'Inputs', ids: ['field', 'form', 'text-input', 'password-input', 'input-group', 'search-input', 'checkbox', 'radio', 'choice-card', 'switch', 'slider', 'select', 'searchable-select', 'combobox', 'calendar', 'date-picker', 'time-select', 'time-picker', 'segmented-control', 'filter-sheet', 'filter-tags'] },
   { label: 'Feedback', ids: ['dialog', 'alert-dialog', 'bottom-sheet', 'side-sheet', 'popover', 'dropdown-menu', 'tooltip', 'info-tooltip', 'toast', 'callout', 'connection-status-banner'] },
   { label: 'Display', ids: ['accordion', 'avatar', 'badge', 'status-badge', 'card', 'stat-card', 'chip', 'collapsible', 'divider', 'form-section', 'list', 'reveal', 'table', 'timeline'] },
   { label: 'Navigation', ids: ['breadcrumb', 'list-footer', 'page-header', 'pagination', 'side-navigation', 'stepper', 'tabs', 'top-navigation'] },
@@ -44,7 +44,7 @@ const SEARCH_ALIASES: Record<string, string> = {
   palette: 'color 색 컬러', roles: 'role token 토큰 색 bg fg stroke', type: 'typography font 글자 폰트', 'text-style': 'text style 글자', spacing: 'spacing margin padding 여백',
   radius: 'radius 라운드', shadow: 'shadow depth 그림자', 'control-height': 'height size 크기', motion: 'motion animation easing 애니메이션', interaction: 'interaction focus hover pressed 포커스 상태',
   pattern: 'pattern hatch 빗금 차단',
-  icons: 'icon lucide', breakpoint: 'breakpoint 브레이크포인트 반응형 화면 크기 모바일 태블릿', layout: 'layout 레이아웃 여백 너비 gutter',
+  icons: 'icon lucide', breakpoint: 'breakpoint 브레이크포인트 반응형 화면 크기 모바일 태블릿', layout: 'layout 레이아웃 여백 너비 gutter', grid: 'grid 그리드 컬럼 column 칸 단 최대 너비 아트보드 화면 크기', ratio: 'ratio 비율 aspect 썸네일 이미지 thumbnail', 'action-area': '하단 버튼 액션 영역 고정 bottom cta', 'choice-card': '선택 카드 옵션 요금제 frame',
   form: '폼 제출 검증', 'form-section': '폼 묶음 섹션', 'password-input': '비밀번호 패스워드', 'input-group': '입력 그룹 단위 addon', 'search-input': '검색창', 'info-tooltip': '도움말 물음표 툴팁',
   calendar: '달력 캘린더', 'date-picker': '날짜 선택 datepicker', 'time-select': '시간 선택', 'time-picker': '시간 입력', combobox: '콤보박스 자동완성 비동기 async api autocomplete', 'searchable-select': '검색 셀렉트',
   'filter-button': '필터 버튼', 'filter-sheet': '필터 시트 조회 조건', 'filter-tags': '필터 태그 칩', 'list-footer': '목록 하단 건수', 'page-header': '페이지 제목 헤더', collapsible: '접기 펼치기', 'stat-card': '통계 지표 카드 kpi', timeline: '타임라인 이력',

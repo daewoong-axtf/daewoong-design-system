@@ -14,6 +14,8 @@ export interface Tokens {
   spacing: TokenMap
   radius: TokenMap
   breakpoint: TokenMap
+  grid: TokenMap
+  ratio: TokenMap
   zIndex: TokenMap
   shadow: ModeMap
   typography: {

@@ -15,6 +15,8 @@
 | Value | `.dw-text-input__value` | ✓ | `<input>` 또는 `<textarea>` |
 | Affix | `.dw-text-input__affix` | | 앞뒤 글자 |
 | Addon | `.dw-input-group__addon` | | 버튼·글자를 담는 칸. 값 앞뒤 어느 쪽이든 |
+| Input Action | `.dw-input-action` | | 입력 옆에 버튼을 붙이는 틀. Input Group 없이 쓴다 |
+| Action button | `.dw-input-action__button` | | 입력과 한 덩어리로 붙은 글자 버튼 |
 
 ```html
 <div class="dw-text-input dw-text-input--medium dw-input-group">
@@ -37,6 +39,22 @@
 </div>
 ```
 
+입력과 별개의 행동은 테두리 밖에 붙인다. 포커스와 오류 테두리는 입력 칸에만 그린다.
+
+```html
+<div class="dw-input-action">
+  <div class="dw-text-input dw-text-input--responsive">
+    <input class="dw-text-input__value" aria-label="아이디">
+  </div>
+  <button class="dw-input-action__button" type="button">중복 확인</button>
+</div>
+```
+
+| 쓰는 곳 | 고르는 것 |
+| --- | --- |
+| 값을 바꾸는 작은 행동(적용, 복사) | Addon 안의 버튼 |
+| 값을 확인하거나 다음 단계로 가는 행동(중복 확인, 인증번호 받기) | Action button |
+
 ## Properties
 
 | 속성 | 값 | 기본값 | 표현 |
@@ -56,6 +74,21 @@
 | `responsive` | `xsmall` 32px | 1280px 미만 8px `x2`, 이상 4px `x1` |
 
 Addon 안 gap은 4px `x1`이다. 그 밖의 치수는 [Text Input](text-input.md)을 따른다.
+
+### Action button
+
+| 항목 | 값 |
+| --- | --- |
+| 높이 | 옆 입력과 같다 |
+| 좌우 여백 | 16px `x4` |
+| 글자 | t4 14/19 bold, `fg-brand-contrast` |
+| 테두리 | `inset 0 0 0 1px stroke-neutral-weak`, 그림자 `shadow-s1`. 입력과 1px 겹친다 |
+| 모서리 | 오른쪽만 입력의 모서리와 같다. 입력은 오른쪽 모서리를 없앤다 |
+| hover · pressed | `bg-transparent-pressed` |
+| focus | 2px `stroke-focus-ring`, 안쪽으로 그린다 |
+| disabled | `bg-disabled`, `fg-disabled`, `cursor: not-allowed` |
+
+입력이 disabled이면 버튼에도 `disabled`를 준다. 입력이 오류여도 버튼은 그대로다. 다시 확인할 수 있어야 한다.
 
 ### stacked
 

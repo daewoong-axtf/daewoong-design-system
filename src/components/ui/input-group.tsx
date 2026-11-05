@@ -162,7 +162,37 @@ function InputGroupTextarea({
   )
 }
 
+// (DW 커스텀) 입력 옆에 붙인 버튼. 명세는 design/components/input-group.md
+function InputAction({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="input-action"
+      className={cn(
+        "flex w-full min-w-0 items-stretch [&>[data-slot=input]]:relative [&>[data-slot=input]]:rounded-r-none [&>[data-slot=input]]:focus-visible:z-10 [&>[data-slot=input]]:aria-invalid:z-10",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function InputActionButton({ className, type = "button", ...props }: React.ComponentProps<"button">) {
+  return (
+    <button
+      type={type}
+      data-slot="input-action-button"
+      className={cn(
+        "relative -ml-px shrink-0 cursor-pointer rounded-r-md border border-input bg-transparent px-4 text-sm font-bold whitespace-nowrap text-[var(--dw-fg-brand-contrast)] shadow-xs outline-none hover:bg-accent focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:bg-[var(--dw-bg-disabled)] disabled:text-[var(--dw-fg-disabled)]",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
 export {
+  InputAction,
+  InputActionButton,
   InputGroup,
   InputGroupAddon,
   InputGroupButton,

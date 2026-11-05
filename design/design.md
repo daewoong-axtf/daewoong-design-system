@@ -369,6 +369,38 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 - 가로로 눕힌 휴대폰은 너비가 넓어도 모바일이다. 높이 500px 이하 가로 화면(`(max-height: 500px) and (orientation: landscape)`)에는 데스크톱 배치를 쓰지 않는다.
 - 모바일 키보드가 올라오면 시트와 하단 고정 버튼을 키보드 위로 민다(`visualViewport` 높이 기준).
 
+### 9.3 그리드
+
+값은 `tokens.json`의 `grid`에 있다. 카탈로그의 [그리드](storybook.html#grid)에서 볼 수 있다.
+
+| 화면 | 범위 | 칸 수 | 토큰 |
+| --- | --- | --- | --- |
+| 모바일 | `md` 미만 | 2 | `grid-columns-mobile` |
+| 태블릿 | `md`부터 | 4 | `grid-columns-tablet` |
+| 데스크톱 | `lg`부터 | 12 | `grid-columns-desktop` |
+
+- 칸 사이 간격은 화면 너비와 상관없이 `grid-gap`(20px)이다. 칸의 너비는 화면에 맞춰 늘어난다.
+- 화면 좌우 여백은 9.1의 값을 쓴다. 최대 너비는 정보형 페이지 `grid-max-width-content`(1040px), 넓은 목록·대시보드 `grid-max-width-wide`(1280px)다. 여백을 뺀 콘텐츠 너비 기준이다.
+- 요소는 칸을 묶어 놓는다. 예: 데스크톱에서 필터 3칸 + 본문 9칸, 카드 4칸씩 3개.
+
+서버 템플릿 웹은 `.dw-container`와 `.dw-grid`, React는 `Container`·`Grid`·`GridItem`을 쓴다. 쓰는 방법은 [Grid 명세](components/grid.md)를 따른다.
+
+시안을 그릴 때는 웹 데스크톱 1440×960px, 웹 모바일 375×635px, iOS 375×812pt(최소 375×667pt), Android 360×800dp(최소 360×640dp)를 기준으로 한다.
+
+### 9.4 비율
+
+이미지와 동영상이 들어갈 자리를 비율로 먼저 잡는다. 내용이 늦게 도착해도 아래 내용이 밀리지 않는다. 값은 `tokens.json`의 `ratio`에 있다.
+
+| 토큰 | 값 | 클래스 | 쓰임 |
+| --- | --- | --- | --- |
+| `ratio-square` | 1 / 1 | `.dw-ratio--square` | 프로필, 정사각 썸네일 |
+| `ratio-landscape` | 4 / 3 | `.dw-ratio--landscape` | 목록 썸네일 |
+| `ratio-video` | 16 / 9 | `.dw-ratio` (기본) | 동영상, 차트 영역, 대표 이미지 |
+
+- `.dw-ratio` 안의 이미지·동영상은 칸을 채우고 넘치는 부분은 잘린다(`object-fit: cover`).
+- 이미지에 `alt`를 준다. 장식이면 `alt=""`이다.
+- 잘리면 안 되는 이미지(도표, 로고)에는 쓰지 않는다.
+
 ## 10. 아이콘
 
 [Lucide](https://lucide.dev) (ISC). 쓰는 아이콘만 [`icons/`](icons/)에 들어 있고, 언어와 상관없이 파일만 읽으면 된다.

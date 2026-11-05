@@ -1,5 +1,6 @@
 "use client"
 
+import { CircleCheckIcon } from "lucide-react"
 import { useMemo } from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
@@ -234,7 +235,23 @@ function FieldError({
   )
 }
 
+// (DW 커스텀) 확인을 마쳤을 때의 안내. 명세는 design/components/field.md
+function FieldSuccess({ className, children, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      role="status"
+      data-slot="field-success"
+      className={cn("flex gap-1.5 text-sm text-[var(--dw-fg-positive)]", className)}
+      {...props}
+    >
+      <CircleCheckIcon aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
+      {children}
+    </div>
+  )
+}
+
 export {
+  FieldSuccess,
   Field,
   FieldLabel,
   FieldDescription,

@@ -26,7 +26,7 @@
 
 | 파일 | 내용 | 수정 |
 | --- | --- | --- |
-| `tokens.json` | 색·간격·모서리·글자·모션·쌓임 순서·브레이크포인트 토큰 | 직접 |
+| `tokens.json` | 색·간격·모서리·글자·모션·쌓임 순서·브레이크포인트·그리드·비율 토큰 | 직접 |
 | `tokens.css` | `--dw-*` CSS 변수 | 생성 — `pnpm build:tokens` |
 | `shadcn.css` | shadcn 변수를 토큰에 연결 (Next.js·React) | 직접 |
 | `components.css` | 서버 템플릿 웹용 `dw-*` 클래스 | 직접 |

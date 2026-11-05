@@ -39,6 +39,18 @@
 </div>
 ```
 
+앞 아이콘은 Value 앞에 `.dw-select__icon`으로 넣는다. 상태 아이콘은 Chevron 앞에 둔다.
+
+```html
+<svg class="dw-select__icon" aria-hidden="true">…</svg>
+<span class="dw-select__value">서울</span>
+<span class="dw-select__status" aria-hidden="true">
+  <svg class="dw-select__status-critical">…circle-alert…</svg>
+  <svg class="dw-select__status-positive">…circle-check…</svg>
+</span>
+<svg class="dw-select__chevron" aria-hidden="true">…</svg>
+```
+
 ## Properties
 
 | 속성 | 값 | 기본값 | 표현 |
@@ -46,6 +58,10 @@
 | size | `medium` · `large` · `responsive` | `medium` | `.dw-select--<size>` (`responsive`는 1280 미만 large) |
 | value | 보기 하나 | 없음(placeholder) | Item `aria-selected="true"`, hidden input 값 |
 | invalid · disabled · readonly | boolean | false | Trigger `aria-invalid` / `disabled` / `aria-readonly` |
+| valid | boolean | false | Field Root에 `data-valid` |
+| leading icon | 아이콘 | 없음 | `.dw-select__icon` |
+
+긴 값은 한 줄에서 말줄임한다. 줄을 바꾸지 않는다. 전체 문구는 목록을 열어 확인한다. 값을 여러 개 고를 때는 [Combobox](combobox.md)의 `multiple`을 쓴다.
 
 ## Specification
 

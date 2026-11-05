@@ -1,0 +1,21 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Foundations/Grid" />
+
+# Grid
+
+화면을 세로 칸으로 나눠 요소를 맞추는 기준입니다. 칸 사이 간격은 항상 20px이고, 칸의 너비는 화면에 맞춰 늘어납니다.
+
+| 화면 | 범위 | 칸 수 | 토큰 |
+| --- | --- | --- | --- |
+| 모바일 | `md` 미만 | 2 | `--dw-grid-columns-mobile` |
+| 태블릿 | `md`부터 | 4 | `--dw-grid-columns-tablet` |
+| 데스크톱 | `lg`부터 | 12 | `--dw-grid-columns-desktop` |
+
+| 토큰 | 값 | 쓰임 |
+| --- | --- | --- |
+| `--dw-grid-gap` | 20px | 칸 사이 간격 |
+| `--dw-grid-max-width-content` | 1040px | 정보형 페이지 최대 너비 |
+| `--dw-grid-max-width-wide` | 1280px | 넓은 목록·대시보드 최대 너비 |
+
+요소는 칸을 묶어 놓습니다. 데스크톱에서는 필터 3칸 + 본문 9칸, 카드 4칸씩 3개처럼 씁니다. 쓰는 방법은 [Grid 컴포넌트](?path=/docs/component-display-grid--docs)를 봅니다.

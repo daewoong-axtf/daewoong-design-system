@@ -168,6 +168,11 @@
       value.removeAttribute('aria-invalid')
       value.setAttribute('aria-describedby', field.querySelector('.dw-field__description')?.id ?? '')
     }
+    // 확인을 마친 값이 바뀌면 성공 표시를 거둔다
+    if (field?.hasAttribute('data-valid')) {
+      field.removeAttribute('data-valid')
+      value.setAttribute('aria-describedby', field.querySelector('.dw-field__description')?.id ?? '')
+    }
   })
 
   /* ── 폼 제출 검증: 첫 오류 필드로 포커스 ── */
@@ -404,6 +409,10 @@
     if (field?.hasAttribute('data-invalid')) {
       field.removeAttribute('data-invalid')
       trigger.removeAttribute('aria-invalid')
+      trigger.setAttribute('aria-describedby', field.querySelector('.dw-field__description')?.id ?? '')
+    }
+    if (field?.hasAttribute('data-valid')) {
+      field.removeAttribute('data-valid')
       trigger.setAttribute('aria-describedby', field.querySelector('.dw-field__description')?.id ?? '')
     }
   }
@@ -735,6 +744,16 @@
     const item = target(e).closest('.dw-menu__item')
     const menu = item?.closest('.dw-menu')
     if (item && menu && !item.matches('[aria-disabled="true"]')) {
+      // 체크 항목은 여러 개를 고칠 수 있게 메뉴를 열어 둔다
+      if (item.matches('[role="menuitemcheckbox"]')) {
+        item.setAttribute('aria-checked', String(item.getAttribute('aria-checked') !== 'true'))
+        item.dispatchEvent(new CustomEvent('dw:menu-change', { bubbles: true }))
+        return
+      }
+      if (item.matches('[role="menuitemradio"]')) {
+        for (const other of item.closest('[role="group"]')?.querySelectorAll('[role="menuitemradio"]') ?? []) other.setAttribute('aria-checked', String(other === item))
+        item.dispatchEvent(new CustomEvent('dw:menu-change', { bubbles: true }))
+      }
       const opened = stack.find((m) => m.trigger === item)
       const inSheet = stack.find((m) => m.root.contains(menu) && m.root.matches('.dw-bottom-sheet'))
       if (opened) opened.trigger = popup?.trigger ?? inSheet?.trigger ?? null
@@ -878,7 +897,7 @@
 
   /* ── Toast: 한 번에 하나, hover·포커스 동안 타이머 정지 ── */
 
-  const TOAST_ICONS = { positive: 'circle-check', critical: 'circle-alert' }
+  const TOAST_ICONS = { positive: 'circle-check', warning: 'triangle-alert', critical: 'circle-alert' }
   let toast = null
 
   function closeToast(immediate = false) {

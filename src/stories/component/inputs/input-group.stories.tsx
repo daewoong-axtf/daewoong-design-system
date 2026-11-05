@@ -1,8 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { CopyIcon } from 'lucide-react'
+import { CircleAlertIcon, CircleCheckIcon, CopyIcon } from 'lucide-react'
 import { expect, fn, userEvent, within } from 'storybook/test'
 
+import { Field, FieldError, FieldLabel, FieldSuccess } from '@/components/ui/field'
+import { Input } from '@/components/ui/input'
 import {
+  InputAction,
+  InputActionButton,
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
@@ -101,4 +105,56 @@ export const Disabled: Story = {
       </InputGroupAddon>
     </InputGroup>
   ),
+}
+
+/** 값을 확인하거나 다음 단계로 가는 행동은 입력 옆에 붙인다 */
+export const AttachedButton: Story = {
+  render: () => {
+    const onCheck = fn()
+    return (
+      <Field className="w-80">
+        <FieldLabel htmlFor="ig-id">아이디</FieldLabel>
+        <InputAction>
+          <Input id="ig-id" />
+          <InputActionButton onClick={onCheck}>중복 확인</InputActionButton>
+        </InputAction>
+      </Field>
+    )
+  },
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByRole('button', { name: '중복 확인' })).toBeEnabled()
+  },
+}
+
+/** 오류와 성공은 아이콘과 메시지를 함께 보인다 */
+export const StatusIcons: Story = {
+  render: () => (
+    <div className="flex w-80 flex-col gap-4">
+      <Field data-invalid>
+        <FieldLabel htmlFor="ig-bad">아이디</FieldLabel>
+        <InputGroup>
+          <InputGroupInput id="ig-bad" aria-invalid defaultValue="dw 2026" />
+          <InputGroupAddon align="inline-end">
+            <CircleAlertIcon aria-hidden="true" className="text-[var(--dw-fg-critical)]" />
+          </InputGroupAddon>
+        </InputGroup>
+        <FieldError>띄어쓰기 없이 입력하세요</FieldError>
+      </Field>
+      <Field>
+        <FieldLabel htmlFor="ig-ok">아이디</FieldLabel>
+        <InputGroup>
+          <InputGroupInput id="ig-ok" defaultValue="dw-2026" />
+          <InputGroupAddon align="inline-end">
+            <CircleCheckIcon aria-hidden="true" className="text-[var(--dw-fg-positive)]" />
+          </InputGroupAddon>
+        </InputGroup>
+        <FieldSuccess>사용할 수 있는 아이디예요</FieldSuccess>
+      </Field>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByRole('status')).toHaveTextContent('사용할 수 있는 아이디예요')
+    await expect(canvas.getByRole('alert')).toHaveTextContent('띄어쓰기 없이 입력하세요')
+  },
 }

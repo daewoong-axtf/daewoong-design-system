@@ -16,7 +16,8 @@
 | Label | `.dw-field__label` | ✓(시각적으로 숨길 수는 있음) | `<label for>` |
 | Indicator | `.dw-field__indicator` | | `(필수)`/`(선택)` 텍스트 또는 6px 점 |
 | Control | 입력 컴포넌트 | ✓ | `.dw-text-input` 등 |
-| Footer | `.dw-field__footer` | | 설명·오류·글자 수 줄 |
+| Footer | `.dw-field__footer` | | 설명·오류·성공·글자 수 줄 |
+| Success message | `.dw-field__success` | | 확인을 마쳤을 때의 안내. Root에 `data-valid`가 있을 때만 보인다 |
 | Description | `.dw-field__description` | | 도움말 |
 | Error message | `.dw-field__error` | 오류일 때 | 오류 설명. 있으면 Description 대신 보인다 |
 | Character count | `.dw-field__count` | | `12/50` 형식, 오른쪽 정렬 |
@@ -43,6 +44,7 @@
 | indicator | 없음 · `required-text` · `optional-text` · `required-dot` | 없음 | Indicator 요소 유무와 내용 |
 | label weight | `medium` · `bold` | `medium` | `.dw-field__label--bold` |
 | invalid | boolean | false | 컨트롤에 `aria-invalid="true"`, Root에 `data-invalid` |
+| valid | boolean | false | Root에 `data-valid`. invalid가 함께 있으면 invalid가 이긴다 |
 | disabled | boolean | false | 컨트롤에 `disabled`, Root에 `data-disabled` |
 | max length | 숫자 | 없음 | Character count 표시 |
 
@@ -66,6 +68,7 @@
 | 상태 | 트리거 | 변화 | 전환 |
 | --- | --- | --- | --- |
 | Default | — | Description 표시 | — |
+| Valid | 형식 확인·서버 확인 통과 | Description 숨김, Success message 표시, 컨트롤 테두리는 그대로. 값이 바뀌면 `data-valid`가 풀린다 | 없음(즉시) |
 | Invalid | 제출 시 검증 실패, 또는 이미 오류였던 필드의 입력 변경 | Description 숨김, Error message 표시, 컨트롤 테두리 critical(컨트롤 명세), 글자 수 critical | 없음(즉시) |
 | Disabled | `disabled` | 컨트롤만 비활성 표현 | — |
 
@@ -92,6 +95,25 @@
 | 너비 | 변화 |
 | --- | --- |
 | 전체 | 없음. 폭은 부모를 가득 채운다(`width: 100%`) |
+
+## 성공 메시지
+
+성공은 확인 자체가 의미 있을 때만 쓴다(사용할 수 있는 아이디, 인증 완료). 색은 `fg-positive`, 글자는 오류 메시지와 같은 t4, 앞에 16px `circle-check` 아이콘을 둔다.
+
+```html
+<div class="dw-field" data-valid>
+  <div class="dw-field__header"><label class="dw-field__label" for="login-id">아이디</label></div>
+  <div class="dw-text-input dw-text-input--responsive">
+    <input class="dw-text-input__value" id="login-id" aria-describedby="login-id-ok" value="dw-2026">
+  </div>
+  <div class="dw-field__footer">
+    <p class="dw-field__error" id="login-id-err">…</p>
+    <p class="dw-field__success" id="login-id-ok" role="status">…circle-check…사용할 수 있는 아이디예요</p>
+  </div>
+</div>
+```
+
+`aria-describedby`는 지금 보이는 메시지를 가리킨다. 서버 확인처럼 나중에 나타나는 성공은 `role="status"`로 둬 스크린리더가 읽게 한다.
 
 ## Do / Don't
 

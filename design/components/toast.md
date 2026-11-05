@@ -13,7 +13,7 @@
 | --- | --- | --- | --- |
 | Region | `.dw-toast-region` | ✓ | 화면 하단 고정 영역, 페이지에 하나. `role="region" aria-label="알림"` |
 | Root | `.dw-toast` | ✓ | 검은 알약 상자 |
-| Icon | `.dw-toast__icon` | | positive·critical 일 때만 |
+| Icon | `.dw-toast__icon` | | positive·warning·critical 일 때만 |
 | Message | `.dw-toast__message` | ✓ | 한 문장 |
 | Action | `.dw-toast__action` | | 텍스트 버튼 하나 |
 
@@ -33,9 +33,16 @@
 
 | 속성 | 값 | 기본값 | 표현 |
 | --- | --- | --- | --- |
-| variant | `default` · `positive` · `critical` | `default` | `.dw-toast--<variant>` |
+| variant | `default` · `positive` · `warning` · `critical` | `default` | `.dw-toast--<variant>` |
 | action | 텍스트 | 없음 | Action 버튼 |
 | duration | ms | 4000 (Action 있으면 6000) | 동작 스크립트 |
+
+| variant | 아이콘 | 쓰는 곳 |
+| --- | --- | --- |
+| `default` | 없음 | 복사처럼 결과가 분명한 행동 |
+| `positive` | `circle-check` | 저장·전송 완료 |
+| `warning` | `triangle-alert` | 끝났지만 확인할 것이 있을 때, 일시적 불안정 |
+| `critical` | `circle-alert` | 실패 |
 
 ## Specification
 
@@ -43,7 +50,7 @@
 | --- | --- |
 | Region | `position: fixed`, 좌우 0, 아래 0(+ safe-area), padding 8px `x2`, 세로 쌓기 가운데 정렬, gap 8px, `z-toast`(모달 위)|
 | Root | 너비 100%, **max-width 464px**, min-height 44px, padding 10px `x2_5`, radius 8px `r2`, bg `bg-neutral-solid`, `display: flex; align-items: center` |
-| Icon | 24×24px, 오른쪽 padding 2px. positive·critical 모두 `fg-neutral-inverted`. 상태는 아이콘 모양으로 구분한다(반전된 면에서 상태색은 대비가 모자란다). default는 아이콘 없음 |
+| Icon | 24×24px, 오른쪽 padding 2px. positive·warning·critical 모두 `fg-neutral-inverted`. 상태는 아이콘 모양으로 구분한다(반전된 면에서 상태색은 대비가 모자란다). default는 아이콘 없음 |
 | Content | `flex: 1`, padding-inline 6px `x1_5`, gap 10px `x2_5`, `justify-content: space-between` |
 | Message | t4 14/19 regular, `fg-on-neutral-solid` |
 | Action | t4 14/19 **bold**, `fg-neutral-inverted`, 밑줄, 배경 없음(반전된 면이라 `fg-brand`는 대비가 모자란다). 히트 영역은 좌우 8px 더 넓고 높이 44px(`::after`) |

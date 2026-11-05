@@ -309,7 +309,8 @@
 }
 
 .dw-field__description,
-.dw-field__error {
+.dw-field__error,
+.dw-field__success {
   display: flex;
   gap: var(--dw-spacing-x1_5);
   margin: 0;
@@ -320,9 +321,11 @@
 
 .dw-field__description { color: var(--dw-fg-neutral-subtle); }
 .dw-field__error { color: var(--dw-fg-critical); }
+.dw-field__success { color: var(--dw-fg-positive); }
 
 .dw-field__description > svg,
-.dw-field__error > svg {
+.dw-field__error > svg,
+.dw-field__success > svg {
   flex-shrink: 0;
   width: 16px;
   height: 16px;
@@ -345,6 +348,8 @@
 
 .dw-field[data-invalid] .dw-field__description { display: none; }
 .dw-field:not([data-invalid]) .dw-field__error { display: none; }
+.dw-field[data-valid]:not([data-invalid]) .dw-field__description { display: none; }
+.dw-field:is(:not([data-valid]), [data-invalid]) .dw-field__success { display: none; }
 
 /* ── Text Input ───────────────────────────────────── */
 .dw-text-input {
@@ -1236,6 +1241,21 @@ html[data-dw-scroll-lock] { overflow: hidden; }
 
 .dw-select__value[data-placeholder] { color: var(--dw-fg-neutral-subtle); } /* 버튼 안 글자라 placeholder 대비 예외가 아니다 */
 
+.dw-select__icon,
+.dw-select__status > svg {
+  flex-shrink: 0;
+  width: var(--dw-select-icon);
+  height: var(--dw-select-icon);
+}
+
+.dw-select__icon { color: var(--dw-fg-neutral-muted); }
+.dw-select__status { display: contents; }
+.dw-select__status > svg { display: none; }
+.dw-select__status-critical { color: var(--dw-fg-critical); }
+.dw-select__status-positive { color: var(--dw-fg-positive); }
+.dw-select__trigger[aria-invalid="true"]:not(:disabled) .dw-select__status-critical,
+.dw-field[data-valid]:not([data-invalid]) .dw-select__status-positive { display: block; }
+
 .dw-select__chevron {
   flex-shrink: 0;
   width: var(--dw-select-icon);
@@ -2105,6 +2125,21 @@ html[data-dw-scroll-lock] { overflow: hidden; }
 }
 
 .dw-menu__item:has(> .dw-menu__item-icon) { grid-template-columns: auto minmax(0, 1fr); }
+.dw-menu__item:has(> .dw-menu__item-check) { grid-template-columns: minmax(0, 1fr) auto; }
+.dw-menu__item:has(> .dw-menu__item-icon):has(> .dw-menu__item-check) { grid-template-columns: auto minmax(0, 1fr) auto; }
+.dw-menu__item:has(> .dw-menu__item-check) > :is(.dw-menu__item-label, .dw-menu__item-description) { grid-column: -3 / span 1; }
+
+.dw-menu__item-check {
+  grid-column: -2;
+  grid-row: 1 / span 2;
+  width: var(--dw-menu-icon);
+  height: var(--dw-menu-icon);
+  color: var(--dw-fg-brand-contrast);
+  visibility: hidden;
+}
+
+.dw-menu__item[aria-checked="true"] > .dw-menu__item-check { visibility: visible; }
+.dw-menu__item:is(:disabled, [aria-disabled="true"]) > .dw-menu__item-check { color: var(--dw-fg-disabled); }
 
 /* 강조 면: 좌우 8px 들인 자리 */
 .dw-menu__item::before {
@@ -2267,6 +2302,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
 .dw-toast:focus-visible { outline-color: var(--dw-stroke-focus-ring); }
 .dw-toast[data-state="open"] { animation: dw-floating-in var(--dw-duration-d3) var(--dw-easing-enter); }
 .dw-toast[data-state="closed"] { animation: dw-fade-out var(--dw-duration-d2) var(--dw-easing-exit) forwards; }
+
 
 .dw-toast__icon {
   flex-shrink: 0;
@@ -5998,3 +6034,194 @@ button.dw-callout:active { scale: var(--dw-scale-s97); }
     animation: dw-progress-pulse 1.5s var(--dw-easing-easing) infinite alternate;
   }
 }
+
+/* ── Grid ── */
+.dw-container { box-sizing: content-box; max-width: var(--dw-grid-max-width-content); margin-inline: auto; padding-inline: var(--dw-spacing-x4); }
+.dw-container--wide { max-width: var(--dw-grid-max-width-wide); }
+.dw-grid { display: grid; grid-template-columns: repeat(var(--dw-grid-columns-mobile), minmax(0, 1fr)); gap: var(--dw-grid-gap); }
+.dw-grid__item { grid-column: 1 / -1; min-width: 0; }
+.dw-grid__item--base-1 { grid-column: span 1; }
+.dw-grid__item--base-2 { grid-column: span 2; }
+@media (min-width: 768px) {
+  .dw-container { padding-inline: var(--dw-spacing-x6); }
+  .dw-grid { grid-template-columns: repeat(var(--dw-grid-columns-tablet), minmax(0, 1fr)); }
+  .dw-grid__item { grid-column: 1 / -1; }
+  .dw-grid__item--md-1 { grid-column: span 1; }
+  .dw-grid__item--md-2 { grid-column: span 2; }
+  .dw-grid__item--md-3 { grid-column: span 3; }
+  .dw-grid__item--md-4 { grid-column: span 4; }
+}
+@media (min-width: 1024px) {
+  .dw-container { padding-inline: var(--dw-spacing-x8); }
+  .dw-grid { grid-template-columns: repeat(var(--dw-grid-columns-desktop), minmax(0, 1fr)); }
+  .dw-grid__item { grid-column: 1 / -1; }
+  .dw-grid__item--lg-1 { grid-column: span 1; }
+  .dw-grid__item--lg-2 { grid-column: span 2; }
+  .dw-grid__item--lg-3 { grid-column: span 3; }
+  .dw-grid__item--lg-4 { grid-column: span 4; }
+  .dw-grid__item--lg-5 { grid-column: span 5; }
+  .dw-grid__item--lg-6 { grid-column: span 6; }
+  .dw-grid__item--lg-7 { grid-column: span 7; }
+  .dw-grid__item--lg-8 { grid-column: span 8; }
+  .dw-grid__item--lg-9 { grid-column: span 9; }
+  .dw-grid__item--lg-10 { grid-column: span 10; }
+  .dw-grid__item--lg-11 { grid-column: span 11; }
+  .dw-grid__item--lg-12 { grid-column: span 12; }
+}
+
+/* ── Text Input: 상태 아이콘 — 자리를 미리 잡아 두어 오류가 떠도 값이 밀리지 않는다 ── */
+.dw-text-input__status {
+  display: grid;
+  flex-shrink: 0;
+  width: var(--dw-text-input-icon);
+  height: var(--dw-text-input-icon);
+}
+
+.dw-text-input__status > svg { grid-area: 1 / 1; width: 100%; height: 100%; visibility: hidden; }
+.dw-text-input__status-critical { color: var(--dw-fg-critical); }
+.dw-text-input__status-positive { color: var(--dw-fg-positive); }
+.dw-text-input:has(> .dw-text-input__value[aria-invalid="true"]:not(:disabled)) .dw-text-input__status-critical,
+.dw-field[data-valid]:not([data-invalid]) .dw-text-input__status-positive { visibility: visible; }
+
+/* 지우기와 함께 쓰면 입력 중에는 지우기, 그 밖에는 상태 아이콘이 같은 자리에 보인다.
+   :hover를 함께 보는 것은 클릭해도 포커스를 주지 않는 브라우저에서 버튼이 먼저 사라지지 않게 하려는 것이다 */
+.dw-text-input:has(> .dw-text-input__status):not(:focus-within, :hover) > [data-dw-clear] { display: none; }
+.dw-text-input:is(:focus-within, :hover):has(> [data-dw-clear]:not([hidden])) > .dw-text-input__status { display: none; }
+.dw-text-input > [data-dw-clear]:has(+ .dw-text-input__status) { margin-right: var(--dw-text-input-edge); }
+
+/* ── Input Action: 입력 옆에 붙인 버튼 ── */
+.dw-input-action {
+  --dw-input-action-radius: var(--dw-radius-r2);
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+}
+
+.dw-input-action:has(> .dw-text-input--large) { --dw-input-action-radius: var(--dw-radius-r3); }
+
+@media (max-width: 1279px) {
+  .dw-input-action:has(> .dw-text-input--responsive) { --dw-input-action-radius: var(--dw-radius-r3); }
+}
+
+.dw-input-action > .dw-text-input {
+  flex: 1;
+  min-width: 0;
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.dw-input-action > .dw-text-input:is(:focus-within, :has([aria-invalid="true"])) { z-index: var(--dw-z-raised); }
+
+.dw-input-action__button {
+  position: relative;
+  flex-shrink: 0;
+  margin: 0 0 0 -1px;
+  padding: 0 var(--dw-spacing-x4);
+  border: 0;
+  border-radius: 0 var(--dw-input-action-radius) var(--dw-input-action-radius) 0;
+  background: var(--dw-bg-transparent);
+  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak), var(--dw-shadow-s1);
+  color: var(--dw-fg-brand-contrast);
+  font-family: inherit;
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+  font-weight: var(--dw-font-weight-bold);
+  white-space: nowrap;
+  cursor: pointer;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  transition:
+    background-color var(--dw-duration-color-transition) var(--dw-easing-easing),
+    outline-color var(--dw-duration-d3) var(--dw-easing-easing);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-input-action__button:not(:disabled):hover { background: var(--dw-bg-transparent-pressed); }
+}
+
+.dw-input-action__button:active:not(:disabled) { background: var(--dw-bg-transparent-pressed); }
+.dw-input-action__button:focus-visible { z-index: var(--dw-z-raised); outline-color: var(--dw-stroke-focus-ring); }
+.dw-input-action__button:disabled { background: var(--dw-bg-disabled); color: var(--dw-fg-disabled); cursor: not-allowed; }
+
+/* ── Choice Card ── */
+.dw-choice-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--dw-spacing-x3);
+  align-items: start;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--dw-spacing-x4);
+  border-radius: var(--dw-radius-r3);
+  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak), var(--dw-shadow-s1);
+  cursor: pointer;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition:
+    background-color var(--dw-duration-color-transition) var(--dw-easing-easing),
+    outline-color var(--dw-duration-d3) var(--dw-easing-easing);
+}
+
+.dw-choice-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid transparent;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: border-color var(--dw-duration-d2) var(--dw-easing-easing);
+}
+
+.dw-choice-card :is(.dw-checkbox, .dw-radio) { min-height: 0; }
+.dw-choice-card__content { display: flex; flex-direction: column; gap: var(--dw-spacing-x0_5); min-width: 0; }
+.dw-choice-card__title { color: var(--dw-fg-neutral); font-size: var(--dw-font-t5-size); line-height: var(--dw-font-t5-line-height); font-weight: var(--dw-font-weight-bold); }
+.dw-choice-card__description { color: var(--dw-fg-neutral-subtle); font-size: var(--dw-font-t4-size); line-height: var(--dw-font-t4-line-height); }
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-choice-card:not(:has(:disabled)):hover { background: var(--dw-bg-transparent-pressed); }
+}
+
+.dw-choice-card:has(:focus-visible) { outline-color: var(--dw-stroke-focus-ring); }
+.dw-choice-card:has(input:checked)::after { border-color: var(--dw-stroke-brand-solid); }
+.dw-choice-card:has(input[aria-invalid="true"])::after,
+.dw-field[data-invalid] .dw-choice-card::after { border-color: var(--dw-stroke-critical-solid); }
+.dw-choice-card:has(:disabled) { background: var(--dw-bg-disabled); cursor: not-allowed; }
+.dw-choice-card:has(:disabled)::after { border-color: transparent; }
+.dw-choice-card:has(:disabled) :is(.dw-choice-card__title, .dw-choice-card__description) { color: var(--dw-fg-disabled); }
+
+/* ── Action Area ── */
+.dw-action-area {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dw-spacing-x2);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--dw-spacing-x3) var(--dw-spacing-x4);
+  background: var(--dw-bg-layer-default);
+}
+
+.dw-action-area--sticky {
+  position: sticky;
+  bottom: 0;
+  z-index: var(--dw-z-raised);
+  padding-bottom: max(var(--dw-spacing-x3), env(safe-area-inset-bottom, 0px));
+}
+
+.dw-action-area--divided { box-shadow: inset 0 1px 0 0 var(--dw-stroke-neutral-weak); }
+.dw-action-area__caption { margin: 0; color: var(--dw-fg-neutral-subtle); font-size: var(--dw-font-t3-size); line-height: var(--dw-font-t3-line-height); text-align: center; }
+.dw-action-area__buttons { display: flex; flex-direction: column; gap: var(--dw-spacing-x2); }
+.dw-action-area__buttons > .dw-button { width: 100%; }
+.dw-action-area--split .dw-action-area__buttons { flex-direction: row; }
+.dw-action-area--split .dw-action-area__buttons > .dw-button { flex: 1; width: auto; min-width: 0; }
+.dw-action-area--split .dw-action-area__buttons > .dw-button:last-child { flex: 2; }
+.dw-action-area--compact .dw-action-area__buttons { flex-direction: row; justify-content: flex-end; }
+.dw-action-area--compact .dw-action-area__buttons > .dw-button { width: auto; }
+.dw-action-area--compact .dw-action-area__caption { text-align: right; }
+
+/* ── Ratio ── */
+.dw-ratio { position: relative; overflow: hidden; width: 100%; aspect-ratio: var(--dw-ratio-video); }
+.dw-ratio--square { aspect-ratio: var(--dw-ratio-square); }
+.dw-ratio--landscape { aspect-ratio: var(--dw-ratio-landscape); }
+.dw-ratio > :is(img, video, iframe) { display: block; width: 100%; height: 100%; border: 0; object-fit: cover; }

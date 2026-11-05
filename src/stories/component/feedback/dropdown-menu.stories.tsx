@@ -5,6 +5,7 @@ import { expect, fn, userEvent, waitFor, within } from 'storybook/test'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -68,4 +69,21 @@ export const Default: Story = {
     await waitFor(() => expect(body.queryByRole('menu')).not.toBeInTheDocument())
     await expect(trigger).toHaveFocus()
   },
+}
+
+/** 체크 항목은 메뉴가 열린 채로 켜고 끈다 */
+export const CheckboxItems: Story = {
+  render: () => (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="secondary">보이는 열</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuCheckboxItem defaultChecked onSelect={(e) => e.preventDefault()}>
+          이름
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem onSelect={(e) => e.preventDefault()}>등록일</DropdownMenuCheckboxItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  ),
 }
