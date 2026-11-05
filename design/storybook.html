@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="fonts/pretendard.css">
   <link rel="stylesheet" href="tokens.css">
   <link rel="stylesheet" href="components.css">
-  <link rel="stylesheet" href="catalog.css">
+  <link rel="stylesheet" href="storybook.css">
   <style>
     /* 카탈로그 페이지 자체 레이아웃 — 컴포넌트 명세가 아니다 */
     .demo { margin-bottom: var(--dw-spacing-x8); padding: var(--dw-spacing-x5); background: var(--dw-bg-layer-default); border-radius: var(--dw-radius-r4); }
@@ -89,8 +89,8 @@
 <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></symbol>
 </svg><!--ICONS:end-->
 
-  <header class="page-header">
-    <h1>Daewoong Design System</h1>
+  <header class="page-header" id="page-sidebar">
+    <h1><img src="brand/emblem.svg" alt="" width="22" height="24">Daewoong Design System</h1>
     <div class="dw-text-input dw-text-input--medium page-search">
       <svg class="dw-text-input__icon" aria-hidden="true"><use href="#i-search"/></svg>
       <input class="dw-text-input__value" type="search" id="page-search" placeholder="메뉴 검색" aria-label="메뉴 검색" autocomplete="off">
@@ -113,6 +113,7 @@
     <button class="dw-button dw-button--neutral-outline dw-button--small dw-button--icon-only" type="button" id="theme" aria-label="다크 모드로 전환" title="다크 모드로 전환"><svg class="dw-button__icon" aria-hidden="true"><use href="#i-moon"/></svg></button>
     <button class="dw-button dw-button--neutral-outline dw-button--small dw-button--icon-only page-menu-btn" type="button" id="menu" aria-label="메뉴" aria-expanded="false" aria-controls="page-nav"><svg class="dw-button__icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
   </header>
+  <button class="dw-button dw-button--neutral-outline dw-button--small dw-button--icon-only page-sidebar-btn" type="button" id="sidebar-toggle" aria-controls="page-sidebar" aria-expanded="true" aria-label="사이드바 접기" title="사이드바 접기"><svg class="dw-button__icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
 
   <main>
     <!-- ── Introduction ────────────────────────── -->
@@ -186,7 +187,7 @@
     </section>
     <!-- ── Foundations ─────────────────────────── -->
     <section class="demo" id="ci">
-      <h2>CI</h2>
+      <h2>CI <a href="design.md#15-ci">명세</a></h2>
       <p class="note">회사 로고 파일이다. 서비스 화면과 문서에는 여기 있는 파일을 그대로 쓴다. 색과 비율을 바꾸거나 다시 그리지 않는다.</p>
       <div class="ci-grid">
         <figure class="ci-tile"><img src="brand/ci-kor.svg" alt="대웅제약 로고"><figcaption>국문 · 밝은 배경 · <a href="brand/ci-kor.svg">SVG</a> · <a href="brand/ci-kor.png">PNG</a></figcaption></figure>
@@ -203,10 +204,10 @@
         <li><strong>영문 로고</strong>는 SVG만 있다. 어두운 배경용은 공식 파일이 나오면 교체한다.</li>
       </ul>
     </section>
-    <section class="demo" id="palette"><h2>팔레트</h2><div id="palette-list"></div></section>
-    <section class="demo" id="roles"><h2>역할 토큰</h2><div id="role-list"></div></section>
+    <section class="demo" id="palette"><h2>팔레트 <a href="design.md#22-팔레트">명세</a></h2><div id="palette-list"></div></section>
+    <section class="demo" id="roles"><h2>역할 토큰 <a href="design.md#23-역할-토큰">명세</a></h2><div id="role-list"></div></section>
     <section class="demo" id="font">
-      <h2>폰트</h2>
+      <h2>폰트 <a href="design.md#31-서체">명세</a></h2>
       <p class="note">기본 서체는 <strong>Pretendard</strong>다. 한글·영문·숫자가 한 벌로 어울리고 작은 글자도 또렷해서 화면용으로 쓰기 좋다. 무료로 쓸 수 있는 공개 서체이고, 서비스 화면의 글자는 모두 이 서체로 표시한다.</p>
       <div class="font-specimen">
         <p class="font-specimen__main">다람쥐 헌 쳇바퀴에 타고파</p>
@@ -230,17 +231,17 @@
       <h3>라이선스</h3>
       <p class="note">SIL Open Font License 1.1을 따르며 사내외 서비스에 무료로 쓸 수 있다. 전문은 <a href="fonts/OFL.txt">fonts/OFL.txt</a>에 있다. 파일을 고치면 Pretendard라는 이름을 쓸 수 없으므로 받은 그대로 쓴다.</p>
     </section>
-    <section class="demo" id="type"><h2>타이포그래피</h2><div id="type-list"></div></section>
-    <section class="demo" id="text-style"><h2>텍스트 스타일</h2><div id="text-style-list"></div></section>
-    <section class="demo" id="spacing"><h2>간격</h2><div id="spacing-list"></div></section>
-    <section class="demo" id="radius"><h2>모서리</h2><div class="boxes" id="radius-list"></div></section>
-    <section class="demo" id="shadow"><h2>깊이</h2><div class="boxes">
+    <section class="demo" id="type"><h2>타이포그래피 <a href="design.md#32-스케일">명세</a></h2><div id="type-list"></div></section>
+    <section class="demo" id="text-style"><h2>텍스트 스타일 <a href="design.md#33-텍스트-스타일">명세</a></h2><div id="text-style-list"></div></section>
+    <section class="demo" id="spacing"><h2>간격 <a href="design.md#5-간격">명세</a></h2><div id="spacing-list"></div></section>
+    <section class="demo" id="radius"><h2>모서리 <a href="design.md#6-모서리">명세</a></h2><div class="boxes" id="radius-list"></div></section>
+    <section class="demo" id="shadow"><h2>깊이 <a href="design.md#7-깊이">명세</a></h2><div class="boxes">
       <div class="box shadow" style="box-shadow: var(--dw-shadow-s1)">s1</div>
       <div class="box shadow" style="box-shadow: var(--dw-shadow-s2)">s2</div>
       <div class="box shadow" style="box-shadow: var(--dw-shadow-s3)">s3</div>
     </div></section>
     <section class="demo" id="z-index">
-      <h2>쌓임 순서</h2>
+      <h2>쌓임 순서 <a href="design.md#쌓임-순서-z-index">명세</a></h2>
       <p class="note">화면 요소가 겹칠 때 무엇이 앞에 나올지 정한 규칙이다. 예를 들어 모달을 연 채 저장하면 결과 안내(Toast)는 모달 앞에 보여야 한다. 코드에서는 숫자를 직접 쓰지 않고 아래 토큰(<code>--dw-z-*</code>)을 쓴다.</p>
       <div class="z-stage" aria-hidden="true">
         <div class="z-layer" style="--i:0;z-index:var(--dw-z-base)">기본 화면 · base</div>
@@ -267,7 +268,7 @@
         <li><strong>툴팁은 가장 앞이다.</strong> 사용자가 지금 가리키는 대상의 설명이기 때문이다.</li>
       </ul>
     </section>
-    <section class="demo" id="control-height"><h2>컨트롤 높이</h2>
+    <section class="demo" id="control-height"><h2>컨트롤 높이 <a href="design.md#컨트롤-높이">명세</a></h2>
       <p class="note">버튼과 입력 필드는 같은 높이 스케일을 쓴다. 같은 크기는 나란히 놓아도 정렬된다.</p>
       <div class="demo-row">
         <button class="dw-button dw-button--neutral-weak dw-button--xsmall" type="button">xsmall</button>
@@ -282,15 +283,15 @@
         <div class="dw-text-input dw-text-input--large" style="width: 200px"><input class="dw-text-input__value" aria-label="large" placeholder="large"></div>
       </div>
     </section>
-    <section class="demo" id="pattern"><h2>패턴</h2>
+    <section class="demo" id="pattern"><h2>패턴 <a href="design.md#빗금-패턴">명세</a></h2>
       <p class="note">차단 영역은 빗금으로 표시한다. 아래 내용이 비쳐 보인다.</p>
       <div class="dw-hatch" style="height: 72px; border-radius: var(--dw-radius-r3)"></div>
     </section>
-    <section class="demo" id="motion"><h2>모션</h2>
+    <section class="demo" id="motion"><h2>모션 <a href="design.md#8-모션">명세</a></h2>
       <p><button class="dw-button dw-button--neutral-outline" type="button" id="play">재생</button></p>
       <div id="motion-list"></div>
     </section>
-    <section class="demo" id="interaction"><h2>상호작용</h2>
+    <section class="demo" id="interaction"><h2>상호작용 <a href="guides/interaction.md">명세</a></h2>
       <p class="note">상태 색은 <code>-pressed</code> 토큰 짝을 쓴다. 키보드 포커스는 모든 요소에서 같은 모양이다.</p>
       <div class="demo-row">
         <button class="dw-button dw-button--brand-solid" type="button">기본</button>
@@ -299,12 +300,12 @@
         <button class="dw-button dw-button--brand-solid" type="button" disabled>disabled</button>
       </div>
     </section>
-    <section class="demo" id="icons"><h2>아이콘</h2>
+    <section class="demo" id="icons"><h2>아이콘 <a href="design.md#10-아이콘">명세</a></h2>
       <p class="note">Lucide 기반. 색은 감싼 요소의 글자색을 따른다. 환경별 사용법은 design.md 10장에 있다.</p>
       <div class="icons" id="icon-list"></div>
     </section>
     <section class="demo" id="breakpoint">
-      <h2>브레이크포인트</h2>
+      <h2>브레이크포인트 <a href="design.md#91-브레이크포인트">명세</a></h2>
       <p class="note">화면 너비에 따라 배치를 바꾸는 기준점이다. 휴대폰 화면을 기본으로 만들고, 너비가 기준을 넘을 때마다 넓은 배치로 바꾼다. 아래 값 밖의 기준은 만들지 않는다.</p>
       <p class="bp-now" aria-live="polite">지금 화면: <strong id="bp-now"></strong></p>
       <div class="dw-table-wrap" role="region" aria-label="브레이크포인트 토큰" tabindex="0">
@@ -317,7 +318,7 @@
       <p class="note">CSS 미디어 쿼리에는 변수를 쓸 수 없어 숫자를 그대로 적는다. 값의 정본은 <code>tokens.json</code>의 <code>breakpoint</code>이고, JS에서는 <code>--dw-breakpoint-*</code>로 읽는다.</p>
     </section>
 
-    <section class="demo" id="layout"><h2>레이아웃</h2>
+    <section class="demo" id="layout"><h2>레이아웃 <a href="design.md#92-레이아웃">명세</a></h2>
       <p class="note">화면의 좌우 여백과 콘텐츠 너비 규칙이다.</p>
       <div class="token-row"><code>좌우 여백</code><span>16px → 24px(md) → 32px(lg)</span></div>
       <div class="token-row"><code>정보형 페이지</code><span>콘텐츠 최대 너비 1040px</span></div>
@@ -3354,6 +3355,19 @@
       </div>
     </section>
 
+    <section class="page-history" aria-labelledby="page-history-title">
+      <h2 id="page-history-title">업데이트 기록</h2>
+      <ol>
+        <li>
+          <p class="page-history__version"><strong>v1.0</strong><time datetime="2026-11-19">2026-11-19</time></p>
+          <p>첫 공개. Foundations, 컴포넌트, 회사 로고(CI), 가이드 문서를 제공한다.</p>
+        </li>
+      </ol>
+    </section>
+
+    <footer class="page-footer">
+      <p>문의 <a href="mailto:ax-support@daewoong.co.kr">ax-support@daewoong.co.kr</a></p>
+    </footer>
   </main>
 
   <div data-dw="dialog" id="dlg-basic" hidden>
@@ -3773,7 +3787,7 @@
           `<td class="dw-table__cell"><code>z-${name}</code></td><td class="dw-table__cell">${css.getPropertyValue(`--dw-z-${name}`).trim()}</td><td class="dw-table__cell">${use}</td>`))
       }
 
-      const bpRows = [['sm', '큰 휴대폰', '16px', 'Card Group 열 늘어남, Radio 가로 배치'], ['md', '태블릿', '24px', '미만은 모바일. Dialog 고정 폭, Date Picker는 Popover로 열림'], ['lg', '작은 데스크톱', '32px', 'Side Navigation 펼침, Top Navigation 데스크톱 배치'], ['xl', '데스크톱', '32px', 'responsive 크기 입력이 medium으로 줄어듦'], ['2xl', '넓은 데스크톱', '32px', '콘텐츠는 최대 너비에서 멈춤']]
+      const bpRows = [['xs', '가로로 눕힌 휴대폰', '16px', '컴포넌트 기본 동작은 그대로. 서비스 화면에서 필요할 때 쓴다'], ['sm', '큰 휴대폰', '16px', 'Card Group 열 늘어남, Radio 가로 배치'], ['md', '태블릿', '24px', '미만은 모바일. Dialog 고정 폭, Date Picker는 Popover로 열림'], ['lg', '작은 데스크톱', '32px', 'Side Navigation 펼침, Top Navigation 데스크톱 배치'], ['xl', '데스크톱', '32px', 'responsive 크기 입력이 medium으로 줄어듦'], ['2xl', '넓은 데스크톱', '32px', '콘텐츠는 최대 너비에서 멈춤'], ['3xl', 'FHD 모니터', '32px', '컴포넌트 기본 동작은 그대로. 서비스 화면에서 필요할 때 쓴다'], ['4xl', 'QHD 모니터', '32px', '컴포넌트 기본 동작은 그대로. 서비스 화면에서 필요할 때 쓴다']]
       for (const [name, device, gutter, change] of bpRows) {
         document.getElementById('bp-list').append(el('tr', { className: 'dw-table__row' },
           `<td class="dw-table__cell"><code>${name}</code></td><td class="dw-table__cell">${css.getPropertyValue(`--dw-breakpoint-${name}`).trim()}</td><td class="dw-table__cell">${device}</td><td class="dw-table__cell">${gutter}</td><td class="dw-table__cell">${change}</td>`))

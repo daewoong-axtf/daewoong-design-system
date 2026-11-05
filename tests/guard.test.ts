@@ -93,3 +93,16 @@ test('brand files exist and the unofficial white logo stays out', () => {
   for (const f of ['ci-en.svg', 'ci-en-on-dark.svg', 'ci-kor.svg', 'ci-kor.png', 'ci-kor-on-dark.svg', 'ci-kor-on-dark.png', 'emblem.svg', 'emblem.png', 'ci-kor.ai']) assert.ok(files.includes(f), f)
   assert.equal(files.length, 9)
 })
+
+test('shadcn.css adds the breakpoints Tailwind does not have', () => {
+  const bp = JSON.parse(read('tokens.json')).breakpoint as Record<string, string>
+  const css = read('shadcn.css')
+  for (const name of ['xs', '3xl', '4xl']) assert.ok(css.includes(`--breakpoint-${name}: ${Number.parseInt(bp[name], 10) / 16}rem;`), name)
+})
+
+test('foundation spec links point at a design.md heading', () => {
+  const slugs = [...read('design.md').matchAll(/^#{2,3} (.+)$/gm)].map((m) => m[1].toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu, '').trim().replace(/\s+/g, '-'))
+  const links = [...read('storybook.html').matchAll(/<h2>[^<]+<a href="design\.md#([^"]+)">명세<\/a><\/h2>/g)].map((m) => m[1])
+  assert.equal(links.length, 16)
+  for (const slug of links) assert.ok(slugs.includes(slug), slug)
+})

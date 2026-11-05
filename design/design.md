@@ -344,15 +344,19 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 | 토큰 | 최소 너비 | 기준 기기 | 화면 좌우 여백 |
 | --- | --- | --- | --- |
 | (기본) | 0 | 휴대폰 | 16px (`spacing-x-global-gutter`) |
+| `breakpoint-xs` | 480px | 가로로 눕힌 휴대폰 | 16px |
 | `breakpoint-sm` | 640px | 큰 휴대폰 | 16px |
 | `breakpoint-md` | 768px | 태블릿 | 24px |
 | `breakpoint-lg` | 1024px | 작은 데스크톱 | 32px |
 | `breakpoint-xl` | 1280px | 데스크톱 | 32px |
 | `breakpoint-2xl` | 1536px | 넓은 데스크톱 | 32px |
+| `breakpoint-3xl` | 1920px | FHD 모니터 | 32px |
+| `breakpoint-4xl` | 2560px | QHD 모니터 | 32px |
 
 - CSS `@media`에는 변수를 쓸 수 없다. 위 숫자를 그대로 적는다. `--dw-breakpoint-*`는 JS에서 값을 읽을 때 쓴다.
 - 위로 올라가는 기준은 `min-width: <값>`, 아래를 뜻할 때는 `max-width: <값 - 1>`이다. 예: `md` 미만은 `max-width: 767px`. 다른 숫자는 만들지 않는다.
-- Tailwind 기본 `sm`~`2xl`과 같은 값이라 React에서는 `md:`처럼 그대로 쓴다.
+- `sm`~`2xl`은 Tailwind 기본값과 같다. `xs`·`3xl`·`4xl`은 `shadcn.css`에 추가해 두어 React에서 `md:`·`3xl:`처럼 그대로 쓴다.
+- `xs`·`3xl`·`4xl`은 컴포넌트 기본 동작을 바꾸지 않는다. 서비스 화면 배치에서 필요할 때 쓴다.
 - "모바일"은 `md`(768px) 미만을 뜻한다.
 
 ### 9.2 레이아웃

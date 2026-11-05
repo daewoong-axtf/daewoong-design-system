@@ -75,6 +75,24 @@
     if (e.target.closest('a')) toggleMenu(false)
   })
 
+  /* ── 넓은 화면: 사이드바를 접고 펼친다. 상태는 이 브라우저에만 남긴다 ── */
+  const sidebar = document.getElementById('sidebar-toggle')
+  const setSidebar = (open) => {
+    if (open) delete root.dataset.sidebar
+    else root.dataset.sidebar = 'closed'
+    const label = open ? '사이드바 접기' : '사이드바 펼치기'
+    sidebar.setAttribute('aria-label', label)
+    sidebar.title = label
+    sidebar.setAttribute('aria-expanded', String(open))
+    sidebar.querySelector('use').setAttribute('href', open ? '#i-chevron-left' : '#i-chevron-right')
+  }
+  sidebar.addEventListener('click', () => {
+    const open = root.dataset.sidebar === 'closed'
+    setSidebar(open)
+    try { localStorage.setItem('dw-sidebar', open ? 'open' : 'closed') } catch {}
+  })
+  try { if (localStorage.getItem('dw-sidebar') === 'closed') setSidebar(false) } catch {}
+
   /* ── 지금 보고 있는 절을 사이드바에 표시한다 ── */
   const links = new Map(allLinks.map((a) => [a.hash.slice(1), a]))
   const spy = new IntersectionObserver((entries) => {

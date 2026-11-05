@@ -53,6 +53,9 @@
 }
 
 @theme inline {
+  --breakpoint-xs: 30rem;
+  --breakpoint-3xl: 120rem;
+  --breakpoint-4xl: 160rem;
   --font-sans: var(--dw-font-sans);
 
   --radius-sm: var(--dw-radius-r1);
