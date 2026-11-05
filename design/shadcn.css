@@ -1,5 +1,5 @@
 /*
- * shadcn/ui 변수 → 대웅 디자인 시스템 역할 토큰 연결 (Tailwind CSS v4 + shadcn/ui 전용).
+ * shadcn/ui 변수 → Daewoong Design System 역할 토큰 연결 (Tailwind CSS v4 + shadcn/ui 전용).
  * 값은 tokens.css가 정본이다 — 라이트·다크 모두 거기서 바뀌고, 여기서는 이름만 잇는다.
  *
  * 앱의 globals.css:
