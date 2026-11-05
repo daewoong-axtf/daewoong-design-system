@@ -1,3 +1,4 @@
+@import "../../design/fonts/pretendard.css";
 /* Storybook 전역 스타일 — 실제 앱과 같은 순서로 불러온다 (design/shadcn.css 머리말 참고) */
 @import "tailwindcss";
 @import "tw-animate-css";

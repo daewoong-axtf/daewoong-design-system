@@ -5,7 +5,7 @@
 ## 개요
 
 7개 이상(또는 공간이 좁을 때 2개 이상)의 보기 중 하나를 고르는 드롭다운이다. 라벨·오류는 [Field](field.md)로 붙인다.
-**쓰지 말 것** — 보기가 적고 공간이 있을 때(Radio), 검색이 필요한 긴 목록(검색 입력 + 목록, v1.1).
+**쓰지 말 것** — 보기가 적고 공간이 있을 때(Radio), 검색이 필요한 긴 목록([Searchable Select](searchable-select.md)).
 
 ## Anatomy
 
@@ -58,7 +58,7 @@
 
 | 상태 | 값 |
 | --- | --- |
-| 기본 | bg `bg-transparent`, 테두리 `inset 0 0 0 1px stroke-neutral-weak`, 그림자 `shadow-s1`, Value `fg-neutral`, placeholder `fg-placeholder`, Chevron `fg-neutral-muted` |
+| 기본 | bg `bg-transparent`, 테두리 `inset 0 0 0 1px stroke-neutral-weak`, 그림자 `shadow-s1`, Value `fg-neutral`, placeholder `fg-neutral-subtle`, Chevron `fg-neutral-muted` |
 | hover | bg `bg-transparent-pressed` |
 | 열림·포커스 | `::after` 2px `stroke-neutral-contrast` (Text Input 포커스와 같음) |
 | focus-visible | `outline 2px stroke-focus-ring`, offset 2px |

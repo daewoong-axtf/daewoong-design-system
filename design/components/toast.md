@@ -41,12 +41,12 @@
 
 | 항목 | 값 |
 | --- | --- |
-| Region | `position: fixed`, 좌우 0, 아래 0(+ safe-area), padding 8px `x2`, 세로 쌓기 가운데 정렬, gap 8px, `z-index` 최상위 |
+| Region | `position: fixed`, 좌우 0, 아래 0(+ safe-area), padding 8px `x2`, 세로 쌓기 가운데 정렬, gap 8px, `z-toast`(모달 위)|
 | Root | 너비 100%, **max-width 464px**, min-height 44px, padding 10px `x2_5`, radius 8px `r2`, bg `bg-neutral-solid`, `display: flex; align-items: center` |
-| Icon | 24×24px, 오른쪽 padding 2px. positive `fg-positive`, critical `fg-critical` (default는 아이콘 없음) |
+| Icon | 24×24px, 오른쪽 padding 2px. positive·critical 모두 `fg-neutral-inverted`. 상태는 아이콘 모양으로 구분한다(반전된 면에서 상태색은 대비가 모자란다). default는 아이콘 없음 |
 | Content | `flex: 1`, padding-inline 6px `x1_5`, gap 10px `x2_5`, `justify-content: space-between` |
 | Message | t4 14/19 regular, `fg-on-neutral-solid` |
-| Action | t4 14/19 **bold**, `fg-brand`, 배경 없음. 히트 영역은 좌우 8px 더 넓고 높이 44px(`::after`) |
+| Action | t4 14/19 **bold**, `fg-neutral-inverted`, 밑줄, 배경 없음(반전된 면이라 `fg-brand`는 대비가 모자란다). 히트 영역은 좌우 8px 더 넓고 높이 44px(`::after`) |
 | 등장 | opacity 0→1 + scale 0.8→1, `duration-d3` `easing-enter` |
 | 퇴장 | opacity 1→0, `duration-d2` `easing-exit` |
 

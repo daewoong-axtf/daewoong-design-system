@@ -50,3 +50,26 @@ test('text styles match the tokens and the Storybook helper', () => {
     assert.ok(helper.includes(`${/-/.test(name) ? `'${name}'` : name}: scale('${s.scale}', '${s.weight}')`), `ds-text: ${name}`)
   }
 })
+
+test('z-index uses tokens, not raw numbers', () => {
+  const css = readFileSync('design/components.css', 'utf8')
+  const raw = [...css.matchAll(/z-index: ([^;]+);/g)].map((m) => m[1]).filter((v) => !/^(-1|1|var\(--dw-z-[a-z]+\))$/.test(v))
+  assert.deepEqual(raw, [])
+  const ui = readdirSync('src/components/ui').filter((f) => f !== 'sidebar.tsx' && /\bz-(\[\d+\]|[2-9]\d)\b/.test(readFileSync(`src/components/ui/${f}`, 'utf8')))
+  assert.deepEqual(ui, [])
+})
+
+test('z-index order keeps overlays in front of what they cover', () => {
+  const z = JSON.parse(readFileSync('design/tokens.json', 'utf8')).zIndex
+  const v = (k: string) => Number(z[k])
+  assert.equal(v('overlay'), v('modal'))
+  assert.ok(v('raised') < v('notice') && v('notice') < v('modal') && v('modal') < v('dropdown') && v('dropdown') < v('toast') && v('toast') < v('tooltip'))
+})
+
+test('React controls share the control height scale', () => {
+  const ui = (f: string) => readFileSync(`src/components/ui/${f}.tsx`, 'utf8')
+  for (const [size, h] of [['xs', 8], ['sm', 9], ['default', 10], ['lg', 13]] as const) {
+    assert.match(ui('button'), new RegExp(`\\b${size}: "h-${h}\\b`))
+    assert.match(ui('input'), new RegExp(`\\b${size}: "h-${h}\\b`))
+  }
+})

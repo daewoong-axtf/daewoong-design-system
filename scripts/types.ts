@@ -13,9 +13,10 @@ export interface Tokens {
   role: ModeMap
   spacing: TokenMap
   radius: TokenMap
+  zIndex: TokenMap
   shadow: ModeMap
   typography: {
-    fontFamily: { sans: string }
+    fontFamily: { sans: string; mono: string }
     fontWeight: TokenMap
     scale: Record<string, { fontSize: string; lineHeight: string }>
     style: Record<string, { scale: string; weight: string }>

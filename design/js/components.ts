@@ -1,5 +1,5 @@
 /*
- * 대웅 Design System — 레퍼런스 동작 (TypeScript 원본, 의존성 없음)
+ * Daewoong Design System — 레퍼런스 동작 (TypeScript 원본, 의존성 없음)
  * 브라우저가 읽는 components.js는 이 파일에서 타입만 지워 생성한다 — pnpm build:catalog
  * 각 컴포넌트 명세의 "Behavior & Accessibility"를 그대로 구현한 예시다.
  * 다른 언어·프레임워크로 옮길 때 동작 기준으로 삼는다.
@@ -182,7 +182,6 @@ declare global {
   document.addEventListener('submit', (e) => {
     const form = target(e)
     if (!form.matches('[data-dw-validate]')) return
-    e.preventDefault()
     let firstInvalid: HTMLElement | null = null
     for (const field of form.querySelectorAll('.dw-field')) {
       const value = field.querySelector<HTMLButtonElement | HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('.dw-select__trigger, .dw-text-input__value, input, textarea, select')
@@ -198,7 +197,13 @@ declare global {
         firstInvalid ??= value
       }
     }
-    firstInvalid?.focus()
+    if (firstInvalid) {
+      e.preventDefault()
+      firstInvalid.focus()
+      return
+    }
+    // 통과하면 기본 제출이 진행된다. 앱이 직접 전송할 때는 이 이벤트를 preventDefault 한다
+    if (!form.dispatchEvent(new CustomEvent('dw:form-valid', { bubbles: true, cancelable: true }))) e.preventDefault()
   })
 
   /* ── Checkbox: indeterminate 초기값, 전체 선택 ── */
@@ -1131,7 +1136,10 @@ declare global {
       } else if (!disabled) {
         el.setAttribute('href', (root.dataset.href ?? '').replace('{page}', String(n)))
       }
-      if (disabled) el.setAttribute('aria-disabled', 'true')
+      if (disabled) {
+        el.setAttribute('aria-disabled', 'true')
+        if (el.matches('a')) el.setAttribute('role', 'link')
+      }
       return el
     }
     const nav = (n: number, label: string, icon: string, disabled: boolean): HTMLElement => {
@@ -1150,7 +1158,7 @@ declare global {
       }
       const el = cell('dw-pagination__page', n)
       el.textContent = String(n)
-      el.setAttribute('aria-label', `${n}페이지`)
+      el.setAttribute('aria-label', `${n} 페이지`)
       if (n === page) el.setAttribute('aria-current', 'page')
       return el
     }
@@ -1315,6 +1323,132 @@ declare global {
     setAccordionItem(trigger, open)
   })
 
+  /* ── Collapsible: 한 영역 접고 펴기 (Accordion의 패널 동작을 그대로 쓴다) ── */
+  document.addEventListener('click', (e) => {
+    const trigger = target(e).closest<HTMLButtonElement>('.dw-collapsible__trigger')
+    if (!trigger || trigger.disabled) return
+    setAccordionItem(trigger, trigger.getAttribute('aria-expanded') !== 'true')
+  })
+
+  /* ── Filter Tags: 조건 하나 해제. 포커스는 다음 태그로, 없으면 지정한 요소로 ── */
+  document.addEventListener('click', (e) => {
+    const chip = target(e).closest<HTMLButtonElement>('.dw-filter-tags .dw-chip')
+    const root = chip?.closest<HTMLElement>('.dw-filter-tags')
+    const item = chip?.closest('li')
+    if (!chip || !root || !item) return
+    const neighbor = item.nextElementSibling ?? item.previousElementSibling
+    item.remove()
+    root.hidden = !root.querySelector('li')
+    const focusTo = neighbor?.querySelector<HTMLElement>('.dw-chip') ?? document.getElementById(root.dataset.dwFocusTo ?? '')
+    focusTo?.focus()
+    root.dispatchEvent(new CustomEvent('dw-filter-remove', { bubbles: true, detail: { key: chip.dataset.key } }))
+  })
+
+  /* ── Filter Sheet: 입력은 시트 안에 두고 `조회`로만 확정한다 (interaction.md 11.1) ── */
+  const FILTER_SHEET_WIDE = '(min-width: 768px) and (min-height: 501px)'
+  const filterSheetApplied = new WeakMap<HTMLFormElement, Map<string, string>>()
+
+  const filterSheetValues = (form: HTMLFormElement): Map<string, string> => {
+    const values = new Map<string, string>()
+    for (const [name, value] of new FormData(form)) if (value !== '') values.set(name, String(value))
+    return values
+  }
+
+  const filterSheetCurrent = (form: HTMLFormElement): Map<string, string> => {
+    const applied = filterSheetApplied.get(form) ?? filterSheetValues(form)
+    filterSheetApplied.set(form, applied)
+    return applied
+  }
+
+  // 텍스트 입력과 Select에 값을 그대로 넣는다. 없는 이름은 비운다
+  function filterSheetFill(form: HTMLFormElement, values: Map<string, string>): void {
+    for (const input of form.querySelectorAll<HTMLInputElement>('.dw-text-input__value')) input.value = values.get(input.name) ?? ''
+    for (const root of form.querySelectorAll<HTMLElement>('.dw-select')) {
+      const input = root.querySelector<HTMLInputElement>('input[type="hidden"]')
+      const next = values.get(input?.name ?? '') ?? ''
+      const item = selectItems(root).find((i) => i.dataset.value === next)
+      if (item) selectChoose(root, item)
+      else if (input?.value) {
+        input.dataset.dwDefault = ''
+        selectReset(root)
+      }
+    }
+  }
+
+  // 조건이 바뀌면 트리거의 숫자·이름을 맞추고 화면이 조회하도록 알린다
+  function filterSheetCommit(sheet: HTMLElement, form: HTMLFormElement, values: Map<string, string>): void {
+    filterSheetApplied.set(form, values)
+    const button = document.querySelector<HTMLElement>(`[data-dw-open="${sheet.id}"]`)
+    const count = button?.querySelector<HTMLElement>('.dw-filter-button__count')
+    if (button && count) {
+      button.setAttribute('aria-label', values.size > 0 ? `조회 조건 — ${values.size}개 적용됨` : '조회 조건')
+      count.dataset.count = String(values.size)
+      count.hidden = values.size === 0
+    }
+    sheet.dispatchEvent(new CustomEvent('dw-filter-apply', { bubbles: true, detail: { values: Object.fromEntries(values) } }))
+  }
+
+  function filterSheetTags(sheet: HTMLElement, form: HTMLFormElement, values: Map<string, string>): void {
+    const tags = document.querySelector<HTMLElement>(`.dw-filter-tags[data-dw-filter-for="${sheet.id}"]`)
+    if (!tags) return
+    tags.replaceChildren(...[...values].map(([name, value]) => {
+      const field = form.querySelector(`[name="${name}"]`)
+      const select = field?.closest('.dw-select')
+      const shown = select ? selectLabel(selectItems(select).find((i) => i.dataset.value === value) ?? select) : value
+      const text = `${field?.closest('.dw-field')?.querySelector('.dw-field__label')?.textContent?.trim() ?? name}: ${shown}`
+      const item = document.createElement('li')
+      item.innerHTML = '<button class="dw-chip dw-chip--outline-weak dw-chip--small" type="button"><span class="dw-chip__label"></span><svg class="dw-chip__icon" aria-hidden="true"><use href="#i-x"/></svg></button>'
+      const chip = item.querySelector<HTMLElement>('.dw-chip')
+      if (chip) {
+        chip.dataset.key = name
+        chip.setAttribute('aria-label', `${text} 조건 지우기`)
+      }
+      item.querySelector('.dw-chip__label')?.append(text)
+      return item
+    }))
+    tags.hidden = values.size === 0
+  }
+
+  // 조회 없이 닫은 입력은 버린다 — 열 때 적용된 값으로 되돌린다
+  document.addEventListener('click', (e) => {
+    const opener = target(e).closest<HTMLElement>('[data-dw-open]')
+    const sheet = opener && document.getElementById(opener.dataset.dwOpen ?? '')
+    const form = sheet?.matches('.dw-filter-sheet') && sheet.hidden ? sheet.querySelector('form') : null
+    if (form) filterSheetFill(form, filterSheetCurrent(form))
+  }, true)
+
+  // 초기화는 입력만 비운다. 조회하지 않는다
+  document.addEventListener('click', (e) => {
+    const form = target(e).closest('.dw-filter-sheet__reset')?.closest('.dw-filter-sheet')?.querySelector('form')
+    if (form) filterSheetFill(form, new Map())
+  })
+
+  document.addEventListener('submit', (e) => {
+    const form = target(e).closest<HTMLFormElement>('.dw-filter-sheet__form')
+    const sheet = form?.closest<HTMLElement>('.dw-filter-sheet')
+    if (!form || !sheet) return
+    e.preventDefault()
+    const values = filterSheetValues(form)
+    filterSheetCommit(sheet, form, values)
+    filterSheetTags(sheet, form, values)
+    closeModal(sheet)
+  })
+
+  document.addEventListener('dw-filter-remove', (e) => {
+    const sheet = document.getElementById(target(e).closest<HTMLElement>('.dw-filter-tags')?.dataset.dwFilterFor ?? '')
+    const form = sheet?.querySelector('form')
+    if (!sheet || !form) return
+    const values = new Map(filterSheetCurrent(form))
+    values.delete((e as CustomEvent<{ key: string }>).detail.key)
+    filterSheetFill(form, values)
+    filterSheetCommit(sheet, form, values)
+  })
+
+  // 넓은 화면은 옆에서 나오는 패널이라 끌어 내리지 않는다
+  document.addEventListener('pointerdown', (e) => {
+    if (target(e).closest('.dw-filter-sheet .dw-bottom-sheet__header') && matchMedia(FILTER_SHEET_WIDE).matches) e.stopPropagation()
+  }, true)
+
   /* ── 초기화: Tabs Indicator · Pagination · Top Navigation · Side Navigation ── */
   function initNavigation(): void {
     for (const list of document.querySelectorAll<HTMLElement>('.dw-tabs__list')) {
@@ -1416,6 +1550,1102 @@ declare global {
     root.remove()
     next?.focus({ preventScroll: e.detail > 0 }) // 마우스로 닫을 때는 화면이 튀지 않게
   })
+
+  /* ── Password Input: 표시·숨김 토글 ── */
+  document.addEventListener('click', (e) => {
+    const toggle = target(e).closest<HTMLButtonElement>('[data-dw-password-toggle]')
+    const value = toggle?.closest('.dw-text-input')?.querySelector<HTMLInputElement>('.dw-text-input__value')
+    if (!toggle || !value) return
+    const show = value.type === 'password'
+    value.type = show ? 'text' : 'password'
+    toggle.setAttribute('aria-pressed', String(show))
+  })
+
+  /* ── Search Input: 지우기는 명시적 초기화 — 값을 비운 뒤 바로 조회한다 ── */
+  document.addEventListener('click', (e) => {
+    const form = target(e).closest('[data-dw-clear]')?.closest<HTMLFormElement>('form.dw-search-input')
+    if (form) setTimeout(() => form.requestSubmit()) // Text Input 리스너가 값을 비운 뒤에 읽는다
+  })
+
+  /* ── Calendar: 월 이동·날짜 선택·범위 선택·방향키 (의존성 없음, 표기는 Intl) ── */
+  interface CalendarState {
+    year: number
+    month: number // 0–11
+    cursor: string // 포커스를 받는 날(yyyy-mm-dd)
+    initial: Array<[string, string]>
+  }
+
+  const CALENDAR_WEEKS = 6
+  const calendarStates = new WeakMap<HTMLElement, CalendarState>()
+  let calendarUid = 0
+
+  const calendarPad = (n: number, size = 2) => String(n).padStart(size, '0')
+  const calendarKey = (d: Date) => `${calendarPad(d.getFullYear(), 4)}-${calendarPad(d.getMonth() + 1)}-${calendarPad(d.getDate())}`
+  const calendarDate = (key: string) => {
+    const [y, m, d] = key.split('-').map(Number)
+    return new Date(y, m - 1, d ?? 1)
+  }
+  const calendarShift = (key: string, days: number) => {
+    const d = calendarDate(key)
+    d.setDate(d.getDate() + days)
+    return calendarKey(d)
+  }
+  // 달을 옮기되 날짜는 그 달 안으로 맞춘다 (1월 31일 → 2월 28일)
+  const calendarShiftMonth = (key: string, months: number) => {
+    const d = calendarDate(key)
+    const last = new Date(d.getFullYear(), d.getMonth() + months + 1, 0).getDate()
+    return calendarKey(new Date(d.getFullYear(), d.getMonth() + months, Math.min(d.getDate(), last)))
+  }
+  const calendarLocale = (root: HTMLElement) => root.dataset.locale ?? (document.documentElement.lang || 'ko-KR')
+  const calendarToday = (root: HTMLElement) => root.dataset.today ?? calendarKey(new Date())
+  const calendarOutOfRange = (root: HTMLElement, key: string) =>
+    (!!root.dataset.min && key < root.dataset.min) || (!!root.dataset.max && key > root.dataset.max)
+  const calendarClamp = (root: HTMLElement, key: string) => {
+    if (root.dataset.min && key < root.dataset.min) return root.dataset.min
+    if (root.dataset.max && key > root.dataset.max) return root.dataset.max
+    return key
+  }
+  const calendarIsRange = (root: HTMLElement) => root.dataset.mode === 'range'
+  const calendarMonthKey = (year: number, month: number) => calendarKey(new Date(year, month, 1)).slice(0, 7)
+
+  function calendarIcon(name: string): string {
+    return `<svg aria-hidden="true"><use href="#i-${name}"/></svg>`
+  }
+
+  function calendarState(root: HTMLElement): CalendarState {
+    const known = calendarStates.get(root)
+    if (known) return known
+    // 고른 날 → data-month → 고를 수 있는 날에 맞춘 오늘 순으로 달을 정한다
+    const key = root.dataset.value || root.dataset.start || (root.dataset.month && `${root.dataset.month}-01`) || calendarClamp(root, calendarToday(root))
+    const d = calendarDate(key)
+    const state: CalendarState = {
+      year: d.getFullYear(),
+      month: d.getMonth(),
+      cursor: key,
+      initial: ['value', 'start', 'end'].map((name) => [name, root.dataset[name] ?? '']),
+    }
+    calendarStates.set(root, state)
+    return state
+  }
+
+  function calendarBuild(root: HTMLElement): void {
+    if (root.querySelector('.dw-calendar__grid')) return
+    const titleId = `dw-calendar-title-${++calendarUid}`
+    const dropdown = root.dataset.caption === 'dropdown'
+    const header = document.createElement('div')
+    header.className = 'dw-calendar__header'
+    header.innerHTML = `<button type="button" class="dw-calendar__nav" data-dw-calendar-nav="-1" aria-label="${root.dataset.labelPrev ?? '이전 달'}">${calendarIcon('chevron-left')}</button>`
+      + `<div class="dw-calendar__selects"${dropdown ? '' : ' hidden'}><select class="dw-calendar__select" data-dw-calendar-part="year" aria-label="${root.dataset.labelYear ?? '연도'}"></select><select class="dw-calendar__select" data-dw-calendar-part="month" aria-label="${root.dataset.labelMonth ?? '월'}"></select></div>`
+      + `<div class="dw-calendar__title" id="${titleId}" aria-live="polite"${dropdown ? ' hidden' : ''}></div>`
+      + `<button type="button" class="dw-calendar__nav" data-dw-calendar-nav="1" aria-label="${root.dataset.labelNext ?? '다음 달'}">${calendarIcon('chevron-right')}</button>`
+    const grid = document.createElement('table')
+    grid.className = 'dw-calendar__grid'
+    grid.setAttribute('role', 'grid')
+    grid.setAttribute('aria-labelledby', titleId)
+    grid.innerHTML = '<thead><tr></tr></thead><tbody></tbody>'
+    root.prepend(header, grid)
+
+    // 요일 머리글은 고정이라 한 번만 그린다 — 2023-01-01이 일요일이다
+    const locale = calendarLocale(root)
+    const start = Number(root.dataset.weekStart ?? 0)
+    const row = grid.querySelector('thead tr') as HTMLElement
+    for (let i = 0; i < 7; i++) {
+      const day = new Date(2023, 0, 1 + ((start + i) % 7))
+      const th = document.createElement('th')
+      th.className = 'dw-calendar__weekday'
+      th.scope = 'col'
+      th.abbr = new Intl.DateTimeFormat(locale, { weekday: 'long' }).format(day)
+      th.textContent = new Intl.DateTimeFormat(locale, { weekday: 'narrow' }).format(day)
+      row.append(th)
+    }
+  }
+
+  function calendarCaption(root: HTMLElement, state: CalendarState): void {
+    const locale = calendarLocale(root)
+    const title = root.querySelector('.dw-calendar__title') as HTMLElement
+    title.textContent = new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long' }).format(new Date(state.year, state.month, 1))
+    const shownMonth = calendarMonthKey(state.year, state.month)
+    const [prev, next] = root.querySelectorAll<HTMLElement>('[data-dw-calendar-nav]')
+    prev.toggleAttribute('aria-disabled', false)
+    next.toggleAttribute('aria-disabled', false)
+    if (root.dataset.min && root.dataset.min.slice(0, 7) >= shownMonth) prev.setAttribute('aria-disabled', 'true')
+    if (root.dataset.max && root.dataset.max.slice(0, 7) <= shownMonth) next.setAttribute('aria-disabled', 'true')
+
+    if (root.dataset.caption !== 'dropdown') return
+    const fromYear = Number((root.dataset.min ?? '').slice(0, 4)) || state.year - 10
+    const toYear = Number((root.dataset.max ?? '').slice(0, 4)) || state.year + 10
+    const year = root.querySelector('[data-dw-calendar-part="year"]') as HTMLSelectElement
+    const month = root.querySelector('[data-dw-calendar-part="month"]') as HTMLSelectElement
+    year.replaceChildren(...Array.from({ length: toYear - fromYear + 1 }, (_, i) => {
+      const value = fromYear + i
+      return new Option(new Intl.DateTimeFormat(locale, { year: 'numeric' }).format(new Date(value, 0, 1)), String(value))
+    }))
+    month.replaceChildren(...Array.from({ length: 12 }, (_, i) => new Option(new Intl.DateTimeFormat(locale, { month: 'long' }).format(new Date(2023, i, 1)), String(i))))
+    year.value = String(state.year)
+    month.value = String(state.month)
+  }
+
+  // 커서가 보이는 달을 벗어나면 고른 날 → 오늘 → 1일 순으로 옮긴다
+  function calendarCursor(root: HTMLElement, state: CalendarState): void {
+    const month = calendarMonthKey(state.year, state.month)
+    const inMonth = (key: string | undefined) => !!key && key.startsWith(month) && !calendarOutOfRange(root, key)
+    if (inMonth(state.cursor)) return
+    const candidates = [root.dataset.value, root.dataset.start, root.dataset.end, calendarToday(root)]
+    state.cursor = candidates.find(inMonth) ?? calendarClamp(root, `${month}-01`)
+  }
+
+  function calendarRender(root: HTMLElement, focus = false): void {
+    calendarBuild(root)
+    const state = calendarState(root)
+    calendarCursor(root, state)
+    calendarCaption(root, state)
+
+    const locale = calendarLocale(root)
+    const label = new Intl.DateTimeFormat(locale, { dateStyle: 'full' })
+    const today = calendarToday(root)
+    const range = calendarIsRange(root)
+    const { value, start, end } = root.dataset
+    const weekStart = Number(root.dataset.weekStart ?? 0)
+    const first = new Date(state.year, state.month, 1)
+    const lead = (first.getDay() - weekStart + 7) % 7
+    const rows: HTMLTableRowElement[] = []
+
+    for (let week = 0; week < CALENDAR_WEEKS; week++) {
+      const tr = document.createElement('tr')
+      for (let i = 0; i < 7; i++) {
+        const date = new Date(state.year, state.month, 1 - lead + week * 7 + i)
+        const key = calendarKey(date)
+        const td = document.createElement('td')
+        const day = document.createElement('button')
+        const name = document.createElement('span')
+        const digit = document.createElement('span')
+        const selected = range
+          ? key === start || key === end || (!!start && !!end && key > start && key < end)
+          : key === value
+        td.className = 'dw-calendar__cell'
+        td.setAttribute('role', 'gridcell')
+        td.setAttribute('aria-selected', String(selected))
+        if (range && start && end && start !== end) {
+          if (key === start) td.dataset.range = 'start'
+          else if (key === end) td.dataset.range = 'end'
+          else if (selected) td.dataset.range = 'middle'
+        }
+        day.type = 'button'
+        day.className = 'dw-calendar__day'
+        // 글자 "21"이 이름 "2026년 5월 21일 수요일"과 낱말로 맞지 않으므로 이름을 내용으로 준다
+        name.className = 'dw-visually-hidden'
+        name.textContent = label.format(date)
+        digit.setAttribute('aria-hidden', 'true')
+        digit.textContent = String(date.getDate())
+        day.append(name, digit)
+        day.dataset.date = key
+        day.tabIndex = key === state.cursor ? 0 : -1
+        day.toggleAttribute('data-dw-autofocus', key === state.cursor)
+        if (date.getMonth() !== state.month) day.dataset.outside = ''
+        if (key === today) day.setAttribute('aria-current', 'date')
+        if (calendarOutOfRange(root, key)) day.setAttribute('aria-disabled', 'true')
+        td.append(day)
+        tr.append(td)
+      }
+      rows.push(tr)
+    }
+
+    root.querySelector('.dw-calendar__grid tbody')?.replaceChildren(...rows)
+    if (focus) root.querySelector<HTMLElement>('.dw-calendar__day[tabindex="0"]')?.focus({ preventScroll: true })
+  }
+
+  function calendarGoTo(root: HTMLElement, key: string, focus: boolean): void {
+    const state = calendarState(root)
+    const d = calendarDate(key)
+    state.year = d.getFullYear()
+    state.month = d.getMonth()
+    state.cursor = key
+    calendarRender(root, focus)
+  }
+
+  function calendarEmit(root: HTMLElement): void {
+    const range = calendarIsRange(root)
+    const detail: Record<string, string> = range ? { start: root.dataset.start ?? '', end: root.dataset.end ?? '' } : { value: root.dataset.value ?? '' }
+    for (const input of root.querySelectorAll<HTMLInputElement>('input[data-dw-calendar-field]')) {
+      const next = detail[input.dataset.dwCalendarField ?? ''] ?? ''
+      if (input.value === next) continue
+      input.value = next
+      input.dispatchEvent(new Event('change', { bubbles: true }))
+    }
+    root.dispatchEvent(new CustomEvent('dw:calendar-change', { bubbles: true, detail }))
+  }
+
+  function calendarChoose(root: HTMLElement, key: string): void {
+    if (calendarIsRange(root)) {
+      const { start, end } = root.dataset
+      if (!start || end) {
+        root.dataset.start = key
+        root.dataset.end = ''
+      } else if (key < start) {
+        root.dataset.start = key
+        root.dataset.end = start
+      } else {
+        root.dataset.end = key
+      }
+    } else {
+      root.dataset.value = key
+    }
+    calendarGoTo(root, key, true)
+    calendarEmit(root)
+  }
+
+  document.addEventListener('click', (e) => {
+    const root = target(e).closest<HTMLElement>('[data-dw="calendar"]')
+    if (!root) return
+    const nav = target(e).closest<HTMLElement>('[data-dw-calendar-nav]')
+    if (nav) {
+      if (nav.getAttribute('aria-disabled') === 'true') return
+      const state = calendarState(root)
+      calendarGoTo(root, calendarClamp(root, calendarShiftMonth(state.cursor, Number(nav.dataset.dwCalendarNav))), false)
+      return
+    }
+    const day = target(e).closest<HTMLElement>('.dw-calendar__day')
+    if (day?.dataset.date && day.getAttribute('aria-disabled') !== 'true') calendarChoose(root, day.dataset.date)
+  })
+
+  document.addEventListener('change', (e) => {
+    const select = target(e).closest<HTMLSelectElement>('.dw-calendar__select')
+    const root = select?.closest<HTMLElement>('[data-dw="calendar"]')
+    if (!select || !root) return
+    const state = calendarState(root)
+    const year = select.dataset.dwCalendarPart === 'year' ? Number(select.value) : state.year
+    const month = select.dataset.dwCalendarPart === 'month' ? Number(select.value) : state.month
+    const shifted = (year - state.year) * 12 + month - state.month
+    const part = select.dataset.dwCalendarPart
+    calendarGoTo(root, calendarClamp(root, calendarShiftMonth(state.cursor, shifted)), false)
+    root.querySelector<HTMLElement>(`[data-dw-calendar-part="${part}"]`)?.focus()
+  })
+
+  // 칸은 하나만 Tab에 걸린다. 팝업·모달 안에서는 다음에 갈 요소를 직접 찾는다
+  function calendarTab(e: KeyboardEvent, day: HTMLElement): void {
+    if (e.shiftKey || e.defaultPrevented) return
+    const inPopup = !!popup?.el.contains(day)
+    const scope = inPopup ? popup?.el : stack.at(-1)?.root.querySelector('[role="dialog"], [role="alertdialog"]')
+    if (!scope) return
+    e.preventDefault()
+    e.stopPropagation()
+    const list = focusables(scope).filter((el) => el.tabIndex >= 0)
+    const next = list[list.indexOf(day) + 1]
+    if (next) return next.focus()
+    if (inPopup && popup) {
+      const { el, trigger } = popup
+      closePopup(false)
+      return focusAfterTrigger(el, trigger)
+    }
+    list[0]?.focus()
+  }
+
+  document.addEventListener('keydown', (e) => {
+    const day = target(e).closest<HTMLElement>('.dw-calendar__day')
+    const root = day?.closest<HTMLElement>('[data-dw="calendar"]')
+    if (!day?.dataset.date || !root) return
+    if (e.key === 'Tab') return calendarTab(e, day)
+    if (e.ctrlKey || e.metaKey || e.altKey) return
+    const key = day.dataset.date
+    const weekday = (calendarDate(key).getDay() - Number(root.dataset.weekStart ?? 0) + 7) % 7
+    const moves: Record<string, () => string> = {
+      ArrowLeft: () => calendarShift(key, -1),
+      ArrowRight: () => calendarShift(key, 1),
+      ArrowUp: () => calendarShift(key, -7),
+      ArrowDown: () => calendarShift(key, 7),
+      Home: () => calendarShift(key, -weekday),
+      End: () => calendarShift(key, 6 - weekday),
+      PageUp: () => calendarShiftMonth(key, e.shiftKey ? -12 : -1),
+      PageDown: () => calendarShiftMonth(key, e.shiftKey ? 12 : 1),
+    }
+    if (!moves[e.key]) return
+    e.preventDefault()
+    calendarGoTo(root, calendarClamp(root, moves[e.key]()), true)
+  }, true)
+
+  // hidden input은 폼 reset으로 되돌아오지 않아 처음 값으로 돌려놓는다
+  document.addEventListener('reset', (e) => {
+    for (const root of target(e).querySelectorAll<HTMLElement>('[data-dw="calendar"]')) {
+      const state = calendarStates.get(root)
+      if (!state) continue
+      for (const [name, value] of state.initial) root.dataset[name] = value
+      calendarRender(root)
+      calendarEmit(root)
+    }
+  })
+
+  const calendarInit = () => {
+    for (const root of document.querySelectorAll<HTMLElement>('[data-dw="calendar"]')) calendarRender(root)
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', calendarInit, { once: true })
+  else queueMicrotask(calendarInit)
+
+  /* ── Date Picker: Select 모양 Trigger + Popover(768px 미만 Bottom Sheet) + Calendar ── */
+  const datePickerParts = (root: Element) => ({
+    trigger: root.querySelector('.dw-date-picker__trigger') as HTMLButtonElement,
+    value: root.querySelector('.dw-select__value') as HTMLElement,
+    input: root.querySelector('input[type="hidden"]') as HTMLInputElement,
+    clear: root.querySelector<HTMLElement>('.dw-date-picker__clear'),
+  })
+  // Popover는 좁은 화면에서 시트로 옮겨지므로 Trigger는 root가 아니라 문서에서 찾는다
+  const datePickerCalendar = (trigger: HTMLElement) => document.getElementById(trigger.dataset.dwPopover ?? '')?.querySelector<HTMLElement>('[data-dw="calendar"]')
+
+  function datePickerShow(root: HTMLElement, value: string): void {
+    const { trigger, value: text, clear } = datePickerParts(root)
+    const locale = root.dataset.locale ?? (document.documentElement.lang || 'ko-KR')
+    if (text.hasAttribute('data-placeholder')) text.dataset.dwPlaceholder ??= text.textContent ?? ''
+    text.textContent = value
+      ? `${new Intl.DateTimeFormat(locale, { dateStyle: 'long' }).format(calendarDate(value))} (${new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(calendarDate(value))})`
+      : text.dataset.dwPlaceholder ?? ''
+    text.toggleAttribute('data-placeholder', !value)
+    root.toggleAttribute('data-has-value', !!value)
+    if (clear) clear.hidden = !value || trigger.disabled || trigger.getAttribute('aria-readonly') === 'true'
+  }
+
+  function datePickerSet(root: HTMLElement, value: string): void {
+    const { input, trigger } = datePickerParts(root)
+    datePickerShow(root, value)
+    if (input.value !== value) {
+      input.value = value
+      input.dispatchEvent(new Event('change', { bubbles: true }))
+    }
+    // 이미 오류였던 필드는 고르는 순간 해제한다 (Select와 같다)
+    const field = root.closest('.dw-field')
+    if (value && field?.hasAttribute('data-invalid')) {
+      field.removeAttribute('data-invalid')
+      trigger.removeAttribute('aria-invalid')
+      trigger.setAttribute('aria-describedby', field.querySelector('.dw-field__description')?.id ?? '')
+    }
+  }
+
+  // 열 때마다 고른 날의 달로 돌아간다. capture: Popover가 위치를 재기 전에 그린다
+  document.addEventListener('click', (e) => {
+    const trigger = target(e).closest<HTMLElement>('.dw-date-picker__trigger')
+    if (!trigger || trigger.getAttribute('aria-expanded') === 'true' || trigger.getAttribute('aria-readonly') === 'true') return
+    const calendar = datePickerCalendar(trigger)
+    if (!calendar) return
+    calendarStates.delete(calendar)
+    calendarRender(calendar)
+  }, true)
+
+  document.addEventListener('dw:calendar-change', (e) => {
+    const content = target(e).closest<HTMLElement>('.dw-date-picker__content')
+    const trigger = content && document.querySelector<HTMLElement>(`[data-dw-popover="${content.id}"]`)
+    const root = trigger?.closest<HTMLElement>('[data-dw="date-picker"]')
+    if (!content || !root) return
+    datePickerSet(root, (target(e) as HTMLElement).dataset.value ?? '')
+    const sheet = stack.find((m) => m.root.contains(content) && m.root.matches('.dw-bottom-sheet'))
+    if (sheet) closeModal(sheet.root)
+    else if (popup?.el === content) closePopup(true)
+  })
+
+  document.addEventListener('click', (e) => {
+    const clear = target(e).closest('.dw-date-picker__clear')
+    const root = clear?.closest<HTMLElement>('[data-dw="date-picker"]')
+    if (!root) return
+    const { trigger } = datePickerParts(root)
+    const calendar = datePickerCalendar(trigger)
+    if (calendar) calendar.dataset.value = ''
+    datePickerSet(root, '')
+    trigger.focus()
+  })
+
+  document.addEventListener('reset', (e) => {
+    for (const root of target(e).querySelectorAll<HTMLElement>('[data-dw="date-picker"]')) {
+      const { input, trigger } = datePickerParts(root)
+      const first = input.dataset.dwInitial ?? ''
+      const calendar = datePickerCalendar(trigger)
+      if (calendar) calendar.dataset.value = first
+      datePickerSet(root, first)
+    }
+  })
+
+  const datePickerInit = () => {
+    for (const root of document.querySelectorAll<HTMLElement>('[data-dw="date-picker"]')) {
+      const { input, trigger } = datePickerParts(root)
+      input.dataset.dwInitial = input.value
+      const calendar = datePickerCalendar(trigger)
+      if (calendar) {
+        calendar.dataset.value = input.value
+        calendarStates.delete(calendar)
+        calendarRender(calendar)
+      }
+      datePickerShow(root, input.value)
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', datePickerInit, { once: true })
+  else queueMicrotask(datePickerInit)
+
+  /* ── Combobox: 입력으로 좁히는 목록. 로컬 필터 · 비동기 검색(url/이벤트) · 단일/다중 ── */
+  interface ComboboxOption {
+    value: string
+    label: string
+    description?: string
+    disabled?: boolean
+    reason?: string
+  }
+
+  interface ComboboxState {
+    label: string // 확정된 값의 문구 — 닫을 때 입력을 여기로 되돌린다
+    query: string
+    typed: boolean // 사람이 친 글자일 때만 좁힌다. 고른 값의 문구로는 좁히지 않는다
+    pending: boolean // debounce 대기·요청 중
+    timer: ReturnType<typeof setTimeout> | undefined
+    loadingTimer: ReturnType<typeof setTimeout> | undefined
+    controller: AbortController | null
+    required: boolean
+    initial: { value: string; label: string; chips: Array<{ value: string; label: string }> }
+  }
+
+  const COMBOBOX_DEBOUNCE = 400 // 한글은 자모마다 입력이 바뀐다. 더 짧으면 치는 중에도 요청이 나간다
+  const COMBOBOX_LOADING_DELAY = 200 // 이보다 빠른 응답은 '검색 중'을 건너뛴다 — 깜빡임 방지
+  const COMBOBOX_MIN_QUERY = 2
+  const COMBOBOX_MIN_ROOM = 192 // 남은 공간이 이보다 좁으면 위로 편다
+  const comboboxStates = new WeakMap<HTMLElement, ComboboxState>()
+  let comboboxActive: HTMLElement | null = null
+
+  const comboboxParts = (root: Element) => ({
+    input: root.querySelector('input[role="combobox"]') as HTMLInputElement,
+    control: root.querySelector('.dw-combobox__control') as HTMLElement,
+    content: root.querySelector('.dw-combobox__content') as HTMLElement,
+    list: root.querySelector('[role="listbox"]') as HTMLElement,
+    status: root.querySelector('.dw-combobox__status') as HTMLElement,
+    retry: root.querySelector<HTMLElement>('.dw-combobox__retry'),
+    clear: root.querySelector<HTMLElement>('.dw-combobox__clear'),
+    chips: root.querySelector<HTMLElement>('.dw-combobox__chips'),
+    hidden: root.querySelector<HTMLInputElement>(':scope > input[type="hidden"]'),
+  })
+  const comboboxItems = (root: Element) => [...root.querySelectorAll<HTMLElement>('.dw-select__item')]
+  const comboboxEnabled = (root: Element) => comboboxItems(root).filter((item) => !item.hidden && item.getAttribute('aria-disabled') !== 'true')
+  const comboboxHighlighted = (root: Element) => root.querySelector<HTMLElement>('.dw-select__item[data-highlighted]')
+  const comboboxItemLabel = (item: Element) => item.querySelector('.dw-select__item-label')?.textContent?.trim() ?? ''
+  const comboboxIsAsync = (root: HTMLElement) => 'dwComboboxUrl' in root.dataset || 'dwComboboxAsync' in root.dataset
+  const comboboxIsMultiple = (root: HTMLElement) => 'multiple' in root.dataset
+  const comboboxMin = (root: HTMLElement) => Number(root.dataset.dwComboboxMin ?? COMBOBOX_MIN_QUERY)
+  const comboboxChips = (root: Element) =>
+    [...root.querySelectorAll<HTMLElement>('.dw-combobox__chip')].map((chip) => ({
+      value: chip.dataset.value ?? '',
+      label: chip.querySelector('.dw-combobox__chip-label')?.textContent?.trim() ?? '',
+    }))
+
+  function comboboxState(root: HTMLElement): ComboboxState {
+    const known = comboboxStates.get(root)
+    if (known) return known
+    const { input, hidden } = comboboxParts(root)
+    const state: ComboboxState = {
+      label: input.value,
+      query: '',
+      typed: false,
+      pending: false,
+      timer: undefined,
+      loadingTimer: undefined,
+      controller: null,
+      required: input.required,
+      initial: { value: hidden?.value ?? '', label: input.value, chips: comboboxChips(root) },
+    }
+    comboboxStates.set(root, state)
+    if (comboboxIsMultiple(root) && state.initial.chips.length) input.required = false
+    return state
+  }
+
+  function comboboxSelected(root: HTMLElement, value: string): boolean {
+    if (comboboxIsMultiple(root)) return comboboxChips(root).some((chip) => chip.value === value)
+    return comboboxParts(root).hidden?.value === value
+  }
+
+  function comboboxHighlight(root: HTMLElement, item: HTMLElement | null, scroll = true): void {
+    const { input, list } = comboboxParts(root)
+    comboboxHighlighted(root)?.removeAttribute('data-highlighted')
+    if (!item) return input.removeAttribute('aria-activedescendant')
+    item.toggleAttribute('data-highlighted', true)
+    item.id ||= `${list.id}-${comboboxItems(root).indexOf(item)}`
+    input.setAttribute('aria-activedescendant', item.id)
+    if (scroll) item.scrollIntoView({ block: 'nearest' })
+  }
+
+  function comboboxPlace(root: HTMLElement, decide: boolean): void {
+    const { control, content } = comboboxParts(root)
+    const box = control.getBoundingClientRect()
+    const below = window.innerHeight - box.bottom - SELECT_EDGE
+    const above = box.top - SELECT_EDGE
+    // 검색 결과로 높이가 바뀌므로 위·아래는 열 때 한 번만 정한다
+    if (decide) {
+      content.style.removeProperty('--dw-select-available')
+      const needed = Math.max(content.offsetHeight, COMBOBOX_MIN_ROOM)
+      if (needed > below && above > below) content.dataset.side = 'top'
+      else delete content.dataset.side
+    }
+    const up = content.dataset.side === 'top'
+    content.style.setProperty('--dw-select-available', `${up ? above : below}px`)
+    // 스크롤 영역(모달 본문 등) 안에서는 잘리지 않게 화면 기준으로 띄운다
+    if (!root.closest(SELECT_CLIPPED)) return
+    const gap = 'var(--dw-spacing-x1)'
+    Object.assign(content.style, {
+      position: 'fixed',
+      left: `${box.left}px`,
+      right: 'auto',
+      width: `${box.width}px`,
+      top: up ? 'auto' : `calc(${box.bottom}px + ${gap})`,
+      bottom: up ? `calc(${window.innerHeight - box.top}px + ${gap})` : 'auto',
+    })
+  }
+
+  function comboboxStatus(root: HTMLElement, state: 'idle' | 'loading' | 'empty' | 'error' | 'results', count = 0): void {
+    const { status, retry, list } = comboboxParts(root)
+    const { msgIdle, msgLoading, msgEmpty, msgError, msgResults } = root.dataset
+    const texts: Record<string, string> = {
+      idle: msgIdle ?? `${comboboxMin(root)}자 이상 입력해주세요`,
+      loading: msgLoading ?? '검색 중…',
+      empty: msgEmpty ?? '검색 결과가 없어요',
+      error: msgError ?? '검색하지 못했어요. 다시 시도해주세요.',
+      results: (msgResults ?? '검색 결과 {count}개').replace('{count}', String(count)),
+    }
+    status.dataset.state = state
+    status.textContent = texts[state]
+    if (retry) retry.hidden = state !== 'error'
+    list.hidden = !comboboxItems(root).some((item) => !item.hidden)
+  }
+
+  // 맞는 첫 부분을 강조한다 — textContent만 다뤄 입력값이 마크업이 되지 않게 한다
+  function comboboxMark(item: HTMLElement, query: string): void {
+    const label = item.querySelector<HTMLElement>('.dw-select__item-label')
+    if (!label) return
+    const text = label.textContent ?? ''
+    const at = query ? text.toLowerCase().indexOf(query.toLowerCase()) : -1
+    if (at < 0) return void (label.textContent = text)
+    const mark = document.createElement('mark')
+    mark.className = 'dw-combobox__match'
+    mark.textContent = text.slice(at, at + query.length)
+    label.replaceChildren(text.slice(0, at), mark, text.slice(at + query.length))
+  }
+
+  function comboboxFilter(root: HTMLElement): void {
+    const state = comboboxState(root)
+    const query = state.typed ? state.query.trim() : ''
+    let count = 0
+    for (const item of comboboxItems(root)) {
+      item.hidden = !!query && !comboboxItemLabel(item).toLowerCase().includes(query.toLowerCase())
+      if (!item.hidden) count++
+      if ('highlight' in root.dataset) comboboxMark(item, item.hidden ? '' : query)
+    }
+    comboboxStatus(root, count ? 'results' : 'empty', count)
+  }
+
+  function comboboxOption(root: HTMLElement, option: ComboboxOption): HTMLElement {
+    const item = document.createElement('div')
+    item.className = 'dw-select__item'
+    item.setAttribute('role', 'option')
+    item.dataset.value = option.value
+    item.setAttribute('aria-selected', String(comboboxSelected(root, option.value)))
+    if (option.disabled) item.setAttribute('aria-disabled', 'true')
+    const label = document.createElement('span')
+    label.className = 'dw-select__item-label'
+    label.textContent = option.label
+    item.append(label)
+    if (option.description) {
+      const description = document.createElement('span')
+      description.className = 'dw-select__item-description'
+      description.textContent = option.description
+      item.append(description)
+    }
+    if (option.reason) {
+      const badge = document.createElement('span')
+      badge.className = 'dw-badge dw-badge--neutral dw-badge--weak'
+      const text = document.createElement('span')
+      text.className = 'dw-badge__label'
+      text.textContent = option.reason
+      badge.append(text)
+      item.append(badge)
+    } else {
+      item.insertAdjacentHTML('beforeend', '<svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg>')
+    }
+    return item
+  }
+
+  function comboboxFill(root: HTMLElement, options: ComboboxOption[]): void {
+    const { list } = comboboxParts(root)
+    const state = comboboxState(root)
+    comboboxHighlight(root, null)
+    list.replaceChildren(...options.map((option) => comboboxOption(root, option)))
+    if ('highlight' in root.dataset) for (const item of comboboxItems(root)) comboboxMark(item, state.query.trim())
+  }
+
+  function comboboxCancel(root: HTMLElement): void {
+    const state = comboboxState(root)
+    clearTimeout(state.timer)
+    clearTimeout(state.loadingTimer)
+    state.controller?.abort()
+    state.controller = null
+    state.pending = false
+    comboboxParts(root).list.setAttribute('aria-busy', 'false')
+  }
+
+  function comboboxRequest(root: HTMLElement, query: string): void {
+    const state = comboboxState(root)
+    const { list } = comboboxParts(root)
+    const controller = new AbortController()
+    const { signal } = controller
+    state.controller = controller
+    list.setAttribute('aria-busy', 'true')
+    state.loadingTimer = setTimeout(() => comboboxStatus(root, 'loading'), COMBOBOX_LOADING_DELAY)
+
+    const settle = () => {
+      clearTimeout(state.loadingTimer)
+      state.pending = false
+      state.controller = null
+      list.setAttribute('aria-busy', 'false')
+    }
+    // 취소된 요청의 늦은 응답은 버린다 — 화면이 AbortSignal을 쓰지 않아도 안전하다
+    const respond = (options: ComboboxOption[]) => {
+      if (signal.aborted || state.controller !== controller) return
+      settle()
+      comboboxFill(root, options)
+      comboboxStatus(root, options.length ? 'results' : 'empty', options.length)
+      if (comboboxActive === root) {
+        comboboxHighlight(root, comboboxEnabled(root)[0] ?? null)
+        comboboxPlace(root, false)
+      }
+    }
+    const fail = () => {
+      if (signal.aborted || state.controller !== controller) return
+      settle()
+      comboboxFill(root, [])
+      comboboxStatus(root, 'error')
+    }
+
+    const proceed = root.dispatchEvent(new CustomEvent('dw:combobox-search', { bubbles: true, cancelable: true, detail: { query, signal, respond, fail } }))
+    if (!proceed) return // 화면이 맡았다
+    const url = root.dataset.dwComboboxUrl
+    if (!url) return fail()
+    fetch(url.replace('{query}', encodeURIComponent(query)), { signal, headers: { Accept: 'application/json' } })
+      .then((res) => {
+        if (!res.ok) throw new Error(String(res.status))
+        return res.json()
+      })
+      .then(respond, fail)
+  }
+
+  function comboboxQueue(root: HTMLElement, immediate = false): void {
+    const state = comboboxState(root)
+    comboboxCancel(root)
+    const query = state.query.trim()
+    if (query.length < comboboxMin(root)) {
+      comboboxFill(root, [])
+      return comboboxStatus(root, 'idle')
+    }
+    // 대기하는 동안 직전 결과·안내를 그대로 둔다 — 입력마다 바꾸면 그것이 깜빡임이다
+    state.pending = true
+    const delay = Number(root.dataset.dwComboboxDebounce ?? COMBOBOX_DEBOUNCE)
+    state.timer = setTimeout(() => comboboxRequest(root, query), immediate ? 0 : delay)
+  }
+
+  function comboboxOpen(root: HTMLElement): void {
+    const { input, content, status } = comboboxParts(root)
+    if (input.disabled || input.readOnly) return
+    if (comboboxActive && comboboxActive !== root) comboboxClose(comboboxActive)
+    comboboxState(root)
+    comboboxActive = root
+    content.removeAttribute('data-closing')
+    content.hidden = false
+    input.setAttribute('aria-expanded', 'true')
+    if (!comboboxIsAsync(root)) comboboxFilter(root)
+    else if (!status.dataset.state) comboboxStatus(root, 'idle')
+    comboboxPlace(root, true)
+    const selected = root.querySelector<HTMLElement>('.dw-select__item[aria-selected="true"]:not([aria-disabled="true"]):not([hidden])')
+    comboboxHighlight(root, selected ?? null)
+  }
+
+  // 닫으면 입력은 확정된 값으로 돌아간다. 입력을 다 지웠다면 값도 비운다
+  function comboboxSettleText(root: HTMLElement): void {
+    const state = comboboxState(root)
+    const { input, hidden } = comboboxParts(root)
+    const emptied = state.typed && !input.value.trim()
+    state.typed = false
+    state.query = ''
+    if (comboboxIsMultiple(root)) return void (input.value = '')
+    if (emptied && hidden?.value) return comboboxSetValue(root, '', '')
+    input.value = state.label
+  }
+
+  async function comboboxClose(root: HTMLElement): Promise<void> {
+    const { input, content } = comboboxParts(root)
+    if (comboboxActive === root) comboboxActive = null
+    input.setAttribute('aria-expanded', 'false')
+    comboboxHighlight(root, null)
+    comboboxCancel(root)
+    comboboxSettleText(root)
+    if (content.hidden) return
+    content.toggleAttribute('data-closing', true)
+    await afterAnimation(content)
+    if (!content.hasAttribute('data-closing')) return // 닫히는 사이 다시 열렸다
+    content.removeAttribute('data-closing')
+    content.hidden = true
+  }
+
+  function comboboxEmit(root: HTMLElement, detail: Record<string, unknown>): void {
+    root.dispatchEvent(new CustomEvent('dw:combobox-change', { bubbles: true, detail }))
+    // 이미 오류였던 필드는 고르는 순간 해제한다 (Select와 같다)
+    const field = root.closest('.dw-field')
+    const { input } = comboboxParts(root)
+    if (field?.hasAttribute('data-invalid')) {
+      field.removeAttribute('data-invalid')
+      input.removeAttribute('aria-invalid')
+      input.setAttribute('aria-describedby', field.querySelector('.dw-field__description')?.id ?? '')
+    }
+  }
+
+  function comboboxSyncSelected(root: HTMLElement): void {
+    for (const item of comboboxItems(root)) item.setAttribute('aria-selected', String(comboboxSelected(root, item.dataset.value ?? comboboxItemLabel(item))))
+  }
+
+  function comboboxSetValue(root: HTMLElement, value: string, label: string): void {
+    const state = comboboxState(root)
+    const { input, hidden, clear } = comboboxParts(root)
+    state.label = label
+    input.value = label
+    if (clear) clear.hidden = !value
+    if (hidden && hidden.value !== value) {
+      hidden.value = value
+      hidden.dispatchEvent(new Event('change', { bubbles: true }))
+    }
+    comboboxSyncSelected(root)
+    comboboxEmit(root, { value, label })
+  }
+
+  function comboboxChip(root: HTMLElement, option: { value: string; label: string }): HTMLElement {
+    const chip = document.createElement('span')
+    chip.className = 'dw-combobox__chip'
+    chip.dataset.value = option.value
+    const label = document.createElement('span')
+    label.className = 'dw-combobox__chip-label'
+    label.textContent = option.label
+    const remove = document.createElement('button')
+    remove.type = 'button'
+    remove.className = 'dw-combobox__chip-remove'
+    remove.setAttribute('aria-label', (root.dataset.msgRemove ?? '{label} 빼기').replace('{label}', option.label))
+    remove.innerHTML = '<svg aria-hidden="true"><use href="#i-x"/></svg>'
+    chip.append(label, remove)
+    if (root.dataset.name) {
+      const value = document.createElement('input')
+      value.type = 'hidden'
+      value.name = root.dataset.name
+      value.value = option.value
+      chip.append(value)
+    }
+    return chip
+  }
+
+  function comboboxSetChips(root: HTMLElement, options: Array<{ value: string; label: string }>): void {
+    const { chips, input, clear } = comboboxParts(root)
+    chips?.replaceChildren(...options.map((option) => comboboxChip(root, option)))
+    input.required = comboboxState(root).required && !options.length
+    if (clear) clear.hidden = !options.length
+    comboboxSyncSelected(root)
+    comboboxEmit(root, { values: options })
+  }
+
+  function comboboxChoose(root: HTMLElement, item: HTMLElement): void {
+    const label = comboboxItemLabel(item)
+    const value = item.dataset.value ?? label
+    const state = comboboxState(root)
+    if (!comboboxIsMultiple(root)) {
+      comboboxSetValue(root, value, label)
+      state.typed = false
+      return void comboboxClose(root)
+    }
+    // 다중: 칩으로 넣고 입력만 비운다. 칩은 결과가 바뀌어도 남는다
+    const current = comboboxChips(root)
+    comboboxSetChips(root, current.some((chip) => chip.value === value) ? current.filter((chip) => chip.value !== value) : [...current, { value, label }])
+    comboboxParts(root).input.value = ''
+    state.query = ''
+    state.typed = false
+    if (comboboxIsAsync(root)) comboboxQueue(root)
+    else comboboxFilter(root)
+  }
+
+  function comboboxClear(root: HTMLElement): void {
+    const { input } = comboboxParts(root)
+    const state = comboboxState(root)
+    comboboxCancel(root)
+    state.query = ''
+    state.typed = false
+    if (comboboxIsMultiple(root)) {
+      input.value = ''
+      comboboxSetChips(root, [])
+    } else {
+      comboboxSetValue(root, '', '')
+    }
+    if (comboboxIsAsync(root)) {
+      comboboxFill(root, [])
+      comboboxStatus(root, 'idle')
+    } else if (comboboxActive === root) {
+      comboboxFilter(root)
+    }
+    input.focus()
+  }
+
+  // 항목을 눌러도 입력이 포커스를 잃지 않게 한다 (목록은 Select 리스너가 막는다)
+  document.addEventListener('mousedown', (e) => {
+    if (target(e).closest('.dw-combobox__toggle')) e.preventDefault()
+  })
+
+  document.addEventListener('input', (e) => {
+    const input = target(e).closest<HTMLInputElement>('.dw-combobox input[role="combobox"]')
+    const root = input?.closest<HTMLElement>('[data-dw="combobox"]')
+    if (!input || !root) return
+    // input 이벤트는 한글 조합 중에도 온다 — 확정을 기다리지 않고 좁힌다
+    const state = comboboxState(root)
+    state.query = input.value
+    state.typed = true
+    if (comboboxActive !== root) comboboxOpen(root)
+    if (comboboxIsAsync(root)) return comboboxQueue(root)
+    comboboxFilter(root)
+    comboboxPlace(root, false)
+    comboboxHighlight(root, state.query.trim() ? comboboxEnabled(root)[0] ?? null : null)
+  })
+
+  document.addEventListener('click', (e) => {
+    const el = target(e)
+    const root = el.closest<HTMLElement>('[data-dw="combobox"]')
+    if (!root) return
+    const { input } = comboboxParts(root)
+    if (el.closest('.dw-combobox__clear')) return comboboxClear(root)
+    const remove = el.closest('.dw-combobox__chip-remove')
+    if (remove) {
+      const value = remove.closest<HTMLElement>('.dw-combobox__chip')?.dataset.value
+      comboboxSetChips(root, comboboxChips(root).filter((chip) => chip.value !== value))
+      return input.focus()
+    }
+    if (el.closest('.dw-combobox__toggle')) {
+      if (input.disabled) return
+      input.focus()
+      return comboboxActive === root ? void comboboxClose(root) : comboboxOpen(root)
+    }
+    if (el.closest('.dw-combobox__retry')) {
+      comboboxQueue(root, true)
+      return input.focus()
+    }
+    if (el === input || el === comboboxParts(root).control) {
+      input.focus()
+      if (comboboxActive !== root) comboboxOpen(root)
+      return
+    }
+    const item = el.closest<HTMLElement>('.dw-select__item')
+    if (item && item.getAttribute('aria-disabled') !== 'true') comboboxChoose(root, item)
+  })
+
+  document.addEventListener('pointermove', (e) => {
+    const item = target(e).closest<HTMLElement>('.dw-select__item')
+    if (!item || !comboboxActive?.contains(item) || item.hasAttribute('data-highlighted')) return
+    if (item.getAttribute('aria-disabled') !== 'true') comboboxHighlight(comboboxActive, item, false)
+  })
+
+  document.addEventListener('focusout', (e) => {
+    const root = target(e).closest<HTMLElement>('[data-dw="combobox"]')
+    if (root && root === comboboxActive && !(e.relatedTarget instanceof Node && root.contains(e.relatedTarget))) comboboxClose(root)
+  })
+
+  // 모달 본문이 스크롤되면 화면 기준으로 띄운 목록이 입력을 따라간다
+  const comboboxFollow = (e: Event) => {
+    if (!comboboxActive?.closest(SELECT_CLIPPED) || comboboxParts(comboboxActive).content.contains(target(e))) return
+    comboboxPlace(comboboxActive, false)
+  }
+  document.addEventListener('scroll', comboboxFollow, true)
+  window.addEventListener('resize', comboboxFollow)
+
+  // capture: 열린 목록의 Esc가 모달까지 닫지 않게 먼저 받는다
+  document.addEventListener('keydown', (e) => {
+    const root = target(e).closest<HTMLElement>('[data-dw="combobox"]')
+    if (!root || e.isComposing) return
+    if (e.key === 'Escape' && root === comboboxActive) {
+      e.preventDefault()
+      e.stopPropagation()
+      comboboxParts(root).input.focus()
+      return void comboboxClose(root)
+    }
+    if (!target(e).matches('input[role="combobox"]')) return
+    const { input, retry } = comboboxParts(root)
+    if (root !== comboboxActive) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault()
+        comboboxOpen(root)
+      } else if (e.key === 'Backspace' && !input.value && comboboxIsMultiple(root)) {
+        comboboxSetChips(root, comboboxChips(root).slice(0, -1))
+      }
+      return
+    }
+    const failed = !!retry && !retry.hidden
+    if (e.key === 'Tab') {
+      if (!failed) comboboxClose(root) // 기본 동작으로 다음 요소에 간다. 오류면 다시 시도로 간다
+      return
+    }
+    if (e.key === 'Backspace' && !input.value && comboboxIsMultiple(root)) {
+      return comboboxSetChips(root, comboboxChips(root).slice(0, -1))
+    }
+    const items = comboboxEnabled(root)
+    const current = comboboxHighlighted(root)
+    const at = current ? items.indexOf(current) : -1
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      if (comboboxState(root).pending) return // 낡은 결과를 고르지 않게 응답을 기다린다
+      if (failed) return comboboxQueue(root, true)
+      if (current) comboboxChoose(root, current)
+      else comboboxClose(root)
+      return
+    }
+    const moves: Record<string, HTMLElement | undefined> = {
+      ArrowDown: items[Math.min(at + 1, items.length - 1)],
+      ArrowUp: at === -1 ? items.at(-1) : items[Math.max(at - 1, 0)],
+    }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault()
+      if (moves[e.key]) comboboxHighlight(root, moves[e.key] ?? null)
+    }
+  }, true)
+
+  document.addEventListener('reset', (e) => {
+    for (const root of target(e).querySelectorAll<HTMLElement>('[data-dw="combobox"]')) {
+      const state = comboboxStates.get(root)
+      if (!state) continue
+      if (comboboxIsMultiple(root)) comboboxSetChips(root, state.initial.chips)
+      else comboboxSetValue(root, state.initial.value, state.initial.label)
+    }
+  })
+
+  /* ── Connection Status Banner: online·offline 이벤트로 끊김·복구를 알린다 ── */
+  type ConnectionStatusBannerStatus = 'offline' | 'reconnecting' | 'unstable' | 'online'
+
+  const CONNECTION_STATUS_BANNER_TEXT: Record<ConnectionStatusBannerStatus, string> = {
+    offline: '서버에 연결할 수 없어요. 잠시 후 다시 시도해주세요.',
+    reconnecting: '다시 연결하는 중이에요',
+    unstable: '연결이 불안정해요. 일부 내용이 늦게 보일 수 있어요.',
+    online: '다시 연결됐어요',
+  }
+  const CONNECTION_STATUS_BANNER_RECOVER_MS = 3000
+  const CONNECTION_STATUS_BANNER_CHECK_MS = 5000
+  let connectionStatusBannerRun = 0
+  let connectionStatusBannerTimer: ReturnType<typeof setTimeout> | undefined
+
+  const connectionStatusBannerRoots = (): HTMLElement[] => [...document.querySelectorAll<HTMLElement>('[data-dw="connection-status-banner"]')]
+
+  // 포커스가 사라질 버튼에 있으면 배너 다음 요소로 옮긴다
+  function connectionStatusBannerReleaseFocus(root: HTMLElement): void {
+    if (!root.contains(document.activeElement)) return
+    const others = focusables(document.body).filter((el) => !root.contains(el))
+    const next = others.find((el) => root.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) ?? others.at(-1)
+    next?.focus({ preventScroll: true })
+  }
+
+  async function connectionStatusBannerClose(root: HTMLElement): Promise<void> {
+    const panel = root.querySelector<HTMLElement>('.dw-connection-banner__panel')
+    if (!panel || panel.hidden) return
+    connectionStatusBannerReleaseFocus(root)
+    panel.dataset.closing = ''
+    await afterAnimation(panel)
+    if (!('closing' in panel.dataset)) return // 닫히는 사이 다시 열렸다
+    delete panel.dataset.closing
+    panel.hidden = true
+    const title = root.querySelector('.dw-connection-banner__title')
+    if (title) title.textContent = ''
+  }
+
+  function connectionStatusBannerApply(status: ConnectionStatusBannerStatus): void {
+    clearTimeout(connectionStatusBannerTimer)
+    for (const root of connectionStatusBannerRoots()) {
+      const panel = root.querySelector<HTMLElement>('.dw-connection-banner__panel')
+      const title = root.querySelector('.dw-connection-banner__title')
+      const retry = root.querySelector<HTMLElement>('.dw-connection-banner__retry')
+      if (!panel || !title) continue
+      if (status === 'online') connectionStatusBannerReleaseFocus(root)
+      root.dataset.status = status
+      panel.hidden = false
+      delete panel.dataset.closing
+      // 라이브 영역은 글자가 바뀌어야 읽으므로 패널을 연 뒤 넣는다
+      title.textContent = root.getAttribute(`data-text-${status}`) ?? CONNECTION_STATUS_BANNER_TEXT[status]
+      if (retry) {
+        retry.hidden = status === 'online'
+        retry.toggleAttribute('data-loading', status === 'reconnecting')
+        if (status === 'reconnecting') retry.setAttribute('aria-busy', 'true')
+        else retry.removeAttribute('aria-busy')
+      }
+      root.dispatchEvent(new CustomEvent('dw:connection-change', { bubbles: true, detail: { status } }))
+    }
+    if (status === 'online') {
+      connectionStatusBannerTimer = setTimeout(() => {
+        for (const root of connectionStatusBannerRoots()) connectionStatusBannerClose(root)
+      }, CONNECTION_STATUS_BANNER_RECOVER_MS)
+    }
+  }
+
+  // online 이벤트는 네트워크가 돌아왔다는 뜻일 뿐이라, data-check-url이 있으면 서버까지 닿는지 확인한다
+  async function connectionStatusBannerCheck(): Promise<void> {
+    const roots = connectionStatusBannerRoots()
+    if (!roots.length || roots.every((root) => root.dataset.status === 'online')) return
+    const run = ++connectionStatusBannerRun
+    connectionStatusBannerApply('reconnecting')
+    const url = roots.find((root) => root.dataset.checkUrl)?.dataset.checkUrl
+    let reachable = navigator.onLine
+    if (reachable && url) {
+      reachable = await fetch(url, { method: 'HEAD', cache: 'no-store', signal: AbortSignal.timeout(CONNECTION_STATUS_BANNER_CHECK_MS) }).then(
+        () => true,
+        () => false,
+      )
+    }
+    if (run === connectionStatusBannerRun) connectionStatusBannerApply(reachable ? 'online' : 'offline')
+  }
+
+  window.addEventListener('online', () => void connectionStatusBannerCheck())
+  window.addEventListener('offline', () => {
+    connectionStatusBannerRun++
+    connectionStatusBannerApply('offline')
+  })
+
+  // 요청 실패·타임아웃을 감지한 앱이 알린다: document.dispatchEvent(new CustomEvent('dw:connection-status', { detail: { status: 'offline' } }))
+  document.addEventListener('dw:connection-status', (e) => {
+    connectionStatusBannerRun++
+    connectionStatusBannerApply((e as CustomEvent<{ status: ConnectionStatusBannerStatus }>).detail.status)
+  })
+
+  document.addEventListener('click', (e) => {
+    const retry = target(e).closest('.dw-connection-banner__retry')
+    if (retry) {
+      if (!retry.hasAttribute('data-loading')) connectionStatusBannerCheck()
+      return
+    }
+    const root = target(e).closest('.dw-connection-banner__close')?.closest<HTMLElement>('[data-dw="connection-status-banner"]')
+    if (root) connectionStatusBannerClose(root)
+  })
+
+  function connectionStatusBannerInit(): void {
+    if (navigator.onLine === false) connectionStatusBannerApply('offline')
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', connectionStatusBannerInit, { once: true })
+  else connectionStatusBannerInit()
+
+  /* ── Reveal: 화면 아래 요소만 숨겼다가 들어올 때 보인다 ── */
+  function revealInit(): void {
+    if (reducedMotion() || !('IntersectionObserver' in window)) return
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const el = entry.target as HTMLElement
+        const once = el.dataset.once !== 'false'
+        if (entry.isIntersecting) {
+          el.dataset.reveal = 'visible'
+          if (once) observer.unobserve(el)
+        } else if (!once) {
+          el.dataset.reveal = 'hidden'
+        }
+      }
+    })
+    for (const el of document.querySelectorAll<HTMLElement>('[data-dw="reveal"]')) {
+      const below = el.getBoundingClientRect().top >= window.innerHeight
+      // 이미 본 자리의 내용을 다시 숨기면 깜빡이므로 처음 화면과 그 위는 그대로 둔다
+      if (below) el.dataset.reveal = 'hidden'
+      if (below || el.dataset.once === 'false') observer.observe(el)
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', revealInit, { once: true })
+  else revealInit()
 
   window.dw = { openModal, closeModal, showToast }
 

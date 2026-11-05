@@ -65,7 +65,7 @@
 ## Behavior & Accessibility
 
 - `<nav aria-label="페이지">`. 현재 페이지는 `aria-current="page"`.
-- 숫자 링크에 문맥이 부족하면 `aria-label="3페이지"`. Prev·Next는 반드시 `aria-label`.
+- 숫자 링크에 문맥이 부족하면 `aria-label="3 페이지"`처럼 숫자를 낱말로 띄운다. Prev·Next는 반드시 `aria-label`. 비활성 Prev·Next는 `href`가 없으므로 `role="link"`를 함께 쓴다.
 - 페이지는 URL 쿼리(`?page=`)에 반영해 새로고침·공유 시 유지한다. 페이지를 바꾸면 목록 맨 위로 스크롤하고 포커스는 목록 제목(또는 표)으로 옮긴다.
 - 검색·필터를 바꾸면 페이지는 1로 돌아간다.
 

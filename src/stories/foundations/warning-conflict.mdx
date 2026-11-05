@@ -1,0 +1,17 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Foundations/Warning 구분" />
+
+# Warning과 브랜드색 구분
+
+대웅 오렌지와 Warning 노랑은 색상이 가까워 나란히 있으면 헷갈립니다. 네 가지로 구분합니다.
+
+1. **색상을 나눕니다.** Warning은 `yellow-*`, 브랜드는 `orange-*`입니다.
+2. **명도를 나눕니다.** Warning은 옅은 면에 진한 글자를 씁니다.
+3. **맥락을 나눕니다.** 브랜드는 누르는 행동, Warning은 읽는 상태에 씁니다.
+4. **아이콘을 함께 둡니다.** 색만으로 알리지 않습니다.
+
+<div style={{ display: 'flex', gap: 8, padding: '14px 18px', borderRadius: 12, background: 'var(--dw-bg-warning-weak)', color: 'var(--dw-fg-warning-contrast)' }}>
+  <span aria-hidden="true">⚠</span>
+  <span>저장 공간이 거의 찼습니다</span>
+</div>

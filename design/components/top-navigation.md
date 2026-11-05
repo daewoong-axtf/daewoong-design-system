@@ -43,7 +43,7 @@
 
 | 항목 | 값 |
 | --- | --- |
-| Root | 높이 56px (+ safe-area-top), 좌우 padding 16px `x4`, `display: flex; align-items: center`, `position: sticky; top: 0; z-index: 10` |
+| Root | 높이 56px (+ safe-area-top), 좌우 padding 16px `x4`, `display: flex; align-items: center`, `position: sticky; top: 0; z-index: z-raised` |
 | tone `layer` | bg `bg-layer-default` |
 | tone `transparent` | 투명, 아이콘·글자 `static-white` |
 | divider | 아래 `inset 0 -1px stroke-neutral-muted` |

@@ -19,12 +19,21 @@ export const scale = [
       <code style={{ width: 64 }}>{size}</code>
       <span style={{ width: 96, fontSize: 'var(--dw-font-t2-size)', color: 'var(--dw-fg-neutral-subtle)' }}>{sp} · {px}</span>
       <div style={{ height: `var(--dw-spacing-${sp})`, padding: '0 var(--dw-spacing-x4)', display: 'grid', placeItems: 'center', borderRadius: `var(--dw-radius-${r})`, background: 'var(--dw-bg-brand-solid)', color: 'var(--dw-fg-on-brand-solid)', fontWeight: 700, fontSize: 'var(--dw-font-t4-size)' }}>확인</div>
-      {size === 'medium' || size === 'large' ? (
-        <div style={{ height: `var(--dw-spacing-${sp})`, width: 180, padding: '0 var(--dw-spacing-x3_5)', display: 'flex', alignItems: 'center', boxSizing: 'border-box', border: '1px solid var(--dw-stroke-neutral-weak)', borderRadius: `var(--dw-radius-${r})`, color: 'var(--dw-fg-placeholder)', fontSize: 'var(--dw-font-t4-size)' }}>이름</div>
-      ) : null}
+      <div style={{ height: `var(--dw-spacing-${sp})`, width: 180, padding: '0 var(--dw-spacing-x3_5)', display: 'flex', alignItems: 'center', boxSizing: 'border-box', border: '1px solid var(--dw-stroke-neutral-weak)', borderRadius: `var(--dw-radius-${r})`, color: 'var(--dw-fg-placeholder)', fontSize: 'var(--dw-font-t4-size)' }}>이름</div>
     </div>
   ))}
 </div>
+
+## React size 이름
+
+React 컴포넌트는 shadcn의 size 이름을 그대로 쓰고, 높이는 위 스케일에 맞췄습니다.
+
+| 스케일 | 높이 | Button `size` | Input `inputSize` | Select `size` |
+| --- | --- | --- | --- | --- |
+| xsmall | 32px | `xs` · `icon-xs` | `xs` | 없음 |
+| small | 36px | `sm` · `icon-sm` | `sm` | `sm` |
+| medium | 40px | `default` · `icon` | `default` | `default` |
+| large | 52px | `lg` · `icon-lg` | `lg` | `lg` |
 
 ## 사용 기준
 

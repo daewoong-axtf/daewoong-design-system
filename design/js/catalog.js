@@ -4,6 +4,9 @@
   const header = document.querySelector('.page-header')
   const nav = document.getElementById('page-nav')
 
+  // 카탈로그의 폼 예시는 실제로 전송하지 않는다
+  document.addEventListener('dw:form-valid', (e) => e.preventDefault())
+
   /* ── 테마 ── */
   const theme = document.getElementById('theme')
   const isDark = () => root.dataset.theme === 'dark' || (!root.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches)

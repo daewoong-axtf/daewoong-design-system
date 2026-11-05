@@ -14,7 +14,7 @@
 | Root | `.dw-skeleton` | ✓ | 크기를 가진 빈 블록. 반짝이는 띠는 `::after` |
 
 ```html
-<div aria-busy="true" aria-label="불러오는 중">
+<div role="status" aria-busy="true" aria-label="불러오는 중">
   <span class="dw-skeleton dw-skeleton--full" style="width:40px;height:40px"></span>
   <span class="dw-skeleton" style="width:60%;height:19px"></span>
 </div>

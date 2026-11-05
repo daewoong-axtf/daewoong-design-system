@@ -5,7 +5,7 @@
 ## 개요
 
 한 줄 텍스트(`<input>`) 또는 여러 줄 텍스트(`<textarea>`)를 입력받는다. 라벨·오류는 [Field](field.md)로 감싸 붙인다.
-**쓰지 말 것** — 정해진 보기 중 고르는 입력(Select·Radio), 날짜(Date Picker, v1.1).
+**쓰지 말 것** — 정해진 보기 중 고르는 입력(Select·Radio), 날짜([Date Picker](date-picker.md)).
 
 ## Anatomy
 
@@ -30,7 +30,7 @@
 | 속성 | 값 | 기본값 | 표현 |
 | --- | --- | --- | --- |
 | variant | `outline` · `underline` | `outline` | underline은 `.dw-text-input--underline` |
-| size | `medium` · `large` · `responsive` | `medium` | `.dw-text-input--<size>` |
+| size | `xsmall` · `small` · `medium` · `large` · `responsive` | `medium` | `.dw-text-input--<size>` |
 | multiline | boolean | false | Value를 `<textarea>`로 |
 | invalid | boolean | false | Value에 `aria-invalid="true"` |
 | disabled | boolean | false | Value에 `disabled` |
@@ -44,10 +44,14 @@
 
 | size | min-height | 좌우 여백 | gap | radius | font | icon |
 | --- | --- | --- | --- | --- | --- | --- |
+| `xsmall` | 32px `x8` | 10px `x2_5` | 6px `x1_5` | 8px `r2` | t3 13/18 | 14px |
+| `small` | 36px `x9` | 12px `x3` | 8px `x2` | 8px `r2` | t4 14/19 | 16px |
 | `medium` | 40px `x10` | 14px `x3_5` | 8px `x2` | 8px `r2` | t4 14/19 | 16px |
 | `large` | 52px `x13` | 16px `x4` | 10px `x2_5` | 12px `r3` | t5 16/22 | 20px |
 
-좌우 여백은 Root의 padding이 아니라 **맨 앞·맨 뒤 자식의 여백**이다(앞 아이콘이 있으면 아이콘 왼쪽에 14/16px, Value는 붙는다).
+`xsmall`·`small`은 표 안이나 필터 바처럼 조밀한 데스크톱 자리에 쓰고, outline 한 줄 입력만 지원한다.
+
+좌우 여백은 Root의 padding이 아니라 **맨 앞·맨 뒤 자식의 여백**이다(앞 아이콘이 있으면 아이콘 왼쪽에 크기별 좌우 여백, Value는 붙는다).
 
 ### 크기 — underline
 

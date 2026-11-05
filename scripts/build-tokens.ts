@@ -40,6 +40,7 @@ export function buildCss(tokens: Tokens): string {
   const { typography: ty, motion } = tokens
   const base = [
     `  --dw-font-sans: ${ty.fontFamily.sans};`,
+    `  --dw-font-mono: ${ty.fontFamily.mono};`,
     ...lines(ty.fontWeight, 'font-weight-'),
     ...Object.entries(ty.scale).flatMap(([t, s]) => [
       `  --dw-font-${t}-size: ${s.fontSize};`,
@@ -52,6 +53,7 @@ export function buildCss(tokens: Tokens): string {
     ]),
     ...lines(tokens.spacing, 'spacing-'),
     ...lines(tokens.radius, 'radius-'),
+    ...lines(tokens.zIndex, 'z-'),
     ...lines(motion.duration, 'duration-'),
     ...lines(motion.easing, 'easing-'),
     ...lines(motion.scale.default, 'scale-'),

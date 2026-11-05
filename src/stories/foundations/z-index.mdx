@@ -1,0 +1,27 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Foundations/Z-index" />
+
+# Z-index
+
+겹치는 요소의 앞뒤는 토큰으로 정합니다. 숫자를 직접 쓰지 않습니다. 위쪽 행이 화면 앞쪽입니다.
+
+| 토큰 | 값 | 쓰는 곳 |
+| --- | --- | --- |
+| `z-tooltip` | 70 | Tooltip, Info Tooltip |
+| `z-toast` | 60 | Toast |
+| `z-dropdown` | 55 | Select·Combobox·Date Picker 목록, Dropdown Menu, Popover |
+| `z-modal` | 50 | Dialog, Alert Dialog, Bottom Sheet, Side Sheet |
+| `z-overlay` | 50 | 모달의 Backdrop(딤) |
+| `z-notice` | 20 | Connection Status Banner |
+| `z-raised` | 10 | Top Navigation, 모바일 하단 고정 액션 |
+| `z-base` | 0 | 일반 콘텐츠 |
+
+Tailwind에서는 `z-(--dw-z-modal)`처럼 씁니다.
+
+## 규칙
+
+- **`z-overlay`와 `z-modal`은 같은 값입니다.** 나중에 연 모달의 Backdrop이 앞 모달을 덮어야 합니다.
+- **`z-dropdown`은 모달보다 높습니다.** Portal로 `body`에 붙는 목록이 모달 뒤로 깔리면 안 됩니다.
+- **`z-toast`는 모달보다 높습니다.** 모달이 열려 있어도 결과 안내가 보여야 합니다.
+- **`z-tooltip`이 가장 높습니다.** 지금 가리키는 대상의 설명입니다.

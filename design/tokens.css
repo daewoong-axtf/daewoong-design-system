@@ -2,7 +2,8 @@
 
 :root {
   color-scheme: light dark;
-  --dw-font-sans: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --dw-font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --dw-font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --dw-font-weight-regular: 400;
   --dw-font-weight-medium: 500;
   --dw-font-weight-bold: 700;
@@ -106,6 +107,14 @@
   --dw-radius-r5: 20px;
   --dw-radius-r6: 24px;
   --dw-radius-full: 9999px;
+  --dw-z-base: 0;
+  --dw-z-raised: 10;
+  --dw-z-notice: 20;
+  --dw-z-overlay: 50;
+  --dw-z-modal: 50;
+  --dw-z-dropdown: 55;
+  --dw-z-toast: 60;
+  --dw-z-tooltip: 70;
   --dw-duration-d1: 50ms;
   --dw-duration-d2: 100ms;
   --dw-duration-d3: 150ms;

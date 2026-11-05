@@ -1,5 +1,5 @@
 /*
- * 대웅 Design System — 컴포넌트 레퍼런스 CSS
+ * Daewoong Design System — 컴포넌트 레퍼런스 CSS
  * tokens.css 다음에 불러온다. 역할 토큰(bg-*·fg-*·stroke-*)과 스케일 토큰만 쓴다.
  * 이 클래스를 그대로 써도 되고, components/<name>.md 명세만 보고 각자 구현해도 된다.
  */
@@ -15,6 +15,12 @@
   clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
+}
+
+.dw-hatch {
+  --dw-hatch-color: var(--dw-stroke-neutral-muted);
+  background-image: linear-gradient(45deg, var(--dw-hatch-color) 0 25%, transparent 25% 50%, var(--dw-hatch-color) 50% 75%, transparent 75% 100%);
+  background-size: 8.49px 8.49px;
 }
 
 @keyframes dw-spin {
@@ -369,6 +375,20 @@
   transition: border-color var(--dw-duration-d2) var(--dw-easing-easing);
 }
 
+.dw-text-input--xsmall {
+  --dw-text-input-edge: var(--dw-spacing-x2_5);
+  --dw-text-input-icon: 14px;
+  min-height: var(--dw-spacing-x8);
+  gap: var(--dw-spacing-x1_5);
+  font-size: var(--dw-font-t3-size);
+  line-height: var(--dw-font-t3-line-height);
+}
+
+.dw-text-input--small {
+  --dw-text-input-edge: var(--dw-spacing-x3);
+  min-height: var(--dw-spacing-x9);
+}
+
 .dw-text-input--large {
   --dw-text-input-edge: var(--dw-spacing-x4);
   --dw-text-input-icon: 20px;
@@ -506,7 +526,7 @@ button.dw-text-input__icon:focus-visible { outline: 2px solid var(--dw-stroke-fo
 .dw-dialog__backdrop {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: var(--dw-z-overlay);
   background: var(--dw-bg-overlay);
   animation: dw-fade-in var(--dw-duration-d2) var(--dw-easing-enter);
 }
@@ -514,7 +534,7 @@ button.dw-text-input__icon:focus-visible { outline: 2px solid var(--dw-stroke-fo
 .dw-dialog__positioner {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: var(--dw-z-modal);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1214,7 +1234,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
   white-space: nowrap;
 }
 
-.dw-select__value[data-placeholder] { color: var(--dw-fg-placeholder); }
+.dw-select__value[data-placeholder] { color: var(--dw-fg-neutral-subtle); } /* 버튼 안 글자라 placeholder 대비 예외가 아니다 */
 
 .dw-select__chevron {
   flex-shrink: 0;
@@ -1243,7 +1263,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
   top: calc(100% + var(--dw-spacing-x1));
   left: 0;
   right: 0;
-  z-index: 20;
+  z-index: var(--dw-z-dropdown);
   box-sizing: border-box;
   max-height: min(480px, var(--dw-select-available, 480px));
   padding-block: var(--dw-spacing-x2);
@@ -1480,7 +1500,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
 .dw-alert-dialog {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: var(--dw-z-modal);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1554,7 +1574,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
 .dw-bottom-sheet {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: var(--dw-z-modal);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -1737,7 +1757,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
   --dw-side-sheet-width: 480px;
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: var(--dw-z-modal);
   overscroll-behavior: contain;
 }
 
@@ -1870,7 +1890,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
 /* ── Popover ──────────────────────────────────────── */
 .dw-popover {
   position: fixed;
-  z-index: 50;
+  z-index: var(--dw-z-dropdown);
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -1993,7 +2013,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
   --dw-menu-group-line: var(--dw-font-t4-line-height);
   --dw-menu-group-weight: var(--dw-font-weight-medium);
   position: fixed;
-  z-index: 50;
+  z-index: var(--dw-z-dropdown);
   display: flex;
   flex-direction: column;
   gap: var(--dw-spacing-x2);
@@ -2140,7 +2160,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
 .dw-tooltip {
   --dw-floating-scale: 0.9;
   position: fixed;
-  z-index: 60;
+  z-index: var(--dw-z-tooltip);
   display: flex;
   flex-direction: column;
   gap: var(--dw-spacing-x0_5);
@@ -2217,7 +2237,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
   right: 0;
   bottom: calc(env(safe-area-inset-bottom, 0px) + var(--dw-toast-offset, 0px));
   left: 0;
-  z-index: 70;
+  z-index: var(--dw-z-toast);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2256,8 +2276,6 @@ html[data-dw-scroll-lock] { overflow: hidden; }
   padding-right: var(--dw-spacing-x0_5);
 }
 
-.dw-toast--positive .dw-toast__icon { color: var(--dw-fg-positive); }
-.dw-toast--critical .dw-toast__icon { color: var(--dw-fg-critical); }
 
 .dw-toast__content {
   display: flex;
@@ -2285,7 +2303,9 @@ html[data-dw-scroll-lock] { overflow: hidden; }
   border: 0;
   outline: none;
   background: none;
-  color: var(--dw-fg-brand);
+  color: var(--dw-fg-neutral-inverted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
   font-family: inherit;
   font-size: var(--dw-font-t4-size);
   line-height: var(--dw-font-t4-line-height);
@@ -2632,7 +2652,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
   --dw-topbar-fg-subtle: var(--dw-fg-neutral-subtle);
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: var(--dw-z-raised);
   display: flex;
   align-items: center;
   box-sizing: content-box;
@@ -4309,4 +4329,1672 @@ button.dw-callout:active { scale: var(--dw-scale-s97); }
 
 @media (prefers-reduced-motion: reduce) {
   .dw-skeleton::after { display: none; }
+}
+
+/* ── Form ─────────────────────────────────────────── */
+.dw-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dw-spacing-x5);
+  width: 100%;
+  min-width: 0;
+}
+
+.dw-form:has(> .dw-form-section) { gap: var(--dw-spacing-x8); }
+
+.dw-form__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--dw-spacing-x5);
+}
+
+@media (min-width: 768px) {
+  .dw-form__row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--dw-spacing-x4); }
+}
+
+.dw-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--dw-spacing-x2);
+  margin-top: var(--dw-spacing-x1);
+}
+
+@media (max-width: 767px) {
+  .dw-form__actions > .dw-button { flex: 1; }
+}
+
+/* ── Form Section ─────────────────────────────────── */
+.dw-form-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dw-spacing-x3);
+  min-width: 0;
+}
+
+.dw-form-section__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--dw-spacing-x1) var(--dw-spacing-x2);
+}
+
+.dw-form-section__heading {
+  display: flex;
+  flex: 1 1 200px;
+  flex-direction: column;
+  gap: var(--dw-spacing-x0_5);
+  min-width: 0;
+}
+
+.dw-form-section__title {
+  margin: 0;
+  color: var(--dw-fg-neutral);
+  font-size: var(--dw-font-t6-size);
+  line-height: var(--dw-font-t6-line-height);
+  font-weight: var(--dw-font-weight-bold);
+  word-break: keep-all;
+}
+
+.dw-form-section__description {
+  margin: 0;
+  color: var(--dw-fg-neutral-muted);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+  word-break: keep-all;
+}
+
+.dw-form-section__aside {
+  flex-shrink: 0;
+  color: var(--dw-fg-neutral-subtle);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+}
+
+.dw-form-section > .dw-form-section__body { gap: var(--dw-spacing-x5); }
+
+/* ── Password Input ───────────────────────────────── */
+.dw-password-input .dw-text-input__value::-ms-reveal { display: none; }
+
+.dw-password-input [data-dw-password-toggle][aria-pressed="true"] .dw-password-input__show,
+.dw-password-input [data-dw-password-toggle][aria-pressed="false"] .dw-password-input__hide { display: none; }
+
+.dw-password-input [data-dw-password-toggle]:disabled { cursor: not-allowed; }
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-password-input [data-dw-password-toggle]:not(:disabled):hover { color: var(--dw-fg-neutral); }
+}
+
+/* ── Input Group ──────────────────────────────────── */
+.dw-input-group { --dw-input-group-inset: var(--dw-spacing-x1); }
+.dw-input-group.dw-text-input--large { --dw-input-group-inset: var(--dw-spacing-x2); }
+
+@media (max-width: 1279px) {
+  .dw-input-group.dw-text-input--responsive { --dw-input-group-inset: var(--dw-spacing-x2); }
+}
+
+.dw-input-group__addon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--dw-spacing-x1);
+  min-width: 0;
+  color: var(--dw-fg-neutral-subtle);
+}
+
+.dw-text-input.dw-input-group > .dw-input-group__addon:first-child { margin-left: var(--dw-input-group-inset); }
+.dw-text-input.dw-input-group > .dw-input-group__addon:last-child { margin-right: var(--dw-input-group-inset); }
+
+.dw-text-input:has(.dw-text-input__value:disabled) .dw-input-group__addon { color: var(--dw-fg-disabled); }
+
+/* 위아래로 쌓는 형태: 머리·꼬리 줄이 Value와 같은 테두리 안에 들어간다 */
+.dw-input-group--stacked {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+
+.dw-text-input.dw-input-group--stacked > .dw-text-input__value {
+  flex: 1 1 auto;
+  width: 100%;
+  margin: 0;
+  padding-inline: var(--dw-text-input-edge);
+}
+
+.dw-text-input.dw-input-group--stacked > input.dw-text-input__value { min-height: var(--dw-spacing-x10); }
+
+.dw-text-input.dw-input-group--stacked > .dw-input-group__addon {
+  justify-content: space-between;
+  gap: var(--dw-spacing-x2);
+  margin: 0;
+  padding: var(--dw-spacing-x2) var(--dw-spacing-x2) var(--dw-spacing-x2) var(--dw-text-input-edge);
+}
+
+/* ── Search Input ─────────────────────────────────── */
+.dw-search-input {
+  display: flex;
+  align-items: stretch;
+  gap: var(--dw-spacing-x2);
+  width: 100%;
+  min-width: 0;
+}
+
+.dw-search-input > .dw-text-input { flex: 1; min-width: 0; }
+.dw-search-input > .dw-button { flex-shrink: 0; align-self: center; }
+
+@media (max-width: 1279px) {
+  .dw-search-input:has(> .dw-text-input--responsive) > .dw-button { min-height: var(--dw-spacing-x13); }
+}
+
+/* ── Info Tooltip ─────────────────────────────────── */
+.dw-info-tooltip {
+  position: relative;
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  margin: -4px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--dw-radius-full);
+  background: none;
+  color: var(--dw-fg-neutral-subtle);
+  vertical-align: middle;
+  cursor: pointer;
+  transition: color var(--dw-duration-d2) var(--dw-easing-easing);
+}
+
+.dw-info-tooltip > svg { width: 16px; height: 16px; }
+.dw-info-tooltip[aria-expanded="true"] { color: var(--dw-fg-neutral); }
+.dw-info-tooltip:focus-visible { outline: 2px solid var(--dw-stroke-focus-ring); outline-offset: 0; }
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-info-tooltip:hover { color: var(--dw-fg-neutral); }
+}
+
+@media (pointer: coarse) {
+  .dw-info-tooltip::before { content: ""; position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; translate: -50% -50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dw-info-tooltip { transition: none; }
+}
+
+/* Field 머리글은 양끝 정렬이라 그대로 두면 아이콘이 라벨에서 멀어진다 */
+.dw-field__header:has(> .dw-info-tooltip) { justify-content: flex-start; gap: var(--dw-spacing-x2); }
+
+.dw-popover.dw-info-tooltip__panel { min-width: 0; max-width: min(280px, 100vw - 2 * var(--dw-spacing-x2)); }
+
+.dw-info-tooltip__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dw-spacing-x2);
+  margin: 0;
+  padding: var(--dw-spacing-x3) var(--dw-spacing-x4);
+  list-style: none;
+  color: var(--dw-fg-neutral);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+  font-weight: var(--dw-font-weight-regular);
+  word-break: keep-all;
+}
+
+.dw-info-tooltip__list > li { position: relative; padding-left: var(--dw-spacing-x3_5); }
+
+.dw-info-tooltip__list > li::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--dw-radius-full);
+  background: var(--dw-fg-neutral-subtle);
+}
+
+/* 768px 미만에는 Bottom Sheet 안에서 열린다 */
+.dw-bottom-sheet__content > .dw-popover.dw-info-tooltip__panel { max-width: none; }
+
+.dw-bottom-sheet__content > .dw-info-tooltip__panel .dw-info-tooltip__list {
+  padding: var(--dw-spacing-x5) var(--dw-spacing-x4) var(--dw-spacing-x6);
+  font-size: var(--dw-font-t5-size);
+  line-height: var(--dw-font-t5-line-height);
+}
+
+.dw-bottom-sheet__content > .dw-info-tooltip__panel .dw-info-tooltip__list > li::before { top: 8px; }
+
+/* ── Calendar ─────────────────────────────────────── */
+.dw-calendar {
+  --dw-calendar-cell: var(--dw-spacing-x10);
+  --dw-calendar-edge: var(--dw-spacing-x3);
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--dw-spacing-x2);
+  box-sizing: border-box;
+  width: calc(7 * var(--dw-calendar-cell) + 2 * var(--dw-calendar-edge));
+  max-width: 100%;
+  padding: var(--dw-calendar-edge);
+  border-radius: var(--dw-radius-r5);
+  background: var(--dw-bg-layer-default);
+  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-muted);
+  color: var(--dw-fg-neutral);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 좁은 화면·터치에서 한 칸을 44px로 넓힌다 */
+@media (max-width: 767px), (pointer: coarse) {
+  .dw-calendar { --dw-calendar-cell: 44px; }
+}
+
+.dw-calendar__header {
+  display: grid;
+  grid-template-columns: var(--dw-calendar-cell) minmax(0, 1fr) var(--dw-calendar-cell);
+  align-items: center;
+  min-height: var(--dw-calendar-cell);
+}
+
+.dw-calendar__title {
+  margin: 0;
+  text-align: center;
+  font-size: var(--dw-font-t5-size);
+  line-height: var(--dw-font-t5-line-height);
+  font-weight: var(--dw-font-weight-bold);
+}
+
+.dw-calendar__selects {
+  display: flex;
+  justify-content: center;
+  gap: var(--dw-spacing-x1);
+  min-width: 0;
+}
+
+.dw-calendar__selects[hidden],
+.dw-calendar__title[hidden] { display: none; }
+
+.dw-calendar__select {
+  min-width: 0;
+  height: var(--dw-spacing-x9);
+  padding: 0 var(--dw-spacing-x1);
+  border: 0;
+  border-radius: var(--dw-radius-r2);
+  background: var(--dw-bg-transparent);
+  color: var(--dw-fg-neutral);
+  font: inherit;
+  font-weight: var(--dw-font-weight-medium);
+  cursor: pointer;
+  outline: 2px solid transparent;
+  outline-offset: 0;
+  transition: background-color var(--dw-duration-color-transition) var(--dw-easing-easing);
+}
+
+.dw-calendar__select option { background: var(--dw-bg-layer-floating); color: var(--dw-fg-neutral); }
+.dw-calendar__select:focus-visible { outline-color: var(--dw-stroke-focus-ring); }
+
+.dw-calendar__nav {
+  display: grid;
+  place-items: center;
+  width: var(--dw-calendar-cell);
+  height: var(--dw-calendar-cell);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--dw-radius-r3);
+  background: var(--dw-bg-transparent);
+  color: var(--dw-fg-neutral-muted);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  transition: background-color var(--dw-duration-color-transition) var(--dw-easing-easing);
+}
+
+.dw-calendar__nav > svg { width: 18px; height: 18px; }
+.dw-calendar__nav:focus-visible { outline-color: var(--dw-stroke-focus-ring); }
+.dw-calendar__nav[aria-disabled="true"] { color: var(--dw-fg-disabled); cursor: not-allowed; }
+.dw-calendar__nav:not([aria-disabled="true"]):active { background: var(--dw-bg-transparent-pressed); scale: var(--dw-scale-s95); }
+
+.dw-calendar__grid {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  isolation: isolate;
+}
+
+.dw-calendar__weekday {
+  height: var(--dw-spacing-x8);
+  padding: 0;
+  color: var(--dw-fg-neutral-subtle);
+  font-size: var(--dw-font-t2-size);
+  line-height: var(--dw-font-t2-line-height);
+  font-weight: var(--dw-font-weight-regular);
+}
+
+.dw-calendar__cell {
+  position: relative;
+  padding: 0;
+  text-align: center;
+}
+
+.dw-calendar__day {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: var(--dw-calendar-cell);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--dw-radius-r3);
+  background: var(--dw-bg-transparent);
+  color: var(--dw-fg-neutral);
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  transition:
+    background-color var(--dw-duration-color-transition) var(--dw-easing-easing),
+    outline-color var(--dw-duration-d3) var(--dw-easing-easing);
+}
+
+.dw-calendar__day:focus-visible { z-index: 1; outline-color: var(--dw-stroke-focus-ring); }
+.dw-calendar__day[data-outside] { color: var(--dw-fg-neutral-subtle); }
+.dw-calendar__day:not([aria-disabled="true"]):active { background: var(--dw-bg-transparent-pressed); scale: var(--dw-scale-s95); }
+
+/* 오늘 — 굵은 글자와 아래 점 */
+.dw-calendar__day[aria-current="date"] { font-weight: var(--dw-font-weight-bold); }
+.dw-calendar__day[aria-current="date"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: var(--dw-spacing-x1);
+  width: var(--dw-spacing-x1);
+  height: var(--dw-spacing-x1);
+  border-radius: var(--dw-radius-full);
+  background: currentColor;
+  translate: -50% 0;
+}
+
+.dw-calendar__day[aria-disabled="true"] {
+  color: var(--dw-fg-disabled);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+/* 선택 */
+.dw-calendar__cell[aria-selected="true"] .dw-calendar__day {
+  background: var(--dw-bg-brand-solid);
+  color: var(--dw-fg-on-brand-solid);
+  font-weight: var(--dw-font-weight-bold);
+}
+
+.dw-calendar__cell[aria-selected="true"] .dw-calendar__day:active { background: var(--dw-bg-brand-solid-pressed); }
+
+/* 범위 — 칸 뒤의 띠가 시작·끝을 잇는다 */
+.dw-calendar__cell[data-range]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--dw-bg-brand-weak);
+}
+
+.dw-calendar__cell[data-range="start"]::before { left: 50%; }
+.dw-calendar__cell[data-range="end"]::before { right: 50%; }
+.dw-calendar__cell[data-range]:first-child::before { border-start-start-radius: var(--dw-radius-r3); border-end-start-radius: var(--dw-radius-r3); }
+.dw-calendar__cell[data-range]:last-child::before { border-start-end-radius: var(--dw-radius-r3); border-end-end-radius: var(--dw-radius-r3); }
+
+.dw-calendar__cell[data-range="middle"][aria-selected="true"] .dw-calendar__day {
+  background: var(--dw-bg-transparent);
+  color: var(--dw-fg-neutral);
+  font-weight: var(--dw-font-weight-regular);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-calendar__nav:not([aria-disabled="true"]):hover,
+  .dw-calendar__select:hover,
+  .dw-calendar__day:not([aria-disabled="true"]):hover { background: var(--dw-bg-transparent-pressed); }
+  .dw-calendar__cell[aria-selected="true"]:not([data-range="middle"]) .dw-calendar__day:hover { background: var(--dw-bg-brand-solid-pressed); }
+  .dw-calendar__cell[data-range="middle"][aria-selected="true"] .dw-calendar__day:hover { background: var(--dw-bg-transparent-pressed); }
+}
+
+/* ── Date Picker ──────────────────────────────────── */
+/* 겉모습은 Select를 그대로 쓰고 달력 아이콘·지우기만 더한다 */
+.dw-date-picker__icon {
+  flex-shrink: 0;
+  width: var(--dw-select-icon);
+  height: var(--dw-select-icon);
+  color: var(--dw-fg-neutral-muted);
+}
+
+.dw-date-picker__trigger:disabled .dw-date-picker__icon { color: var(--dw-fg-disabled); }
+.dw-date-picker__trigger { font-variant-numeric: tabular-nums; }
+.dw-date-picker[data-has-value] .dw-date-picker__trigger:has(~ .dw-date-picker__clear:not([hidden])) { padding-right: calc(var(--dw-select-edge) + var(--dw-select-icon) + var(--dw-select-gap)); }
+
+.dw-date-picker__clear {
+  position: absolute;
+  top: 50%;
+  right: var(--dw-select-edge);
+  display: grid;
+  place-items: center;
+  width: var(--dw-select-icon);
+  height: var(--dw-select-icon);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--dw-fg-neutral-subtle);
+  cursor: pointer;
+  translate: 0 -50%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dw-date-picker__clear[hidden] { display: none; }
+.dw-date-picker__clear > svg { width: 100%; height: 100%; }
+.dw-date-picker__clear:focus-visible { outline: 2px solid var(--dw-stroke-focus-ring); outline-offset: 2px; border-radius: var(--dw-radius-r1); }
+
+@media (pointer: coarse) {
+  .dw-date-picker__clear::before { content: ""; position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; translate: -50% -50%; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-date-picker__clear:hover { color: var(--dw-fg-neutral); }
+}
+
+/* 팝업은 Popover, 달력은 면을 지우고 팝업에 얹는다 */
+.dw-date-picker__content { --dw-floating-scale: var(--dw-scale-s95); min-width: 0; }
+.dw-date-picker__content .dw-calendar { background: none; box-shadow: none; border-radius: 0; }
+
+/* 768px 미만 — Bottom Sheet 안에서 폭을 채운다 */
+.dw-bottom-sheet__content > .dw-date-picker__content { align-items: stretch; }
+.dw-bottom-sheet__content > .dw-date-picker__content .dw-calendar { width: 100%; }
+
+/* ── Time Select ──────────────────────────────────── */
+/* 네이티브 select를 Select Trigger와 같은 상자로 싼다 */
+.dw-time-select {
+  --dw-time-select-height: var(--dw-spacing-x10);
+  --dw-time-select-edge: var(--dw-spacing-x3_5);
+  --dw-time-select-icon: 16px;
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.dw-time-select--large { --dw-time-select-height: var(--dw-spacing-x13); --dw-time-select-edge: var(--dw-spacing-x4); --dw-time-select-icon: 20px; }
+
+.dw-time-select__control {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--dw-time-select-height);
+  margin: 0;
+  padding: 0 calc(var(--dw-time-select-edge) + var(--dw-time-select-icon) + var(--dw-spacing-x2)) 0 var(--dw-time-select-edge);
+  border: 0;
+  border-radius: var(--dw-radius-r2);
+  background: var(--dw-bg-transparent);
+  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak), var(--dw-shadow-s1);
+  color: var(--dw-fg-neutral);
+  font-family: inherit;
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition:
+    background-color var(--dw-duration-color-transition) var(--dw-easing-easing),
+    box-shadow var(--dw-duration-d2) var(--dw-easing-easing),
+    outline-color var(--dw-duration-d3) var(--dw-easing-easing);
+}
+
+.dw-time-select--large .dw-time-select__control {
+  border-radius: var(--dw-radius-r3);
+  font-size: var(--dw-font-t5-size);
+  line-height: var(--dw-font-t5-line-height);
+}
+
+@media (max-width: 1279px) {
+  .dw-time-select--responsive { --dw-time-select-height: var(--dw-spacing-x13); --dw-time-select-edge: var(--dw-spacing-x4); --dw-time-select-icon: 20px; }
+  .dw-time-select--responsive .dw-time-select__control {
+    border-radius: var(--dw-radius-r3);
+    font-size: var(--dw-font-t5-size);
+    line-height: var(--dw-font-t5-line-height);
+  }
+}
+
+.dw-time-select__control option { background: var(--dw-bg-layer-floating); color: var(--dw-fg-neutral); }
+
+.dw-time-select__chevron {
+  position: absolute;
+  top: 50%;
+  right: var(--dw-time-select-edge);
+  width: var(--dw-time-select-icon);
+  height: var(--dw-time-select-icon);
+  color: var(--dw-fg-neutral-muted);
+  translate: 0 -50%;
+  pointer-events: none;
+}
+
+.dw-time-select__control:focus { box-shadow: inset 0 0 0 2px var(--dw-stroke-neutral-contrast), var(--dw-shadow-s1); }
+.dw-time-select__control:focus-visible { outline-color: var(--dw-stroke-focus-ring); }
+.dw-time-select__control[aria-invalid="true"]:not(:disabled) { box-shadow: inset 0 0 0 2px var(--dw-stroke-critical-solid), var(--dw-shadow-s1); }
+.dw-time-select__control:disabled { background: var(--dw-bg-disabled); color: var(--dw-fg-disabled); cursor: not-allowed; }
+.dw-time-select__control:disabled + .dw-time-select__chevron { color: var(--dw-fg-disabled); }
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-time-select__control:not(:disabled):hover { background: var(--dw-bg-transparent-pressed); }
+}
+
+/* 시작 ~ 종료 — Time Picker와 함께 쓴다 */
+.dw-time-range {
+  display: flex;
+  align-items: center;
+  gap: var(--dw-spacing-x2);
+  width: 100%;
+  min-width: 0;
+}
+
+.dw-time-range > :not(.dw-time-range__separator) { flex: 1; min-width: 0; }
+.dw-time-range__separator { flex-shrink: 0; color: var(--dw-fg-neutral-muted); }
+
+/* ── Time Picker ──────────────────────────────────── */
+/* 상자는 Text Input이다. 시간 칸의 숫자 폭과 시계 아이콘만 맞춘다 */
+.dw-time-picker .dw-text-input__value {
+  font-variant-numeric: tabular-nums;
+  min-height: var(--dw-spacing-x10);
+}
+
+.dw-time-picker .dw-text-input__value::-webkit-calendar-picker-indicator { cursor: pointer; }
+.dw-time-picker .dw-text-input__value:disabled::-webkit-calendar-picker-indicator { cursor: not-allowed; opacity: 0.4; }
+
+/* ── Combobox ─────────────────────────────────────── */
+/* 입력은 Text Input, 목록은 Select를 그대로 쓴다. 여기에는 둘을 잇는 것만 둔다 */
+.dw-combobox__control { cursor: text; }
+
+.dw-combobox__clear,
+.dw-combobox__toggle { cursor: pointer; }
+.dw-combobox__toggle { color: var(--dw-fg-neutral-muted); }
+.dw-combobox__clear { color: var(--dw-fg-neutral-subtle); }
+
+.dw-combobox__content { scroll-padding-block: var(--dw-spacing-x2); }
+.dw-combobox__list[hidden] { display: none; }
+.dw-combobox .dw-select__item[hidden] { display: none; }
+
+/* 선택 불가 사유 — Check 자리에 Badge를 둔다 */
+.dw-combobox .dw-select__item > .dw-badge {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  align-self: center;
+  margin-left: var(--dw-select-item-gap);
+}
+
+.dw-combobox__match {
+  border-radius: var(--dw-radius-r1);
+  background: var(--dw-bg-brand-weak);
+  color: inherit;
+}
+
+/* 안내 줄 — 입력 전·검색 중·결과 없음·오류. 결과가 있으면 스크린 리더에만 읽힌다 */
+.dw-combobox__status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dw-spacing-x2);
+  padding: var(--dw-spacing-x2) var(--dw-spacing-x4);
+  color: var(--dw-fg-neutral-subtle);
+  font-size: var(--dw-select-font-size);
+  line-height: var(--dw-select-line);
+  text-align: center;
+}
+
+.dw-combobox__status[data-state="results"],
+.dw-combobox__status:empty {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.dw-combobox__status[data-state="loading"]::before {
+  content: "";
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: var(--dw-select-icon);
+  height: var(--dw-select-icon);
+  border: 2px solid var(--dw-stroke-neutral-muted);
+  border-top-color: var(--dw-fg-neutral-muted);
+  border-radius: var(--dw-radius-full);
+  animation: dw-spin 0.8s linear infinite;
+}
+
+.dw-combobox__retry { display: flex; margin: 0 auto var(--dw-spacing-x2); }
+.dw-combobox__retry[hidden] { display: none; }
+
+/* 다중 선택 — 칩이 입력 앞에 쌓이고 줄을 바꾼다 */
+.dw-combobox[data-multiple] .dw-combobox__control {
+  flex-wrap: wrap;
+  gap: var(--dw-spacing-x1);
+  padding: var(--dw-spacing-x1) 0 var(--dw-spacing-x1) var(--dw-spacing-x2);
+}
+
+.dw-combobox[data-multiple] .dw-text-input__value {
+  flex: 1 1 var(--dw-spacing-x16);
+  min-height: var(--dw-spacing-x8);
+  padding-inline: var(--dw-spacing-x1);
+}
+
+.dw-combobox__chips { display: contents; }
+
+.dw-combobox__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dw-spacing-x1);
+  box-sizing: border-box;
+  max-width: 100%;
+  height: var(--dw-spacing-x7);
+  padding: 0 var(--dw-spacing-x1) 0 var(--dw-spacing-x2);
+  border-radius: var(--dw-radius-r2);
+  background: var(--dw-bg-neutral-weak-alpha);
+  color: var(--dw-fg-neutral);
+  font-size: var(--dw-font-t3-size);
+  line-height: var(--dw-font-t3-line-height);
+  font-weight: var(--dw-font-weight-medium);
+}
+
+.dw-combobox__chip-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.dw-combobox__chip-remove {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: var(--dw-spacing-x5);
+  height: var(--dw-spacing-x5);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--dw-radius-r1);
+  background: none;
+  color: var(--dw-fg-neutral-muted);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dw-combobox__chip-remove > svg { width: 14px; height: 14px; }
+.dw-combobox__chip-remove:focus-visible { outline: 2px solid var(--dw-stroke-focus-ring); outline-offset: 0; }
+
+@media (pointer: coarse) {
+  .dw-combobox__chip-remove::before { content: ""; position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; translate: -50% -50%; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-combobox__clear:hover,
+  .dw-combobox__toggle:hover,
+  .dw-combobox__chip-remove:hover { color: var(--dw-fg-neutral); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dw-combobox__status[data-state="loading"]::before { animation-duration: 3s; }
+}
+
+/* ── Searchable Select ────────────────────────────── */
+/* Combobox의 선택 전용 조합이다. 값이 없으면 placeholder가 곧 '전체'라 글자색만 값처럼 맞춘다 */
+.dw-searchable-select .dw-text-input__value::placeholder { color: var(--dw-fg-neutral-muted); }
+
+/* ── Filter Button ────────────────────────────────── */
+.dw-filter-button { flex-shrink: 0; }
+
+.dw-filter-button__count {
+  position: absolute;
+  top: calc(-1 * var(--dw-spacing-x1));
+  right: calc(-1 * var(--dw-spacing-x1));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: var(--dw-spacing-x4);
+  height: var(--dw-spacing-x4);
+  padding-inline: var(--dw-spacing-x1);
+  border-radius: var(--dw-radius-full);
+  background: var(--dw-bg-brand-solid);
+  color: var(--dw-fg-on-brand-solid);
+  font-size: var(--dw-font-t1-size);
+  line-height: var(--dw-font-t1-line-height);
+  font-weight: var(--dw-font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+.dw-filter-button__count[hidden] { display: none; }
+
+/* 숫자는 이름에 이미 있어 글자 노드로 두지 않는다. 보이는 글자가 이름의 낱말과 달라지지 않게 한다 */
+.dw-filter-button__count::after { content: attr(data-count); }
+
+/* ── Filter Sheet ─────────────────────────────────── */
+/* Bottom Sheet를 그대로 쓰고 아래 차이만 더한다. 폼은 Body·Footer를 세로 배치에 그대로 둔다 */
+.dw-filter-sheet__form { display: contents; }
+
+.dw-filter-sheet .dw-bottom-sheet__title { padding-right: calc(var(--dw-spacing-x16) + var(--dw-spacing-x8)); }
+.dw-filter-sheet .dw-bottom-sheet__title:focus { outline: none; }
+
+.dw-filter-sheet__reset {
+  position: absolute;
+  top: var(--dw-spacing-x6);
+  right: var(--dw-spacing-x3);
+}
+
+.dw-filter-sheet__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dw-spacing-x4);
+  padding-block: var(--dw-spacing-x0_5);
+}
+
+/* 768px 이상은 Side Sheet 모양이다. 가로로 눕힌 휴대폰은 시트 그대로 둔다 */
+@media (min-width: 768px) and (min-height: 501px) {
+  .dw-filter-sheet {
+    align-items: stretch;
+    justify-content: flex-end;
+  }
+
+  .dw-filter-sheet .dw-bottom-sheet__content {
+    --dw-sheet-offset: translateX(100%);
+    width: 480px;
+    max-height: none;
+    border-radius: 0;
+  }
+
+  .dw-filter-sheet .dw-bottom-sheet__handle { display: none; }
+  .dw-filter-sheet .dw-bottom-sheet__header { touch-action: auto; }
+  .dw-filter-sheet :is(.dw-bottom-sheet__title, .dw-bottom-sheet__description) { padding-inline-start: var(--dw-spacing-x6); }
+  .dw-filter-sheet .dw-bottom-sheet__body { padding-inline: var(--dw-spacing-x6); }
+  .dw-filter-sheet .dw-bottom-sheet__footer { padding-inline: var(--dw-spacing-x6); }
+  .dw-filter-sheet__reset { right: var(--dw-spacing-x5); }
+}
+
+/* ── Filter Tags ──────────────────────────────────── */
+.dw-filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dw-spacing-x3) var(--dw-spacing-x2);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dw-filter-tags[hidden] { display: none; }
+
+.dw-filter-tags > li { min-width: 0; max-width: 100%; }
+
+.dw-filter-tags .dw-chip {
+  flex-shrink: 1;
+  max-width: 100%;
+}
+
+.dw-filter-tags .dw-chip__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dw-filter-tags .dw-chip__icon { flex-shrink: 0; }
+
+/* ── List Footer ──────────────────────────────────── */
+.dw-list-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--dw-spacing-x2);
+  min-width: 0;
+}
+
+.dw-list-footer .dw-pagination__list { flex-wrap: wrap; }
+
+.dw-list-footer__count {
+  align-self: flex-start;
+  margin: 0;
+  color: var(--dw-fg-neutral);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+}
+
+.dw-list-footer__total {
+  font-weight: var(--dw-font-weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 640px) {
+  .dw-list-footer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .dw-list-footer__count { align-self: auto; }
+}
+
+/* ── Page Header ──────────────────────────────────── */
+.dw-page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dw-spacing-x3);
+  min-width: 0;
+}
+
+.dw-page-header__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dw-spacing-x1);
+  min-width: 0;
+}
+
+.dw-page-header__back {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--dw-spacing-x1);
+  margin-left: calc(-1 * var(--dw-spacing-x1));
+  border-radius: var(--dw-radius-r1);
+  color: var(--dw-fg-neutral-subtle);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+  text-decoration: none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition: color var(--dw-duration-color-transition) var(--dw-easing-easing);
+}
+
+/* 글자는 19px이어도 누르는 영역은 44px이다 */
+.dw-page-header__back::before {
+  content: "";
+  position: absolute;
+  inset: calc((var(--dw-font-t4-line-height) - 44px) / 2) 0;
+}
+
+.dw-page-header__back > svg {
+  flex-shrink: 0;
+  width: var(--dw-spacing-x4);
+  height: var(--dw-spacing-x4);
+}
+
+.dw-page-header__back:focus-visible { outline-color: var(--dw-stroke-focus-ring); }
+.dw-page-header__back:active { color: var(--dw-fg-neutral); }
+
+.dw-page-header__title {
+  margin: 0;
+  color: var(--dw-fg-neutral);
+  font-size: var(--dw-font-t9-size);
+  line-height: var(--dw-font-t9-line-height);
+  font-weight: var(--dw-font-weight-bold);
+  overflow-wrap: anywhere;
+}
+
+.dw-page-header__description {
+  margin: 0;
+  color: var(--dw-fg-neutral-subtle);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+}
+
+/* 기본(모바일)은 화면 아래 고정 바, 데스크톱에서 제목 오른쪽으로 올라간다 */
+.dw-page-header__actions {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: var(--dw-z-raised);
+  display: flex;
+  gap: var(--dw-spacing-x2);
+  box-sizing: border-box;
+  padding: var(--dw-spacing-x3) var(--dw-spacing-x4) max(var(--dw-spacing-x3), env(safe-area-inset-bottom, 0px));
+  background: var(--dw-bg-layer-default);
+  box-shadow: inset 0 1px 0 var(--dw-stroke-neutral-muted);
+}
+
+.dw-page-header__actions > * { flex: 1 1 0; min-width: 0; }
+
+@media (max-width: 767px), (max-height: 500px) and (orientation: landscape) {
+  .dw-page-header--hide-title-mobile .dw-page-header__title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .dw-page-header--hide-title-mobile .dw-page-header__description { display: none; }
+}
+
+@media (min-width: 768px) and (min-height: 501px) {
+  .dw-page-header {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--dw-spacing-x4);
+  }
+
+  .dw-page-header__actions {
+    position: static;
+    flex-shrink: 0;
+    align-items: center;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .dw-page-header__actions > * { flex: none; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-page-header__back:hover { color: var(--dw-fg-neutral); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dw-page-header__back { transition: none; }
+}
+
+/* ── Collapsible ──────────────────────────────────── */
+.dw-collapsible { min-width: 0; }
+
+.dw-collapsible__trigger {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  gap: var(--dw-spacing-x1);
+  min-height: 44px;
+  margin: 0;
+  padding: var(--dw-spacing-x2);
+  border: 0;
+  border-radius: var(--dw-radius-r2);
+  background: none;
+  color: var(--dw-fg-neutral);
+  font-family: inherit;
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+  font-weight: var(--dw-font-weight-medium);
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition:
+    background-color var(--dw-duration-color-transition) var(--dw-easing-easing),
+    scale var(--dw-duration-pressed-scale) var(--dw-easing-pressed-scale);
+}
+
+.dw-collapsible--block .dw-collapsible__trigger {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.dw-collapsible__trigger:focus-visible { outline-color: var(--dw-stroke-focus-ring); }
+.dw-collapsible__trigger:not(:disabled):active { scale: var(--dw-scale-s98); }
+
+.dw-collapsible__chevron {
+  flex-shrink: 0;
+  width: var(--dw-spacing-x4);
+  height: var(--dw-spacing-x4);
+  color: var(--dw-fg-neutral-subtle);
+  transition: rotate var(--dw-duration-d4) var(--dw-easing-easing);
+}
+
+.dw-collapsible__trigger[aria-expanded="true"] > .dw-collapsible__chevron { rotate: 180deg; }
+
+.dw-collapsible__trigger:disabled {
+  color: var(--dw-fg-disabled);
+  cursor: not-allowed;
+}
+
+.dw-collapsible__trigger:disabled > .dw-collapsible__chevron { color: var(--dw-fg-disabled); }
+
+.dw-collapsible__panel { overflow: hidden; }
+
+.dw-collapsible__panel-inner {
+  padding: var(--dw-spacing-x2);
+  color: var(--dw-fg-neutral-muted);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-collapsible__trigger:not(:disabled):hover { background: var(--dw-bg-transparent-pressed); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dw-collapsible__trigger,
+  .dw-collapsible__chevron { transition: none; }
+}
+
+/* ── Stat Card ────────────────────────────────────── */
+.dw-stat-card { gap: var(--dw-spacing-x1); }
+
+.dw-stat-card__label {
+  display: flex;
+  align-items: center;
+  gap: var(--dw-spacing-x1_5);
+  margin: 0;
+  color: var(--dw-fg-neutral-subtle);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+}
+
+.dw-stat-card__icon {
+  flex-shrink: 0;
+  width: var(--dw-spacing-x4);
+  height: var(--dw-spacing-x4);
+}
+
+.dw-stat-card__value {
+  margin: 0;
+  color: var(--dw-fg-neutral);
+  font-size: var(--dw-font-t9-size);
+  line-height: var(--dw-font-t9-line-height);
+  font-weight: var(--dw-font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.dw-stat-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dw-spacing-x0_5) var(--dw-spacing-x2);
+  margin: 0;
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+}
+
+.dw-stat-card__delta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dw-spacing-x0_5);
+  font-weight: var(--dw-font-weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.dw-stat-card__delta > svg {
+  flex-shrink: 0;
+  width: var(--dw-spacing-x4);
+  height: var(--dw-spacing-x4);
+}
+
+.dw-stat-card__delta--positive { color: var(--dw-fg-positive); }
+.dw-stat-card__delta--critical { color: var(--dw-fg-critical); }
+.dw-stat-card__delta--neutral { color: var(--dw-fg-neutral-subtle); }
+
+.dw-stat-card__hint { color: var(--dw-fg-neutral-subtle); }
+
+/* ── Timeline ─────────────────────────────────────── */
+/* 시간 칸은 가장 긴 시간에 맞추고 모든 항목이 같은 폭을 쓴다 */
+.dw-timeline {
+  display: grid;
+  grid-template-columns: minmax(var(--dw-spacing-x12), max-content) var(--dw-spacing-x3_5) minmax(0, 1fr);
+  column-gap: var(--dw-spacing-x3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dw-timeline__item {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+}
+
+.dw-timeline__time {
+  padding-top: var(--dw-spacing-x0_5);
+  color: var(--dw-fg-neutral-subtle);
+  font-size: var(--dw-font-t2-size);
+  line-height: var(--dw-font-t2-line-height);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.dw-timeline__marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dw-timeline__dot {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: var(--dw-spacing-x2_5);
+  height: var(--dw-spacing-x2_5);
+  margin-block: var(--dw-spacing-x1) var(--dw-spacing-x0_5);
+  border-radius: var(--dw-radius-full);
+  background: var(--dw-stroke-neutral-weak);
+}
+
+.dw-timeline__line {
+  flex: 1;
+  width: 1px;
+  background: var(--dw-stroke-neutral-muted);
+}
+
+.dw-timeline__item:last-child .dw-timeline__line { display: none; }
+
+.dw-timeline__content {
+  min-width: 0;
+  padding-bottom: var(--dw-spacing-x5);
+}
+
+.dw-timeline__item:last-child .dw-timeline__content { padding-bottom: 0; }
+
+.dw-timeline__title {
+  color: var(--dw-fg-neutral);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+  font-weight: var(--dw-font-weight-medium);
+}
+
+.dw-timeline__description {
+  color: var(--dw-fg-neutral-subtle);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+}
+
+/* 색 하나로 알리지 않도록 점 둘레와 제목 굵기도 바꾼다 */
+.dw-timeline__item[aria-current] .dw-timeline__dot {
+  background: var(--dw-bg-brand-solid);
+  box-shadow: 0 0 0 var(--dw-spacing-x0_5) var(--dw-bg-brand-weak);
+}
+
+.dw-timeline__item[aria-current] .dw-timeline__title { font-weight: var(--dw-font-weight-bold); }
+
+/* ── Status Badge ─────────────────────────────────── */
+.dw-status-badge {
+  --dw-status-badge-bg: var(--dw-bg-neutral-weak);
+  --dw-status-badge-fg: var(--dw-fg-neutral-muted);
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: var(--dw-spacing-x6);
+  overflow: hidden;
+  gap: var(--dw-spacing-x1_5);
+  padding: var(--dw-spacing-x0_5) var(--dw-spacing-x2);
+  border-radius: var(--dw-radius-r1_5);
+  background: var(--dw-status-badge-bg);
+  color: var(--dw-status-badge-fg);
+  font-size: var(--dw-font-t2-size);
+  line-height: var(--dw-font-t2-line-height);
+  font-weight: var(--dw-font-weight-medium);
+}
+
+.dw-status-badge--brand {
+  --dw-status-badge-bg: var(--dw-bg-brand-weak);
+  --dw-status-badge-fg: var(--dw-fg-brand-contrast);
+}
+
+.dw-status-badge--informative {
+  --dw-status-badge-bg: var(--dw-bg-informative-weak);
+  --dw-status-badge-fg: var(--dw-fg-informative-contrast);
+}
+
+.dw-status-badge--positive {
+  --dw-status-badge-bg: var(--dw-bg-positive-weak);
+  --dw-status-badge-fg: var(--dw-fg-positive-contrast);
+}
+
+.dw-status-badge--warning {
+  --dw-status-badge-bg: var(--dw-bg-warning-weak);
+  --dw-status-badge-fg: var(--dw-fg-warning-contrast);
+}
+
+.dw-status-badge--critical {
+  --dw-status-badge-bg: var(--dw-bg-critical-weak);
+  --dw-status-badge-fg: var(--dw-fg-critical-contrast);
+}
+
+.dw-status-badge__dot {
+  flex-shrink: 0;
+  width: var(--dw-spacing-x1_5);
+  height: var(--dw-spacing-x1_5);
+  border-radius: var(--dw-radius-full);
+  background: currentColor;
+}
+
+.dw-status-badge__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Error View ───────────────────────────────────── */
+.dw-error-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100dvh;
+  gap: var(--dw-spacing-x4);
+  padding: var(--dw-spacing-x12) var(--dw-spacing-x6);
+  color: var(--dw-fg-neutral);
+  text-align: center;
+}
+
+.dw-error-view--contained { min-height: 320px; }
+
+.dw-error-view__icon {
+  display: grid;
+  place-items: center;
+  color: var(--dw-fg-neutral-subtle);
+}
+
+.dw-error-view__icon > svg { width: var(--dw-spacing-x12); height: var(--dw-spacing-x12); }
+
+.dw-error-view__code {
+  margin: 0;
+  color: var(--dw-fg-neutral-subtle);
+  font-size: var(--dw-font-t13-size);
+  line-height: var(--dw-font-t13-line-height);
+  font-weight: var(--dw-font-weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.dw-error-view__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--dw-spacing-x1_5);
+}
+
+.dw-error-view__title {
+  margin: 0;
+  color: var(--dw-fg-neutral);
+  font-size: var(--dw-font-t7-size);
+  line-height: var(--dw-font-t7-line-height);
+  font-weight: var(--dw-font-weight-bold);
+}
+
+.dw-error-view__title:focus { outline: none; }
+
+.dw-error-view__description {
+  max-width: 448px;
+  margin: 0;
+  color: var(--dw-fg-neutral-subtle);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+  font-weight: var(--dw-font-weight-regular);
+}
+
+.dw-error-view__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dw-spacing-x2);
+  margin-top: var(--dw-spacing-x2);
+}
+
+@media (min-width: 640px) {
+  .dw-error-view__code {
+    font-size: var(--dw-font-t14-size);
+    line-height: var(--dw-font-t14-line-height);
+  }
+
+  .dw-error-view__title {
+    font-size: var(--dw-font-t9-size);
+    line-height: var(--dw-font-t9-line-height);
+  }
+
+  .dw-error-view__description {
+    font-size: var(--dw-font-t5-size);
+    line-height: var(--dw-font-t5-line-height);
+  }
+}
+
+/* ── Connection Status Banner ─────────────────────── */
+/* Root는 라이브 영역이라 늘 DOM에 있고, 보이고 숨는 것은 Panel이다 */
+.dw-connection-banner {
+  --dw-connection-banner-icon-bg: var(--dw-bg-positive-weak);
+  --dw-connection-banner-icon-fg: var(--dw-fg-positive);
+  position: sticky;
+  top: 0;
+  z-index: var(--dw-z-notice);
+  width: 100%;
+}
+
+.dw-connection-banner[data-status="offline"] {
+  --dw-connection-banner-icon-bg: var(--dw-bg-critical-weak);
+  --dw-connection-banner-icon-fg: var(--dw-fg-critical);
+}
+
+.dw-connection-banner[data-status="reconnecting"] {
+  --dw-connection-banner-icon-bg: var(--dw-bg-neutral-weak);
+  --dw-connection-banner-icon-fg: var(--dw-fg-neutral-subtle);
+}
+
+.dw-connection-banner[data-status="unstable"] {
+  --dw-connection-banner-icon-bg: var(--dw-bg-warning-weak);
+  --dw-connection-banner-icon-fg: var(--dw-fg-warning);
+}
+
+.dw-connection-banner__panel {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  gap: var(--dw-spacing-x3);
+  padding: calc(var(--dw-spacing-x3) + env(safe-area-inset-top, 0px)) var(--dw-spacing-x4) var(--dw-spacing-x3);
+  border-bottom: 1px solid var(--dw-stroke-neutral-muted);
+  background: var(--dw-bg-layer-default);
+  box-shadow: var(--dw-shadow-s1);
+  animation: dw-connection-banner-in var(--dw-duration-d4) var(--dw-easing-enter);
+}
+
+.dw-connection-banner__panel[hidden] { display: none; }
+
+.dw-connection-banner__panel[data-closing] {
+  animation: dw-connection-banner-out var(--dw-duration-d4) var(--dw-easing-exit) forwards;
+}
+
+@keyframes dw-connection-banner-in {
+  from { opacity: 0; transform: translateY(calc(-1 * var(--dw-spacing-x2))); }
+}
+
+@keyframes dw-connection-banner-out {
+  to { opacity: 0; transform: translateY(calc(-1 * var(--dw-spacing-x2))); }
+}
+
+.dw-connection-banner__icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: var(--dw-spacing-x9);
+  height: var(--dw-spacing-x9);
+  border-radius: var(--dw-radius-full);
+  background: var(--dw-connection-banner-icon-bg);
+  color: var(--dw-connection-banner-icon-fg);
+}
+
+.dw-connection-banner__icon > svg {
+  display: none;
+  width: var(--dw-spacing-x5);
+  height: var(--dw-spacing-x5);
+}
+
+.dw-connection-banner[data-status="offline"] [data-icon="offline"],
+.dw-connection-banner[data-status="reconnecting"] [data-icon="reconnecting"],
+.dw-connection-banner[data-status="unstable"] [data-icon="unstable"],
+.dw-connection-banner[data-status="online"] [data-icon="online"] { display: block; }
+
+.dw-connection-banner [data-icon="reconnecting"] { animation: dw-spin 1s linear infinite; }
+
+.dw-connection-banner__title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  color: var(--dw-fg-neutral);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+  font-weight: var(--dw-font-weight-medium);
+}
+
+.dw-connection-banner__retry { flex-shrink: 0; }
+.dw-connection-banner__retry[hidden] { display: none; }
+
+.dw-connection-banner__close {
+  position: relative;
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  box-sizing: border-box;
+  width: var(--dw-spacing-x8);
+  height: var(--dw-spacing-x8);
+  margin-inline: calc(-1 * var(--dw-spacing-x1)) calc(-1 * var(--dw-spacing-x1_5));
+  padding: 0;
+  border: 0;
+  border-radius: var(--dw-radius-r2);
+  background: var(--dw-bg-transparent);
+  color: var(--dw-fg-neutral-subtle);
+  cursor: pointer;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition: background-color var(--dw-duration-color-transition) var(--dw-easing-easing);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dw-connection-banner__close > svg { width: var(--dw-spacing-x4); height: var(--dw-spacing-x4); }
+.dw-connection-banner__close:focus-visible { outline-color: var(--dw-stroke-focus-ring); }
+.dw-connection-banner__close:active { scale: var(--dw-scale-s95); background: var(--dw-bg-transparent-pressed); }
+
+@media (hover: hover) and (pointer: fine) {
+  .dw-connection-banner__close:hover { background: var(--dw-bg-transparent-pressed); }
+}
+
+/* 32px 닫기 버튼의 터치 히트 영역 44px */
+@media (pointer: coarse) {
+  .dw-connection-banner__close::before { content: ""; position: absolute; inset: -6px; }
+}
+
+@media (min-width: 640px) {
+  .dw-connection-banner__panel {
+    gap: var(--dw-spacing-x4);
+    padding-inline: var(--dw-spacing-x6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dw-connection-banner__panel { animation-name: dw-fade-in; }
+  .dw-connection-banner__panel[data-closing] { animation-name: dw-fade-out; }
+  .dw-connection-banner [data-icon="reconnecting"] { animation-duration: 3s; }
+  .dw-connection-banner__close:active { scale: 1; }
+}
+
+/* ── Reveal ───────────────────────────────────────── */
+/* 숨김은 스크립트가 data-reveal="hidden"을 붙일 때만 걸린다. 스크립트가 없으면 내용이 그대로 보인다 */
+.dw-reveal[data-reveal="visible"] {
+  transition:
+    opacity var(--dw-duration-d6) var(--dw-easing-enter) var(--dw-reveal-delay, 0ms),
+    translate var(--dw-duration-d6) var(--dw-easing-enter) var(--dw-reveal-delay, 0ms);
+}
+
+.dw-reveal[data-reveal="hidden"] {
+  opacity: 0;
+  translate: 0 var(--dw-spacing-x5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dw-reveal[data-reveal="visible"] { transition: none; }
+
+  .dw-reveal[data-reveal="hidden"] {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+@media print {
+  .dw-reveal[data-reveal="hidden"] {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+/* ── Stepper ──────────────────────────────────────── */
+.dw-stepper {
+  container-type: inline-size; /* 화면이 아니라 놓인 폭을 기준으로 라벨을 접는다 */
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dw-stepper__item {
+  --dw-stepper-indicator-bg: var(--dw-bg-transparent);
+  --dw-stepper-indicator-fg: var(--dw-fg-neutral-subtle);
+  --dw-stepper-indicator-stroke: var(--dw-stroke-neutral-weak);
+  --dw-stepper-connector: var(--dw-stroke-neutral-weak);
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+}
+
+.dw-stepper__item:last-child { flex: 0 1 auto; }
+
+.dw-stepper__item[data-status="complete"] {
+  --dw-stepper-indicator-bg: var(--dw-bg-brand-solid);
+  --dw-stepper-indicator-fg: var(--dw-fg-on-brand-solid);
+  --dw-stepper-indicator-stroke: var(--dw-bg-brand-solid);
+  --dw-stepper-connector: var(--dw-bg-brand-solid);
+}
+
+.dw-stepper__item[data-status="current"] {
+  --dw-stepper-indicator-fg: var(--dw-fg-brand);
+  --dw-stepper-indicator-stroke: var(--dw-stroke-brand-solid);
+}
+
+.dw-stepper__indicator {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  box-sizing: border-box;
+  width: var(--dw-spacing-x7);
+  height: var(--dw-spacing-x7);
+  border: 1px solid var(--dw-stepper-indicator-stroke);
+  border-radius: var(--dw-radius-full);
+  background: var(--dw-stepper-indicator-bg);
+  color: var(--dw-stepper-indicator-fg);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+  font-weight: var(--dw-font-weight-medium);
+}
+
+.dw-stepper__indicator > svg { width: var(--dw-spacing-x4); height: var(--dw-spacing-x4); }
+
+.dw-stepper__label {
+  min-width: 0;
+  margin-left: var(--dw-spacing-x2);
+  overflow: hidden;
+  color: var(--dw-fg-neutral-subtle);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
+  font-weight: var(--dw-font-weight-regular);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dw-stepper__item[data-status="current"] .dw-stepper__label {
+  color: var(--dw-fg-neutral);
+  font-weight: var(--dw-font-weight-medium);
+}
+
+.dw-stepper__connector {
+  flex: 1;
+  min-width: var(--dw-spacing-x2);
+  height: 1px;
+  margin-inline: var(--dw-spacing-x2);
+  background: var(--dw-stepper-connector);
+}
+
+/* 좁은 화면: 현재 단계 라벨만 보이고 나머지는 스크린리더로 읽는다 */
+@container (max-width: 639px) {
+  .dw-stepper__item[data-status="current"]:not(:last-child) { flex: 1 1 auto; }
+
+  .dw-stepper__item:not([data-status="current"]) .dw-stepper__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@container (min-width: 640px) {
+  .dw-stepper { width: fit-content; max-width: 100%; }
+  .dw-stepper__item { flex: none; }
+  .dw-stepper__label { flex-shrink: 0; }
+
+  .dw-stepper__connector {
+    flex: none;
+    width: var(--dw-spacing-x8);
+    margin-inline: var(--dw-spacing-x3);
+  }
+}
+
+/* ── Progress ─────────────────────────────────────── */
+/* determinate 값은 aria-valuenow와 함께 --dw-progress-value(0–100)로 넘긴다 */
+.dw-progress {
+  --dw-progress-value: 0;
+  --dw-progress-track: var(--dw-bg-brand-weak);
+  --dw-progress-range: var(--dw-bg-brand-solid);
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--dw-spacing-x2);
+  overflow: hidden;
+  border-radius: var(--dw-radius-full);
+  background: var(--dw-progress-track);
+}
+
+.dw-progress--small { height: var(--dw-spacing-x1); }
+
+.dw-progress--neutral {
+  --dw-progress-track: var(--dw-bg-neutral-weak);
+  --dw-progress-range: var(--dw-gray-500);
+}
+
+.dw-progress__indicator {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--dw-progress-range);
+  transform: translateX(calc(var(--dw-progress-value) * 1% - 100%));
+  transition: transform var(--dw-duration-d6) var(--dw-easing-enter);
+}
+
+.dw-progress:not([aria-valuenow]) .dw-progress__indicator {
+  width: 40%;
+  transform: none;
+  transition: none;
+  animation: dw-progress-slide 1.5s var(--dw-easing-easing) infinite;
+}
+
+@keyframes dw-progress-slide {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+
+@keyframes dw-progress-pulse {
+  to { opacity: 0.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dw-progress__indicator { transition: none; }
+
+  .dw-progress:not([aria-valuenow]) .dw-progress__indicator {
+    width: 100%;
+    animation: dw-progress-pulse 1.5s var(--dw-easing-easing) infinite alternate;
+  }
 }

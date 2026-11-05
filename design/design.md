@@ -1,4 +1,4 @@
-# 대웅 Design System — Foundations
+# Daewoong Design System — Foundations
 
 > 값의 정본은 [`tokens.json`](tokens.json)이고, 이 문서는 그 값을 **언제·어디에** 쓰는지 정한다.
 > 표의 값과 `tokens.json`이 다르면 `tokens.json`이 맞다. CSS 변수는 [`tokens.css`](tokens.css)에 `--dw-<이름>`으로 있다.
@@ -144,11 +144,22 @@
 | `stroke-warning-solid` | `yellow-700` | `yellow-700` |
 | `stroke-warning-weak` | `yellow-300` | `yellow-300` |
 
+### 2.4 Warning과 브랜드색 구분
+
+대웅 오렌지와 Warning 노랑은 색상이 가까워 나란히 있으면 헷갈린다. 네 가지로 구분한다.
+
+- **색상:** Warning은 빨강기가 없는 노랑(`yellow-*`)이고, 브랜드는 `orange-*`다. 서로의 자리에 쓰지 않는다.
+- **명도:** Warning은 `bg-warning-weak` + `fg-warning-contrast`처럼 옅은 면에 진한 글자를 쓴다.
+- **맥락:** 브랜드는 누르는 행동, Warning은 읽는 상태에 쓴다. Warning 채움 버튼을 만들지 않는다.
+- **아이콘:** Warning에는 항상 경고 아이콘을 붙인다. 색만으로 알리지 않는다.
+
 ## 3. 타이포그래피
 
 ### 3.1 서체
 
-`--dw-font-sans` — 시스템 서체 스택(Apple SD Gothic Neo → Pretendard → Segoe UI → Roboto …). 웹폰트를 따로 싣지 않아도 되며, 서비스가 Pretendard를 싣는 경우 그것을 쓴다. 두께는 `regular 400` · `medium 500` · `bold 700` 세 가지만 쓴다.
+`--dw-font-sans` — 기본 서체는 **Pretendard**다. 웹은 [`fonts/pretendard.css`](fonts/pretendard.css)를 연결한다. 글자 범위별로 나뉜 공식 파일이라 화면에 나온 글자의 조각만 내려받고, 내부망에서도 외부 CDN 없이 뜬다. 라이선스는 [OFL 1.1](fonts/OFL.txt)이고, 파일을 수정하거나 서브셋을 새로 만들어 같은 이름으로 배포하지 않는다. 파일이 없으면 시스템 서체로 대체된다. 두께는 `regular 400` · `medium 500` · `bold 700` 세 가지만 쓴다.
+
+`--dw-font-mono` — 코드와 자릿수를 맞춰야 하는 값에 쓴다. 웹폰트를 싣지 않고 설치된 서체를 쓴다.
 
 ### 3.2 스케일
 
@@ -261,15 +272,29 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 
 다크 모드는 알파가 훨씬 크다(`tokens.json` `shadow.dark`). 한 벌만 쓰지 않는다.
 
-쌓임 순서는 토큰이 아니라 고정값이다. 같은 값을 쓴다.
+### 쌓임 순서 (z-index)
 
-| `z-index` | 자리 |
-| --- | --- |
-| 10 | Top Navigation |
-| 20 | Select 목록 |
-| 50 | Dialog·Alert Dialog·Sheet의 Backdrop과 Content |
-| 60 | Tooltip |
-| 70 | Toast |
+겹치는 요소의 앞뒤는 토큰으로 정한다. 숫자를 직접 쓰지 않는다. 카탈로그의 [쌓임 순서](storybook.html#z-index)에서 볼 수 있다.
+
+| 토큰 | 값 | 자리 |
+| --- | --- | --- |
+| `z-tooltip` | 70 | Tooltip, Info Tooltip |
+| `z-toast` | 60 | Toast |
+| `z-dropdown` | 55 | Select, Combobox, Date Picker 목록, Dropdown Menu, Popover |
+| `z-modal` | 50 | Dialog, Alert Dialog, Bottom Sheet, Side Sheet |
+| `z-overlay` | 50 | 모달의 Backdrop(딤) |
+| `z-notice` | 20 | Connection Status Banner |
+| `z-raised` | 10 | Top Navigation, 모바일 하단 고정 액션 |
+| `z-base` | 0 | 일반 콘텐츠 |
+
+- **`z-overlay`와 `z-modal`은 같은 값이다.** 같은 값은 문서 순서로 쌓인다. 모달 위에 모달을 열면 뒤 모달의 딤이 앞 모달을 덮어야 해서 나누지 않는다.
+- **`z-dropdown`은 모달보다 높다.** 모달 안에서 연 목록이 모달 뒤로 깔리면 안 된다. React는 Portal로 `body`에 붙으므로 이 값이 없으면 여는 순서에 따라 깔린다.
+- **`z-toast`는 모달보다 높다.** 모달을 연 채 저장해도 결과가 보여야 한다.
+- **컴포넌트 안에서만 쓰는 정렬은 예외다.** Root가 쌓임 맥락을 만든 안쪽의 `-1`·`1`은 토큰이 아니어도 된다.
+
+### 빗금 패턴
+
+비활성 구간이나 차단 영역은 색을 채우지 않고 빗금으로 표시해 아래 내용이 비치게 한다. `.dw-hatch`를 쓴다. `repeating-linear-gradient`는 iOS Safari에서 큰 요소의 타일이 끊기므로 고정 타일로 그린다.
 
 ## 8. 모션
 
@@ -313,6 +338,8 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 - 사이드 내비게이션은 `lg`(1024px) 이상에서 펼치고, 미만에서는 상단 메뉴 버튼으로 여는 off-canvas가 된다.
 - 다이얼로그는 768px 미만에서 화면 폭의 90%, 이상에서 고정 폭(480/800px)으로 가운데 뜬다. 아래서 올라오는 형태가 필요하면 Bottom Sheet를 쓴다.
 - 터치 타깃은 최소 44×44px. 보이는 크기가 작으면 투명 히트 영역을 넓힌다.
+- 가로로 눕힌 휴대폰은 너비가 넓어도 모바일이다. 높이 500px 이하 가로 화면(`(max-height: 500px) and (orientation: landscape)`)에는 데스크톱 배치를 쓰지 않는다.
+- 모바일 키보드가 올라오면 시트와 하단 고정 버튼을 키보드 위로 민다(`visualViewport` 높이 기준).
 
 ## 10. 아이콘
 
@@ -413,6 +440,7 @@ React 없이 HTML에 클래스만 붙이면 같은 모양이 된다. 다이얼�
 
 ```html
 <!-- base 템플릿 <head> (Jinja·Thymeleaf·JSP 공통) -->
+<link rel="stylesheet" href="/design/fonts/pretendard.css">
 <link rel="stylesheet" href="/design/tokens.css">
 <link rel="stylesheet" href="/design/components.css">
 <script src="/design/js/components.js" defer></script>
@@ -425,7 +453,7 @@ React 없이 HTML에 클래스만 붙이면 같은 모양이 된다. 다이얼�
 <!-- 다이얼로그 마크업은 storybook.html의 Dialog 예시를 그대로 복사한다 -->
 ```
 
-- 클래스 이름과 마크업 구조는 [`storybook.html`](storybook.html)에서 복사한다. 직접 만들지 않는다.
+- 있는 컴포넌트의 클래스 이름과 마크업 구조는 [`storybook.html`](storybook.html)에서 복사한다. 없는 컴포넌트는 프로젝트에서 토큰을 써서 만든다([README](README.md#사용-방법)).
 - 동작 훅은 `data-dw="<name>"`(컴포넌트 루트), `data-dw-open="<id>"`(여는 버튼), `data-dw-close`(닫는 버튼)이다.
 - 아이콘은 10장의 `icons/sprite.svg`를 쓴다.
 - 화면 고유 레이아웃 CSS를 쓸 때도 값은 `var(--dw-spacing-x4)`처럼 토큰으로 부른다.
