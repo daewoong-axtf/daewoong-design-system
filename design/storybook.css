@@ -122,19 +122,3 @@ main > section { scroll-margin-top: 72px; }
 .page-footer p { margin: 0; overflow-wrap: anywhere; }
 .page-footer a { display: inline-block; padding-block: var(--dw-spacing-x2_5); color: var(--dw-fg-informative); text-underline-offset: 2px; }
 .page-header h1 img { flex: none; width: auto; height: 24px; }
-/* 첫 화면 등장 효과. 이 카탈로그 전용이고 제품 화면에 옮기지 않는다 */
-@media (prefers-reduced-motion: no-preference) {
-  @keyframes hero-in {
-    0% { opacity: 0; translate: 0 18px; rotate: -2deg; }
-    45% { translate: 0 -4px; rotate: 1.2deg; }
-    60% { opacity: 1; }
-    72% { translate: 0 2px; rotate: -.6deg; }
-    100% { opacity: 1; translate: 0 0; rotate: 0deg; }
-  }
-  .intro-hero__title, .intro-hero__lead, .hero-card, .hero-aa, .hero-dots, .hero-toast { animation: hero-in calc(var(--dw-duration-d6) * 3) ease-out both; animation-delay: calc(var(--dw-duration-d2) * var(--hero-order, 0)); }
-  .intro-hero__lead { --hero-order: 1; }
-  .hero-card { --hero-order: 2; }
-  .hero-aa { --hero-order: 3; }
-  .hero-dots { --hero-order: 4; }
-  .hero-toast { --hero-order: 5; }
-}
