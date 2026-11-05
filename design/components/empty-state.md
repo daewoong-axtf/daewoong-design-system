@@ -1,6 +1,6 @@
 # Empty State
 
-> 클래스 `.dw-empty` · 레퍼런스 [component.html#empty-state](../component.html#empty-state) · DW 구성(원본 recipe 없음)
+> 클래스 `.dw-empty` · 레퍼런스 [component.html#empty-state](../component.html#empty-state)
 
 ## 개요
 

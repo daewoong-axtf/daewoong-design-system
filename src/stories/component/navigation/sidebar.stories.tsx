@@ -39,7 +39,7 @@ function AppShell() {
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
-        <SidebarHeader className="px-4 py-3 text-sm font-bold group-data-[collapsible=icon]:hidden">DW 서비스</SidebarHeader>
+        <SidebarHeader className="px-4 py-3 text-sm font-bold group-data-[collapsible=icon]:hidden">대웅 서비스</SidebarHeader>
         <SidebarContent>
           {groups.map((g) => (
             <SidebarGroup key={g.label}>

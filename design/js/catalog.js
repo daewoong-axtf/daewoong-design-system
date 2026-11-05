@@ -1,0 +1,85 @@
+// component.html · foundations.html 공통 동작 — 테마 전환, 메뉴 검색, 좁은 화면 메뉴, 현재 위치 표시
+;(() => {
+  const root = document.documentElement
+  const header = document.querySelector('.page-header')
+  const nav = document.getElementById('page-nav')
+
+  /* ── 테마 ── */
+  const theme = document.getElementById('theme')
+  const isDark = () => root.dataset.theme === 'dark' || (!root.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches)
+  const syncTheme = () => {
+    theme.setAttribute('aria-pressed', String(isDark()))
+    theme.textContent = isDark() ? '라이트 모드' : '다크 모드'
+  }
+  theme.addEventListener('click', () => {
+    root.dataset.theme = isDark() ? 'light' : 'dark'
+    syncTheme()
+  })
+  syncTheme()
+
+  /* ── 메뉴 검색: 이름과 data-q(한글·영문 별칭)에서 찾는다 ── */
+  const search = document.getElementById('page-search')
+  const empty = document.getElementById('page-nav-empty')
+  const allLinks = [...nav.querySelectorAll('a')]
+  const labels = [...nav.querySelectorAll('.page-nav__title, .page-nav__group')]
+  const haystack = (a) => `${a.textContent} ${a.dataset.q ?? ''}`.toLowerCase()
+  const visible = () => allLinks.filter((a) => !a.hidden)
+
+  function applySearch() {
+    const words = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean)
+    for (const a of allLinks) {
+      a.hidden = !words.every((w) => haystack(a).includes(w))
+      a.removeAttribute('data-first')
+    }
+    // 뒤따르는 항목이 모두 숨으면 묶음 제목도 숨긴다 (Components 제목은 다음 묶음까지 본다)
+    for (const label of labels) {
+      const rank = label.matches('.page-nav__title') ? 2 : 1
+      let hasItem = false
+      for (let el = label.nextElementSibling; el; el = el.nextElementSibling) {
+        if (el.matches('.page-nav__title')) break
+        if (rank === 1 && el.matches('.page-nav__group')) break
+        if (el.matches('a') && !el.hidden) hasItem = true
+      }
+      label.hidden = !hasItem
+    }
+    empty.hidden = visible().length > 0
+    if (words.length) visible()[0]?.toggleAttribute('data-first', true)
+  }
+
+  search.addEventListener('input', applySearch)
+  search.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      visible()[0]?.click()
+    }
+    if (e.key === 'Escape' && search.value) {
+      e.stopPropagation()
+      search.value = ''
+      search.dispatchEvent(new Event('input', { bubbles: true }))
+    }
+  })
+
+  /* ── 좁은 화면: 메뉴 버튼으로 목록을 열고, 고르면 닫는다 ── */
+  const menu = document.getElementById('menu')
+  const toggleMenu = (open) => {
+    header.toggleAttribute('data-open', open)
+    menu.setAttribute('aria-expanded', String(open))
+  }
+  menu.addEventListener('click', () => toggleMenu(!header.hasAttribute('data-open')))
+  nav.addEventListener('click', (e) => {
+    if (e.target.closest('a')) toggleMenu(false)
+  })
+
+  /* ── 지금 보고 있는 절을 사이드바에 표시한다 ── */
+  const page = location.pathname.split('/').pop()
+  const links = new Map(allLinks.filter((a) => a.pathname.split('/').pop() === page).map((a) => [a.hash.slice(1), a]))
+  const spy = new IntersectionObserver((entries) => {
+    const current = entries.find((e) => e.isIntersecting)
+    const link = current && links.get(current.target.id)
+    if (!link) return
+    for (const a of links.values()) a.removeAttribute('aria-current')
+    link.setAttribute('aria-current', 'true')
+    link.scrollIntoView({ block: 'nearest' })
+  }, { rootMargin: '-20% 0px -75% 0px' })
+  for (const section of document.querySelectorAll('main > section[id]')) spy.observe(section)
+})()

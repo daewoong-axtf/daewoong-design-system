@@ -40,7 +40,7 @@
 | `24` | 38×24px | 2px | 20px | 14px | 24px `x6` | t4 14/19 | 8px `x2` |
 | `32` | 52×32px | 3px | 26px | 20px | 32px `x8` | t5 16/22 | 10px `x2_5` |
 
-- 트랙·손잡이 모두 `radius-full`.
+- 트랙·손잡이 모두 `radius-full`. 트랙 그림자는 `shadow-s1`.
 - 손잡이는 꺼짐에서 `scale(0.8)`, 켜짐에서 `scale(1) translateX(이동)`.
 - Label은 `font-weight-medium`, `fg-neutral`.
 

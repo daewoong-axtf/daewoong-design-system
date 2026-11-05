@@ -58,7 +58,7 @@
 
 | 상태 | 값 |
 | --- | --- |
-| 기본 | bg `bg-transparent`, 테두리 `inset 0 0 0 1px stroke-neutral-weak`, Value `fg-neutral`, placeholder `fg-placeholder`, Chevron `fg-neutral-muted` |
+| 기본 | bg `bg-transparent`, 테두리 `inset 0 0 0 1px stroke-neutral-weak`, 그림자 `shadow-s1`, Value `fg-neutral`, placeholder `fg-placeholder`, Chevron `fg-neutral-muted` |
 | hover | bg `bg-transparent-pressed` |
 | 열림·포커스 | `::after` 2px `stroke-neutral-contrast` (Text Input 포커스와 같음) |
 | focus-visible | `outline 2px stroke-focus-ring`, offset 2px |
@@ -100,6 +100,8 @@ Value는 한 줄 말줄임(`text-overflow: ellipsis`).
 | Selected | 클릭·Enter | Value 갱신, Content 닫힘, 포커스 Trigger로 |
 
 ## Behavior & Accessibility
+
+필수 Select는 Trigger에 `aria-required="true"`를 붙인다. 폼 제출 검증은 hidden input 값이 비었는지로 판단한다.
 
 WAI-ARIA APG **Select-Only Combobox** 패턴.
 

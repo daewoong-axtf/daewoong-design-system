@@ -3,19 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DW Foundations</title>
+  <title>대웅 Foundations</title>
   <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <link rel="stylesheet" href="catalog.css">
   <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: var(--dw-font-sans); background: var(--dw-bg-layer-basement); color: var(--dw-fg-neutral); font-size: var(--dw-font-t4-size); line-height: var(--dw-font-t4-line-height); }
-    header { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: var(--dw-spacing-x3); padding: var(--dw-spacing-x3) var(--dw-spacing-x4); background: var(--dw-bg-layer-default); border-bottom: 1px solid var(--dw-stroke-neutral-subtle); }
-    header h1 { margin: 0; font-size: var(--dw-font-t6-size); line-height: var(--dw-font-t6-line-height); }
-    nav { display: flex; flex-wrap: wrap; gap: var(--dw-spacing-x1) var(--dw-spacing-x3); }
-    @media (max-width: 639px) { nav { display: none; } }
-    nav a { color: var(--dw-fg-neutral-muted); text-decoration: none; }
-    nav a:hover { color: var(--dw-fg-neutral); }
-    main { max-width: 1040px; margin: 0 auto; padding: var(--dw-spacing-x6) var(--dw-spacing-x4) var(--dw-spacing-x14); }
-    section { margin-bottom: var(--dw-spacing-x8); padding: var(--dw-spacing-x5); background: var(--dw-bg-layer-default); border-radius: var(--dw-radius-r4); }
+    main > section { margin-bottom: var(--dw-spacing-x8); padding: var(--dw-spacing-x5); background: var(--dw-bg-layer-default); border-radius: var(--dw-radius-r4); }
     h2 { margin: 0 0 var(--dw-spacing-x4); font-size: var(--dw-font-t7-size); line-height: var(--dw-font-t7-line-height); }
     h3 { margin: var(--dw-spacing-x5) 0 var(--dw-spacing-x2); font-size: var(--dw-font-t5-size); line-height: var(--dw-font-t5-line-height); color: var(--dw-fg-neutral-muted); }
     code { font-size: var(--dw-font-t2-size); }
@@ -33,26 +26,73 @@
     .boxes { display: flex; flex-wrap: wrap; gap: var(--dw-spacing-x4); }
     .box { display: grid; place-items: center; width: 96px; height: 72px; background: var(--dw-bg-neutral-weak); font-size: var(--dw-font-t2-size); }
     .shadow { background: var(--dw-bg-layer-floating); }
+    .demo-row { display: flex; flex-wrap: wrap; gap: var(--dw-spacing-x3); align-items: center; margin-bottom: var(--dw-spacing-x3); }
+    .note { margin: 0 0 var(--dw-spacing-x4); color: var(--dw-fg-neutral-muted); }
+    .icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: var(--dw-spacing-x2); }
+    .icon { display: grid; justify-items: center; gap: var(--dw-spacing-x2); padding: var(--dw-spacing-x3) var(--dw-spacing-x1); border: 1px solid var(--dw-stroke-neutral-subtle); border-radius: var(--dw-radius-r2); font-size: var(--dw-font-t1-size); line-height: var(--dw-font-t1-line-height); color: var(--dw-fg-neutral-muted); }
+    .icon svg { width: 24px; height: 24px; color: var(--dw-fg-neutral); }
+    @media (max-width: 639px) { .row code { width: 72px; } }
     .motion { display: flex; flex-wrap: wrap; gap: var(--dw-spacing-x3); }
     .ball { width: 40px; height: 40px; border-radius: var(--dw-radius-full); background: var(--dw-bg-brand-solid); transition-property: transform; }
     .track { position: relative; width: min(100%, 320px); padding: var(--dw-spacing-x1); border-radius: var(--dw-radius-full); background: var(--dw-bg-neutral-weak); }
     .track.go .ball { transform: translateX(calc(min(100vw - 120px, 320px) - 48px)); }
-    button.dw-plain { min-height: 44px; padding: 0 var(--dw-spacing-x4); border: 1px solid var(--dw-stroke-neutral-weak); border-radius: var(--dw-radius-full); background: var(--dw-bg-layer-default); color: var(--dw-fg-neutral); font: inherit; white-space: nowrap; cursor: pointer; }
-    button.dw-plain:focus-visible { outline: 2px solid var(--dw-stroke-focus-ring); outline-offset: 2px; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>DW Foundations</h1>
-    <nav aria-label="섹션">
-      <a href="#palette">팔레트</a><a href="#roles">역할</a><a href="#type">타이포</a><a href="#spacing">간격</a><a href="#radius">모서리</a><a href="#shadow">깊이</a><a href="#motion">모션</a>
+  <!--ICONS:start--><svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3" /><path d="M16 2v3" /><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></symbol>
+<symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></symbol>
+<symbol id="i-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6" /></symbol>
+<symbol id="i-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></symbol>
+<symbol id="i-chevron-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6" /></symbol>
+<symbol id="i-circle-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></symbol>
+<symbol id="i-circle-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m16 9-5.5 5.5L8 12" /></symbol>
+<symbol id="i-circle-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m15 9-6 6" /><path d="m9 9 6 6" /></symbol>
+<symbol id="i-ellipsis" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></symbol>
+<symbol id="i-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" /><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" /><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" /><path d="m2 2 20 20" /></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /><circle cx="12" cy="12" r="3" /></symbol>
+<symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></symbol>
+<symbol id="i-loader-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16" /><path d="M4 12h16" /><path d="M4 19h16" /></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="M12 5v14" /></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34" /><circle cx="11" cy="11" r="8" /></symbol>
+<symbol id="i-share-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" x2="15.42" y1="13.51" y2="17.49" /><line x1="15.41" x2="8.59" y1="6.51" y2="10.49" /></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6" /><path d="M14 11v6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /><path d="M3 6h18" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></symbol>
+<symbol id="i-triangle-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /><path d="M12 9v4" /><path d="M12 17h.01" /></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12" /><path d="m17 8-5-5-5 5" /><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></symbol>
+<symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></symbol>
+</svg><!--ICONS:end-->
+  <header class="page-header">
+    <h1>대웅 Foundations</h1>
+    <div class="dw-text-input dw-text-input--medium page-search">
+      <svg class="dw-text-input__icon" aria-hidden="true"><use href="#i-search"/></svg>
+      <input class="dw-text-input__value" type="search" id="page-search" placeholder="메뉴 검색" aria-label="메뉴 검색" autocomplete="off">
+      <button class="dw-text-input__icon" type="button" aria-label="입력 지우기" data-dw-clear hidden><svg aria-hidden="true"><use href="#i-circle-x"/></svg></button>
+    </div>
+    <nav class="page-nav" id="page-nav" aria-label="디자인 시스템 메뉴">
+      <p class="page-nav__empty" id="page-nav-empty" hidden>찾는 메뉴가 없습니다</p>
+      <!--NAV:start-->
+<p class="page-nav__title">Foundations</p><a href="foundations.html#palette" data-q="color 색 컬러">팔레트</a><a href="foundations.html#roles" data-q="role token 토큰 색 bg fg stroke">역할 토큰</a><a href="foundations.html#type" data-q="typography font 글자 폰트">타이포그래피</a><a href="foundations.html#text-style" data-q="text style 글자">텍스트 스타일</a><a href="foundations.html#spacing" data-q="spacing margin padding 여백">간격</a><a href="foundations.html#radius" data-q="radius 라운드">모서리</a><a href="foundations.html#shadow" data-q="shadow depth 그림자">깊이</a><a href="foundations.html#control-height" data-q="height size 크기">컨트롤 높이</a><a href="foundations.html#motion" data-q="motion animation easing 애니메이션">모션</a><a href="foundations.html#interaction" data-q="interaction focus hover pressed 포커스 상태">상호작용</a><a href="foundations.html#icons" data-q="icon lucide">아이콘</a><a href="foundations.html#layout" data-q="layout breakpoint 브레이크포인트 반응형">레이아웃</a>
+<p class="page-nav__title">Components</p>
+<p class="page-nav__group">Actions</p><a href="component.html#button" data-q="버튼">Button</a>
+<p class="page-nav__group">Inputs</p><a href="component.html#field" data-q="필드 폼 라벨">Field</a><a href="component.html#text-input" data-q="입력 인풋 검색 텍스트">Text Input</a><a href="component.html#checkbox" data-q="체크박스">Checkbox</a><a href="component.html#radio" data-q="라디오">Radio</a><a href="component.html#switch" data-q="스위치 토글">Switch</a><a href="component.html#slider" data-q="슬라이더">Slider</a><a href="component.html#select" data-q="셀렉트 드롭다운">Select</a><a href="component.html#segmented-control" data-q="세그먼트 토글">Segmented Control</a>
+<p class="page-nav__group">Feedback</p><a href="component.html#dialog" data-q="다이얼로그 모달">Dialog</a><a href="component.html#alert-dialog" data-q="확인 경고 모달">Alert Dialog</a><a href="component.html#bottom-sheet" data-q="바텀시트 드로어">Bottom Sheet</a><a href="component.html#side-sheet" data-q="사이드시트 패널">Side Sheet</a><a href="component.html#popover" data-q="팝오버">Popover</a><a href="component.html#dropdown-menu" data-q="드롭다운 메뉴">Dropdown Menu</a><a href="component.html#tooltip" data-q="툴팁">Tooltip</a><a href="component.html#toast" data-q="토스트 알림">Toast</a><a href="component.html#callout" data-q="콜아웃 안내 alert">Callout</a>
+<p class="page-nav__group">Display</p><a href="component.html#accordion" data-q="아코디언 접기">Accordion</a><a href="component.html#avatar" data-q="아바타 프로필">Avatar</a><a href="component.html#badge" data-q="뱃지 배지">Badge</a><a href="component.html#card" data-q="카드">Card</a><a href="component.html#chip" data-q="칩 필터">Chip</a><a href="component.html#divider" data-q="구분선 separator">Divider</a><a href="component.html#list" data-q="목록 리스트">List</a><a href="component.html#table" data-q="테이블 표">Table</a>
+<p class="page-nav__group">Navigation</p><a href="component.html#breadcrumb" data-q="브레드크럼 경로">Breadcrumb</a><a href="component.html#pagination" data-q="페이지네이션 페이지">Pagination</a><a href="component.html#side-navigation" data-q="사이드바 sidebar 메뉴">Side Navigation</a><a href="component.html#tabs" data-q="탭">Tabs</a><a href="component.html#top-navigation" data-q="상단 헤더 gnb">Top Navigation</a>
+<p class="page-nav__group">State</p><a href="component.html#empty-state" data-q="빈 상태">Empty State</a><a href="component.html#progress-circle" data-q="로딩 스피너 spinner">Progress Circle</a><a href="component.html#skeleton" data-q="스켈레톤 로딩">Skeleton</a>
+<!--NAV:end-->
     </nav>
-    <button class="dw-plain" type="button" id="theme" aria-pressed="false">다크 모드</button>
+    <button class="dw-button dw-button--neutral-outline dw-button--small" type="button" id="theme" aria-pressed="false">다크 모드</button>
+    <button class="dw-button dw-button--neutral-outline dw-button--small dw-button--icon-only page-menu-btn" type="button" id="menu" aria-label="메뉴" aria-expanded="false" aria-controls="page-nav"><svg class="dw-button__icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
   </header>
   <main>
     <section id="palette"><h2>팔레트</h2><div id="palette-list"></div></section>
     <section id="roles"><h2>역할 토큰</h2><div id="role-list"></div></section>
     <section id="type"><h2>타이포그래피</h2><div id="type-list"></div></section>
+    <section id="text-style"><h2>텍스트 스타일</h2><div id="text-style-list"></div></section>
     <section id="spacing"><h2>간격</h2><div id="spacing-list"></div></section>
     <section id="radius"><h2>모서리</h2><div class="boxes" id="radius-list"></div></section>
     <section id="shadow"><h2>깊이</h2><div class="boxes">
@@ -60,13 +100,47 @@
       <div class="box shadow" style="box-shadow: var(--dw-shadow-s2)">s2</div>
       <div class="box shadow" style="box-shadow: var(--dw-shadow-s3)">s3</div>
     </div></section>
+    <section id="control-height"><h2>컨트롤 높이</h2>
+      <p class="note">버튼과 입력 필드는 같은 높이 스케일을 쓴다. 같은 크기는 나란히 놓아도 정렬된다.</p>
+      <div class="demo-row">
+        <button class="dw-button dw-button--neutral-weak dw-button--xsmall" type="button">xsmall</button>
+        <button class="dw-button dw-button--neutral-weak dw-button--small" type="button">small</button>
+        <button class="dw-button dw-button--neutral-weak dw-button--medium" type="button">medium</button>
+        <button class="dw-button dw-button--neutral-weak dw-button--large" type="button">large</button>
+      </div>
+      <div class="demo-row">
+        <div class="dw-text-input dw-text-input--medium" style="width: 200px"><input class="dw-text-input__value" aria-label="medium" placeholder="medium"></div>
+        <div class="dw-text-input dw-text-input--large" style="width: 200px"><input class="dw-text-input__value" aria-label="large" placeholder="large"></div>
+      </div>
+    </section>
     <section id="motion"><h2>모션</h2>
-      <p><button class="dw-plain" type="button" id="play">재생</button></p>
+      <p><button class="dw-button dw-button--neutral-outline" type="button" id="play">재생</button></p>
       <div id="motion-list"></div>
+    </section>
+    <section id="interaction"><h2>상호작용</h2>
+      <p class="note">상태 색은 <code>-pressed</code> 토큰 짝을 쓴다. 키보드 포커스는 모든 요소에서 같은 모양이다.</p>
+      <div class="demo-row">
+        <button class="dw-button dw-button--brand-solid" type="button">기본</button>
+        <button class="dw-button dw-button--brand-solid" type="button" style="background: var(--dw-bg-brand-solid-pressed)">pressed</button>
+        <button class="dw-button dw-button--brand-solid" type="button" style="outline-color: var(--dw-stroke-focus-ring)">focus-visible</button>
+        <button class="dw-button dw-button--brand-solid" type="button" disabled>disabled</button>
+      </div>
+    </section>
+    <section id="icons"><h2>아이콘</h2>
+      <p class="note">Lucide 기반. 색은 감싼 요소의 글자색을 따른다. 환경별 사용법은 design.md 10장에 있다.</p>
+      <div class="icons" id="icon-list"></div>
+    </section>
+    <section id="layout"><h2>레이아웃</h2>
+      <p class="note">브레이크포인트는 CSS 변수로 쓸 수 없어 토큰이 아니다. 값의 정본은 design.md 9장이다.</p>
+      <div class="row"><code>sm · 640px</code><span>좌우 여백 16px</span></div>
+      <div class="row"><code>md · 768px</code><span>좌우 여백 24px</span></div>
+      <div class="row"><code>lg · 1024px</code><span>좌우 여백 32px, 사이드 내비게이션 펼침</span></div>
+      <div class="row"><code>xl · 1280px</code><span>좌우 여백 32px</span></div>
+      <div class="row"><code>2xl · 1536px</code><span>좌우 여백 32px</span></div>
     </section>
   </main>
   <script>
-    // 값은 tokens.css에서 읽는다 — 이 페이지에는 수치를 하드코딩하지 않는다
+    // 값은 tokens.css에서 읽는다 — 이 페이지에는 토큰 수치를 하드코딩하지 않는다
     const css = getComputedStyle(document.documentElement)
     // file://로 열면 cssRules를 읽을 수 없어, 계산된 스타일에서 --dw-* 이름을 모은다
     const vars = [...css].filter((p) => p.startsWith('--dw-'))
@@ -96,6 +170,13 @@
         `<span style="font-size:var(--dw-font-t${i}-size);line-height:var(--dw-font-t${i}-line-height);font-weight:var(--dw-font-weight-bold)">다람쥐 헌 쳇바퀴 Aa 123</span>`))
     }
 
+    for (const v of [...new Set(vars.filter((n) => /^--dw-text-.+-size$/.test(n)))]) {
+      const name = v.slice(10, -5)
+      const value = (p) => css.getPropertyValue(`--dw-text-${name}-${p}`).trim()
+      document.getElementById('text-style-list').append(el('div', { className: 'row' },
+        `<code>${name}</code><span style="font-size:var(--dw-text-${name}-size);line-height:var(--dw-text-${name}-line-height);font-weight:var(--dw-text-${name}-weight)">다람쥐 헌 쳇바퀴 ${value('size')}/${value('line-height')}</span>`))
+    }
+
     for (const v of names(/^--dw-spacing-x[\d_]+$/)) {
       document.getElementById('spacing-list').append(el('div', { className: 'row' }, `<code>${v.slice(13)} · ${css.getPropertyValue(v).trim()}</code><div class="bar" style="width:var(${v})"></div>`))
     }
@@ -111,18 +192,12 @@
     }
     document.getElementById('play').addEventListener('click', () => document.querySelectorAll('.track').forEach((t) => t.classList.toggle('go')))
 
-    const btn = document.getElementById('theme')
-    const isDark = () => document.documentElement.dataset.theme === 'dark' ||
-      (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches)
-    const sync = () => {
-      btn.setAttribute('aria-pressed', String(isDark()))
-      btn.textContent = isDark() ? '라이트 모드' : '다크 모드'
+    for (const s of document.querySelectorAll('symbol')) {
+      const name = s.id.slice(2)
+      document.getElementById('icon-list').append(el('div', { className: 'icon' }, `<svg aria-hidden="true"><use href="#${s.id}"/></svg>${name}`))
     }
-    btn.addEventListener('click', () => {
-      document.documentElement.dataset.theme = isDark() ? 'light' : 'dark'
-      sync()
-    })
-    sync()
   </script>
+  <script src="js/components.js"></script>
+  <script src="js/catalog.js"></script>
 </body>
 </html>

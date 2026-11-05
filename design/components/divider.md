@@ -1,6 +1,6 @@
 # Divider
 
-> 클래스 `.dw-divider` · 레퍼런스 [component.html#divider](../component.html#divider) · DW 구성(원본 recipe 없음)
+> 클래스 `.dw-divider` · 레퍼런스 [component.html#divider](../component.html#divider)
 
 ## 개요
 

@@ -13,7 +13,7 @@ const meta = {
     docs: {
       description: {
         component:
-          '사용자가 실행할 행동을 나타낸다. 명세는 `design/components/button.md`. shadcn 원본 그대로이며 색만 DW 토큰(`--primary` = `bg-brand-solid` 등)에 연결돼 있다.',
+          '사용자가 실행할 행동을 나타낸다. 명세는 `design/components/button.md`. shadcn 원본 그대로이며 색만 대웅 토큰(`--primary` = `bg-brand-solid` 등)에 연결돼 있다.',
       },
     },
   },

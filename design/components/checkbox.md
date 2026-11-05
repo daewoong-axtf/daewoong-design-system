@@ -45,7 +45,7 @@
 
 | 상태 | Control bg | Control 테두리 | 체크 아이콘 | Label |
 | --- | --- | --- | --- | --- |
-| 꺼짐 | 투명 | 1px `stroke-neutral-weak` | — | `fg-neutral` |
+| 꺼짐 | 투명 | 1px `stroke-neutral-weak`, 그림자 `shadow-s1` (켜짐에도 유지) | — | `fg-neutral` |
 | 꺼짐 hover·pressed | `bg-transparent-pressed` | 1px `stroke-neutral-weak` | — | |
 | 켜짐(brand) | `bg-brand-solid` | 없음 | `fg-on-brand-solid` | |
 | 켜짐(brand) hover·pressed | `bg-brand-solid-pressed` | 없음 | | |

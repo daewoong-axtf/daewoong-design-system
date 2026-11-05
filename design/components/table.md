@@ -1,6 +1,6 @@
 # Table
 
-> 클래스 `.dw-table` · 레퍼런스 [component.html#table](../component.html#table) · DW 구성(원본 recipe 없음)
+> 클래스 `.dw-table` · 레퍼런스 [component.html#table](../component.html#table)
 
 ## 개요
 

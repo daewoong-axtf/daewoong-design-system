@@ -18,6 +18,7 @@ export interface Tokens {
     fontFamily: { sans: string }
     fontWeight: TokenMap
     scale: Record<string, { fontSize: string; lineHeight: string }>
+    style: Record<string, { scale: string; weight: string }>
   }
   motion: {
     duration: TokenMap

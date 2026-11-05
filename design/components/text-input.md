@@ -71,7 +71,7 @@ underline은 좌우 여백·모서리가 없다.
 
 | 부위 | 상태 | 값 |
 | --- | --- | --- |
-| Root 테두리 (outline) | 기본 | `inset 0 0 0 1px stroke-neutral-weak` (box-shadow) |
+| Root 테두리 (outline) | 기본 | `inset 0 0 0 1px stroke-neutral-weak` (box-shadow), 그림자 `shadow-s1` |
 | Root 테두리 (underline) | 기본 | 아래쪽만 `inset 0 -1px 0 0 stroke-neutral-weak` |
 | `::after` 테두리 | focus(포커스 안에 있음) | 2px `stroke-neutral-contrast` (underline은 아래쪽만) |
 | `::after` 테두리 | invalid (포커스 여부 무관) | 2px `stroke-critical-solid` |
@@ -99,6 +99,7 @@ underline은 좌우 여백·모서리가 없다.
 ## Behavior & Accessibility
 
 - 라벨은 [Field](field.md)의 `<label for>`로 붙인다. 라벨 없이 쓰면(검색창 등) Value에 `aria-label`.
+- `type="search"`에서 브라우저가 그리는 기본 지우기 버튼은 숨긴다. 지우기 버튼은 `data-dw-clear` 하나만 둔다.
 - 오류는 `aria-invalid="true"` + `aria-describedby`(Field 명세).
 - 알맞은 `type`·`inputmode`·`autocomplete`를 준다(이메일 `type="email" autocomplete="email"`, 숫자 `inputmode="numeric"`).
 - 지우기 버튼(suffix)은 값이 있을 때만 보이고 `aria-label="입력 지우기"`, 누르면 값을 비우고 Value로 포커스를 돌린다.

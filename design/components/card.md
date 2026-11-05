@@ -1,6 +1,6 @@
 # Card
 
-> 클래스 `.dw-card` · 레퍼런스 [component.html#card](../component.html#card) · DW 구성(원본 recipe 없음)
+> 클래스 `.dw-card` · 레퍼런스 [component.html#card](../component.html#card)
 
 ## 개요
 
@@ -41,7 +41,7 @@
 | 항목 | 값 |
 | --- | --- |
 | Root | radius 16px `r4`, padding 20px `x5`, 세로 배치 gap 16px `x4`, bg `bg-layer-default` |
-| `outline` | 테두리 `inset 0 0 0 1px stroke-neutral-muted` |
+| `outline` | 테두리 `inset 0 0 0 1px stroke-neutral-muted`, 그림자 `shadow-s1` |
 | `elevated` | `shadow-s2`, 테두리 없음 |
 | `filled` | bg `bg-neutral-weak`, 테두리 없음 |
 | Header | 가로 배치 `justify-content: space-between; align-items: flex-start`, gap 12px `x3` |

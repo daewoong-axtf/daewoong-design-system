@@ -38,7 +38,7 @@
 | 항목 | 값 |
 | --- | --- |
 | Root | grid, 칸 너비 균등(`grid-auto-columns: 1fr`), padding 4px `x1`, `radius-full`, `bg-neutral-weak-alpha` |
-| Indicator | Root 안쪽 4px 띄우고 칸 하나 크기, `radius-full`, bg `gray-00`, `inset 0 0 0 1px stroke-neutral-muted`, `translateX(index × 100%)` |
+| Indicator | Root 안쪽 4px 띄우고 칸 하나 크기, `radius-full`, bg `gray-00`, `inset 0 0 0 1px stroke-neutral-muted`, 그림자 `shadow-s1`, `translateX(index × 100%)` |
 | Item | min 86×34px, padding 6px 24px (`x1_5` `x6`), gap 6px, `radius-full`, t5 16/22 **bold**, 가운데 정렬 |
 | Item 글자 | 기본 `fg-neutral-subtle`, 선택 `fg-neutral`, disabled `fg-disabled` |
 | Item hover (선택 안 됨) | bg `bg-neutral-weak-pressed` |

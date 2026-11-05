@@ -18,7 +18,7 @@ export const GROUPS: { label: string; names: string[] }[] = [
     label: '상태 · 알림',
     names: ['info', 'circle-alert', 'triangle-alert', 'circle-check', 'circle-x', 'check', 'loader-circle'],
   },
-  { label: '액션', names: ['plus', 'minus', 'x', 'search', 'upload', 'ellipsis'] },
+  { label: '액션', names: ['plus', 'minus', 'x', 'search', 'upload', 'share-2', 'trash', 'ellipsis'] },
   { label: '표시 · 기타', names: ['eye', 'eye-off', 'calendar', 'user'] },
 ]
 

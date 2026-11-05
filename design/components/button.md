@@ -49,7 +49,7 @@
 - 높이는 고정이다(`height`). 라벨은 한 줄(`white-space: nowrap`).
 - 폰트 두께는 모든 variant에서 `font-weight-bold`(700). `ghost`도 같다.
 - 아이콘 색은 글자색(`currentColor`)을 따른다.
-- `outline` 계열 테두리는 1px `solid`.
+- `outline` 계열 테두리는 1px `solid`, 그림자 `shadow-s1`.
 - 높이 32·36px 버튼은 터치 화면에서 히트 영역을 44px로 넓힌다(투명 `::before { inset: -6px … }`). 시각 크기는 바꾸지 않는다.
 
 ### 색

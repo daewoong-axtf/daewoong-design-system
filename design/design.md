@@ -1,4 +1,4 @@
-# DW Design System — Foundations
+# 대웅 Design System — Foundations
 
 > 값의 정본은 [`tokens.json`](tokens.json)이고, 이 문서는 그 값을 **언제·어디에** 쓰는지 정한다.
 > 표의 값과 `tokens.json`이 다르면 `tokens.json`이 맞다. CSS 변수는 [`tokens.css`](tokens.css)에 `--dw-<이름>`으로 있다.
@@ -7,7 +7,7 @@
 ## 1. 원칙
 
 - **색은 역할로 부른다.** 화면은 역할 토큰(`bg-*` · `fg-*` · `stroke-*`)만 쓴다. 컴포넌트 명세는 역할 토큰을 우선하되, 다크 모드에서 대응하는 역할이 없는 중립 회색 몇 자리에 한해 `gray-*`·`static-*` 팔레트를 직접 쓴다. **유채색 팔레트(`orange`·`blue`·`green`·`yellow`·`red`·`purple`)는 어디서도 직접 쓰지 않는다** — 브랜드 교체가 역할 토큰만으로 끝나게 하기 위해서다.
-- **깊이는 색으로 먼저 만든다.** 표면 층위(`bg-layer-basement` → `bg-layer-default` → `bg-layer-floating`)로 구분하고, 그림자는 떠 있는 요소(메뉴·다이얼로그·토스트)에만 쓴다.
+- **깊이는 색으로 먼저 만든다.** 표면 층위(`bg-layer-basement` → `bg-layer-default` → `bg-layer-floating`)로 구분하고, 그림자는 떠 있는 요소(메뉴·다이얼로그·토스트)와 7장 표의 `shadow-s1` 자리에만 쓴다.
 - **브랜드 색은 꼭 필요한 곳에만 쓴다.** 화면의 주된 행동 1개, 선택 상태, 강조 링크 정도로 제한한다.
 - **상태를 색 하나로만 알리지 않는다.** 오류·경고·성공에는 항상 아이콘이나 텍스트를 함께 붙인다(WCAG 1.4.1).
 - **임의의 수치를 만들지 않는다.** 간격·크기·모서리·그림자·모션은 아래 스케일 안에서만 고른다.
@@ -173,7 +173,7 @@ CSS 변수: `--dw-font-<t>-size`, `--dw-font-<t>-line-height`. 글자 간격(let
 
 ### 3.3 텍스트 스타일
 
-화면과 컴포넌트는 스케일을 직접 고르지 않고 아래 스타일을 쓴다.
+화면과 컴포넌트는 스케일을 직접 고르지 않고 아래 스타일을 쓴다. 값은 `tokens.json`의 `typography.style`에 있고, CSS 변수는 `--dw-text-<스타일>-size` · `-line-height` · `-weight`다.
 
 | 스타일 | 스케일 | 두께 | 쓰는 자리 |
 | --- | --- | --- | --- |
@@ -255,7 +255,7 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 
 | 토큰 | 라이트 | 쓰는 자리 |
 | --- | --- | --- |
-| `shadow-s1` | 0 1px 4px 0 / 7.8% | 카드(선택), 스위치 thumb |
+| `shadow-s1` | 0 1px 4px 0 / 7.8% | 테두리 있는 컨트롤(outline 버튼, 입력, Select, 체크박스, 라디오), 스위치 트랙, 슬라이더 손잡이, outline 카드, Segmented Control의 선택 표시 |
 | `shadow-s2` | 0 2px 10px 0 / 10.2% | 드롭다운 메뉴, 팝오버, 토스트 |
 | `shadow-s3` | 0 4px 16px 0 / 12.2% | 다이얼로그, 시트 |
 
@@ -300,7 +300,7 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 
 - 모바일 우선 — 기본 스타일이 모바일이고, 위 너비부터 덮어쓴다.
 - 콘텐츠 최대 너비: 정보형 페이지 1040px, 넓은 목록·대시보드 1280px.
-- 사이드 내비게이션은 `md`(768px) 이상에서 펼치고, 미만에서는 상단 메뉴 버튼으로 여는 off-canvas가 된다.
+- 사이드 내비게이션은 `lg`(1024px) 이상에서 펼치고, 미만에서는 상단 메뉴 버튼으로 여는 off-canvas가 된다.
 - 다이얼로그는 768px 미만에서 화면 폭의 90%, 이상에서 고정 폭(480/800px)으로 가운데 뜬다. 아래서 올라오는 형태가 필요하면 Bottom Sheet를 쓴다.
 - 터치 타깃은 최소 44×44px. 보이는 크기가 작으면 투명 히트 영역을 넓힌다.
 
@@ -320,12 +320,13 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 
 | 환경 | 방법 |
 | --- | --- |
-| 서버 템플릿 (Jinja·Django, Thymeleaf·JSP) | SVG 원문을 그대로 넣거나 `<svg><use href="/icons/sprite.svg#search"/></svg>` (스프라이트는 같은 출처에서 서빙) |
+| 서버 템플릿 (Jinja·Django, Thymeleaf·JSP·FreeMarker) | SVG 원문을 그대로 넣거나 `<svg><use href="/icons/sprite.svg#search"/></svg>` (스프라이트는 같은 출처에서 서빙) |
 | React | `lucide-react`의 `<SearchIcon />` (`icons.json`의 `react`) |
 | Vue · Svelte · Angular · React Native | 각 Lucide 패키지(`lucide-vue-next` · `lucide-svelte` · `lucide-angular` · `lucide-react-native`)에서 같은 이름 |
 | Python 데이터 앱 (Streamlit 등) | `icons.json`의 `svg`를 HTML로 렌더 |
 | PDF · 메일 · 리포트 | SVG를 PNG로 변환 (`cairosvg`, Apache Batik). 메일은 SVG를 못 띄우는 클라이언트가 많아 PNG를 쓴다 |
-| Java 데스크탑 (JavaFX · Swing) | SVG 로더 라이브러리로 읽는다. `path`만 쓰지 않고 `circle`·`line`도 섞여 있어 JavaFX `SVGPath`로 바로 그리기는 어렵다 |
+| Java·Kotlin 데스크탑 (JavaFX · Swing) | SVG 로더 라이브러리로 읽는다. `path`만 쓰지 않고 `circle`·`line`도 섞여 있어 JavaFX `SVGPath`로 바로 그리기는 어렵다 |
+| Android (Kotlin: Jetpack Compose · XML View) | Android Studio Vector Asset으로 SVG를 VectorDrawable로 변환해 `painterResource(R.drawable.ic_search)`로 쓴다. 변환 뒤 `strokeColor`가 남아 있는지 확인하고(비었으면 `#000000`으로 채운다) 색은 `Icon`의 `tint`로 입힌다 |
 
 ```html
 <!-- Jinja · Thymeleaf 공통: 크기는 width/height, 색은 감싼 요소의 color(fg-* 토큰) -->
@@ -364,7 +365,6 @@ outline-offset: 2px;
 ## 13. 알려진 빈칸
 
 - 다크 테마는 정의돼 있으나 서비스 화면에서 충분히 검증되지 않았다.
-- 텍스트 스타일(3.3)은 이 시스템이 정한 값이며 `tokens.json`에는 아직 없다.
 
 ## 14. 환경별 적용
 
@@ -373,8 +373,8 @@ outline-offset: 2px;
 | 환경 | 쓰는 것 | 컴포넌트 |
 | --- | --- | --- |
 | Next.js · React | `tokens.css` + `shadcn.css` + Tailwind CSS v4 | shadcn/ui |
-| 서버가 HTML을 만드는 웹 (Python: Django·Flask·FastAPI + Jinja, Java: Spring + Thymeleaf·JSP 등) | `tokens.css` + `components.css` + `js/components.js` | `component.html`의 `dw-*` 클래스 |
-| 웹이 아닌 곳 (Android · iOS · Flutter · JavaFX · PDF 리포트) | `tokens.json`의 값 | 각 플랫폼 방식으로 구현, 치수는 `components/<name>.md` |
+| 서버가 HTML을 만드는 웹 (Python: Django·Flask·FastAPI + Jinja, Java·Kotlin: Spring + Thymeleaf·JSP, Kotlin: Ktor + FreeMarker 등) | `tokens.css` + `components.css` + `js/components.js` | `component.html`의 `dw-*` 클래스 |
+| 웹이 아닌 곳 (Android(Kotlin) · iOS · Flutter · JavaFX · PDF 리포트) | `tokens.json`의 값 | 각 플랫폼 방식으로 구현, 치수는 `components/<name>.md` |
 
 어느 갈래든 색·간격·모서리는 토큰으로만 부른다(1장). 다크 모드는 `<html data-theme="dark">`이고, 속성이 없으면 OS 설정을 따른다(2.1).
 
@@ -419,13 +419,35 @@ React 없이 HTML에 클래스만 붙이면 같은 모양이 된다. 다이얼�
 - 동작 훅은 `data-dw="<name>"`(컴포넌트 루트), `data-dw-open="<id>"`(여는 버튼), `data-dw-close`(닫는 버튼)이다.
 - 아이콘은 10장의 `icons/sprite.svg`를 쓴다.
 - 화면 고유 레이아웃 CSS를 쓸 때도 값은 `var(--dw-spacing-x4)`처럼 토큰으로 부른다.
-- **아직 비어 있다.** `components.css`에는 지금 Button · Dialog · Field · Text Input만 있다. 나머지는 채우는 중이며, 그전에는 `components/<name>.md` 치수대로 직접 만든다.
 
 ### 14.3 웹이 아닌 곳 — tokens.json
 
 CSS를 쓸 수 없으므로 `tokens.json`을 읽어 각 플랫폼의 색·치수 정의로 옮긴다.
 
 - 색은 `role.light`·`role.dark`의 역할 토큰 이름을 그대로 쓰고(`bgBrandSolid` 등), 값은 `{palette.<name>}` 참조를 풀어 넣는다. 색 값은 oklch라서 sRGB(HEX)로 변환해야 하는 플랫폼이 많다.
-- 간격·모서리·글자 크기는 px 값을 플랫폼 단위(dp · pt)로 1:1 옮긴다.
+- 간격·모서리는 px 값을 플랫폼 단위(dp · pt)로, 글자 크기는 sp · pt로 1:1 옮긴다.
 - 컴포넌트는 `components/<name>.md`의 Anatomy · Specification을 따라 만든다.
+
+Kotlin은 화면이 어디에 뜨느냐로 갈린다. Spring·Ktor로 HTML을 만들면 14.2, Android 앱이면 이 절을 따른다. Jetpack Compose에서는 토큰을 이름 그대로 Kotlin 상수로 옮긴다.
+
+```kotlin
+// 이름은 역할 토큰 그대로, 값은 tokens.json을 sRGB로 변환한 것
+object DwColors {
+    val BgBrandSolid = Color(0xFFF18A00)
+    val FgOnBrandSolid = Color(0xFF000000)
+}
+object DwSpacing { val X4 = 16.dp }
+object DwRadius { val R2 = 8.dp }
+
+Button(
+    onClick = onSave,
+    shape = RoundedCornerShape(DwRadius.R2),
+    colors = ButtonDefaults.buttonColors(
+        containerColor = DwColors.BgBrandSolid,
+        contentColor = DwColors.FgOnBrandSolid,
+    ),
+) { Text("저장") }
+```
+
+라이트·다크 값이 다른 토큰은 두 벌로 두고 `isSystemInDarkTheme()`으로 고른다.
 

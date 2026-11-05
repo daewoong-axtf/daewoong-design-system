@@ -1,6 +1,6 @@
 # Breadcrumb
 
-> 클래스 `.dw-breadcrumb` · 레퍼런스 [component.html#breadcrumb](../component.html#breadcrumb) · DW 구성(원본 recipe 없음)
+> 클래스 `.dw-breadcrumb` · 레퍼런스 [component.html#breadcrumb](../component.html#breadcrumb)
 
 ## 개요
 

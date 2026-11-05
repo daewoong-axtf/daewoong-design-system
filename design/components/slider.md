@@ -34,7 +34,7 @@
 | 전체 높이 | 26px |
 | 트랙 | 높이 4px `x1`, `radius-full`, `stroke-neutral-weak`(gray-400) |
 | 채움 | 트랙 왼쪽부터 값까지, `fg-neutral` |
-| 손잡이 | 20×20px `x5` 원, `bg-neutral-solid` |
+| 손잡이 | 20×20px `x5` 원, `bg-neutral-solid`, 그림자 `shadow-s1` |
 | 드래그 중 손잡이 | `scale(1.2)` |
 | disabled | 트랙 `bg-disabled`, 채움·손잡이 `fg-disabled`, `cursor: not-allowed` |
 | focus-visible | 손잡이에 `outline 2px stroke-focus-ring`, offset 2px |

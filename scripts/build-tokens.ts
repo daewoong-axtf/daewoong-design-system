@@ -45,6 +45,11 @@ export function buildCss(tokens: Tokens): string {
       `  --dw-font-${t}-size: ${s.fontSize};`,
       `  --dw-font-${t}-line-height: ${s.lineHeight};`,
     ]),
+    ...Object.entries(ty.style).flatMap(([name, s]) => [
+      `  --dw-text-${name}-size: var(--dw-font-${s.scale}-size);`,
+      `  --dw-text-${name}-line-height: var(--dw-font-${s.scale}-line-height);`,
+      `  --dw-text-${name}-weight: var(--dw-font-weight-${s.weight});`,
+    ]),
     ...lines(tokens.spacing, 'spacing-'),
     ...lines(tokens.radius, 'radius-'),
     ...lines(motion.duration, 'duration-'),
