@@ -19,7 +19,7 @@ export const GROUPS: { label: string; names: string[] }[] = [
     names: ['info', 'circle-alert', 'triangle-alert', 'circle-check', 'circle-x', 'check', 'loader-circle', 'wifi-off', 'shield-x', 'search-x'],
   },
   { label: '액션', names: ['plus', 'minus', 'x', 'search', 'upload', 'share-2', 'trash', 'pencil', 'copy', 'download', 'list-filter', 'rotate-ccw', 'refresh-cw', 'ellipsis'] },
-  { label: '표시 · 기타', names: ['eye', 'eye-off', 'calendar', 'user', 'trending-up', 'trending-down'] },
+  { label: '표시 · 기타', names: ['eye', 'eye-off', 'calendar', 'user', 'sun', 'moon', 'trending-up', 'trending-down'] },
 ]
 
 const ATTRS = [

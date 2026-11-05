@@ -57,7 +57,7 @@ const SEARCH_ALIASES: Record<string, string> = {
 const link = (id: string, name: string): string => `<a href="#${id}" data-q="${SEARCH_ALIASES[id] ?? ''}">${name}</a>`
 
 function nav(html: string): string {
-  const items = new Map([...html.matchAll(/<section class="demo" id="([^"]+)">\s*<h2>([^<]+?)\s*</g)].map(([, id, name]) => [id, name.trim()]))
+  const items = new Map([...html.matchAll(/<section class="demo" id="([^"]+)">[\s\S]*?<h2>([^<]+?)\s*</g)].map(([, id, name]) => [id, name.trim()]))
   const order = [INTRO_ID, ...FOUNDATION_IDS, ...NAV_GROUPS.flatMap((g) => g.ids)]
   if (order.join() !== [...items.keys()].join()) throw new Error('storybook.html의 절 순서가 INTRO_ID·FOUNDATION_IDS·NAV_GROUPS와 다르다')
   const named = (id: string) => link(id, items.get(id) ?? id)

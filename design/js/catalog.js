@@ -11,8 +11,10 @@
   const theme = document.getElementById('theme')
   const isDark = () => root.dataset.theme === 'dark' || (!root.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches)
   const syncTheme = () => {
-    theme.setAttribute('aria-pressed', String(isDark()))
-    theme.textContent = isDark() ? '라이트 모드' : '다크 모드'
+    const label = isDark() ? '라이트 모드로 전환' : '다크 모드로 전환'
+    theme.setAttribute('aria-label', label)
+    theme.title = label
+    theme.querySelector('use').setAttribute('href', isDark() ? '#i-sun' : '#i-moon')
   }
   theme.addEventListener('click', () => {
     root.dataset.theme = isDark() ? 'light' : 'dark'
