@@ -282,8 +282,8 @@
 
 .dw-field__label {
   color: var(--dw-fg-neutral);
-  font-size: var(--dw-font-t5-size);
-  line-height: var(--dw-font-t5-line-height);
+  font-size: var(--dw-font-t4-size);
+  line-height: var(--dw-font-t4-line-height);
   font-weight: var(--dw-font-weight-medium);
 }
 
@@ -293,7 +293,7 @@
   padding-left: var(--dw-spacing-x1);
   color: var(--dw-fg-neutral-subtle);
   font-size: var(--dw-font-t4-size);
-  line-height: var(--dw-font-t5-line-height);
+  line-height: var(--dw-font-t4-line-height);
   font-weight: var(--dw-font-weight-regular);
 }
 

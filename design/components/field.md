@@ -54,8 +54,8 @@
 | --- | --- |
 | Root 방향·간격 | column, gap 8px `x2` |
 | Header | flex, `space-between`, 가운데 정렬, gap 10px `x2_5`, 좌우 padding 2px `x0_5` |
-| Label | t5 16/22, `font-weight-medium`, `fg-neutral` |
-| Indicator 텍스트 | t4 14px(line-height 22px), regular, `fg-neutral-subtle`, 왼쪽 여백 4px |
+| Label | t4 14/19, `font-weight-medium`, `fg-neutral` |
+| Indicator 텍스트 | t4 14/19, regular, `fg-neutral-subtle`, 왼쪽 여백 4px |
 | Indicator 점 | 6×6px 원, `fg-critical`, 라벨 첫 줄 위쪽에서 4px, 왼쪽 여백 4px |
 | Footer | flex, 위 정렬, gap 8px `x2`, 좌우 padding 2px `x0_5` |
 | Description | t4 14/19, regular, `fg-neutral-subtle`. 앞 아이콘(선택) 16px, 오른쪽 여백 6px, 아이콘 색 `fg-neutral-subtle` |
