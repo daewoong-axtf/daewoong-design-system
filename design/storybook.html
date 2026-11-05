@@ -989,7 +989,7 @@
 
     <section class="demo" id="select">
       <h2>Select <a href="components/select.md">명세</a></h2>
-      <p>7개 이상의 보기 중 하나를 고르는 드롭다운. 포커스는 Trigger에 머물고 화살표·글자 입력으로 보기를 강조한다.</p>
+      <p>7개 이상의 보기 중 하나, 또는 여러 개를 고르는 드롭다운. 포커스는 Trigger에 머물고 화살표·글자 입력으로 보기를 강조한다.</p>
 
       <h3>size</h3>
       <div class="stack">
@@ -1254,7 +1254,7 @@
       </div>
 
       <h3>상태 아이콘 · 앞 아이콘 · 긴 값</h3>
-      <p class="note">긴 값은 한 줄에서 말줄임한다. 값을 여러 개 고를 때는 <a href="#combobox">Combobox</a>의 다중 선택을 쓴다.</p>
+      <p class="note">긴 값은 한 줄에서 말줄임한다.</p>
       <div class="state-matrix">
         <div class="dw-field" data-invalid>
           <div class="dw-field__header"><label class="dw-field__label" id="sel-m1-label" for="sel-m1-trigger">오류</label></div>
@@ -1338,6 +1338,106 @@
             </div>
             <input type="hidden" name="sel-m5-field" value="seoul">
           </div>
+        </div>
+      </div>
+
+      <h3>다중 선택</h3>
+      <p class="note">고를 때마다 목록은 열린 채로 있고, 고른 값은 칩으로 쌓인다. 빼려면 목록에서 다시 누른다.</p>
+      <div class="state-matrix">
+        <div class="dw-field">
+          <div class="dw-field__header"><label class="dw-field__label" id="msel-1-label" for="msel-1-trigger">값 없음</label></div>
+          <div class="dw-select dw-select--medium" data-dw="select" data-multiple data-name="msel-1" data-placeholder="지역 선택">
+            <button type="button" class="dw-select__trigger" id="msel-1-trigger" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="msel-1-list" aria-labelledby="msel-1-label msel-1-value" aria-describedby="msel-1-desc">
+              <span class="dw-select__value" id="msel-1-value" data-placeholder>지역 선택</span>
+              <span class="dw-select__status" aria-hidden="true"><svg class="dw-select__status-critical"><use href="#i-circle-alert"/></svg><svg class="dw-select__status-positive"><use href="#i-circle-check"/></svg></span>
+              <svg class="dw-select__chevron" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+            </button>
+            <div class="dw-select__content" id="msel-1-list" role="listbox" aria-multiselectable="true" aria-labelledby="msel-1-label" hidden>
+              <div class="dw-select__item" role="option" id="msel-1-seoul" data-value="seoul" aria-selected="false"><span class="dw-select__item-label">서울</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-1-busan" data-value="busan" aria-selected="false"><span class="dw-select__item-label">부산</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-1-daegu" data-value="daegu" aria-selected="false"><span class="dw-select__item-label">대구</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-1-incheon" data-value="incheon" aria-selected="false"><span class="dw-select__item-label">인천</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-1-gwangju" data-value="gwangju" aria-selected="false"><span class="dw-select__item-label">광주</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-1-jeju" data-value="jeju" aria-selected="false" aria-disabled="true"><span class="dw-select__item-label">제주</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+            </div>
+          </div>
+          <div class="dw-field__footer"><p class="dw-field__description" id="msel-1-desc">여러 개를 고를 수 있어요</p><p class="dw-field__error" id="msel-1-err"><svg aria-hidden="true"><use href="#i-circle-alert"/></svg>지역을 하나 이상 고르세요</p></div>
+        </div>
+        <div class="dw-field">
+          <div class="dw-field__header"><label class="dw-field__label" id="msel-2-label" for="msel-2-trigger">값 있음</label></div>
+          <div class="dw-select dw-select--medium" data-dw="select" data-multiple data-name="msel-2" data-placeholder="지역 선택">
+            <button type="button" class="dw-select__trigger" id="msel-2-trigger" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="msel-2-list" aria-labelledby="msel-2-label msel-2-value" aria-describedby="msel-2-desc">
+              <span class="dw-select__value" id="msel-2-value"><span class="dw-select__chip">서울</span><span class="dw-select__chip">부산</span></span>
+              <span class="dw-select__status" aria-hidden="true"><svg class="dw-select__status-critical"><use href="#i-circle-alert"/></svg><svg class="dw-select__status-positive"><use href="#i-circle-check"/></svg></span>
+              <svg class="dw-select__chevron" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+            </button>
+            <div class="dw-select__content" id="msel-2-list" role="listbox" aria-multiselectable="true" aria-labelledby="msel-2-label" hidden>
+              <div class="dw-select__item" role="option" id="msel-2-seoul" data-value="seoul" aria-selected="true"><span class="dw-select__item-label">서울</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-2-busan" data-value="busan" aria-selected="true"><span class="dw-select__item-label">부산</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-2-daegu" data-value="daegu" aria-selected="false"><span class="dw-select__item-label">대구</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-2-incheon" data-value="incheon" aria-selected="false"><span class="dw-select__item-label">인천</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-2-gwangju" data-value="gwangju" aria-selected="false"><span class="dw-select__item-label">광주</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-2-jeju" data-value="jeju" aria-selected="false" aria-disabled="true"><span class="dw-select__item-label">제주</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+            </div><input type="hidden" name="msel-2" value="seoul"><input type="hidden" name="msel-2" value="busan">
+          </div>
+          <div class="dw-field__footer"><p class="dw-field__description" id="msel-2-desc">여러 개를 고를 수 있어요</p><p class="dw-field__error" id="msel-2-err"><svg aria-hidden="true"><use href="#i-circle-alert"/></svg>지역을 하나 이상 고르세요</p></div>
+        </div>
+        <div class="dw-field">
+          <div class="dw-field__header"><label class="dw-field__label" id="msel-3-label" for="msel-3-trigger">많이 고름</label></div>
+          <div class="dw-select dw-select--medium" data-dw="select" data-multiple data-name="msel-3" data-placeholder="지역 선택">
+            <button type="button" class="dw-select__trigger" id="msel-3-trigger" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="msel-3-list" aria-labelledby="msel-3-label msel-3-value" aria-describedby="msel-3-desc">
+              <span class="dw-select__value" id="msel-3-value"><span class="dw-select__chip">서울</span><span class="dw-select__chip">부산</span><span class="dw-select__chip">대구</span><span class="dw-select__chip">인천</span><span class="dw-select__chip">광주</span></span>
+              <span class="dw-select__status" aria-hidden="true"><svg class="dw-select__status-critical"><use href="#i-circle-alert"/></svg><svg class="dw-select__status-positive"><use href="#i-circle-check"/></svg></span>
+              <svg class="dw-select__chevron" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+            </button>
+            <div class="dw-select__content" id="msel-3-list" role="listbox" aria-multiselectable="true" aria-labelledby="msel-3-label" hidden>
+              <div class="dw-select__item" role="option" id="msel-3-seoul" data-value="seoul" aria-selected="true"><span class="dw-select__item-label">서울</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-3-busan" data-value="busan" aria-selected="true"><span class="dw-select__item-label">부산</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-3-daegu" data-value="daegu" aria-selected="true"><span class="dw-select__item-label">대구</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-3-incheon" data-value="incheon" aria-selected="true"><span class="dw-select__item-label">인천</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-3-gwangju" data-value="gwangju" aria-selected="true"><span class="dw-select__item-label">광주</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-3-jeju" data-value="jeju" aria-selected="false" aria-disabled="true"><span class="dw-select__item-label">제주</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+            </div><input type="hidden" name="msel-3" value="seoul"><input type="hidden" name="msel-3" value="busan"><input type="hidden" name="msel-3" value="daegu"><input type="hidden" name="msel-3" value="incheon"><input type="hidden" name="msel-3" value="gwangju">
+          </div>
+          <div class="dw-field__footer"><p class="dw-field__description" id="msel-3-desc">여러 개를 고를 수 있어요</p><p class="dw-field__error" id="msel-3-err"><svg aria-hidden="true"><use href="#i-circle-alert"/></svg>지역을 하나 이상 고르세요</p></div>
+        </div>
+        <div class="dw-field" data-invalid>
+          <div class="dw-field__header"><label class="dw-field__label" id="msel-4-label" for="msel-4-trigger">오류</label></div>
+          <div class="dw-select dw-select--medium" data-dw="select" data-multiple data-name="msel-4" data-placeholder="지역 선택">
+            <button type="button" class="dw-select__trigger" id="msel-4-trigger" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="msel-4-list" aria-labelledby="msel-4-label msel-4-value" aria-describedby="msel-4-err" aria-invalid="true">
+              <span class="dw-select__value" id="msel-4-value" data-placeholder>지역 선택</span>
+              <span class="dw-select__status" aria-hidden="true"><svg class="dw-select__status-critical"><use href="#i-circle-alert"/></svg><svg class="dw-select__status-positive"><use href="#i-circle-check"/></svg></span>
+              <svg class="dw-select__chevron" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+            </button>
+            <div class="dw-select__content" id="msel-4-list" role="listbox" aria-multiselectable="true" aria-labelledby="msel-4-label" hidden>
+              <div class="dw-select__item" role="option" id="msel-4-seoul" data-value="seoul" aria-selected="false"><span class="dw-select__item-label">서울</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-4-busan" data-value="busan" aria-selected="false"><span class="dw-select__item-label">부산</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-4-daegu" data-value="daegu" aria-selected="false"><span class="dw-select__item-label">대구</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-4-incheon" data-value="incheon" aria-selected="false"><span class="dw-select__item-label">인천</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-4-gwangju" data-value="gwangju" aria-selected="false"><span class="dw-select__item-label">광주</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-4-jeju" data-value="jeju" aria-selected="false" aria-disabled="true"><span class="dw-select__item-label">제주</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+            </div>
+          </div>
+          <div class="dw-field__footer"><p class="dw-field__description" id="msel-4-desc">여러 개를 고를 수 있어요</p><p class="dw-field__error" id="msel-4-err"><svg aria-hidden="true"><use href="#i-circle-alert"/></svg>지역을 하나 이상 고르세요</p></div>
+        </div>
+        <div class="dw-field">
+          <div class="dw-field__header"><label class="dw-field__label" id="msel-5-label" for="msel-5-trigger">비활성</label></div>
+          <div class="dw-select dw-select--medium" data-dw="select" data-multiple data-name="msel-5" data-placeholder="지역 선택">
+            <button type="button" class="dw-select__trigger" id="msel-5-trigger" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="msel-5-list" aria-labelledby="msel-5-label msel-5-value" aria-describedby="msel-5-desc" disabled>
+              <span class="dw-select__value" id="msel-5-value"><span class="dw-select__chip">서울</span></span>
+              <span class="dw-select__status" aria-hidden="true"><svg class="dw-select__status-critical"><use href="#i-circle-alert"/></svg><svg class="dw-select__status-positive"><use href="#i-circle-check"/></svg></span>
+              <svg class="dw-select__chevron" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+            </button>
+            <div class="dw-select__content" id="msel-5-list" role="listbox" aria-multiselectable="true" aria-labelledby="msel-5-label" hidden>
+              <div class="dw-select__item" role="option" id="msel-5-seoul" data-value="seoul" aria-selected="true"><span class="dw-select__item-label">서울</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-5-busan" data-value="busan" aria-selected="false"><span class="dw-select__item-label">부산</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-5-daegu" data-value="daegu" aria-selected="false"><span class="dw-select__item-label">대구</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-5-incheon" data-value="incheon" aria-selected="false"><span class="dw-select__item-label">인천</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-5-gwangju" data-value="gwangju" aria-selected="false"><span class="dw-select__item-label">광주</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+              <div class="dw-select__item" role="option" id="msel-5-jeju" data-value="jeju" aria-selected="false" aria-disabled="true"><span class="dw-select__item-label">제주</span><svg class="dw-select__check" aria-hidden="true"><use href="#i-check"/></svg></div>
+            </div><input type="hidden" name="msel-5" value="seoul">
+          </div>
+          <div class="dw-field__footer"><p class="dw-field__description" id="msel-5-desc">여러 개를 고를 수 있어요</p><p class="dw-field__error" id="msel-5-err"><svg aria-hidden="true"><use href="#i-circle-alert"/></svg>지역을 하나 이상 고르세요</p></div>
         </div>
       </div>
     </section>

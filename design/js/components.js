@@ -342,11 +342,20 @@
   // 필수 Select는 값이 있어야 한다 — hidden input은 브라우저가 검증하지 않는다
   function selectValid(trigger) {
     if (trigger.getAttribute('aria-required') !== 'true') return true
+    const multi = trigger.closest('.dw-select[data-multiple]')
+    if (multi) return selectChosen(multi).length > 0
     return !!trigger.closest('.dw-select')?.querySelector('input[type="hidden"]')?.value
   }
 
   // hidden input은 폼 reset으로 되돌아오지 않아 처음 값을 기억했다가 돌려놓는다
   function selectReset(root) {
+    if ('multiple' in root.dataset) {
+      const first = root.dataset.dwDefault
+      if (first === undefined) return
+      const values = JSON.parse(first)
+      for (const item of selectItems(root)) item.setAttribute('aria-selected', String(values.includes(selectItemValue(item))))
+      return selectSyncMultiple(root)
+    }
     const input = root.querySelector('input[type="hidden"]')
     const first = input?.dataset.dwDefault
     if (!input || first === undefined) return
@@ -387,8 +396,55 @@
     content.hidden = true
   }
 
-  function selectChoose(root, item) {
+  const selectItemValue = (item) => item.dataset.value ?? selectLabel(item)
+  const selectChosen = (root) => selectItems(root).filter((item) => item.getAttribute('aria-selected') === 'true')
+
+  // 다중 선택: Trigger의 칩과 값마다 하나인 hidden input을 고른 Item에 맞춘다
+  function selectSyncMultiple(root) {
+    const chosen = selectChosen(root)
+    const value = root.querySelector('.dw-select__value')
+    if (value) {
+      value.toggleAttribute('data-placeholder', chosen.length === 0)
+      value.replaceChildren(...chosen.map((item) => {
+        const chip = document.createElement('span')
+        chip.className = 'dw-select__chip'
+        chip.textContent = selectLabel(item)
+        return chip
+      }))
+      if (!chosen.length) value.textContent = root.dataset.placeholder ?? ''
+    }
+    for (const input of root.querySelectorAll('input[type="hidden"]')) input.remove()
+    for (const item of chosen) {
+      const input = document.createElement('input')
+      input.type = 'hidden'
+      input.name = root.dataset.name ?? ''
+      input.value = selectItemValue(item)
+      root.append(input)
+    }
+    root.dispatchEvent(new CustomEvent('dw:select-change', {
+      bubbles: true,
+      detail: { values: chosen.map((item) => ({ value: selectItemValue(item), label: selectLabel(item) })) },
+    }))
+    if (root === selectActive) selectPlace(root)
+  }
+
+  function selectClearFieldState(root) {
     const { trigger } = selectParts(root)
+    const field = root.closest('.dw-field')
+    if (!field?.matches('[data-invalid], [data-valid]')) return
+    field.removeAttribute('data-invalid')
+    field.removeAttribute('data-valid')
+    trigger.removeAttribute('aria-invalid')
+    trigger.setAttribute('aria-describedby', field.querySelector('.dw-field__description')?.id ?? '')
+  }
+
+  function selectChoose(root, item) {
+    if ('multiple' in root.dataset) {
+      root.dataset.dwDefault ??= JSON.stringify(selectChosen(root).map(selectItemValue))
+      item.setAttribute('aria-selected', String(item.getAttribute('aria-selected') !== 'true'))
+      selectSyncMultiple(root)
+      return selectClearFieldState(root)
+    }
     const label = selectLabel(item)
     for (const other of selectItems(root)) other.setAttribute('aria-selected', String(other === item))
     const value = root.querySelector('.dw-select__value')
@@ -405,16 +461,7 @@
       input.dispatchEvent(new Event('change', { bubbles: true }))
     }
     // 이미 오류였던 필드는 고르는 순간 해제한다 (Text Input과 같다)
-    const field = root.closest('.dw-field')
-    if (field?.hasAttribute('data-invalid')) {
-      field.removeAttribute('data-invalid')
-      trigger.removeAttribute('aria-invalid')
-      trigger.setAttribute('aria-describedby', field.querySelector('.dw-field__description')?.id ?? '')
-    }
-    if (field?.hasAttribute('data-valid')) {
-      field.removeAttribute('data-valid')
-      trigger.setAttribute('aria-describedby', field.querySelector('.dw-field__description')?.id ?? '')
-    }
+    selectClearFieldState(root)
   }
 
   function selectType(root, key) {
@@ -445,7 +492,7 @@
     const item = el.closest('.dw-select__item')
     if (!item || item.getAttribute('aria-disabled') === 'true') return
     selectChoose(root, item)
-    selectClose(root)
+    if (!('multiple' in root.dataset)) selectClose(root)
   })
 
   // 항목을 눌러도 포커스가 Trigger를 떠나지 않게 한다
@@ -485,7 +532,8 @@
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
       if (current) selectChoose(root, current)
-      return void selectClose(root)
+      if (!('multiple' in root.dataset)) selectClose(root)
+      return
     }
     const moves = {
       ArrowDown: items[Math.min(at + 1, items.length - 1)],

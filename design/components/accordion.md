@@ -58,7 +58,7 @@
 | Prefix | 오른쪽 12px, 22px 아이콘 `fg-neutral` |
 | Body | 세로 gap 2px, Title `fg-neutral`, Description `fg-neutral-subtle` |
 | Chevron | 왼쪽 12px, `fg-neutral-subtle`, `margin-left: auto`, 열림 `rotate(180deg)` |
-| Panel 안쪽 | 좌우 padding 16px, 아래 padding 16px, t4 14/19 `fg-neutral-muted` |
+| Panel 안쪽 | 위 padding 8px `x2`(Trigger hover 면에 붙지 않게), 좌우·아래 padding 16px, t4 14/19 `fg-neutral-muted` |
 | `inline` | 항목 사이 1px `stroke-neutral-subtle`(좌우 12px 들여서). hover: 뒤 면이 좌우 6px 들어온 radius 10px `bg-transparent-pressed` |
 | `separated` | 항목마다 `inset 0 0 0 1px stroke-neutral-weak`, radius 12px `r3`, 항목 사이 8px. hover: Trigger 전체 `bg-transparent-pressed` |
 | disabled | Title·Description·아이콘 `fg-disabled`, `cursor: not-allowed` |

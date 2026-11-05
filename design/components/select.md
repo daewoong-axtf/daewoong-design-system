@@ -4,7 +4,7 @@
 
 ## 개요
 
-7개 이상(또는 공간이 좁을 때 2개 이상)의 보기 중 하나를 고르는 드롭다운이다. 라벨·오류는 [Field](field.md)로 붙인다.
+7개 이상(또는 공간이 좁을 때 2개 이상)의 보기 중 하나 또는 여러 개를 고르는 드롭다운이다. 라벨·오류는 [Field](field.md)로 붙인다.
 **쓰지 말 것** — 보기가 적고 공간이 있을 때(Radio), 검색이 필요한 긴 목록([Searchable Select](searchable-select.md)).
 
 ## Anatomy
@@ -21,6 +21,7 @@
 | Item | `.dw-select__item` | ✓ | `role="option"` |
 | Item label · description | `.dw-select__item-label` · `.dw-select__item-description` | | 설명은 선택 |
 | Indicator | `.dw-select__check` | ✓ | 선택된 Item의 `check` |
+| Chip | `.dw-select__chip` | 다중 | 고른 값. Value 안에 쌓인다. Trigger가 버튼이라 칩에는 버튼을 넣지 않는다 |
 
 ```html
 <div class="dw-select dw-select--medium" data-dw="select">
@@ -61,9 +62,53 @@
 | valid | boolean | false | Field Root에 `data-valid` |
 | leading icon | 아이콘 | 없음 | `.dw-select__icon` |
 
-긴 값은 한 줄에서 말줄임한다. 줄을 바꾸지 않는다. 전체 문구는 목록을 열어 확인한다. 값을 여러 개 고를 때는 [Combobox](combobox.md)의 `multiple`을 쓴다.
+긴 값은 한 줄에서 말줄임한다. 줄을 바꾸지 않는다. 전체 문구는 목록을 열어 확인한다.
+
+## 다중 선택
+
+Root에 `data-multiple`을 주고, 제출 이름은 `data-name`, 값이 없을 때의 문구는 `data-placeholder`에 적는다. Content에는 `aria-multiselectable="true"`를 붙인다. 처음부터 고른 값이 있으면 칩과 hidden input을 마크업에 함께 적는다. 이후의 칩과 hidden input은 스크립트가 맞춘다.
+
+```html
+<div class="dw-select dw-select--medium" data-dw="select" data-multiple data-name="region" data-placeholder="지역 선택">
+  <button type="button" class="dw-select__trigger" role="combobox" aria-haspopup="listbox"
+          aria-expanded="false" aria-controls="region-list" aria-labelledby="region-label region-value">
+    <span class="dw-select__value" id="region-value"><span class="dw-select__chip">서울</span></span>
+    <svg class="dw-select__chevron" aria-hidden="true">…</svg>
+  </button>
+  <div class="dw-select__content" id="region-list" role="listbox" aria-multiselectable="true" aria-labelledby="region-label" hidden>
+    <div class="dw-select__item" role="option" id="region-seoul" data-value="seoul" aria-selected="true">…</div>
+    <div class="dw-select__item" role="option" id="region-busan" data-value="busan" aria-selected="false">…</div>
+  </div>
+  <input type="hidden" name="region" value="seoul">
+</div>
+```
+
+| 항목 | 동작 |
+| --- | --- |
+| 고르기 | 켜고 끈다. 목록은 Esc, Tab, Trigger, 바깥 클릭으로 닫는다 |
+| 빼기 | 목록에서 다시 누른다 |
+| 폼 값 | 고른 값마다 같은 이름의 hidden input을 둔다. 고른 값이 없으면 hidden input도 없다 |
+| 칩 순서 | 목록 순서를 따른다 |
+| 필수 | `aria-required="true"`이면 하나 이상 골라야 한다 |
+| 이벤트 | 바뀔 때마다 Root가 `dw:select-change`를 낸다. `detail`은 `{ values: [{ value, label }] }` |
+| React | `MultiSelect`(`options`, `value`, `onValueChange`, `placeholder`, `name`) |
+
+| 고르는 것 | 쓰는 곳 |
+| --- | --- |
+| Select 다중 선택 | 보기가 짧아 목록에서 바로 찾을 수 있을 때 |
+| [Combobox](combobox.md) `multiple` | 보기가 많아 검색이 필요할 때, 칩을 바로 지워야 할 때 |
+| [Checkbox](checkbox.md) | 보기가 6개 이하이고 자리가 있을 때 |
 
 ## Specification
+
+### Chip (다중)
+
+| 항목 | 값 |
+| --- | --- |
+| Trigger | 높이는 표의 값이 최소이고 칩이 늘면 줄을 바꿔 커진다. 위아래 padding 4px `x1` |
+| Chip | 높이 28px `x7`, 좌우 8px `x2`, 간격 4px `x1`, 모서리 8px `r2`, `bg-neutral-weak-alpha`, t3 13 medium |
+| 긴 값 | 칩 안에서 말줄임한다 |
+| disabled | 글자 `fg-disabled` |
 
 ### Trigger
 
@@ -113,7 +158,7 @@ Value는 한 줄 말줄임(`text-overflow: ellipsis`).
 | Closed | — | Content `hidden` |
 | Open | Trigger 클릭·Enter·Space·↓·↑ | Content 표시, 선택된 Item(없으면 첫 Item) 강조 |
 | Highlighted | 화살표·hover | Item 강조 면 |
-| Selected | 클릭·Enter | Value 갱신, Content 닫힘, 포커스 Trigger로 |
+| Selected | 클릭·Enter | Value 갱신, Content 닫힘, 포커스 Trigger로. 다중은 Content가 열려 있다 |
 
 ## Behavior & Accessibility
 
@@ -131,8 +176,8 @@ WAI-ARIA APG **Select-Only Combobox** 패턴.
 | Enter · Space · ↓ · ↑ | (닫힘) 열기 |
 | ↓ / ↑ | (열림) 다음/이전 Item 강조 (disabled 건너뜀, 끝에서 멈춤) |
 | Home / End | 처음/마지막 Item |
-| Enter · Space | 강조된 Item 선택 후 닫기 |
-| Esc | 선택 없이 닫기 |
+| Enter · Space | 강조된 Item 선택 후 닫기. 다중은 켜고 끄며 닫지 않는다 |
+| Esc | 선택 없이 닫기. 다중은 이미 고른 값을 유지한다 |
 | 문자 입력 | 그 글자로 시작하는 Item 강조 |
 
 ## Responsive

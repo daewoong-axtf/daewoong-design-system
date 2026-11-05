@@ -27,6 +27,9 @@ const meta = {
         <Button variant="outline" onClick={() => toast.success('저장했습니다')}>
           성공
         </Button>
+        <Button variant="outline" onClick={() => toast.warning('연결이 불안정합니다')}>
+          경고
+        </Button>
         <Button variant="outline" onClick={() => toast.error('저장하지 못했습니다')}>
           실패
         </Button>
@@ -47,6 +50,9 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: '성공' }))
-    await expect(await within(document.body).findByText('저장했습니다')).toBeInTheDocument()
+    const message = await within(document.body).findByText('저장했습니다')
+    await expect(message).toBeInTheDocument()
+    const positive = getComputedStyle(document.documentElement).getPropertyValue('--dw-bg-positive-solid').trim()
+    await expect(getComputedStyle(message.closest('[data-sonner-toast]')!).backgroundColor).toBe(positive)
   },
 }
