@@ -3,11 +3,11 @@
 대웅 서비스들이 공통으로 쓰는 디자인 시스템이다. 패키지로 배포하지 않는다 — 각 서비스는 아래 전달물을 보고
 **자기 언어·프레임워크로 구현**하거나, React라면 Storybook의 소스를 복사해 쓴다.
 
-[카탈로그](design/storybook.html) · [AI로 설치하기](#ai로-설치하기) · [AI용 문서](design/llms.txt)
+[카탈로그](https://daewoong-axtf.github.io/dw-design-system/design/storybook.html) · [AI로 설치하기](#ai로-설치하기) · [직접 설치하기](#직접-설치하기) · [AI용 문서](design/llms.txt)
 
 ## 카탈로그
 
-토큰과 컴포넌트를 한 페이지에서 보는 [`design/storybook.html`](design/storybook.html)이다. GitHub에서는 소스로 보이므로 저장소를 받은 뒤 브라우저로 연다.
+토큰과 컴포넌트를 한 페이지에서 보는 [온라인 카탈로그](https://daewoong-axtf.github.io/dw-design-system/design/storybook.html)다. 원본은 [`design/storybook.html`](design/storybook.html)이다.
 
 ## AI로 설치하기
 
@@ -77,7 +77,73 @@ AI 도구에서 프로젝트를 열고 아래 프롬프트를 복사해 붙여 �
 
 ### 버전
 
-설치한 저장소·ref·커밋은 프로젝트의 `docs/design-system.md`에 남는다. 이미 설치한 프로젝트는 자동으로 바뀌지 않는다. 올릴 때는 [업데이트 기록](design/storybook.html)을 확인하고, 프로젝트에서 고친 파일을 덮어쓰지 않는지 비교한다.
+설치한 저장소·ref·커밋은 프로젝트의 `docs/design-system.md`에 남는다. 이미 설치한 프로젝트는 자동으로 바뀌지 않는다. 올릴 때는 [업데이트 기록](https://daewoong-axtf.github.io/dw-design-system/design/storybook.html#page-history-title)을 확인하고, 프로젝트에서 고친 파일을 덮어쓰지 않는지 비교한다.
+
+## 직접 설치하기
+
+AI 없이 파일을 복사해 연결한다. 패키지 설치는 필요 없다.
+
+### 1. 받기
+
+```bash
+git clone --depth 1 https://github.com/daewoong-axtf/dw-design-system.git
+```
+
+GitHub의 `Code > Download ZIP`으로 받아도 된다. 쓰는 것은 `design/` 폴더뿐이다. 받은 커밋을 프로젝트에 적어 두면 나중에 비교하기 쉽다.
+
+### 2. 복사하기
+
+| 환경 | 복사할 파일 | 위치 |
+| --- | --- | --- |
+| 서버가 HTML을 만드는 웹 (Django, Flask, Spring 등) | `fonts/` `icons/` `tokens.css` `components.css` `js/components.js` | 정적 파일 경로 아래 `design/` |
+| 프론트엔드 프레임워크 (React, Vue, Svelte 등) | `fonts/` `icons/` `tokens.css` `components.css` | 소스 경로 아래 `design/` (예: `src/design/`) |
+| 이미 Tailwind·shadcn을 쓰는 React | `fonts/` `icons/` `tokens.css` `shadcn.css` | 소스 경로 아래 `design/` |
+| 웹이 아닌 환경 (Flutter, Android, iOS 등) | `tokens.json` | [14.3절](design/design.md#14-환경별-적용)대로 플랫폼 값으로 옮긴다 |
+
+명세와 가이드를 함께 두려면 `design/` 전체를 공개되지 않는 경로(예: `docs/design-reference/`)에 복사한다.
+
+### 3. 연결하기
+
+서버 템플릿 웹은 공통 템플릿의 `<head>`에 넣는다.
+
+```html
+<link rel="stylesheet" href="/design/fonts/pretendard.css">
+<link rel="stylesheet" href="/design/tokens.css">
+<link rel="stylesheet" href="/design/components.css">
+<script src="/design/js/components.js" defer></script>
+```
+
+프론트엔드 프레임워크는 전역 CSS에서 불러온다. 동작은 그 프레임워크로 구현한다.
+
+```css
+@import "./design/fonts/pretendard.css";
+@import "./design/tokens.css";
+@import "./design/components.css";
+```
+
+Tailwind·shadcn을 쓰는 React는 [14.1절](design/design.md#14-환경별-적용)의 불러오는 순서를 따른다.
+
+### 4. 페이지 바탕 지정하기
+
+디자인 시스템은 `body`를 스타일하지 않는다. 지정하지 않으면 다크 모드에서 바탕이 바뀌지 않는다.
+
+```css
+body {
+  background: var(--dw-bg-layer-default);
+  color: var(--dw-fg-neutral);
+  font-family: var(--dw-font-sans);
+}
+```
+
+### 5. 확인하기
+
+버튼을 하나 넣어 모양을 확인하고, 시스템 설정을 바꿔 라이트·다크를 모두 본다.
+
+```html
+<button class="dw-button dw-button--brand-solid dw-button--medium" type="button">저장</button>
+```
+
+다른 컴포넌트의 마크업은 [`design/storybook.html`](design/storybook.html)에서 복사한다. `pnpm build:*` 명령은 이 저장소 전용이라 프로젝트에 추가하지 않는다.
 
 ## 전달물
 
