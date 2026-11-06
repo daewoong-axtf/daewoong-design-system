@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "designSystem": {
-    "repository": "https://github.com/daewoong-axtf/dw-design-system",
+    "repository": "https://github.com/daewoong-axtf/daewoong-design-system",
     "ref": "main"
   },
   "type": "module",
