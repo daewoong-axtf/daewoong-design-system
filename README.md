@@ -178,7 +178,9 @@ pnpm test               # 토큰·가드 테스트
 
 ## 라이선스
 
-사내 전용. 아이콘은 Lucide(ISC) — [design/icons/LICENSE.md](design/icons/LICENSE.md).
+공개 저장소이며 대웅 서비스를 만드는 데 쓴다. 대웅 로고와 CI는 대웅의 자산이라 다른 용도로 쓸 수 없다.
+
+아이콘은 Lucide(ISC) — [design/icons/LICENSE.md](design/icons/LICENSE.md). 글꼴은 Pretendard(OFL) — [design/fonts/OFL.txt](design/fonts/OFL.txt).
 
 ## Storybook
 
