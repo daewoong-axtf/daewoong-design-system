@@ -9,6 +9,39 @@ const chip = {
   flexShrink: 0,
 } as const
 
+const BRAND_COLORS = [
+  { rank: 'Primary', role: 'brand', use: '화면의 대표 행동' },
+  { rank: 'Secondary', role: 'brand-secondary', use: '두 번째 행동, 공지, 차트' },
+  { rank: 'Tertiary', role: 'brand-tertiary', use: '탐색, 새 기능, 차트' },
+] as const
+
+/** 브랜드 3색과 위에 얹는 글자색 */
+export function BrandColors() {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 'var(--dw-spacing-x2)' }}>
+      {BRAND_COLORS.map(({ rank, role, use }) => (
+        <div
+          key={role}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--dw-spacing-x1)',
+            padding: 'var(--dw-spacing-x4)',
+            borderRadius: 'var(--dw-radius-r3)',
+            background: `var(--dw-bg-${role}-solid)`,
+            color: `var(--dw-fg-on-${role}-solid)`,
+            fontFamily: 'var(--dw-font-sans)',
+          }}
+        >
+          <strong>{rank}</strong>
+          <code style={{ color: 'inherit', background: 'none' }}>bg-{role}-solid</code>
+          <span>{use}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 /** 계열별 단계 스와치 — 색은 var(--dw-*)라 툴바 테마를 따른다 */
 export function PaletteGrid() {
   return (

@@ -28,7 +28,7 @@
 
 | 속성 | 값 | 기본값 | 표현 |
 | --- | --- | --- | --- |
-| variant | `brand-solid` · `neutral-solid` · `neutral-weak` · `critical-solid` · `brand-outline` · `neutral-outline` · `ghost` | `neutral-weak` | `.dw-button--<variant>` |
+| variant | `brand-solid` · `brand-secondary-solid` · `brand-tertiary-solid` · `neutral-solid` · `neutral-weak` · `critical-solid` · `brand-outline` · `neutral-outline` · `ghost` | `neutral-weak` | `.dw-button--<variant>` |
 | size | `xsmall` · `small` · `medium` · `large` | `medium` | `.dw-button--<size>` |
 | layout | `with-text` · `icon-only` | `with-text` | icon-only는 `.dw-button--icon-only` |
 | width | 내용 맞춤 · 가득 | 내용 맞춤 | 가득은 `.dw-button--full` (`width: 100%`) |
@@ -52,6 +52,17 @@
 - `outline` 계열 테두리는 1px `solid`, 그림자 `shadow-s1`.
 - 높이 32·36·40px 버튼은 터치 화면에서 히트 영역을 44px로 넓힌다(투명 `::before`). 시각 크기는 바꾸지 않는다.
 
+### 위계
+
+| variant | 쓰는 상황 | 예시 |
+| --- | --- | --- |
+| `brand-solid` | 화면의 대표 행동. 화면당 1개 | 저장, 신청하기 |
+| `brand-secondary-solid` | 대표 행동과 나란히 놓이는 두 번째 행동 | 임시 저장, 내보내기 |
+| `brand-tertiary-solid` | 새 기능, 탐색, 안내로 이어지는 행동 | 자세히 보기, 둘러보기 |
+| `neutral-weak` | 부담 없는 행동 | 취소, 닫기 |
+
+새 화면의 어두운 버튼은 `brand-secondary-solid`를 쓴다. 두 어두운 색을 나란히 두면 구분이 약해서 `neutral-solid`는 기존 화면을 유지할 때만 쓴다.
+
 ### 색
 
 `hover`는 정밀 포인터(`@media (hover: hover) and (pointer: fine)`)에서만, `pressed`는 터치(그 밖)에서 `:active`일 때 적용한다. 두 상태의 색은 같다.
@@ -60,6 +71,10 @@
 | --- | --- | --- | --- | --- |
 | `brand-solid` | 기본 | `bg-brand-solid` | `fg-on-brand-solid` | — |
 | | hover · pressed · loading | `bg-brand-solid-pressed` | `fg-on-brand-solid` | — |
+| `brand-secondary-solid` | 기본 | `bg-brand-secondary-solid` | `fg-on-brand-secondary-solid` | — |
+| | hover · pressed · loading | `bg-brand-secondary-solid-pressed` | `fg-on-brand-secondary-solid` | — |
+| `brand-tertiary-solid` | 기본 | `bg-brand-tertiary-solid` | `fg-on-brand-tertiary-solid` | — |
+| | hover · pressed · loading | `bg-brand-tertiary-solid-pressed` | `fg-on-brand-tertiary-solid` | — |
 | `neutral-solid` | 기본 | `bg-neutral-solid` | `fg-on-neutral-solid` | — |
 | | hover · pressed · loading | `bg-neutral-solid-pressed` | `fg-on-neutral-solid` | — |
 | `neutral-weak` | 기본 | `bg-neutral-weak` | `fg-neutral` | — |
@@ -80,7 +95,7 @@
 
 | variant | track | range |
 | --- | --- | --- |
-| solid 계열(`brand`·`neutral`·`critical`) | `static-white-alpha-300` | 해당 `fg-on-*-solid` |
+| solid 계열(`brand`·`brand-secondary`·`brand-tertiary`·`neutral`·`critical`) | `static-white-alpha-300` | 해당 `fg-on-*-solid` |
 | `neutral-weak` · `neutral-outline` · `ghost` | `fg-disabled` | `fg-neutral` |
 | `brand-outline` | `bg-brand-weak-pressed` | `bg-brand-solid` |
 

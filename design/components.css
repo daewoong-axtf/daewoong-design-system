@@ -172,6 +172,22 @@
   color: var(--dw-fg-on-brand-solid);
 }
 
+.dw-button--brand-secondary-solid {
+  --dw-button-track: var(--dw-static-white-alpha-300);
+  --dw-button-range: var(--dw-fg-on-brand-secondary-solid);
+  --dw-button-hover: var(--dw-bg-brand-secondary-solid-pressed);
+  background: var(--dw-bg-brand-secondary-solid);
+  color: var(--dw-fg-on-brand-secondary-solid);
+}
+
+.dw-button--brand-tertiary-solid {
+  --dw-button-track: var(--dw-static-white-alpha-300);
+  --dw-button-range: var(--dw-fg-on-brand-tertiary-solid);
+  --dw-button-hover: var(--dw-bg-brand-tertiary-solid-pressed);
+  background: var(--dw-bg-brand-tertiary-solid);
+  color: var(--dw-fg-on-brand-tertiary-solid);
+}
+
 .dw-button--neutral-solid {
   --dw-button-track: var(--dw-static-white-alpha-300);
   --dw-button-range: var(--dw-fg-on-neutral-solid);
@@ -3390,6 +3406,24 @@ a:has(> .dw-avatar):focus-visible { outline: 2px solid var(--dw-stroke-focus-rin
   --dw-badge-outline-fg: var(--dw-fg-brand);
 }
 
+.dw-badge--brand-secondary {
+  --dw-badge-weak-bg: var(--dw-bg-brand-secondary-weak);
+  --dw-badge-weak-fg: var(--dw-fg-brand-secondary-contrast);
+  --dw-badge-solid-bg: var(--dw-bg-brand-secondary-solid);
+  --dw-badge-solid-fg: var(--dw-fg-on-brand-secondary-solid);
+  --dw-badge-outline-stroke: var(--dw-stroke-brand-secondary-weak);
+  --dw-badge-outline-fg: var(--dw-fg-brand-secondary);
+}
+
+.dw-badge--brand-tertiary {
+  --dw-badge-weak-bg: var(--dw-bg-brand-tertiary-weak);
+  --dw-badge-weak-fg: var(--dw-fg-brand-tertiary-contrast);
+  --dw-badge-solid-bg: var(--dw-bg-brand-tertiary-solid);
+  --dw-badge-solid-fg: var(--dw-fg-on-brand-tertiary-solid);
+  --dw-badge-outline-stroke: var(--dw-stroke-brand-tertiary-weak);
+  --dw-badge-outline-fg: var(--dw-fg-brand-tertiary);
+}
+
 .dw-badge--informative {
   --dw-badge-weak-bg: var(--dw-bg-informative-weak);
   --dw-badge-weak-fg: var(--dw-fg-informative-contrast);
@@ -3612,6 +3646,24 @@ a:has(> .dw-avatar):focus-visible { outline: 2px solid var(--dw-stroke-focus-rin
   background: var(--dw-bg-neutral-weak);
   box-shadow: none;
 }
+
+.dw-card--brand-secondary {
+  --dw-card-hover: var(--dw-bg-brand-secondary-weak-pressed);
+  background: var(--dw-bg-brand-secondary-weak);
+  box-shadow: none;
+  color: var(--dw-fg-brand-secondary-contrast);
+}
+
+.dw-card--brand-secondary :is(.dw-card__title, .dw-card__description, .dw-card__body) { color: inherit; }
+
+.dw-card--brand-tertiary {
+  --dw-card-hover: var(--dw-bg-brand-tertiary-weak-pressed);
+  background: var(--dw-bg-brand-tertiary-weak);
+  box-shadow: none;
+  color: var(--dw-fg-brand-tertiary-contrast);
+}
+
+.dw-card--brand-tertiary :is(.dw-card__title, .dw-card__description, .dw-card__body) { color: inherit; }
 
 /* Title·Description을 감싸는 요소 없이 왼쪽 열에 쌓고, Action만 오른쪽 열에 둔다 */
 .dw-card__header {

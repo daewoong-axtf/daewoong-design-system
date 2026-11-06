@@ -138,3 +138,7 @@ main > section { scroll-margin-top: 72px; }
 .ratio-demo { display: flex; align-items: center; justify-content: center; border-radius: var(--dw-radius-r2); background: var(--dw-bg-neutral-solid); color: var(--dw-fg-on-neutral-solid); font-weight: var(--dw-font-weight-bold); }
 .action-demo { overflow-y: auto; max-width: 375px; height: 240px; border-radius: var(--dw-radius-r3); box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak); }
 .action-demo__body { height: 360px; padding: var(--dw-spacing-x4); color: var(--dw-fg-neutral-muted); }
+
+.brand-trio { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: var(--dw-spacing-x2); margin-block: var(--dw-spacing-x4); }
+.brand-trio div { display: flex; flex-direction: column; gap: var(--dw-spacing-x1); min-width: 0; padding: var(--dw-spacing-x4); border-radius: var(--dw-radius-r3); }
+.brand-trio code { background: none; color: inherit; overflow-wrap: anywhere; }

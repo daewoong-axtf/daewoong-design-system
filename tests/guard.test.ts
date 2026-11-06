@@ -19,7 +19,7 @@ test('every spec has its class in components.css', () => {
 })
 
 test('components.css uses role tokens instead of chromatic palette', () => {
-  const hits = read('components.css').match(/var\(--dw-(orange|blue|green|yellow|red|purple)-[^)]*\)/g)
+  const hits = read('components.css').match(/var\(--dw-(orange|charcoal|teal|blue|green|yellow|red|purple)-[^)]*\)/g)
   assert.equal(hits, null)
 })
 
@@ -103,7 +103,7 @@ test('shadcn.css adds the breakpoints Tailwind does not have', () => {
 test('foundation spec links point at a design.md heading', () => {
   const slugs = [...read('design.md').matchAll(/^#{2,3} (.+)$/gm)].map((m) => m[1].toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu, '').trim().replace(/\s+/g, '-'))
   const links = [...read('storybook.html').matchAll(/<h2>[^<]+<a href="design\.md#([^"]+)">명세<\/a><\/h2>/g)].map((m) => m[1])
-  assert.equal(links.length, 18)
+  assert.equal(links.length, 19)
   for (const slug of links) assert.ok(slugs.includes(slug), slug)
 })
 

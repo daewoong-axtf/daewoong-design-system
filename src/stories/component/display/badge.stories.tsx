@@ -16,7 +16,7 @@ const meta = {
     },
   },
   args: { children: '진행 중' },
-  argTypes: { variant: { control: 'select', options: ['default', 'secondary', 'destructive', 'outline', 'ghost', 'link'] } },
+  argTypes: { variant: { control: 'select', options: ['default', 'brand-secondary', 'brand-tertiary', 'secondary', 'destructive', 'outline', 'ghost', 'link'] } },
 } satisfies Meta<typeof Badge>
 
 export default meta
@@ -28,6 +28,8 @@ export const Variants: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
       <Badge>신규</Badge>
+      <Badge variant="brand-secondary">공지</Badge>
+      <Badge variant="brand-tertiary">추천</Badge>
       <Badge variant="secondary">대기</Badge>
       <Badge variant="destructive">반려</Badge>
       <Badge variant="outline">초안</Badge>

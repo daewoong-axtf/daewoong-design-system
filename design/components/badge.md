@@ -25,7 +25,7 @@
 
 | 속성 | 값 | 기본값 | 표현 |
 | --- | --- | --- | --- |
-| tone | `neutral` · `brand` · `informative` · `positive` · `warning` · `critical` | `neutral` | `.dw-badge--<tone>` |
+| tone | `neutral` · `brand` · `brand-secondary` · `brand-tertiary` · `informative` · `positive` · `warning` · `critical` | `neutral` | `.dw-badge--<tone>` |
 | variant | `weak` · `solid` · `outline` | `weak` | `.dw-badge--<variant>` |
 | size | `medium` · `large` | `medium` | `.dw-badge--large` |
 
@@ -42,6 +42,8 @@
 | --- | --- | --- | --- |
 | `neutral` | `bg-neutral-weak` / `fg-neutral-muted` | `gray-800` / `fg-on-neutral-solid` | `stroke-neutral-muted` / `fg-neutral-muted` |
 | `brand` | `bg-brand-weak` / `fg-brand-contrast` | `bg-brand-solid` / `fg-on-brand-solid` | `stroke-brand-weak` / `fg-brand` |
+| `brand-secondary` | `bg-brand-secondary-weak` / `fg-brand-secondary-contrast` | `bg-brand-secondary-solid` / `fg-on-brand-secondary-solid` | `stroke-brand-secondary-weak` / `fg-brand-secondary` |
+| `brand-tertiary` | `bg-brand-tertiary-weak` / `fg-brand-tertiary-contrast` | `bg-brand-tertiary-solid` / `fg-on-brand-tertiary-solid` | `stroke-brand-tertiary-weak` / `fg-brand-tertiary` |
 | `informative` | `bg-informative-weak` / `fg-informative-contrast` | `bg-informative-solid` / `fg-on-informative-solid` | `stroke-informative-weak` / `fg-informative` |
 | `positive` | `bg-positive-weak` / `fg-positive-contrast` | `bg-positive-solid` / `fg-on-positive-solid` | `stroke-positive-weak` / `fg-positive` |
 | `warning` | `bg-warning-weak` / `fg-warning-contrast` | `bg-warning-solid` / `fg-on-warning-solid` | `stroke-warning-weak` / `fg-warning` |

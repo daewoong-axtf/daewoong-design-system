@@ -19,7 +19,7 @@ const meta = {
   },
   args: { children: '저장', onClick: fn() },
   argTypes: {
-    variant: { control: 'select', options: ['default', 'secondary', 'destructive', 'outline', 'ghost', 'link'] },
+    variant: { control: 'select', options: ['default', 'brand-secondary', 'brand-tertiary', 'secondary', 'destructive', 'outline', 'ghost', 'link'] },
     size: { control: 'select', options: ['xs', 'sm', 'default', 'lg', 'icon', 'icon-xs', 'icon-sm', 'icon-lg'] },
   },
 } satisfies Meta<typeof Button>
@@ -45,6 +45,24 @@ export const Variants: Story = {
       <Button {...args} variant="link">링크</Button>
     </div>
   ),
+}
+
+/** 대표 행동은 오렌지 하나로 두고, 상황에 따라 차콜과 틸을 쓴다. 쓰임은 `button.md`의 위계 표를 따른다. */
+export const BrandHierarchy: Story = {
+  render: (args) => (
+    <div className="flex flex-wrap gap-2">
+      <Button {...args}>저장</Button>
+      <Button {...args} variant="brand-secondary">임시 저장</Button>
+      <Button {...args} variant="brand-tertiary">자세히 보기</Button>
+      <Button {...args} variant="secondary">취소</Button>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const token = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim()
+    await expect(getComputedStyle(canvas.getByRole('button', { name: '임시 저장' })).backgroundColor).toBe(token('--dw-bg-brand-secondary-solid'))
+    await expect(getComputedStyle(canvas.getByRole('button', { name: '자세히 보기' })).backgroundColor).toBe(token('--dw-bg-brand-tertiary-solid'))
+  },
 }
 
 export const Sizes: Story = {

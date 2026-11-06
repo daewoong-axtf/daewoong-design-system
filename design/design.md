@@ -6,7 +6,7 @@
 
 ## 1. 원칙
 
-- **색은 역할로 부른다.** 화면은 역할 토큰(`bg-*` · `fg-*` · `stroke-*`)만 쓴다. 컴포넌트 명세는 역할 토큰을 우선하되, 다크 모드에서 대응하는 역할이 없는 중립 회색 몇 자리에 한해 `gray-*`·`static-*` 팔레트를 직접 쓴다. **유채색 팔레트(`orange`·`blue`·`green`·`yellow`·`red`·`purple`)는 어디서도 직접 쓰지 않는다** — 브랜드 교체가 역할 토큰만으로 끝나게 하기 위해서다.
+- **색은 역할로 부른다.** 화면은 역할 토큰(`bg-*` · `fg-*` · `stroke-*`)만 쓴다. 컴포넌트 명세는 역할 토큰을 우선하되, 다크 모드에서 대응하는 역할이 없는 중립 회색 몇 자리에 한해 `gray-*`·`static-*` 팔레트를 직접 쓴다. **유채색 팔레트(`orange`·`charcoal`·`teal`·`blue`·`green`·`yellow`·`red`·`purple`)는 어디서도 직접 쓰지 않는다** — 브랜드 교체가 역할 토큰만으로 끝나게 하기 위해서다.
 - **깊이는 색으로 먼저 만든다.** 표면 층위(`bg-layer-basement` → `bg-layer-default` → `bg-layer-floating`)로 구분하고, 그림자는 떠 있는 요소(메뉴·다이얼로그·토스트)와 7장 표의 `shadow-s1` 자리에만 쓴다.
 - **브랜드 색은 꼭 필요한 곳에만 쓴다.** 화면의 주된 행동 1개, 선택 상태, 강조 링크 정도로 제한한다.
 - **상태를 색 하나로만 알리지 않는다.** 오류·경고·성공에는 항상 아이콘이나 텍스트를 함께 붙인다(WCAG 1.4.1).
@@ -31,6 +31,8 @@
 | `gray` | 00, 100–1000 | 뉴트럴. 00은 흰색(라이트) |
 | `gray-alpha` | 100–1000 | 반투명 뉴트럴 |
 | `orange` | 100–1000 | **브랜드** (대웅 오렌지 `#F18A00` — 4장 참고) |
+| `charcoal` | 100–1000 | **보조 브랜드(Secondary)** (CI 차콜 `#53575A`, 라이트 700) |
+| `teal` | 100–1000 | **보조 브랜드(Tertiary)** (`#48B7BD`, 라이트 600·다크 700) |
 | `blue` | 100–1000 | 정보(informative), 포커스 링 |
 | `green` | 100–1000 | 성공(positive) |
 | `yellow` | 100–1000 | 경고(warning) |
@@ -44,7 +46,7 @@
 이름 규칙: `<층>-<의미>[-<강도>][-<상태>]`
 
 - **층** `bg`(배경) · `fg`(글자·아이콘) · `stroke`(테두리·구분선)
-- **의미** `brand` · `neutral` · `critical` · `informative` · `positive` · `warning` · `layer` · `overlay` · `transparent` · `disabled` · `placeholder` · `focus-ring`
+- **의미** `brand` · `brand-secondary` · `brand-tertiary` · `neutral` · `critical` · `informative` · `positive` · `warning` · `layer` · `overlay` · `transparent` · `disabled` · `placeholder` · `focus-ring`
 - **강도** `solid`(채운 면) · `weak`(옅은 면) · `muted` · `subtle` · `contrast` · `inverted`
 - **상태** `pressed` · `selected`
 
@@ -54,9 +56,12 @@
 | --- | --- |
 | `bg-layer-default` · `bg-layer-floating` · `bg-neutral-subtle` | `fg-neutral`, `fg-neutral-muted`, `fg-neutral-subtle` |
 | `bg-brand-solid` | `fg-on-brand-solid` |
+| `bg-brand-secondary-solid` | `fg-on-brand-secondary-solid` |
+| `bg-brand-tertiary-solid` | `fg-on-brand-tertiary-solid` |
 | `bg-neutral-solid` | `fg-on-neutral-solid` |
 | `bg-critical-solid` · `bg-positive-solid` · `bg-informative-solid` · `bg-warning-solid` | `fg-on-<의미>-solid` |
 | `bg-<의미>-weak` | `fg-<의미>-contrast` |
+| `bg-brand-secondary-weak` · `bg-brand-tertiary-weak` | `fg-brand-secondary-contrast` · `fg-brand-tertiary-contrast` |
 | `bg-disabled` | `fg-disabled` |
 
 | 역할 | 라이트 | 다크 |
@@ -65,6 +70,14 @@
 | `bg-brand-solid-pressed` | `orange-700` | `orange-800` |
 | `bg-brand-weak` | `orange-100` | `orange-100` |
 | `bg-brand-weak-pressed` | `orange-200` | `orange-200` |
+| `bg-brand-secondary-solid` | `charcoal-700` | `charcoal-500` |
+| `bg-brand-secondary-solid-pressed` | `charcoal-800` | `charcoal-400` |
+| `bg-brand-secondary-weak` | `charcoal-100` | `charcoal-100` |
+| `bg-brand-secondary-weak-pressed` | `charcoal-200` | `charcoal-200` |
+| `bg-brand-tertiary-solid` | `teal-600` | `teal-700` |
+| `bg-brand-tertiary-solid-pressed` | `teal-700` | `teal-800` |
+| `bg-brand-tertiary-weak` | `teal-100` | `teal-100` |
+| `bg-brand-tertiary-weak-pressed` | `teal-200` | `teal-200` |
 | `bg-critical-solid` | `red-800` | `red-500` |
 | `bg-critical-solid-pressed` | `red-900` | `red-400` |
 | `bg-critical-weak` | `red-100` | `red-100` |
@@ -107,6 +120,10 @@
 | `bg-warning-weak-pressed` | `yellow-200` | `yellow-200` |
 | `fg-brand` | `orange-800` | `orange-700` |
 | `fg-brand-contrast` | `orange-900` | `orange-800` |
+| `fg-brand-secondary` | `charcoal-700` | `charcoal-800` |
+| `fg-brand-secondary-contrast` | `charcoal-800` | `charcoal-900` |
+| `fg-brand-tertiary` | `teal-800` | `teal-800` |
+| `fg-brand-tertiary-contrast` | `teal-900` | `teal-900` |
 | `fg-critical` | `red-800` | `red-700` |
 | `fg-critical-contrast` | `red-900` | `red-900` |
 | `fg-disabled` | `gray-500` | `gray-500` |
@@ -117,6 +134,8 @@
 | `fg-neutral-muted` | `gray-800` | `gray-800` |
 | `fg-neutral-subtle` | `gray-700` | `gray-700` |
 | `fg-on-brand-solid` | `static-black` | `static-black` |
+| `fg-on-brand-secondary-solid` | `static-white` | `static-white` |
+| `fg-on-brand-tertiary-solid` | `static-black` | `static-black` |
 | `fg-on-critical-solid` | `static-white` | `static-white` |
 | `fg-on-informative-solid` | `static-white` | `static-white` |
 | `fg-on-neutral-solid` | `gray-00` | `gray-100` |
@@ -129,6 +148,10 @@
 | `fg-warning-contrast` | `yellow-900` | `yellow-900` |
 | `stroke-brand-solid` | `orange-700` | `orange-700` |
 | `stroke-brand-weak` | `orange-300` | `orange-300` |
+| `stroke-brand-secondary-solid` | `charcoal-700` | `charcoal-500` |
+| `stroke-brand-secondary-weak` | `charcoal-300` | `charcoal-300` |
+| `stroke-brand-tertiary-solid` | `teal-700` | `teal-700` |
+| `stroke-brand-tertiary-weak` | `teal-300` | `teal-300` |
 | `stroke-critical-solid` | `red-700` | `red-700` |
 | `stroke-critical-weak` | `red-300` | `red-300` |
 | `stroke-focus-ring` | `blue-600` | `blue-600` |
@@ -211,6 +234,18 @@ CSS 변수: `--dw-font-<t>-size`, `--dw-font-<t>-line-height`. 글자 간격(let
 4. `pnpm test`.
 
 컴포넌트 명세와 CSS는 역할 토큰만 쓰므로 다른 파일은 고치지 않는다.
+
+### 4.1 보조 브랜드
+
+Primary 오렌지와 함께 쓰는 색이다. 화면이 회색과 오렌지만으로 단조로워지지 않도록 상황별 버튼, 차트, 카테고리 구분, 일러스트, 배너에 쓴다. 상태색으로 읽히지 않도록 성공·경고·오류·안내 표시에는 쓰지 않는다. 버튼 쓰임은 [Button 위계](components/button.md#위계)를 따른다.
+
+| 순위 | 역할 | 값 | 채운 면 위 글자 |
+| --- | --- | --- | --- |
+| Primary | `bg-brand-solid` | 대웅 오렌지 `#F18A00` | 검정 |
+| Secondary | `bg-brand-secondary-solid` | CI 차콜 `#53575A` | 흰색 |
+| Tertiary | `bg-brand-tertiary-solid` | 밝은 틸 `#48B7BD` | 검정 |
+
+틸 면에 흰 글자를 쓰면 대비가 2.4:1로 모자라다. 흰 바탕 위 틸 면도 같은 대비이므로, 뜻을 전달하는 면(차트 막대 등)에는 라벨이나 값을 함께 둔다. 글자로 쓸 때는 `fg-brand-tertiary`를 쓴다.
 
 ## 5. 간격
 

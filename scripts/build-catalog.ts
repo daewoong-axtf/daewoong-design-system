@@ -24,7 +24,7 @@ function symbols(): string {
 
 /** 페이지의 절도 아래 순서로 놓는다 */
 const INTRO_ID = 'introduction'
-const FOUNDATION_IDS = ['ci', 'palette', 'roles', 'font', 'type', 'text-style', 'spacing', 'radius', 'shadow', 'z-index', 'control-height', 'pattern', 'motion', 'interaction', 'icons', 'breakpoint', 'layout', 'grid', 'ratio']
+const FOUNDATION_IDS = ['ci', 'palette', 'roles', 'brand-color', 'font', 'type', 'text-style', 'spacing', 'radius', 'shadow', 'z-index', 'control-height', 'pattern', 'motion', 'interaction', 'icons', 'breakpoint', 'layout', 'grid', 'ratio']
 
 /** 사이드바 묶음 — Storybook Component 메뉴와 같다 */
 export const NAV_GROUPS: { label: string; ids: string[] }[] = [
@@ -41,7 +41,7 @@ const SEARCH_ALIASES: Record<string, string> = {
   font: '폰트 서체 글꼴 pretendard font typeface', 'z-index': 'z-index 쌓임 순서 레이어 앞뒤 겹침 overlay 딤 modal',
   ci: 'ci 로고 logo 엠블럼 심볼 브랜드 대웅제약 영문 english daewoong',
   introduction: '소개 시작 사용법 개요 overview readme',
-  palette: 'color 색 컬러', roles: 'role token 토큰 색 bg fg stroke', type: 'typography font 글자 폰트', 'text-style': 'text style 글자', spacing: 'spacing margin padding 여백',
+  palette: 'color 색 컬러', 'brand-color': 'brand primary secondary tertiary 브랜드 색 차콜 틸 오렌지', roles: 'role token 토큰 색 bg fg stroke', type: 'typography font 글자 폰트', 'text-style': 'text style 글자', spacing: 'spacing margin padding 여백',
   radius: 'radius 라운드', shadow: 'shadow depth 그림자', 'control-height': 'height size 크기', motion: 'motion animation easing 애니메이션', interaction: 'interaction focus hover pressed 포커스 상태',
   pattern: 'pattern hatch 빗금 차단',
   icons: 'icon lucide', breakpoint: 'breakpoint 브레이크포인트 반응형 화면 크기 모바일 태블릿', layout: 'layout 레이아웃 여백 너비 gutter', grid: 'grid 그리드 컬럼 column 칸 단 최대 너비 아트보드 화면 크기', ratio: 'ratio 비율 aspect 썸네일 이미지 thumbnail', 'action-area': '하단 버튼 액션 영역 고정 bottom cta', 'choice-card': '선택 카드 옵션 요금제 frame',

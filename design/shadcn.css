@@ -37,10 +37,10 @@
   --ring: var(--dw-stroke-focus-ring);
 
   --chart-1: var(--dw-bg-brand-solid);
-  --chart-2: var(--dw-bg-informative-solid);
-  --chart-3: var(--dw-bg-positive-solid);
-  --chart-4: var(--dw-bg-warning-solid);
-  --chart-5: var(--dw-bg-critical-solid);
+  --chart-2: var(--dw-bg-brand-secondary-solid);
+  --chart-3: var(--dw-bg-brand-tertiary-solid);
+  --chart-4: var(--dw-bg-informative-solid);
+  --chart-5: var(--dw-bg-positive-solid);
 
   --sidebar: var(--dw-gray-100);
   --sidebar-foreground: var(--dw-fg-neutral-muted);

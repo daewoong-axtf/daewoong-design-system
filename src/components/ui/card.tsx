@@ -1,12 +1,24 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+const CARD_TONE = {
+  "brand-secondary":
+    "border-transparent bg-[var(--dw-bg-brand-secondary-weak)] text-[var(--dw-fg-brand-secondary-contrast)] shadow-none [&_[data-slot=card-description]]:text-inherit",
+  "brand-tertiary":
+    "border-transparent bg-[var(--dw-bg-brand-tertiary-weak)] text-[var(--dw-fg-brand-tertiary-contrast)] shadow-none [&_[data-slot=card-description]]:text-inherit",
+} as const
+
+function Card({
+  className,
+  tone,
+  ...props
+}: React.ComponentProps<"div"> & { tone?: keyof typeof CARD_TONE }) {
   return (
     <div
       data-slot="card"
       className={cn(
         "flex flex-col gap-6 rounded-xl border bg-card py-6 text-card-foreground shadow-sm",
+        tone && CARD_TONE[tone],
         className
       )}
       {...props}

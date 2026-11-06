@@ -9,6 +9,10 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        "brand-secondary":
+          "bg-[var(--dw-bg-brand-secondary-solid)] text-[var(--dw-fg-on-brand-secondary-solid)] hover:bg-[var(--dw-bg-brand-secondary-solid-pressed)]",
+        "brand-tertiary":
+          "bg-[var(--dw-bg-brand-tertiary-solid)] text-[var(--dw-fg-on-brand-tertiary-solid)] hover:bg-[var(--dw-bg-brand-tertiary-solid-pressed)]",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40",
         outline:

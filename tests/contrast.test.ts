@@ -28,8 +28,8 @@ function ratio(mode: 'light' | 'dark', fg: string, bg: string): number {
   return (x + 0.05) / (y + 0.05)
 }
 
-const INTENTS = ['brand', 'critical', 'informative', 'positive']
-const TEXT = ['fg-neutral', 'fg-neutral-muted', 'fg-neutral-subtle', 'fg-brand', 'fg-critical', 'fg-informative', 'fg-positive', 'fg-warning']
+const INTENTS = ['brand', 'brand-secondary', 'brand-tertiary', 'critical', 'informative', 'positive']
+const TEXT = ['fg-neutral', 'fg-neutral-muted', 'fg-neutral-subtle', 'fg-brand', 'fg-brand-secondary', 'fg-brand-tertiary', 'fg-critical', 'fg-informative', 'fg-positive', 'fg-warning']
 const SURFACES = ['bg-layer-default', 'bg-layer-floating', 'bg-layer-basement', 'bg-neutral-weak']
 
 for (const mode of ['light', 'dark'] as const) {
@@ -38,6 +38,15 @@ for (const mode of ['light', 'dark'] as const) {
       for (const bg of [`bg-${i}-solid`, `bg-${i}-solid-pressed`]) {
         const r = ratio(mode, `fg-on-${i}-solid`, bg)
         assert.ok(r >= AA, `fg-on-${i}-solid / ${bg}: ${r.toFixed(2)}`)
+      }
+    }
+  })
+
+  test(`${mode}: 보조 브랜드의 옅은 면 위 글자는 AA를 넘는다`, () => {
+    for (const i of ['brand-secondary', 'brand-tertiary']) {
+      for (const bg of [`bg-${i}-weak`, `bg-${i}-weak-pressed`]) {
+        const r = ratio(mode, `fg-${i}-contrast`, bg)
+        assert.ok(r >= AA, `fg-${i}-contrast / ${bg}: ${r.toFixed(2)}`)
       }
     }
   })
