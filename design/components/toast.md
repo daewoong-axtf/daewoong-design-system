@@ -1,6 +1,6 @@
 # Toast (Snackbar)
 
-> 클래스 `.dw-toast` · 레퍼런스 [storybook.html#toast](../storybook.html#toast)
+> 클래스 `.dw-toast` · 레퍼런스 [catalog.html#toast](../catalog.html#toast)
 
 ## 개요
 

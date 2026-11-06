@@ -1,6 +1,6 @@
 # Chip
 
-> 클래스 `.dw-chip` · 레퍼런스 [storybook.html#chip](../storybook.html#chip)
+> 클래스 `.dw-chip` · 레퍼런스 [catalog.html#chip](../catalog.html#chip)
 
 ## 개요
 

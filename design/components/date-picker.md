@@ -1,6 +1,6 @@
 # Date Picker
 
-> 클래스 `.dw-date-picker` · 레퍼런스 [storybook.html#date-picker](../storybook.html#date-picker)
+> 클래스 `.dw-date-picker` · 레퍼런스 [catalog.html#date-picker](../catalog.html#date-picker)
 
 ## 개요
 

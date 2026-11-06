@@ -1,6 +1,6 @@
 # Connection Status Banner
 
-> 클래스 `.dw-connection-banner` · 레퍼런스 [storybook.html#connection-status-banner](../storybook.html#connection-status-banner)
+> 클래스 `.dw-connection-banner` · 레퍼런스 [catalog.html#connection-status-banner](../catalog.html#connection-status-banner)
 
 ## 개요
 

@@ -1,6 +1,6 @@
 # Reveal
 
-> 클래스 `.dw-reveal` · 레퍼런스 [storybook.html#reveal](../storybook.html#reveal)
+> 클래스 `.dw-reveal` · 레퍼런스 [catalog.html#reveal](../catalog.html#reveal)
 
 ## 개요
 

@@ -14,7 +14,7 @@ test('every spec has its class in components.css', () => {
   for (const f of specs) {
     const cls = /클래스 `(\.dw-[\w-]+)`/.exec(read(`components/${f}`))?.[1]
     assert.ok(cls, `${f}: 머리글에 클래스가 없다`)
-    assert.ok(css.includes(cls) || read('storybook.html').includes(cls.slice(1)), `${f}: ${cls}`)
+    assert.ok(css.includes(cls) || read('catalog.html').includes(cls.slice(1)), `${f}: ${cls}`)
   }
 })
 
@@ -102,7 +102,7 @@ test('shadcn.css adds the breakpoints Tailwind does not have', () => {
 
 test('foundation spec links point at a design.md heading', () => {
   const slugs = [...read('design.md').matchAll(/^#{2,3} (.+)$/gm)].map((m) => m[1].toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu, '').trim().replace(/\s+/g, '-'))
-  const links = [...read('storybook.html').matchAll(/<h2>[^<]+<a href="design\.md#([^"]+)">명세<\/a><\/h2>/g)].map((m) => m[1])
+  const links = [...read('catalog.html').matchAll(/<h2>[^<]+<a href="design\.md#([^"]+)">명세<\/a><\/h2>/g)].map((m) => m[1])
   assert.equal(links.length, 19)
   for (const slug of links) assert.ok(slugs.includes(slug), slug)
 })

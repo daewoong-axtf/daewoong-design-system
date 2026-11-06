@@ -1,6 +1,6 @@
 # Page Header
 
-> 클래스 `.dw-page-header` · 레퍼런스 [storybook.html#page-header](../storybook.html#page-header)
+> 클래스 `.dw-page-header` · 레퍼런스 [catalog.html#page-header](../catalog.html#page-header)
 
 ## 개요
 

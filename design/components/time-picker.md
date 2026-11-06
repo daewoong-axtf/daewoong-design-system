@@ -1,6 +1,6 @@
 # Time Picker
 
-> 클래스 `.dw-time-picker` · 레퍼런스 [storybook.html#time-picker](../storybook.html#time-picker)
+> 클래스 `.dw-time-picker` · 레퍼런스 [catalog.html#time-picker](../catalog.html#time-picker)
 
 ## 개요
 

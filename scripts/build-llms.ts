@@ -1,5 +1,5 @@
 // AI가 읽는 문서를 만든다
-//   design/ai/setup-prompt.md + package.json designSystem → storybook.html의 복사 프롬프트 (build-catalog.ts)
+//   design/ai/setup-prompt.md + package.json designSystem → catalog.html의 복사 프롬프트 (build-catalog.ts)
 //   design/llms.txt       읽을 문서 목록
 //   design/llms-full.txt  정본 문서를 한 파일로 합친 것
 //   README.md             <!--AI_PROMPT--> 구역의 복사 프롬프트
@@ -29,7 +29,7 @@ export function buildIndex(): string {
 
 > 여러 언어와 프레임워크에서 같은 화면 규칙을 쓰기 위한 디자인 시스템이다. 정본은 토큰과 컴포넌트 명세이고, Tailwind와 shadcn은 프로젝트가 이미 쓸 때만 연결한다.
 
-충돌하면 tokens.json > components/<name>.md > design.md > storybook.html 순서로 앞쪽이 맞다.
+충돌하면 tokens.json > components/<name>.md > design.md > catalog.html 순서로 앞쪽이 맞다.
 
 ## 시작
 
@@ -43,7 +43,7 @@ export function buildIndex(): string {
 - [토큰 정본](tokens.json)
 - [CSS 변수](tokens.css)
 - [서버 템플릿 웹용 클래스](components.css)
-- [마크업 예시](storybook.html)
+- [마크업 예시](catalog.html)
 
 ## 컴포넌트
 

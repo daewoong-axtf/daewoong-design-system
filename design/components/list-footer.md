@@ -1,6 +1,6 @@
 # List Footer
 
-> 클래스 `.dw-list-footer` · 레퍼런스 [storybook.html#list-footer](../storybook.html#list-footer)
+> 클래스 `.dw-list-footer` · 레퍼런스 [catalog.html#list-footer](../catalog.html#list-footer)
 
 ## 개요
 

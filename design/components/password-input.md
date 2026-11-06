@@ -1,6 +1,6 @@
 # Password Input
 
-> 클래스 `.dw-password-input` · 레퍼런스 [storybook.html#password-input](../storybook.html#password-input)
+> 클래스 `.dw-password-input` · 레퍼런스 [catalog.html#password-input](../catalog.html#password-input)
 
 ## 개요
 

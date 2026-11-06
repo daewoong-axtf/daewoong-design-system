@@ -1,6 +1,6 @@
 # Status Badge
 
-> 클래스 `.dw-status-badge` · 레퍼런스 [storybook.html#status-badge](../storybook.html#status-badge)
+> 클래스 `.dw-status-badge` · 레퍼런스 [catalog.html#status-badge](../catalog.html#status-badge)
 
 ## 개요
 

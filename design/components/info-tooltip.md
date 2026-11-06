@@ -1,6 +1,6 @@
 # Info Tooltip
 
-> 클래스 `.dw-info-tooltip` · 레퍼런스 [storybook.html#info-tooltip](../storybook.html#info-tooltip)
+> 클래스 `.dw-info-tooltip` · 레퍼런스 [catalog.html#info-tooltip](../catalog.html#info-tooltip)
 
 ## 개요
 

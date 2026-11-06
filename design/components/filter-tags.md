@@ -1,6 +1,6 @@
 # Filter Tags
 
-> 클래스 `.dw-filter-tags` · 레퍼런스 [storybook.html#filter-tags](../storybook.html#filter-tags)
+> 클래스 `.dw-filter-tags` · 레퍼런스 [catalog.html#filter-tags](../catalog.html#filter-tags)
 
 ## 개요
 

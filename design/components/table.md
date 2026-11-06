@@ -1,6 +1,6 @@
 # Table
 
-> 클래스 `.dw-table` · 레퍼런스 [storybook.html#table](../storybook.html#table)
+> 클래스 `.dw-table` · 레퍼런스 [catalog.html#table](../catalog.html#table)
 
 ## 개요
 

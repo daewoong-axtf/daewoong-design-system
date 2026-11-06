@@ -1,6 +1,6 @@
 # Time Select
 
-> 클래스 `.dw-time-select` · 레퍼런스 [storybook.html#time-select](../storybook.html#time-select)
+> 클래스 `.dw-time-select` · 레퍼런스 [catalog.html#time-select](../catalog.html#time-select)
 
 ## 개요
 

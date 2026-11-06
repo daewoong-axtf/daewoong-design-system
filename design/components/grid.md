@@ -1,6 +1,6 @@
 # Grid
 
-> 클래스 `.dw-grid` · 레퍼런스 [storybook.html#grid](../storybook.html#grid)
+> 클래스 `.dw-grid` · 레퍼런스 [catalog.html#grid](../catalog.html#grid)
 
 ## 개요
 

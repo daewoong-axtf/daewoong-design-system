@@ -1,6 +1,6 @@
 # Skeleton
 
-> 클래스 `.dw-skeleton` · 레퍼런스 [storybook.html#skeleton](../storybook.html#skeleton)
+> 클래스 `.dw-skeleton` · 레퍼런스 [catalog.html#skeleton](../catalog.html#skeleton)
 
 ## 개요
 

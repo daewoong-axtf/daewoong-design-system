@@ -1,6 +1,6 @@
 # Switch
 
-> 클래스 `.dw-switch` · 레퍼런스 [storybook.html#switch](../storybook.html#switch)
+> 클래스 `.dw-switch` · 레퍼런스 [catalog.html#switch](../catalog.html#switch)
 
 ## 개요
 

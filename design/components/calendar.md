@@ -1,6 +1,6 @@
 # Calendar
 
-> 클래스 `.dw-calendar` · 레퍼런스 [storybook.html#calendar](../storybook.html#calendar)
+> 클래스 `.dw-calendar` · 레퍼런스 [catalog.html#calendar](../catalog.html#calendar)
 
 ## 개요
 

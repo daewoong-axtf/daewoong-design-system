@@ -1,6 +1,6 @@
 # Side Sheet
 
-> 클래스 `.dw-side-sheet` · 레퍼런스 [storybook.html#side-sheet](../storybook.html#side-sheet)
+> 클래스 `.dw-side-sheet` · 레퍼런스 [catalog.html#side-sheet](../catalog.html#side-sheet)
 
 ## 개요
 

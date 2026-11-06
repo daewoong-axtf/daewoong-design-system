@@ -11,9 +11,9 @@ test('design.md lists every role token', () => {
   for (const name of Object.keys(tokens.role.light)) assert.ok(doc.includes(`| \`${name}\` |`), name)
 })
 
-test('storybook.html generated regions are current', async () => {
+test('catalog.html generated regions are current', async () => {
   const { buildCatalog } = await import('../scripts/build-catalog.ts')
-  const html = read('storybook.html')
+  const html = read('catalog.html')
   assert.equal(buildCatalog(html), html)
 })
 
@@ -22,16 +22,16 @@ test('components.js is generated from components.ts', async () => {
   assert.equal(buildBehaviorJs(read('js/components.ts')), read('js/components.js'))
 })
 
-test('storybook.html shows every component spec', () => {
-  const html = read('storybook.html')
+test('catalog.html shows every component spec', () => {
+  const html = read('catalog.html')
   const specs = readdirSync(new URL('../design/components/', import.meta.url)).filter((f) => f.endsWith('.md') && !f.startsWith('_'))
   for (const f of specs) assert.ok(html.includes(`<section class="demo" id="${f.replace('.md', '')}">`), f)
 })
 
-test('every dw-* class in storybook.html is defined in components.css', () => {
+test('every dw-* class in catalog.html is defined in components.css', () => {
   const css = read('components.css')
   const defined = new Set([...css.matchAll(/\.(dw-[\w-]+)/g)].map((m) => m[1]))
-  const body = read('storybook.html').replace(/<style>[\s\S]*?<\/style>/g, '')
+  const body = read('catalog.html').replace(/<style>[\s\S]*?<\/style>/g, '')
   const used = [...body.matchAll(/class="([^"]+)"/g)].flatMap((m) => m[1].split(/\s+/)).filter((c) => c.startsWith('dw-'))
   // 기본값이라 CSS 규칙이 필요 없는 클래스 (명세에 있어 마크업에는 남긴다)
   const noRule = new Set(['dw-status-badge--neutral', 'dw-text-input--medium', 'dw-select--medium', 'dw-menu--responsive', 'dw-toast--default', 'dw-badge--neutral', 'dw-badge--weak', 'dw-chip--solid', 'dw-chip--medium', 'dw-callout--neutral', 'dw-progress-circle--neutral', 'dw-progress-circle--40', 'dw-breadcrumb', 'dw-accordion--medium'])

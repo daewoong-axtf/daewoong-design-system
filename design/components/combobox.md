@@ -1,6 +1,6 @@
 # Combobox
 
-> 클래스 `.dw-combobox` · 레퍼런스 [storybook.html#combobox](../storybook.html#combobox)
+> 클래스 `.dw-combobox` · 레퍼런스 [catalog.html#combobox](../catalog.html#combobox)
 
 ## 개요
 

@@ -1,13 +1,15 @@
+![Daewoong Design System: 여러 서비스의 화면을 같은 컴포넌트로 만들어요](.github/hero.png)
+
 # Daewoong Design System
 
 대웅 서비스들이 공통으로 쓰는 디자인 시스템이다. 패키지로 배포하지 않는다 — 각 서비스는 아래 전달물을 보고
 **자기 언어·프레임워크로 구현**하거나, React라면 Storybook의 소스를 복사해 쓴다.
 
-[카탈로그](https://daewoong-axtf.github.io/daewoong-design-system/design/storybook.html) · [AI로 설치하기](#ai로-설치하기) · [직접 설치하기](#직접-설치하기) · [AI용 문서](design/llms.txt)
+[카탈로그](https://daewoong-axtf.github.io/daewoong-design-system/design/catalog.html) · [AI로 설치하기](#ai로-설치하기) · [직접 설치하기](#직접-설치하기) · [AI용 문서](design/llms.txt)
 
 ## 카탈로그
 
-토큰과 컴포넌트를 한 페이지에서 보는 [온라인 카탈로그](https://daewoong-axtf.github.io/daewoong-design-system/design/storybook.html)다. 원본은 [`design/storybook.html`](design/storybook.html)이다.
+토큰과 컴포넌트를 한 페이지에서 보는 [온라인 카탈로그](https://daewoong-axtf.github.io/daewoong-design-system/design/catalog.html)다. 원본은 [`design/catalog.html`](design/catalog.html)이다.
 
 ## AI로 설치하기
 
@@ -34,7 +36,7 @@ AI 도구에서 프로젝트를 열고 아래 프롬프트를 복사해 붙여 �
    받은 뒤 `git rev-parse HEAD`로 커밋 값을 적어 둬. 저장소에 접근할 수 없으면 내용을 추측하거나 설치했다고 말하지 말고, 사용자에게 저장소 접근 권한을 요청해줘.
 
 3. 받은 `design/README.md`, `design/llms.txt`, `design/design.md` 14장을 읽어줘. `design/` 전체는 참고 문서로 `docs/design-reference/`에 복사해줘. 이 폴더는 사용자에게 공개되는 경로에 두지 않는다. 그다음 아래에서 프로젝트에 맞는 경로 하나를 골라줘. 화면 실행에 쓰는 파일은 `fonts/`, `tokens.css`, `components.css`, `js/components.js`, `icons/`다.
-   - 서버가 HTML을 만드는 웹(Django, Flask, Spring, Ktor 등): 실행 파일을 정적 파일 경로 아래 `design/`에 복사하고 `fonts/pretendard.css`, `tokens.css`, `components.css`, `js/components.js`를 공통 템플릿에 연결한다. 경로는 프레임워크의 정적 파일 방식을 따른다. 마크업은 `storybook.html`에서 복사한다.
+   - 서버가 HTML을 만드는 웹(Django, Flask, Spring, Ktor 등): 실행 파일을 정적 파일 경로 아래 `design/`에 복사하고 `fonts/pretendard.css`, `tokens.css`, `components.css`, `js/components.js`를 공통 템플릿에 연결한다. 경로는 프레임워크의 정적 파일 방식을 따른다. 마크업은 `catalog.html`에서 복사한다.
    - React·Vue·Svelte 등 프론트엔드 프레임워크: 실행 파일 중 `js/components.js`를 뺀 나머지를 번들러가 처리하는 소스 경로(예: `src/design/`)에 복사하고 `fonts/pretendard.css`, `tokens.css`, `components.css`를 전역으로 불러온다. 동작은 그 프레임워크로 구현한다. 프로젝트가 이미 Tailwind와 shadcn을 쓰면 14.1절대로 `shadcn.css`까지 연결한다.
    - 웹이 아닌 환경(Flutter, Android, iOS, 데스크탑, PDF 등): 참고 문서만 두고, 14.3절대로 `tokens.json`을 그 플랫폼의 색·치수 정의로 옮긴다.
 
@@ -77,7 +79,7 @@ AI 도구에서 프로젝트를 열고 아래 프롬프트를 복사해 붙여 �
 
 ### 버전
 
-설치한 저장소·ref·커밋은 프로젝트의 `docs/design-system.md`에 남는다. 이미 설치한 프로젝트는 자동으로 바뀌지 않는다. 올릴 때는 [업데이트 기록](https://daewoong-axtf.github.io/daewoong-design-system/design/storybook.html#page-history-title)을 확인하고, 프로젝트에서 고친 파일을 덮어쓰지 않는지 비교한다.
+설치한 저장소·ref·커밋은 프로젝트의 `docs/design-system.md`에 남는다. 이미 설치한 프로젝트는 자동으로 바뀌지 않는다. 올릴 때는 [업데이트 기록](https://daewoong-axtf.github.io/daewoong-design-system/design/catalog.html#page-history-title)을 확인하고, 프로젝트에서 고친 파일을 덮어쓰지 않는지 비교한다.
 
 ## 직접 설치하기
 
@@ -143,14 +145,15 @@ body {
 <button class="dw-button dw-button--brand-solid dw-button--medium" type="button">저장</button>
 ```
 
-다른 컴포넌트의 마크업은 [`design/storybook.html`](design/storybook.html)에서 복사한다. `pnpm build:*` 명령은 이 저장소 전용이라 프로젝트에 추가하지 않는다.
+다른 컴포넌트의 마크업은 [`design/catalog.html`](design/catalog.html)에서 복사한다. `pnpm build:*` 명령은 이 저장소 전용이라 프로젝트에 추가하지 않는다.
 
 ## 전달물
 
 | 전달물 | 대상 | 내용 |
 | --- | --- | --- |
 | Figma 링크 | 디자이너·기획자 | 컴포넌트·토큰 라이브러리 _(준비 중)_ |
-| Storybook 링크 | 개발자 | 동작하는 React 컴포넌트 카탈로그 _(준비 중)_ |
+| [카탈로그](https://daewoong-axtf.github.io/daewoong-design-system/design/catalog.html) | 모두 | 토큰과 컴포넌트를 한 페이지에서 보는 HTML. 언어와 무관하게 마크업을 복사해 쓴다 |
+| Storybook 링크 | React 개발자 | 동작하는 React 컴포넌트 모음 _(준비 중)_ |
 | [`design/`](design/) | 개발자·AI 에이전트 | 언어 무관 정본 — 토큰, 컴포넌트 명세, 순수 HTML/CSS 레퍼런스, 가이드 |
 | [`design/ai/setup-prompt.md`](design/ai/setup-prompt.md) · [`design/llms.txt`](design/llms.txt) | 현업·AI 에이전트 | 복사해서 쓰는 설정 프롬프트와 AI용 문서 |
 
@@ -158,7 +161,7 @@ body {
 
 ## 정본 우선순위
 
-`design/tokens.json` > `design/components/<name>.md` > `design/storybook.html`
+`design/tokens.json` > `design/components/<name>.md` > `design/catalog.html`
 
 `tokens.css`는 `tokens.json`에서 생성된다(`pnpm build:tokens`). 충돌하면 `tokens.json`이 이긴다.
 

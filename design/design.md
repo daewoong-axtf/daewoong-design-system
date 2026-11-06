@@ -308,7 +308,7 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 
 ### 쌓임 순서 (z-index)
 
-겹치는 요소의 앞뒤는 토큰으로 정한다. 숫자를 직접 쓰지 않는다. 카탈로그의 [쌓임 순서](storybook.html#z-index)에서 볼 수 있다.
+겹치는 요소의 앞뒤는 토큰으로 정한다. 숫자를 직접 쓰지 않는다. 카탈로그의 [쌓임 순서](catalog.html#z-index)에서 볼 수 있다.
 
 | 토큰 | 값 | 자리 |
 | --- | --- | --- |
@@ -360,7 +360,7 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 
 ### 9.1 브레이크포인트
 
-값은 `tokens.json`의 `breakpoint`에 있다. 카탈로그의 [브레이크포인트](storybook.html#breakpoint)에서 지금 화면이 어느 구간인지 볼 수 있다.
+값은 `tokens.json`의 `breakpoint`에 있다. 카탈로그의 [브레이크포인트](catalog.html#breakpoint)에서 지금 화면이 어느 구간인지 볼 수 있다.
 
 | 토큰 | 최소 너비 | 기준 기기 | 화면 좌우 여백 |
 | --- | --- | --- | --- |
@@ -392,7 +392,7 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 
 ### 9.3 그리드
 
-값은 `tokens.json`의 `grid`에 있다. 카탈로그의 [그리드](storybook.html#grid)에서 볼 수 있다.
+값은 `tokens.json`의 `grid`에 있다. 카탈로그의 [그리드](catalog.html#grid)에서 볼 수 있다.
 
 | 화면 | 범위 | 칸 수 | 토큰 |
 | --- | --- | --- | --- |
@@ -492,7 +492,7 @@ outline-offset: 2px;
 | --- | --- | --- |
 | Tailwind·shadcn을 쓰는 React | `tokens.css` + `shadcn.css` + Tailwind CSS v4 | shadcn/ui |
 | 그 밖의 프론트엔드 (React · Vue · Svelte · Angular 등) | `tokens.css` + `components.css` | `dw-*` 클래스, 동작은 각 프레임워크로 구현 |
-| 서버가 HTML을 만드는 웹 (Python: Django·Flask·FastAPI + Jinja, Java·Kotlin: Spring + Thymeleaf·JSP, Kotlin: Ktor + FreeMarker 등) | `tokens.css` + `components.css` + `js/components.js` | `storybook.html`의 `dw-*` 클래스 |
+| 서버가 HTML을 만드는 웹 (Python: Django·Flask·FastAPI + Jinja, Java·Kotlin: Spring + Thymeleaf·JSP, Kotlin: Ktor + FreeMarker 등) | `tokens.css` + `components.css` + `js/components.js` | `catalog.html`의 `dw-*` 클래스 |
 | 웹이 아닌 곳 (Android(Kotlin) · iOS · Flutter · JavaFX · PDF 리포트) | `tokens.json`의 값 | 각 플랫폼 방식으로 구현, 치수는 `components/<name>.md` |
 
 어느 갈래든 색·간격·모서리는 토큰으로만 부른다(1장). 다크 모드는 `<html data-theme="dark">`이고, 속성이 없으면 OS 설정을 따른다(2.1).
@@ -535,10 +535,10 @@ React 없이 HTML에 클래스만 붙이면 같은 모양이 된다. 다이얼�
 <button class="dw-button dw-button--brand-solid dw-button--medium" type="button">저장</button>
 
 <button class="dw-button dw-button--neutral-outline dw-button--medium" type="button" data-dw-open="confirm">삭제</button>
-<!-- 다이얼로그 마크업은 storybook.html의 Dialog 예시를 그대로 복사한다 -->
+<!-- 다이얼로그 마크업은 catalog.html의 Dialog 예시를 그대로 복사한다 -->
 ```
 
-- 있는 컴포넌트의 클래스 이름과 마크업 구조는 [`storybook.html`](storybook.html)에서 복사한다. 없는 컴포넌트는 프로젝트에서 토큰을 써서 만든다([README](README.md#사용-방법)).
+- 있는 컴포넌트의 클래스 이름과 마크업 구조는 [`catalog.html`](catalog.html)에서 복사한다. 없는 컴포넌트는 프로젝트에서 토큰을 써서 만든다([README](README.md#사용-방법)).
 - 동작 훅은 `data-dw="<name>"`(컴포넌트 루트), `data-dw-open="<id>"`(여는 버튼), `data-dw-close`(닫는 버튼)이다.
 - 코드에서 열고 닫을 때는 `window.dw`의 `openModal`·`closeModal`·`showToast`를 쓴다.
 - 폼은 `data-dw-validate`를 붙인다. 오류가 있으면 첫 오류로 포커스를 옮기고, 통과하면 그대로 제출한다. JS로 전송할 때는 `dw:form-valid`를 받는다([Form](components/form.md)).
@@ -580,7 +580,7 @@ Button(
 
 ## 15. CI
 
-회사 로고 파일은 [`brand/`](brand/)에 있다. 카탈로그의 [CI](storybook.html#ci)에서 볼 수 있다.
+회사 로고 파일은 [`brand/`](brand/)에 있다. 카탈로그의 [CI](catalog.html#ci)에서 볼 수 있다.
 
 | 파일 | 쓰는 곳 |
 | --- | --- |

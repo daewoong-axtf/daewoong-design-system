@@ -1,6 +1,6 @@
 # Tabs
 
-> 클래스 `.dw-tabs` · 레퍼런스 [storybook.html#tabs](../storybook.html#tabs)
+> 클래스 `.dw-tabs` · 레퍼런스 [catalog.html#tabs](../catalog.html#tabs)
 
 ## 개요
 

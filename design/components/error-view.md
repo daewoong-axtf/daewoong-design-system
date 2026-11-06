@@ -1,6 +1,6 @@
 # Error View
 
-> 클래스 `.dw-error-view` · 레퍼런스 [storybook.html#error-view](../storybook.html#error-view)
+> 클래스 `.dw-error-view` · 레퍼런스 [catalog.html#error-view](../catalog.html#error-view)
 
 ## 개요
 

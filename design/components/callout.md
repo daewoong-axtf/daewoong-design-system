@@ -1,6 +1,6 @@
 # Callout (Alert)
 
-> 클래스 `.dw-callout` · 레퍼런스 [storybook.html#callout](../storybook.html#callout)
+> 클래스 `.dw-callout` · 레퍼런스 [catalog.html#callout](../catalog.html#callout)
 
 ## 개요
 

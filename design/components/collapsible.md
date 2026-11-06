@@ -1,6 +1,6 @@
 # Collapsible
 
-> 클래스 `.dw-collapsible` · 레퍼런스 [storybook.html#collapsible](../storybook.html#collapsible)
+> 클래스 `.dw-collapsible` · 레퍼런스 [catalog.html#collapsible](../catalog.html#collapsible)
 
 ## 개요
 

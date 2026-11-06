@@ -1,4 +1,4 @@
-// storybook.html의 생성 구역을 채운다
+// catalog.html의 생성 구역을 채운다
 //   <!--ICONS:start-->…<!--ICONS:end-->  design/icons/*.svg → <symbol id="i-<name>">
 //   <!--NAV:start-->…<!--NAV:end-->      <section>을 모아 사이드바 링크를 만든다 (INTRO_ID·FOUNDATION_IDS·NAV_GROUPS 순서)
 //   <!--AI_PROMPT:start-->…<!--AI_PROMPT:end-->  design/ai/setup-prompt.md
@@ -62,7 +62,7 @@ const link = (id: string, name: string): string => `<a href="#${id}" data-q="${S
 function nav(html: string): string {
   const items = new Map([...html.matchAll(/<section class="demo" id="([^"]+)">[\s\S]*?<h2>([^<]+?)\s*</g)].map(([, id, name]) => [id, name.trim()]))
   const order = [INTRO_ID, ...FOUNDATION_IDS, ...NAV_GROUPS.flatMap((g) => g.ids)]
-  if (order.join() !== [...items.keys()].join()) throw new Error('storybook.html의 절 순서가 INTRO_ID·FOUNDATION_IDS·NAV_GROUPS와 다르다')
+  if (order.join() !== [...items.keys()].join()) throw new Error('catalog.html의 절 순서가 INTRO_ID·FOUNDATION_IDS·NAV_GROUPS와 다르다')
   const named = (id: string) => link(id, items.get(id) ?? id)
   const groups = NAV_GROUPS.map((g) => `<p class="page-nav__group">${g.label}</p>${g.ids.map(named).join('')}`)
   return `\n${named(INTRO_ID)}\n<p class="page-nav__title">Foundations</p>${FOUNDATION_IDS.map(named).join('')}\n<p class="page-nav__title">Components</p>\n${groups.join('\n')}\n`
@@ -94,7 +94,7 @@ export const buildCatalog = (html: string): string =>
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const targets: Array<[string, string]> = [
-    [join(DESIGN, 'storybook.html'), buildCatalog(readFileSync(join(DESIGN, 'storybook.html'), 'utf8'))],
+    [join(DESIGN, 'catalog.html'), buildCatalog(readFileSync(join(DESIGN, 'catalog.html'), 'utf8'))],
     [join(DESIGN, 'js', 'components.js'), buildBehaviorJs(readFileSync(join(DESIGN, 'js', 'components.ts'), 'utf8'))],
   ]
   for (const [file, out] of targets) {

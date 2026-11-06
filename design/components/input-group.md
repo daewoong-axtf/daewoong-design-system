@@ -1,6 +1,6 @@
 # Input Group
 
-> 클래스 `.dw-input-group` · 레퍼런스 [storybook.html#input-group](../storybook.html#input-group)
+> 클래스 `.dw-input-group` · 레퍼런스 [catalog.html#input-group](../catalog.html#input-group)
 
 ## 개요
 

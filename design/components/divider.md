@@ -1,6 +1,6 @@
 # Divider
 
-> 클래스 `.dw-divider` · 레퍼런스 [storybook.html#divider](../storybook.html#divider)
+> 클래스 `.dw-divider` · 레퍼런스 [catalog.html#divider](../catalog.html#divider)
 
 ## 개요
 

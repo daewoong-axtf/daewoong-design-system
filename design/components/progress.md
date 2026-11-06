@@ -1,6 +1,6 @@
 # Progress
 
-> 클래스 `.dw-progress` · 레퍼런스 [storybook.html#progress](../storybook.html#progress)
+> 클래스 `.dw-progress` · 레퍼런스 [catalog.html#progress](../catalog.html#progress)
 
 ## 개요
 

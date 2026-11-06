@@ -1,6 +1,6 @@
 # Form
 
-> 클래스 `.dw-form` · 레퍼런스 [storybook.html#form](../storybook.html#form)
+> 클래스 `.dw-form` · 레퍼런스 [catalog.html#form](../catalog.html#form)
 
 ## 개요
 

@@ -1,6 +1,6 @@
 # Timeline
 
-> 클래스 `.dw-timeline` · 레퍼런스 [storybook.html#timeline](../storybook.html#timeline)
+> 클래스 `.dw-timeline` · 레퍼런스 [catalog.html#timeline](../catalog.html#timeline)
 
 ## 개요
 

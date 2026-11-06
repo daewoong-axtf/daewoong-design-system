@@ -1,6 +1,6 @@
 # Search Input
 
-> 클래스 `.dw-search-input` · 레퍼런스 [storybook.html#search-input](../storybook.html#search-input)
+> 클래스 `.dw-search-input` · 레퍼런스 [catalog.html#search-input](../catalog.html#search-input)
 
 ## 개요
 

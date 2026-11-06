@@ -1,6 +1,6 @@
 # Filter Button
 
-> 클래스 `.dw-filter-button` · 레퍼런스 [storybook.html#filter-button](../storybook.html#filter-button)
+> 클래스 `.dw-filter-button` · 레퍼런스 [catalog.html#filter-button](../catalog.html#filter-button)
 
 ## 개요
 

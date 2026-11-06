@@ -1,6 +1,6 @@
 # Stepper
 
-> 클래스 `.dw-stepper` · 레퍼런스 [storybook.html#stepper](../storybook.html#stepper)
+> 클래스 `.dw-stepper` · 레퍼런스 [catalog.html#stepper](../catalog.html#stepper)
 
 ## 개요
 

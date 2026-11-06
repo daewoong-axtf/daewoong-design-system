@@ -1,6 +1,6 @@
 # Action Area
 
-> 클래스 `.dw-action-area` · 레퍼런스 [storybook.html#action-area](../storybook.html#action-area)
+> 클래스 `.dw-action-area` · 레퍼런스 [catalog.html#action-area](../catalog.html#action-area)
 
 ## 개요
 

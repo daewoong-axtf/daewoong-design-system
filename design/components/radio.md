@@ -1,6 +1,6 @@
 # Radio
 
-> 클래스 `.dw-radio` · 레퍼런스 [storybook.html#radio](../storybook.html#radio)
+> 클래스 `.dw-radio` · 레퍼런스 [catalog.html#radio](../catalog.html#radio)
 
 ## 개요
 

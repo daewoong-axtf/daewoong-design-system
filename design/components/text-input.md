@@ -1,6 +1,6 @@
 # Text Input
 
-> 클래스 `.dw-text-input` · 레퍼런스 [storybook.html#text-input](../storybook.html#text-input)
+> 클래스 `.dw-text-input` · 레퍼런스 [catalog.html#text-input](../catalog.html#text-input)
 
 ## 개요
 

@@ -1,6 +1,6 @@
 # Breadcrumb
 
-> 클래스 `.dw-breadcrumb` · 레퍼런스 [storybook.html#breadcrumb](../storybook.html#breadcrumb)
+> 클래스 `.dw-breadcrumb` · 레퍼런스 [catalog.html#breadcrumb](../catalog.html#breadcrumb)
 
 ## 개요
 

@@ -1,6 +1,6 @@
 # Stat Card
 
-> 클래스 `.dw-stat-card` · 레퍼런스 [storybook.html#stat-card](../storybook.html#stat-card)
+> 클래스 `.dw-stat-card` · 레퍼런스 [catalog.html#stat-card](../catalog.html#stat-card)
 
 ## 개요
 

@@ -1,6 +1,6 @@
 # Empty State
 
-> 클래스 `.dw-empty` · 레퍼런스 [storybook.html#empty-state](../storybook.html#empty-state)
+> 클래스 `.dw-empty` · 레퍼런스 [catalog.html#empty-state](../catalog.html#empty-state)
 
 ## 개요
 

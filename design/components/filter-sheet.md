@@ -1,6 +1,6 @@
 # Filter Sheet
 
-> 클래스 `.dw-filter-sheet` · 레퍼런스 [storybook.html#filter-sheet](../storybook.html#filter-sheet)
+> 클래스 `.dw-filter-sheet` · 레퍼런스 [catalog.html#filter-sheet](../catalog.html#filter-sheet)
 
 ## 개요
 

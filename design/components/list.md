@@ -1,6 +1,6 @@
 # List
 
-> 클래스 `.dw-list` · 레퍼런스 [storybook.html#list](../storybook.html#list)
+> 클래스 `.dw-list` · 레퍼런스 [catalog.html#list](../catalog.html#list)
 
 ## 개요
 

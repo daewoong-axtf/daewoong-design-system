@@ -1,6 +1,6 @@
 # Searchable Select
 
-> 클래스 `.dw-searchable-select` · 레퍼런스 [storybook.html#searchable-select](../storybook.html#searchable-select)
+> 클래스 `.dw-searchable-select` · 레퍼런스 [catalog.html#searchable-select](../catalog.html#searchable-select)
 
 ## 개요
 

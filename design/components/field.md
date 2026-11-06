@@ -1,6 +1,6 @@
 # Field
 
-> 클래스 `.dw-field` · 레퍼런스 [storybook.html#field](../storybook.html#field)
+> 클래스 `.dw-field` · 레퍼런스 [catalog.html#field](../catalog.html#field)
 
 ## 개요
 

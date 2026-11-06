@@ -1,6 +1,6 @@
 # Avatar
 
-> 클래스 `.dw-avatar` · 레퍼런스 [storybook.html#avatar](../storybook.html#avatar)
+> 클래스 `.dw-avatar` · 레퍼런스 [catalog.html#avatar](../catalog.html#avatar)
 
 ## 개요
 

@@ -1,6 +1,6 @@
 # Checkbox
 
-> 클래스 `.dw-checkbox` · 레퍼런스 [storybook.html#checkbox](../storybook.html#checkbox)
+> 클래스 `.dw-checkbox` · 레퍼런스 [catalog.html#checkbox](../catalog.html#checkbox)
 
 ## 개요
 

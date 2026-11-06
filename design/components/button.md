@@ -1,6 +1,6 @@
 # Button
 
-> 클래스 `.dw-button` · 레퍼런스 [storybook.html#button](../storybook.html#button)
+> 클래스 `.dw-button` · 레퍼런스 [catalog.html#button](../catalog.html#button)
 
 ## 개요
 

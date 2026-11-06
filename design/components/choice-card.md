@@ -1,6 +1,6 @@
 # Choice Card
 
-> 클래스 `.dw-choice-card` · 레퍼런스 [storybook.html#choice-card](../storybook.html#choice-card)
+> 클래스 `.dw-choice-card` · 레퍼런스 [catalog.html#choice-card](../catalog.html#choice-card)
 
 ## 개요
 

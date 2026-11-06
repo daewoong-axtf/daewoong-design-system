@@ -1,6 +1,6 @@
 # Dialog
 
-> 클래스 `.dw-dialog` · 레퍼런스 [storybook.html#dialog](../storybook.html#dialog)
+> 클래스 `.dw-dialog` · 레퍼런스 [catalog.html#dialog](../catalog.html#dialog)
 
 ## 개요
 
