@@ -1,0 +1,44 @@
+{
+  "repositoryUrl": "https://github.com/daewoong-axtf/daewoong-design-system.git",
+  "branches": ["main"],
+  "tagFormat": "v${version}",
+  "plugins": [
+    ["@semantic-release/commit-analyzer", { "preset": "conventionalcommits" }],
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "conventionalcommits",
+        "presetConfig": {
+          "types": [
+            { "type": "feat", "section": "새로 추가된 기능" },
+            { "type": "fix", "section": "수정된 문제" },
+            { "type": "perf", "section": "개선 사항" }
+          ]
+        }
+      }
+    ],
+    ["@semantic-release/changelog", { "changelogTitle": "# 변경 기록" }],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "node scripts/prepare-release.ts ${nextRelease.version} ${lastRelease.version} && pnpm build && rm -f design.zip && zip -qr design.zip design"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["CHANGELOG.md", "README.md", "package.json", "design"],
+        "message": "chore(release): ${nextRelease.version}"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "assets": [{ "path": "design.zip", "name": "design.zip" }],
+        "successComment": false,
+        "failComment": false,
+        "releasedLabels": false
+      }
+    ]
+  ]
+}
