@@ -1,6 +1,7 @@
 // storybook.html의 생성 구역을 채운다
 //   <!--ICONS:start-->…<!--ICONS:end-->  design/icons/*.svg → <symbol id="i-<name>">
 //   <!--NAV:start-->…<!--NAV:end-->      <section>을 모아 사이드바 링크를 만든다 (INTRO_ID·FOUNDATION_IDS·NAV_GROUPS 순서)
+//   <!--AI_PROMPT:start-->…<!--AI_PROMPT:end-->  design/ai/setup-prompt.md
 // 그리고 design/js/components.ts → components.js (타입만 지우고 즉시 실행 함수로 감싼다)
 //   node scripts/build-catalog.ts [--check]
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -9,6 +10,7 @@ import { stripTypeScriptTypes } from 'node:module'
 process.removeAllListeners('warning') // stripTypeScriptTypes 실험 기능 경고 숨김
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { setupPrompt } from './build-llms.ts'
 
 const DESIGN = fileURLToPath(new URL('../design', import.meta.url))
 
@@ -85,7 +87,10 @@ export function buildBehaviorJs(ts: string): string {
   return `// 생성 파일 — components.ts를 고치고 pnpm build:catalog\n;(() => {\n${js}\n})()\n`
 }
 
-export const buildCatalog = (html: string): string => fill(fill(html, 'ICONS', symbols()), 'NAV', nav(html))
+const escapeHtml = (text: string): string => text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+
+export const buildCatalog = (html: string): string =>
+  fill(fill(fill(html, 'ICONS', symbols()), 'NAV', nav(html)), 'AI_PROMPT', escapeHtml(setupPrompt()))
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const targets: Array<[string, string]> = [

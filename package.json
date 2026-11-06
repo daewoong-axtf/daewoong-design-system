@@ -2,6 +2,10 @@
   "name": "dw-design-system",
   "version": "0.1.0",
   "private": true,
+  "designSystem": {
+    "repository": "https://github.com/daewoong-axtf/dw-design-system",
+    "ref": "main"
+  },
   "type": "module",
   "description": "대웅 공용 디자인 시스템 — 언어 무관 토큰·컴포넌트 명세·HTML/CSS 레퍼런스",
   "license": "UNLICENSED",
@@ -12,7 +16,8 @@
     "build:tokens": "node scripts/build-tokens.ts",
     "build:icons": "node scripts/build-icons.ts",
     "build:catalog": "node scripts/build-catalog.ts",
-    "build": "pnpm build:tokens && pnpm build:icons && pnpm build:catalog",
+    "build:llms": "node scripts/build-llms.ts",
+    "build": "pnpm build:tokens && pnpm build:icons && pnpm build:catalog && pnpm build:llms",
     "test": "node --test \"tests/**/*.test.ts\"",
     "typecheck": "tsc -p tsconfig.node.json && tsc -p tsconfig.json",
     "storybook": "storybook dev -p 6006",

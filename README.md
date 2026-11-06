@@ -10,8 +10,9 @@
 | Figma 링크 | 디자이너·기획자 | 컴포넌트·토큰 라이브러리 _(준비 중)_ |
 | Storybook 링크 | 개발자 | 동작하는 React 컴포넌트 카탈로그 _(준비 중)_ |
 | [`design/`](design/) | 개발자·AI 에이전트 | 언어 무관 정본 — 토큰, 컴포넌트 명세, 순수 HTML/CSS 레퍼런스, 가이드 |
+| [`design/ai/setup-prompt.md`](design/ai/setup-prompt.md) · [`design/llms.txt`](design/llms.txt) | 현업·AI 에이전트 | 복사해서 쓰는 설정 프롬프트와 AI용 문서 |
 
-프로젝트에 붙이는 방법(Next.js·React는 shadcn + `tokens.css` + `shadcn.css`, 서버 템플릿 웹은 `tokens.css` + `components.css`)은 [`design/design.md` 14장](design/design.md#14-환경별-적용)에 있다.
+프로젝트에 붙이는 방법(Tailwind·shadcn을 쓰는 React는 `tokens.css` + `shadcn.css`, 그 밖의 웹은 `tokens.css` + `components.css`, 웹이 아닌 곳은 `tokens.json`)은 [`design/design.md` 14장](design/design.md#14-환경별-적용)에 있다.
 
 ## 정본 우선순위
 
@@ -24,6 +25,7 @@
 ```bash
 pnpm build:tokens   # tokens.json → tokens.css
 pnpm build:icons    # lucide-react → design/icons/ (*.svg · sprite.svg · icons.json)
+pnpm build:llms     # AI용 문서 → design/llms.txt · llms-full.txt
 pnpm test               # 토큰·가드 테스트
 ```
 

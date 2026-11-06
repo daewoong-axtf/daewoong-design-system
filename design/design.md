@@ -500,19 +500,22 @@ outline-offset: 2px;
 
 ## 14. 환경별 적용
 
-백엔드 언어가 무엇이든 **화면이 브라우저에 뜨면 스타일은 CSS로 들어간다.** 그래서 갈래는 셋이다.
+백엔드 언어가 무엇이든 **화면이 브라우저에 뜨면 스타일은 CSS로 들어간다.** 정본은 토큰과 컴포넌트 명세이고, Tailwind와 shadcn은 프로젝트가 이미 쓸 때만 연결한다. 디자인 시스템을 쓰려고 새로 설치하지 않는다.
 
 | 환경 | 쓰는 것 | 컴포넌트 |
 | --- | --- | --- |
-| Next.js · React | `tokens.css` + `shadcn.css` + Tailwind CSS v4 | shadcn/ui |
+| Tailwind·shadcn을 쓰는 React | `tokens.css` + `shadcn.css` + Tailwind CSS v4 | shadcn/ui |
+| 그 밖의 프론트엔드 (React · Vue · Svelte · Angular 등) | `tokens.css` + `components.css` | `dw-*` 클래스, 동작은 각 프레임워크로 구현 |
 | 서버가 HTML을 만드는 웹 (Python: Django·Flask·FastAPI + Jinja, Java·Kotlin: Spring + Thymeleaf·JSP, Kotlin: Ktor + FreeMarker 등) | `tokens.css` + `components.css` + `js/components.js` | `storybook.html`의 `dw-*` 클래스 |
 | 웹이 아닌 곳 (Android(Kotlin) · iOS · Flutter · JavaFX · PDF 리포트) | `tokens.json`의 값 | 각 플랫폼 방식으로 구현, 치수는 `components/<name>.md` |
 
 어느 갈래든 색·간격·모서리는 토큰으로만 부른다(1장). 다크 모드는 `<html data-theme="dark">`이고, 속성이 없으면 OS 설정을 따른다(2.1).
 
-### 14.1 Next.js · React — shadcn 우선
+디자인 시스템은 `body`를 스타일하지 않는다. 웹에서는 전역 스타일의 페이지 바탕을 `bg-layer-default`, 글자색을 `fg-neutral`, 글꼴을 `--dw-font-sans`로 지정한다. 지정하지 않으면 다크 모드에서 바탕이 바뀌지 않는다.
 
-1. shadcn/ui를 설치하고 필요한 컴포넌트를 `npx shadcn add <name>`으로 가져온다. **컴포넌트 소스의 구조·변형 이름·색 클래스는 고치지 않는다.**
+### 14.1 Tailwind·shadcn을 쓰는 React
+
+1. 필요한 컴포넌트를 `npx shadcn add <name>`으로 가져온다. **컴포넌트 소스의 구조·변형 이름·색 클래스는 고치지 않는다.**
 2. `design/tokens.css`와 `design/shadcn.css`를 프로젝트에 복사하고 전역 CSS에서 순서대로 불러온다.
 
 ```css

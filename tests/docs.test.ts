@@ -38,3 +38,18 @@ test('every dw-* class in storybook.html is defined in components.css', () => {
   const missing = [...new Set(used)].filter((c) => !defined.has(c) && !noRule.has(c))
   assert.deepEqual(missing, [])
 })
+
+test('AI documents are generated from the specs', async () => {
+  const { buildFull, buildIndex } = await import('../scripts/build-llms.ts')
+  assert.equal(buildIndex(), read('llms.txt'))
+  assert.equal(buildFull(), read('llms-full.txt'))
+})
+
+test('setup prompt fills its placeholders and does not require a stack', async () => {
+  const { setupPrompt } = await import('../scripts/build-llms.ts')
+  const prompt = setupPrompt()
+  assert.doesNotMatch(prompt, /\{\{/)
+  assert.match(prompt, /git clone --depth 1 --branch \S+ https:\/\/github\.com\//)
+  assert.doesNotMatch(prompt, /shadcn(@latest)? (add|init)|tailwindcss (add|init)/)
+  assert.match(prompt, /새로 설치하지 않는다/)
+})

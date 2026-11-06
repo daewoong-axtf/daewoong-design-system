@@ -93,6 +93,20 @@
   })
   try { if (localStorage.getItem('dw-sidebar') === 'closed') setSidebar(false) } catch {}
 
+  /* ── AI 설정 프롬프트 복사 ── */
+  const promptButton = document.querySelector('[data-copy-prompt]')
+  promptButton?.addEventListener('click', async () => {
+    const prompt = document.getElementById('ai-setup-prompt')
+    const status = document.querySelector('.ai-prompt__status')
+    try {
+      await navigator.clipboard.writeText(prompt.textContent)
+      status.textContent = '복사했어요'
+    } catch {
+      getSelection().selectAllChildren(prompt)
+      status.textContent = '복사하지 못했어요. 선택된 글자를 직접 복사해 주세요.'
+    }
+  })
+
   /* ── 지금 보고 있는 절을 사이드바에 표시한다 ── */
   const links = new Map(allLinks.map((a) => [a.hash.slice(1), a]))
   const spy = new IntersectionObserver((entries) => {

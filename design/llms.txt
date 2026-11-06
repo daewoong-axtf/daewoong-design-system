@@ -1,0 +1,93 @@
+# Daewoong Design System
+
+> 여러 언어와 프레임워크에서 같은 화면 규칙을 쓰기 위한 디자인 시스템이다. 정본은 토큰과 컴포넌트 명세이고, Tailwind와 shadcn은 프로젝트가 이미 쓸 때만 연결한다.
+
+충돌하면 tokens.json > components/<name>.md > design.md > storybook.html 순서로 앞쪽이 맞다.
+
+## 시작
+
+- [읽는 순서와 금지사항](README.md)
+- [토큰 쓰임과 환경별 적용](design.md)
+- [프로젝트 설정 프롬프트](ai/setup-prompt.md)
+- [전체 문서를 한 파일로 합친 판](llms-full.txt)
+
+## 값
+
+- [토큰 정본](tokens.json)
+- [CSS 변수](tokens.css)
+- [서버 템플릿 웹용 클래스](components.css)
+- [마크업 예시](storybook.html)
+
+## 컴포넌트
+
+- [Accordion](components/accordion.md)
+- [Action Area](components/action-area.md)
+- [Alert Dialog](components/alert-dialog.md)
+- [Avatar](components/avatar.md)
+- [Badge](components/badge.md)
+- [Bottom Sheet](components/bottom-sheet.md)
+- [Breadcrumb](components/breadcrumb.md)
+- [Button](components/button.md)
+- [Calendar](components/calendar.md)
+- [Callout (Alert)](components/callout.md)
+- [Card](components/card.md)
+- [Checkbox](components/checkbox.md)
+- [Chip](components/chip.md)
+- [Choice Card](components/choice-card.md)
+- [Collapsible](components/collapsible.md)
+- [Combobox](components/combobox.md)
+- [Connection Status Banner](components/connection-status-banner.md)
+- [Date Picker](components/date-picker.md)
+- [Dialog](components/dialog.md)
+- [Divider](components/divider.md)
+- [Dropdown Menu](components/dropdown-menu.md)
+- [Empty State](components/empty-state.md)
+- [Error View](components/error-view.md)
+- [Field](components/field.md)
+- [Filter Button](components/filter-button.md)
+- [Filter Sheet](components/filter-sheet.md)
+- [Filter Tags](components/filter-tags.md)
+- [Form Section](components/form-section.md)
+- [Form](components/form.md)
+- [Grid](components/grid.md)
+- [Info Tooltip](components/info-tooltip.md)
+- [Input Group](components/input-group.md)
+- [List Footer](components/list-footer.md)
+- [List](components/list.md)
+- [Page Header](components/page-header.md)
+- [Pagination](components/pagination.md)
+- [Password Input](components/password-input.md)
+- [Popover](components/popover.md)
+- [Progress Circle (Spinner)](components/progress-circle.md)
+- [Progress](components/progress.md)
+- [Radio](components/radio.md)
+- [Reveal](components/reveal.md)
+- [Search Input](components/search-input.md)
+- [Searchable Select](components/searchable-select.md)
+- [Segmented Control](components/segmented-control.md)
+- [Select](components/select.md)
+- [Side Navigation](components/side-navigation.md)
+- [Side Sheet](components/side-sheet.md)
+- [Skeleton](components/skeleton.md)
+- [Slider](components/slider.md)
+- [Stat Card](components/stat-card.md)
+- [Status Badge](components/status-badge.md)
+- [Stepper](components/stepper.md)
+- [Switch](components/switch.md)
+- [Table](components/table.md)
+- [Tabs](components/tabs.md)
+- [Text Input](components/text-input.md)
+- [Time Picker](components/time-picker.md)
+- [Time Select](components/time-select.md)
+- [Timeline](components/timeline.md)
+- [Toast (Snackbar)](components/toast.md)
+- [Tooltip](components/tooltip.md)
+- [Top Navigation (App Bar)](components/top-navigation.md)
+
+## 가이드
+
+- [접근성 가이드](guides/accessibility.md)
+- [콘텐츠·국제화 가이드](guides/content-i18n.md)
+- [인터랙션 가이드](guides/interaction.md)
+- [UX 가이드](guides/ux-guideline.md)
+- [UX 라이팅 가이드](guides/ux-writing.md)
