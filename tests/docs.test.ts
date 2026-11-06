@@ -40,9 +40,11 @@ test('every dw-* class in storybook.html is defined in components.css', () => {
 })
 
 test('AI documents are generated from the specs', async () => {
-  const { buildFull, buildIndex } = await import('../scripts/build-llms.ts')
+  const { buildFull, buildIndex, buildReadme, setupPrompt } = await import('../scripts/build-llms.ts')
   assert.equal(buildIndex(), read('llms.txt'))
   assert.equal(buildFull(), read('llms-full.txt'))
+  assert.equal(buildReadme(), read('../README.md'))
+  assert.ok(buildReadme().includes(setupPrompt()))
 })
 
 test('setup prompt fills its placeholders and does not require a stack', async () => {

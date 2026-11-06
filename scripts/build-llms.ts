@@ -2,6 +2,7 @@
 //   design/ai/setup-prompt.md + package.json designSystem → storybook.html의 복사 프롬프트 (build-catalog.ts)
 //   design/llms.txt       읽을 문서 목록
 //   design/llms-full.txt  정본 문서를 한 파일로 합친 것
+//   README.md             <!--AI_PROMPT--> 구역의 복사 프롬프트
 //   node scripts/build-llms.ts [--check]
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -60,9 +61,13 @@ export function buildFull(): string {
   return `<!-- 생성 파일 — pnpm build:llms -->\n\n${body}\n`
 }
 
+export function buildReadme(): string {
+  const prompt = `<!--AI_PROMPT-->\n<details>\n<summary>설정 프롬프트 펼치기</summary>\n\n\`\`\`text\n${setupPrompt()}\n\`\`\`\n\n</details>\n<!--/AI_PROMPT-->`
+  return readFileSync(join(ROOT, 'README.md'), 'utf8').replace(/<!--AI_PROMPT-->[\s\S]*<!--\/AI_PROMPT-->/, () => prompt)
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  for (const [file, out] of [['llms.txt', buildIndex()], ['llms-full.txt', buildFull()]] as const) {
-    const path = join(DESIGN, file)
+  for (const [path, out] of [[join(DESIGN, 'llms.txt'), buildIndex()], [join(DESIGN, 'llms-full.txt'), buildFull()], [join(ROOT, 'README.md'), buildReadme()]] as const) {
     if (process.argv.includes('--check')) {
       if (out !== readFileSync(path, 'utf8')) {
         console.error(`${path} 가 최신이 아니다 — pnpm build:llms`)
