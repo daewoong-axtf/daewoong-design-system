@@ -12,7 +12,7 @@ const meta = {
     docs: {
       description: {
         component:
-          '브랜드 3색을 한 화면에 함께 쓰는 기준이다. 대표 행동은 Primary 하나로 두고, Secondary와 Tertiary로 묶음과 탐색을 구분한다. 규칙은 `design/design.md` 4.1과 `design/components/button.md`의 위계 표를 따른다.',
+          '브랜드 2색을 한 화면에 함께 쓰는 기준이다. 대표 행동은 Primary 하나로 두고, Secondary로 묶음을 구분한다. 규칙은 `design/design.md` 4.1과 `design/components/button.md`의 위계 표를 따른다.',
       },
     },
   },
@@ -22,12 +22,12 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const USAGE = [
-  { label: 'PT', count: 640, height: 'h-24', color: 'bg-[var(--dw-bg-brand-solid)]' },
-  { label: 'GX', count: 420, height: 'h-16', color: 'bg-[var(--dw-bg-brand-secondary-solid)]' },
-  { label: '마음챙김', count: 220, height: 'h-10', color: 'bg-[var(--dw-bg-brand-tertiary-solid)]' },
+  { label: 'PT', count: 640, height: 'h-24', color: 'bg-[var(--chart-1)]' },
+  { label: 'GX', count: 420, height: 'h-16', color: 'bg-[var(--chart-2)]' },
+  { label: '마음챙김', count: 220, height: 'h-10', color: 'bg-[var(--chart-3)]' },
 ]
 
-/** 오렌지는 저장 버튼과 첫 번째 차트 계열에만 쓰고, 나머지 구분은 차콜과 틸이 맡는다. */
+/** 오렌지는 저장 버튼과 첫 번째 차트 계열에만 쓰고, 나머지 구분은 차콜이 맡는다. */
 export const Recommended: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -38,7 +38,7 @@ export const Recommended: Story = {
           <Button>일정 등록</Button>
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>프로그램별 이용</CardTitle>
@@ -65,15 +65,6 @@ export const Recommended: Story = {
             <Badge variant="brand-secondary" className="bg-[var(--dw-bg-brand-secondary-weak-pressed)]">공지</Badge>
           </CardContent>
         </Card>
-        <Card tone="brand-tertiary">
-          <CardHeader>
-            <CardTitle>새 기능 안내</CardTitle>
-            <CardDescription>일정 보기 방식이 늘었습니다.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button variant="brand-tertiary" size="sm">둘러보기</Button>
-          </CardContent>
-        </Card>
       </div>
     </div>
   ),
@@ -84,7 +75,7 @@ export const Recommended: Story = {
   },
 }
 
-/** 오렌지 버튼을 늘리면 대표 행동이 사라진다. 틸을 성공 표시로 쓰면 상태색과 뜻이 섞인다. */
+/** 오렌지 버튼을 늘리면 대표 행동이 사라진다. 브랜드 색을 성공 표시로 쓰면 상태색과 뜻이 섞인다. */
 export const Misuse: Story = {
   render: () => (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -105,7 +96,7 @@ export const Misuse: Story = {
           <CardDescription>성공 표시는 positive 색을 씁니다.</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-wrap gap-2">
-          <Badge variant="brand-tertiary">승인 완료</Badge>
+          <Badge variant="brand-secondary">승인 완료</Badge>
         </CardContent>
       </Card>
     </div>

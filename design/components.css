@@ -180,14 +180,6 @@
   color: var(--dw-fg-on-brand-secondary-solid);
 }
 
-.dw-button--brand-tertiary-solid {
-  --dw-button-track: var(--dw-static-white-alpha-300);
-  --dw-button-range: var(--dw-fg-on-brand-tertiary-solid);
-  --dw-button-hover: var(--dw-bg-brand-tertiary-solid-pressed);
-  background: var(--dw-bg-brand-tertiary-solid);
-  color: var(--dw-fg-on-brand-tertiary-solid);
-}
-
 .dw-button--neutral-solid {
   --dw-button-track: var(--dw-static-white-alpha-300);
   --dw-button-range: var(--dw-fg-on-neutral-solid);
@@ -214,9 +206,8 @@
 .dw-button--neutral-outline {
   --dw-button-hover: var(--dw-bg-transparent-pressed);
   border-width: 1px;
-  border-color: var(--dw-stroke-neutral-muted);
+  border-color: var(--dw-stroke-neutral-weak);
   background: var(--dw-bg-transparent);
-  box-shadow: var(--dw-shadow-s1);
 }
 
 .dw-button--brand-outline {
@@ -381,7 +372,7 @@
   min-height: var(--dw-spacing-x10);
   gap: var(--dw-spacing-x2);
   border-radius: var(--dw-radius-r2);
-  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak), var(--dw-shadow-s1);
+  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak);
   font-size: var(--dw-font-t4-size);
   line-height: var(--dw-font-t4-line-height);
 }
@@ -722,7 +713,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
   margin: calc((var(--dw-checkbox-height) - var(--dw-checkbox-size)) / 2) 0 0;
   border-radius: var(--dw-radius-r1);
   background-color: var(--dw-bg-transparent);
-  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak), var(--dw-shadow-s1);
+  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak);
   appearance: none;
   cursor: inherit;
   outline: 2px solid transparent;
@@ -752,7 +743,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
 
 .dw-checkbox__control:is(:checked, :indeterminate) {
   background-color: var(--dw-checkbox-on);
-  box-shadow: var(--dw-shadow-s1);
+  box-shadow: none;
 }
 
 .dw-checkbox__control:is(:checked, :indeterminate)::after { opacity: 1; }
@@ -863,7 +854,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
   margin: calc((var(--dw-radio-height) - var(--dw-radio-size)) / 2) 0 0;
   border-radius: var(--dw-radius-full);
   background-color: var(--dw-bg-transparent);
-  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak), var(--dw-shadow-s1);
+  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak);
   appearance: none;
   cursor: inherit;
   outline: 2px solid transparent;
@@ -888,7 +879,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
 
 .dw-radio__control:checked {
   background-color: var(--dw-radio-on);
-  box-shadow: var(--dw-shadow-s1);
+  box-shadow: none;
 }
 
 .dw-radio__control:checked::after { opacity: 1; }
@@ -1221,7 +1212,7 @@ html[data-dw-scroll-lock] { overflow: hidden; }
   border: 0;
   border-radius: var(--dw-select-radius);
   background: var(--dw-bg-transparent);
-  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak), var(--dw-shadow-s1);
+  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak);
   color: var(--dw-fg-neutral);
   font-family: inherit;
   font-size: var(--dw-select-font-size);
@@ -3415,15 +3406,6 @@ a:has(> .dw-avatar):focus-visible { outline: 2px solid var(--dw-stroke-focus-rin
   --dw-badge-outline-fg: var(--dw-fg-brand-secondary);
 }
 
-.dw-badge--brand-tertiary {
-  --dw-badge-weak-bg: var(--dw-bg-brand-tertiary-weak);
-  --dw-badge-weak-fg: var(--dw-fg-brand-tertiary-contrast);
-  --dw-badge-solid-bg: var(--dw-bg-brand-tertiary-solid);
-  --dw-badge-solid-fg: var(--dw-fg-on-brand-tertiary-solid);
-  --dw-badge-outline-stroke: var(--dw-stroke-brand-tertiary-weak);
-  --dw-badge-outline-fg: var(--dw-fg-brand-tertiary);
-}
-
 .dw-badge--informative {
   --dw-badge-weak-bg: var(--dw-bg-informative-weak);
   --dw-badge-weak-fg: var(--dw-fg-informative-contrast);
@@ -3655,15 +3637,6 @@ a:has(> .dw-avatar):focus-visible { outline: 2px solid var(--dw-stroke-focus-rin
 }
 
 .dw-card--brand-secondary :is(.dw-card__title, .dw-card__description, .dw-card__body) { color: inherit; }
-
-.dw-card--brand-tertiary {
-  --dw-card-hover: var(--dw-bg-brand-tertiary-weak-pressed);
-  background: var(--dw-bg-brand-tertiary-weak);
-  box-shadow: none;
-  color: var(--dw-fg-brand-tertiary-contrast);
-}
-
-.dw-card--brand-tertiary :is(.dw-card__title, .dw-card__description, .dw-card__body) { color: inherit; }
 
 /* Title·Description을 감싸는 요소 없이 왼쪽 열에 쌓고, Action만 오른쪽 열에 둔다 */
 .dw-card__header {
@@ -4961,7 +4934,7 @@ button.dw-callout:active { scale: var(--dw-scale-s97); }
   border: 0;
   border-radius: var(--dw-radius-r2);
   background: var(--dw-bg-transparent);
-  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak), var(--dw-shadow-s1);
+  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak);
   color: var(--dw-fg-neutral);
   font-family: inherit;
   font-size: var(--dw-font-t4-size);
@@ -5006,9 +4979,9 @@ button.dw-callout:active { scale: var(--dw-scale-s97); }
   pointer-events: none;
 }
 
-.dw-time-select__control:focus { box-shadow: inset 0 0 0 2px var(--dw-stroke-neutral-contrast), var(--dw-shadow-s1); }
+.dw-time-select__control:focus { box-shadow: inset 0 0 0 2px var(--dw-stroke-neutral-contrast); }
 .dw-time-select__control:focus-visible { outline-color: var(--dw-stroke-focus-ring); }
-.dw-time-select__control[aria-invalid="true"]:not(:disabled) { box-shadow: inset 0 0 0 2px var(--dw-stroke-critical-solid), var(--dw-shadow-s1); }
+.dw-time-select__control[aria-invalid="true"]:not(:disabled) { box-shadow: inset 0 0 0 2px var(--dw-stroke-critical-solid); }
 .dw-time-select__control:disabled { background: var(--dw-bg-disabled); color: var(--dw-fg-disabled); cursor: not-allowed; }
 .dw-time-select__control:disabled + .dw-time-select__chevron { color: var(--dw-fg-disabled); }
 
@@ -6210,7 +6183,7 @@ button.dw-callout:active { scale: var(--dw-scale-s97); }
   border: 0;
   border-radius: 0 var(--dw-input-action-radius) var(--dw-input-action-radius) 0;
   background: var(--dw-bg-transparent);
-  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak), var(--dw-shadow-s1);
+  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak);
   color: var(--dw-fg-brand-contrast);
   font-family: inherit;
   font-size: var(--dw-font-t4-size);
@@ -6244,7 +6217,7 @@ button.dw-callout:active { scale: var(--dw-scale-s97); }
   width: 100%;
   padding: var(--dw-spacing-x4);
   border-radius: var(--dw-radius-r3);
-  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak), var(--dw-shadow-s1);
+  box-shadow: inset 0 0 0 1px var(--dw-stroke-neutral-weak);
   cursor: pointer;
   outline: 2px solid transparent;
   outline-offset: 2px;

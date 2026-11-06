@@ -28,7 +28,7 @@
 
 | 속성 | 값 | 기본값 | 표현 |
 | --- | --- | --- | --- |
-| variant | `brand-solid` · `brand-secondary-solid` · `brand-tertiary-solid` · `neutral-solid` · `neutral-weak` · `critical-solid` · `brand-outline` · `neutral-outline` · `ghost` | `neutral-weak` | `.dw-button--<variant>` |
+| variant | `brand-solid` · `brand-secondary-solid` · `neutral-solid` · `neutral-weak` · `critical-solid` · `brand-outline` · `neutral-outline` · `ghost` | `neutral-weak` | `.dw-button--<variant>` |
 | size | `xsmall` · `small` · `medium` · `large` | `medium` | `.dw-button--<size>` |
 | layout | `with-text` · `icon-only` | `with-text` | icon-only는 `.dw-button--icon-only` |
 | width | 내용 맞춤 · 가득 | 내용 맞춤 | 가득은 `.dw-button--full` (`width: 100%`) |
@@ -49,7 +49,7 @@
 - 높이는 고정이다(`height`). 라벨은 한 줄(`white-space: nowrap`).
 - 폰트 두께는 모든 variant에서 `font-weight-bold`(700). `ghost`도 같다.
 - 아이콘 색은 글자색(`currentColor`)을 따른다.
-- `outline` 계열 테두리는 1px `solid`, 그림자 `shadow-s1`.
+- `outline` 계열 테두리는 1px `solid`, 그림자 없음.
 - 높이 32·36·40px 버튼은 터치 화면에서 히트 영역을 44px로 넓힌다(투명 `::before`). 시각 크기는 바꾸지 않는다.
 
 ### 위계
@@ -58,7 +58,6 @@
 | --- | --- | --- |
 | `brand-solid` | 화면의 대표 행동. 화면당 1개 | 저장, 신청하기 |
 | `brand-secondary-solid` | 대표 행동과 나란히 놓이는 두 번째 행동 | 임시 저장, 내보내기 |
-| `brand-tertiary-solid` | 새 기능, 탐색, 안내로 이어지는 행동 | 자세히 보기, 둘러보기 |
 | `neutral-weak` | 부담 없는 행동 | 취소, 닫기 |
 
 새 화면의 어두운 버튼은 `brand-secondary-solid`를 쓴다. 두 어두운 색을 나란히 두면 구분이 약해서 `neutral-solid`는 기존 화면을 유지할 때만 쓴다.
@@ -73,29 +72,27 @@
 | | hover · pressed · loading | `bg-brand-solid-pressed` | `fg-on-brand-solid` | — |
 | `brand-secondary-solid` | 기본 | `bg-brand-secondary-solid` | `fg-on-brand-secondary-solid` | — |
 | | hover · pressed · loading | `bg-brand-secondary-solid-pressed` | `fg-on-brand-secondary-solid` | — |
-| `brand-tertiary-solid` | 기본 | `bg-brand-tertiary-solid` | `fg-on-brand-tertiary-solid` | — |
-| | hover · pressed · loading | `bg-brand-tertiary-solid-pressed` | `fg-on-brand-tertiary-solid` | — |
 | `neutral-solid` | 기본 | `bg-neutral-solid` | `fg-on-neutral-solid` | — |
 | | hover · pressed · loading | `bg-neutral-solid-pressed` | `fg-on-neutral-solid` | — |
 | `neutral-weak` | 기본 | `bg-neutral-weak` | `fg-neutral` | — |
 | | hover · pressed · loading | `bg-neutral-weak-pressed` | `fg-neutral` | — |
 | `critical-solid` | 기본 | `bg-critical-solid` | `fg-on-critical-solid` | — |
 | | hover · pressed · loading | `bg-critical-solid-pressed` | `fg-on-critical-solid` | — |
-| `brand-outline` | 기본 · loading | `bg-transparent` | `fg-brand` | `stroke-neutral-muted` |
+| `brand-outline` | 기본 · loading | `bg-transparent` | `fg-brand` | `stroke-neutral-weak` |
 | | hover · pressed | `bg-transparent-pressed` | `fg-brand` | `stroke-neutral-muted` |
-| `neutral-outline` | 기본 · loading | `bg-transparent` | `fg-neutral` | `stroke-neutral-muted` |
+| `neutral-outline` | 기본 · loading | `bg-transparent` | `fg-neutral` | `stroke-neutral-weak` |
 | | hover · pressed | `bg-transparent-pressed` | `fg-neutral` | `stroke-neutral-muted` |
 | `ghost` | 기본 | `bg-transparent` | `fg-neutral` | — |
 | | hover · pressed · loading | `bg-transparent-pressed` | `fg-neutral` | — |
 | solid·weak 계열 | disabled | `bg-disabled` | `fg-disabled` | — |
-| outline 계열 | disabled | `bg-transparent` | `fg-disabled` | `stroke-neutral-muted` |
+| outline 계열 | disabled | `bg-transparent` | `fg-disabled` | `stroke-neutral-weak` |
 | `ghost` | disabled | `bg-transparent` | `fg-disabled` | — |
 
 스피너 트랙·진행 색:
 
 | variant | track | range |
 | --- | --- | --- |
-| solid 계열(`brand`·`brand-secondary`·`brand-tertiary`·`neutral`·`critical`) | `static-white-alpha-300` | 해당 `fg-on-*-solid` |
+| solid 계열(`brand`·`brand-secondary`·`neutral`·`critical`) | `static-white-alpha-300` | 해당 `fg-on-*-solid` |
 | `neutral-weak` · `neutral-outline` · `ghost` | `fg-disabled` | `fg-neutral` |
 | `brand-outline` | `bg-brand-weak-pressed` | `bg-brand-solid` |
 

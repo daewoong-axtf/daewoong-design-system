@@ -119,7 +119,7 @@ Root에 `data-multiple`을 주고, 제출 이름은 `data-name`, 값이 없을 �
 
 | 상태 | 값 |
 | --- | --- |
-| 기본 | bg `bg-transparent`, 테두리 `inset 0 0 0 1px stroke-neutral-weak`, 그림자 `shadow-s1`, Value `fg-neutral`, placeholder `fg-neutral-subtle`, Chevron `fg-neutral-muted` |
+| 기본 | bg `bg-transparent`, 테두리 `inset 0 0 0 1px stroke-neutral-weak`, 그림자 없음, Value `fg-neutral`, placeholder `fg-neutral-subtle`, Chevron `fg-neutral-muted` |
 | hover | bg `bg-transparent-pressed` |
 | 열림·포커스 | `::after` 2px `stroke-neutral-contrast` (Text Input 포커스와 같음) |
 | focus-visible | `outline 2px stroke-focus-ring`, offset 2px |

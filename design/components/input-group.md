@@ -82,7 +82,7 @@ Addon 안 gap은 4px `x1`이다. 그 밖의 치수는 [Text Input](text-input.md
 | 높이 | 옆 입력과 같다 |
 | 좌우 여백 | 16px `x4` |
 | 글자 | t4 14/19 bold, `fg-brand-contrast` |
-| 테두리 | `inset 0 0 0 1px stroke-neutral-weak`, 그림자 `shadow-s1`. 입력과 1px 겹친다 |
+| 테두리 | `inset 0 0 0 1px stroke-neutral-weak`, 그림자 없음. 입력과 1px 겹친다 |
 | 모서리 | 오른쪽만 입력의 모서리와 같다. 입력은 오른쪽 모서리를 없앤다 |
 | hover · pressed | `bg-transparent-pressed` |
 | focus | 2px `stroke-focus-ring`, 안쪽으로 그린다 |

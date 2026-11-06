@@ -16,7 +16,6 @@ export const PALETTE_FAMILIES = [
   'gray-alpha',
   'orange',
   'charcoal',
-  'teal',
   'blue',
   'green',
   'yellow',

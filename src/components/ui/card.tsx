@@ -4,8 +4,6 @@ import { cn } from "@/lib/utils"
 const CARD_TONE = {
   "brand-secondary":
     "border-transparent bg-[var(--dw-bg-brand-secondary-weak)] text-[var(--dw-fg-brand-secondary-contrast)] shadow-none [&_[data-slot=card-description]]:text-inherit",
-  "brand-tertiary":
-    "border-transparent bg-[var(--dw-bg-brand-tertiary-weak)] text-[var(--dw-fg-brand-tertiary-contrast)] shadow-none [&_[data-slot=card-description]]:text-inherit",
 } as const
 
 function Card({

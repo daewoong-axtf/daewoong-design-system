@@ -12,10 +12,9 @@ const chip = {
 const BRAND_COLORS = [
   { rank: 'Primary', role: 'brand', use: '화면의 대표 행동' },
   { rank: 'Secondary', role: 'brand-secondary', use: '두 번째 행동, 공지, 차트' },
-  { rank: 'Tertiary', role: 'brand-tertiary', use: '탐색, 새 기능, 차트' },
 ] as const
 
-/** 브랜드 3색과 위에 얹는 글자색 */
+/** 브랜드 2색과 위에 얹는 글자색 */
 export function BrandColors() {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 'var(--dw-spacing-x2)' }}>

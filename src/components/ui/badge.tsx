@@ -13,8 +13,6 @@ const badgeVariants = cva(
           "bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
         "brand-secondary":
           "bg-[var(--dw-bg-brand-secondary-weak)] text-[var(--dw-fg-brand-secondary-contrast)]",
-        "brand-tertiary":
-          "bg-[var(--dw-bg-brand-tertiary-weak)] text-[var(--dw-fg-brand-tertiary-contrast)]",
         destructive:
           "bg-destructive text-white focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40 [a&]:hover:bg-destructive/90",
         outline:

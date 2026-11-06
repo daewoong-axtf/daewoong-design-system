@@ -33,7 +33,7 @@
 
 | 속성 | 값 | 기본값 | 표현 |
 | --- | --- | --- | --- |
-| variant | `outline` · `elevated` · `filled` · `brand-secondary` · `brand-tertiary` | `outline` | `.dw-card--<variant>` |
+| variant | `outline` · `elevated` · `filled` · `brand-secondary` | `outline` | `.dw-card--<variant>` |
 | interactive | boolean | false | Root가 `<a>`·`<button>` |
 
 ## Specification
@@ -44,7 +44,7 @@
 | `outline` | 테두리 `inset 0 0 0 1px stroke-neutral-muted`, 그림자 `shadow-s1` |
 | `elevated` | `shadow-s2`, 테두리 없음 |
 | `filled` | bg `bg-neutral-weak`, 테두리 없음 |
-| `brand-secondary` · `brand-tertiary` | bg `bg-brand-<순위>-weak`, 테두리 없음, 글자 전체 `fg-brand-<순위>-contrast`. 묶음을 색으로 나눌 때 쓴다 |
+| `brand-secondary` | bg `bg-brand-secondary-weak`, 테두리 없음, 글자 전체 `fg-brand-secondary-contrast`. 묶음을 색으로 나눌 때 쓴다 |
 | Header | 가로 배치 `justify-content: space-between; align-items: flex-start`, gap 12px `x3` |
 | Title | t6 18/24 bold, `fg-neutral` |
 | Description | t4 14/19 regular, `fg-neutral-subtle`, Title 아래 4px `x1` |

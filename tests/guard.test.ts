@@ -19,7 +19,7 @@ test('every spec has its class in components.css', () => {
 })
 
 test('components.css uses role tokens instead of chromatic palette', () => {
-  const hits = read('components.css').match(/var\(--dw-(orange|charcoal|teal|blue|green|yellow|red|purple)-[^)]*\)/g)
+  const hits = read('components.css').match(/var\(--dw-(orange|charcoal|blue|green|yellow|red|purple)-[^)]*\)/g)
   assert.equal(hits, null)
 })
 

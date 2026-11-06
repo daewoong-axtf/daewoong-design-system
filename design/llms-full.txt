@@ -48,7 +48,7 @@
 ## 금지사항
 
 - 색·간격·모서리·글자를 토큰 없이 쓰지 않는다. 스케일 밖 수치를 만들지 않는다.
-- 유채색 팔레트(`orange`·`charcoal`·`teal`·`blue`·`green`·`yellow`·`red`·`purple`)를 직접 쓰지 않는다. 역할 토큰으로 부른다.
+- 유채색 팔레트(`orange`·`charcoal`·`blue`·`green`·`yellow`·`red`·`purple`)를 직접 쓰지 않는다. 역할 토큰으로 부른다.
 - 생성 파일을 손으로 고치지 않는다.
 - 이미 있는 컴포넌트의 클래스 이름과 마크업 구조를 바꾸지 않는다. `storybook.html`에서 복사한다. 새 컴포넌트는 프로젝트의 이름으로 만들고 `dw-` 접두사를 쓰지 않는다.
 - [`design.md` 12장](design.md#12-하지-말-것)의 항목을 어기지 않는다.
@@ -77,7 +77,7 @@
 
 ## 1. 원칙
 
-- **색은 역할로 부른다.** 화면은 역할 토큰(`bg-*` · `fg-*` · `stroke-*`)만 쓴다. 컴포넌트 명세는 역할 토큰을 우선하되, 다크 모드에서 대응하는 역할이 없는 중립 회색 몇 자리에 한해 `gray-*`·`static-*` 팔레트를 직접 쓴다. **유채색 팔레트(`orange`·`charcoal`·`teal`·`blue`·`green`·`yellow`·`red`·`purple`)는 어디서도 직접 쓰지 않는다** — 브랜드 교체가 역할 토큰만으로 끝나게 하기 위해서다.
+- **색은 역할로 부른다.** 화면은 역할 토큰(`bg-*` · `fg-*` · `stroke-*`)만 쓴다. 컴포넌트 명세는 역할 토큰을 우선하되, 다크 모드에서 대응하는 역할이 없는 중립 회색 몇 자리에 한해 `gray-*`·`static-*` 팔레트를 직접 쓴다. **유채색 팔레트(`orange`·`charcoal`·`blue`·`green`·`yellow`·`red`·`purple`)는 어디서도 직접 쓰지 않는다** — 브랜드 교체가 역할 토큰만으로 끝나게 하기 위해서다.
 - **깊이는 색으로 먼저 만든다.** 표면 층위(`bg-layer-basement` → `bg-layer-default` → `bg-layer-floating`)로 구분하고, 그림자는 떠 있는 요소(메뉴·다이얼로그·토스트)와 7장 표의 `shadow-s1` 자리에만 쓴다.
 - **브랜드 색은 꼭 필요한 곳에만 쓴다.** 화면의 주된 행동 1개, 선택 상태, 강조 링크 정도로 제한한다.
 - **상태를 색 하나로만 알리지 않는다.** 오류·경고·성공에는 항상 아이콘이나 텍스트를 함께 붙인다(WCAG 1.4.1).
@@ -103,7 +103,6 @@
 | `gray-alpha` | 100–1000 | 반투명 뉴트럴 |
 | `orange` | 100–1000 | **브랜드** (대웅 오렌지 `#F18A00` — 4장 참고) |
 | `charcoal` | 100–1000 | **보조 브랜드(Secondary)** (CI 차콜 `#53575A`, 라이트 700) |
-| `teal` | 100–1000 | **보조 브랜드(Tertiary)** (`#48B7BD`, 라이트 600·다크 700) |
 | `blue` | 100–1000 | 정보(informative), 포커스 링 |
 | `green` | 100–1000 | 성공(positive) |
 | `yellow` | 100–1000 | 경고(warning) |
@@ -117,7 +116,7 @@
 이름 규칙: `<층>-<의미>[-<강도>][-<상태>]`
 
 - **층** `bg`(배경) · `fg`(글자·아이콘) · `stroke`(테두리·구분선)
-- **의미** `brand` · `brand-secondary` · `brand-tertiary` · `neutral` · `critical` · `informative` · `positive` · `warning` · `layer` · `overlay` · `transparent` · `disabled` · `placeholder` · `focus-ring`
+- **의미** `brand` · `brand-secondary` · `neutral` · `critical` · `informative` · `positive` · `warning` · `layer` · `overlay` · `transparent` · `disabled` · `placeholder` · `focus-ring`
 - **강도** `solid`(채운 면) · `weak`(옅은 면) · `muted` · `subtle` · `contrast` · `inverted`
 - **상태** `pressed` · `selected`
 
@@ -128,11 +127,10 @@
 | `bg-layer-default` · `bg-layer-floating` · `bg-neutral-subtle` | `fg-neutral`, `fg-neutral-muted`, `fg-neutral-subtle` |
 | `bg-brand-solid` | `fg-on-brand-solid` |
 | `bg-brand-secondary-solid` | `fg-on-brand-secondary-solid` |
-| `bg-brand-tertiary-solid` | `fg-on-brand-tertiary-solid` |
 | `bg-neutral-solid` | `fg-on-neutral-solid` |
 | `bg-critical-solid` · `bg-positive-solid` · `bg-informative-solid` · `bg-warning-solid` | `fg-on-<의미>-solid` |
 | `bg-<의미>-weak` | `fg-<의미>-contrast` |
-| `bg-brand-secondary-weak` · `bg-brand-tertiary-weak` | `fg-brand-secondary-contrast` · `fg-brand-tertiary-contrast` |
+| `bg-brand-secondary-weak` | `fg-brand-secondary-contrast` |
 | `bg-disabled` | `fg-disabled` |
 
 | 역할 | 라이트 | 다크 |
@@ -145,10 +143,6 @@
 | `bg-brand-secondary-solid-pressed` | `charcoal-800` | `charcoal-400` |
 | `bg-brand-secondary-weak` | `charcoal-100` | `charcoal-100` |
 | `bg-brand-secondary-weak-pressed` | `charcoal-200` | `charcoal-200` |
-| `bg-brand-tertiary-solid` | `teal-600` | `teal-700` |
-| `bg-brand-tertiary-solid-pressed` | `teal-700` | `teal-800` |
-| `bg-brand-tertiary-weak` | `teal-100` | `teal-100` |
-| `bg-brand-tertiary-weak-pressed` | `teal-200` | `teal-200` |
 | `bg-critical-solid` | `red-800` | `red-500` |
 | `bg-critical-solid-pressed` | `red-900` | `red-400` |
 | `bg-critical-weak` | `red-100` | `red-100` |
@@ -193,8 +187,6 @@
 | `fg-brand-contrast` | `orange-900` | `orange-800` |
 | `fg-brand-secondary` | `charcoal-700` | `charcoal-800` |
 | `fg-brand-secondary-contrast` | `charcoal-800` | `charcoal-900` |
-| `fg-brand-tertiary` | `teal-800` | `teal-800` |
-| `fg-brand-tertiary-contrast` | `teal-900` | `teal-900` |
 | `fg-critical` | `red-800` | `red-700` |
 | `fg-critical-contrast` | `red-900` | `red-900` |
 | `fg-disabled` | `gray-500` | `gray-500` |
@@ -206,7 +198,6 @@
 | `fg-neutral-subtle` | `gray-700` | `gray-700` |
 | `fg-on-brand-solid` | `static-black` | `static-black` |
 | `fg-on-brand-secondary-solid` | `static-white` | `static-white` |
-| `fg-on-brand-tertiary-solid` | `static-black` | `static-black` |
 | `fg-on-critical-solid` | `static-white` | `static-white` |
 | `fg-on-informative-solid` | `static-white` | `static-white` |
 | `fg-on-neutral-solid` | `gray-00` | `gray-100` |
@@ -221,8 +212,6 @@
 | `stroke-brand-weak` | `orange-300` | `orange-300` |
 | `stroke-brand-secondary-solid` | `charcoal-700` | `charcoal-500` |
 | `stroke-brand-secondary-weak` | `charcoal-300` | `charcoal-300` |
-| `stroke-brand-tertiary-solid` | `teal-700` | `teal-700` |
-| `stroke-brand-tertiary-weak` | `teal-300` | `teal-300` |
 | `stroke-critical-solid` | `red-700` | `red-700` |
 | `stroke-critical-weak` | `red-300` | `red-300` |
 | `stroke-focus-ring` | `blue-600` | `blue-600` |
@@ -314,9 +303,6 @@ Primary 오렌지와 함께 쓰는 색이다. 화면이 회색과 오렌지만�
 | --- | --- | --- | --- |
 | Primary | `bg-brand-solid` | 대웅 오렌지 `#F18A00` | 검정 |
 | Secondary | `bg-brand-secondary-solid` | CI 차콜 `#53575A` | 흰색 |
-| Tertiary | `bg-brand-tertiary-solid` | 밝은 틸 `#48B7BD` | 검정 |
-
-틸 면에 흰 글자를 쓰면 대비가 2.4:1로 모자라다. 흰 바탕 위 틸 면도 같은 대비이므로, 뜻을 전달하는 면(차트 막대 등)에는 라벨이나 값을 함께 둔다. 글자로 쓸 때는 `fg-brand-tertiary`를 쓴다.
 
 ## 5. 간격
 
@@ -385,7 +371,7 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 
 | 토큰 | 라이트 | 쓰는 자리 |
 | --- | --- | --- |
-| `shadow-s1` | 0 1px 4px 0 / 7.8% | 테두리 있는 컨트롤(outline 버튼, 입력, Select, 체크박스, 라디오), 스위치 트랙, 슬라이더 손잡이, outline 카드, Segmented Control의 선택 표시 |
+| `shadow-s1` | 0 1px 4px 0 / 7.8% | 스위치 트랙, 슬라이더 손잡이, outline 카드, Segmented Control의 선택 표시 |
 | `shadow-s2` | 0 2px 10px 0 / 10.2% | 토스트, elevated 카드 |
 | `shadow-s3` | 0 4px 16px 0 / 12.2% | 다이얼로그, 시트, 드롭다운 메뉴, 팝오버, Select 목록 |
 
@@ -1057,7 +1043,7 @@ WAI-ARIA APG **Accordion** 패턴.
 
 | 속성 | 값 | 기본값 | 표현 |
 | --- | --- | --- | --- |
-| tone | `neutral` · `brand` · `brand-secondary` · `brand-tertiary` · `informative` · `positive` · `warning` · `critical` | `neutral` | `.dw-badge--<tone>` |
+| tone | `neutral` · `brand` · `brand-secondary` · `informative` · `positive` · `warning` · `critical` | `neutral` | `.dw-badge--<tone>` |
 | variant | `weak` · `solid` · `outline` | `weak` | `.dw-badge--<variant>` |
 | size | `medium` · `large` | `medium` | `.dw-badge--large` |
 
@@ -1075,7 +1061,6 @@ WAI-ARIA APG **Accordion** 패턴.
 | `neutral` | `bg-neutral-weak` / `fg-neutral-muted` | `gray-800` / `fg-on-neutral-solid` | `stroke-neutral-muted` / `fg-neutral-muted` |
 | `brand` | `bg-brand-weak` / `fg-brand-contrast` | `bg-brand-solid` / `fg-on-brand-solid` | `stroke-brand-weak` / `fg-brand` |
 | `brand-secondary` | `bg-brand-secondary-weak` / `fg-brand-secondary-contrast` | `bg-brand-secondary-solid` / `fg-on-brand-secondary-solid` | `stroke-brand-secondary-weak` / `fg-brand-secondary` |
-| `brand-tertiary` | `bg-brand-tertiary-weak` / `fg-brand-tertiary-contrast` | `bg-brand-tertiary-solid` / `fg-on-brand-tertiary-solid` | `stroke-brand-tertiary-weak` / `fg-brand-tertiary` |
 | `informative` | `bg-informative-weak` / `fg-informative-contrast` | `bg-informative-solid` / `fg-on-informative-solid` | `stroke-informative-weak` / `fg-informative` |
 | `positive` | `bg-positive-weak` / `fg-positive-contrast` | `bg-positive-solid` / `fg-on-positive-solid` | `stroke-positive-weak` / `fg-positive` |
 | `warning` | `bg-warning-weak` / `fg-warning-contrast` | `bg-warning-solid` / `fg-on-warning-solid` | `stroke-warning-weak` / `fg-warning` |
@@ -1315,7 +1300,7 @@ WAI-ARIA APG **Accordion** 패턴.
 
 | 속성 | 값 | 기본값 | 표현 |
 | --- | --- | --- | --- |
-| variant | `brand-solid` · `brand-secondary-solid` · `brand-tertiary-solid` · `neutral-solid` · `neutral-weak` · `critical-solid` · `brand-outline` · `neutral-outline` · `ghost` | `neutral-weak` | `.dw-button--<variant>` |
+| variant | `brand-solid` · `brand-secondary-solid` · `neutral-solid` · `neutral-weak` · `critical-solid` · `brand-outline` · `neutral-outline` · `ghost` | `neutral-weak` | `.dw-button--<variant>` |
 | size | `xsmall` · `small` · `medium` · `large` | `medium` | `.dw-button--<size>` |
 | layout | `with-text` · `icon-only` | `with-text` | icon-only는 `.dw-button--icon-only` |
 | width | 내용 맞춤 · 가득 | 내용 맞춤 | 가득은 `.dw-button--full` (`width: 100%`) |
@@ -1336,7 +1321,7 @@ WAI-ARIA APG **Accordion** 패턴.
 - 높이는 고정이다(`height`). 라벨은 한 줄(`white-space: nowrap`).
 - 폰트 두께는 모든 variant에서 `font-weight-bold`(700). `ghost`도 같다.
 - 아이콘 색은 글자색(`currentColor`)을 따른다.
-- `outline` 계열 테두리는 1px `solid`, 그림자 `shadow-s1`.
+- `outline` 계열 테두리는 1px `solid`, 그림자 없음.
 - 높이 32·36·40px 버튼은 터치 화면에서 히트 영역을 44px로 넓힌다(투명 `::before`). 시각 크기는 바꾸지 않는다.
 
 ### 위계
@@ -1345,7 +1330,6 @@ WAI-ARIA APG **Accordion** 패턴.
 | --- | --- | --- |
 | `brand-solid` | 화면의 대표 행동. 화면당 1개 | 저장, 신청하기 |
 | `brand-secondary-solid` | 대표 행동과 나란히 놓이는 두 번째 행동 | 임시 저장, 내보내기 |
-| `brand-tertiary-solid` | 새 기능, 탐색, 안내로 이어지는 행동 | 자세히 보기, 둘러보기 |
 | `neutral-weak` | 부담 없는 행동 | 취소, 닫기 |
 
 새 화면의 어두운 버튼은 `brand-secondary-solid`를 쓴다. 두 어두운 색을 나란히 두면 구분이 약해서 `neutral-solid`는 기존 화면을 유지할 때만 쓴다.
@@ -1360,29 +1344,27 @@ WAI-ARIA APG **Accordion** 패턴.
 | | hover · pressed · loading | `bg-brand-solid-pressed` | `fg-on-brand-solid` | — |
 | `brand-secondary-solid` | 기본 | `bg-brand-secondary-solid` | `fg-on-brand-secondary-solid` | — |
 | | hover · pressed · loading | `bg-brand-secondary-solid-pressed` | `fg-on-brand-secondary-solid` | — |
-| `brand-tertiary-solid` | 기본 | `bg-brand-tertiary-solid` | `fg-on-brand-tertiary-solid` | — |
-| | hover · pressed · loading | `bg-brand-tertiary-solid-pressed` | `fg-on-brand-tertiary-solid` | — |
 | `neutral-solid` | 기본 | `bg-neutral-solid` | `fg-on-neutral-solid` | — |
 | | hover · pressed · loading | `bg-neutral-solid-pressed` | `fg-on-neutral-solid` | — |
 | `neutral-weak` | 기본 | `bg-neutral-weak` | `fg-neutral` | — |
 | | hover · pressed · loading | `bg-neutral-weak-pressed` | `fg-neutral` | — |
 | `critical-solid` | 기본 | `bg-critical-solid` | `fg-on-critical-solid` | — |
 | | hover · pressed · loading | `bg-critical-solid-pressed` | `fg-on-critical-solid` | — |
-| `brand-outline` | 기본 · loading | `bg-transparent` | `fg-brand` | `stroke-neutral-muted` |
+| `brand-outline` | 기본 · loading | `bg-transparent` | `fg-brand` | `stroke-neutral-weak` |
 | | hover · pressed | `bg-transparent-pressed` | `fg-brand` | `stroke-neutral-muted` |
-| `neutral-outline` | 기본 · loading | `bg-transparent` | `fg-neutral` | `stroke-neutral-muted` |
+| `neutral-outline` | 기본 · loading | `bg-transparent` | `fg-neutral` | `stroke-neutral-weak` |
 | | hover · pressed | `bg-transparent-pressed` | `fg-neutral` | `stroke-neutral-muted` |
 | `ghost` | 기본 | `bg-transparent` | `fg-neutral` | — |
 | | hover · pressed · loading | `bg-transparent-pressed` | `fg-neutral` | — |
 | solid·weak 계열 | disabled | `bg-disabled` | `fg-disabled` | — |
-| outline 계열 | disabled | `bg-transparent` | `fg-disabled` | `stroke-neutral-muted` |
+| outline 계열 | disabled | `bg-transparent` | `fg-disabled` | `stroke-neutral-weak` |
 | `ghost` | disabled | `bg-transparent` | `fg-disabled` | — |
 
 스피너 트랙·진행 색:
 
 | variant | track | range |
 | --- | --- | --- |
-| solid 계열(`brand`·`brand-secondary`·`brand-tertiary`·`neutral`·`critical`) | `static-white-alpha-300` | 해당 `fg-on-*-solid` |
+| solid 계열(`brand`·`brand-secondary`·`neutral`·`critical`) | `static-white-alpha-300` | 해당 `fg-on-*-solid` |
 | `neutral-weak` · `neutral-outline` · `ghost` | `fg-disabled` | `fg-neutral` |
 | `brand-outline` | `bg-brand-weak-pressed` | `bg-brand-solid` |
 
@@ -1710,7 +1692,7 @@ WAI-ARIA APG **Date Grid** 패턴.
 
 | 속성 | 값 | 기본값 | 표현 |
 | --- | --- | --- | --- |
-| variant | `outline` · `elevated` · `filled` · `brand-secondary` · `brand-tertiary` | `outline` | `.dw-card--<variant>` |
+| variant | `outline` · `elevated` · `filled` · `brand-secondary` | `outline` | `.dw-card--<variant>` |
 | interactive | boolean | false | Root가 `<a>`·`<button>` |
 
 ## Specification
@@ -1721,7 +1703,7 @@ WAI-ARIA APG **Date Grid** 패턴.
 | `outline` | 테두리 `inset 0 0 0 1px stroke-neutral-muted`, 그림자 `shadow-s1` |
 | `elevated` | `shadow-s2`, 테두리 없음 |
 | `filled` | bg `bg-neutral-weak`, 테두리 없음 |
-| `brand-secondary` · `brand-tertiary` | bg `bg-brand-<순위>-weak`, 테두리 없음, 글자 전체 `fg-brand-<순위>-contrast`. 묶음을 색으로 나눌 때 쓴다 |
+| `brand-secondary` | bg `bg-brand-secondary-weak`, 테두리 없음, 글자 전체 `fg-brand-secondary-contrast`. 묶음을 색으로 나눌 때 쓴다 |
 | Header | 가로 배치 `justify-content: space-between; align-items: flex-start`, gap 12px `x3` |
 | Title | t6 18/24 bold, `fg-neutral` |
 | Description | t4 14/19 regular, `fg-neutral-subtle`, Title 아래 4px `x1` |
@@ -1803,7 +1785,7 @@ WAI-ARIA APG **Date Grid** 패턴.
 
 | 상태 | Control bg | Control 테두리 | 체크 아이콘 | Label |
 | --- | --- | --- | --- | --- |
-| 꺼짐 | 투명 | 1px `stroke-neutral-weak`, 그림자 `shadow-s1` (켜짐에도 유지) | — | `fg-neutral` |
+| 꺼짐 | 투명 | 1px `stroke-neutral-weak`, 그림자 없음 | — | `fg-neutral` |
 | 꺼짐 hover·pressed | `bg-transparent-pressed` | 1px `stroke-neutral-weak` | — | |
 | 켜짐(brand) | `bg-brand-solid` | 없음 | `fg-on-brand-solid` | |
 | 켜짐(brand) hover·pressed | `bg-brand-solid-pressed` | 없음 | | |
@@ -1994,7 +1976,7 @@ WAI-ARIA APG **Date Grid** 패턴.
 
 | 상태 | bg | 테두리 |
 | --- | --- | --- |
-| 기본 | 투명 | 1px `stroke-neutral-weak`, `shadow-s1` |
+| 기본 | 투명 | 1px `stroke-neutral-weak` |
 | 선택 | 투명 | 2px `stroke-brand-solid` |
 | 오류 | 투명 | 2px `stroke-critical-solid` |
 | disabled | `bg-disabled` | 1px `stroke-neutral-weak`, 글자 `fg-disabled` |
@@ -4034,7 +4016,7 @@ Addon 안 gap은 4px `x1`이다. 그 밖의 치수는 [Text Input](text-input.md
 | 높이 | 옆 입력과 같다 |
 | 좌우 여백 | 16px `x4` |
 | 글자 | t4 14/19 bold, `fg-brand-contrast` |
-| 테두리 | `inset 0 0 0 1px stroke-neutral-weak`, 그림자 `shadow-s1`. 입력과 1px 겹친다 |
+| 테두리 | `inset 0 0 0 1px stroke-neutral-weak`, 그림자 없음. 입력과 1px 겹친다 |
 | 모서리 | 오른쪽만 입력의 모서리와 같다. 입력은 오른쪽 모서리를 없앤다 |
 | hover · pressed | `bg-transparent-pressed` |
 | focus | 2px `stroke-focus-ring`, 안쪽으로 그린다 |
@@ -4868,7 +4850,7 @@ Root·Control·Label 세로 정렬 규칙은 [Checkbox](checkbox.md)와 같다.
 
 | 상태 | Control bg | Control 테두리 | 점 | Label |
 | --- | --- | --- | --- | --- |
-| 꺼짐 | 투명 | 1px `stroke-neutral-weak`, 그림자 `shadow-s1` (켜짐에도 유지) | — | `fg-neutral` |
+| 꺼짐 | 투명 | 1px `stroke-neutral-weak`, 그림자 없음 | — | `fg-neutral` |
 | 꺼짐 hover·pressed | `bg-transparent-pressed` | 1px `stroke-neutral-weak` | — | |
 | 켜짐(brand) | `bg-brand-solid` | 없음 | `fg-on-brand-solid` | |
 | 켜짐(brand) hover·pressed | `bg-brand-solid-pressed` | 없음 | | |
@@ -5378,7 +5360,7 @@ Root에 `data-multiple`을 주고, 제출 이름은 `data-name`, 값이 없을 �
 
 | 상태 | 값 |
 | --- | --- |
-| 기본 | bg `bg-transparent`, 테두리 `inset 0 0 0 1px stroke-neutral-weak`, 그림자 `shadow-s1`, Value `fg-neutral`, placeholder `fg-neutral-subtle`, Chevron `fg-neutral-muted` |
+| 기본 | bg `bg-transparent`, 테두리 `inset 0 0 0 1px stroke-neutral-weak`, 그림자 없음, Value `fg-neutral`, placeholder `fg-neutral-subtle`, Chevron `fg-neutral-muted` |
 | hover | bg `bg-transparent-pressed` |
 | 열림·포커스 | `::after` 2px `stroke-neutral-contrast` (Text Input 포커스와 같음) |
 | focus-visible | `outline 2px stroke-focus-ring`, offset 2px |
@@ -6471,7 +6453,7 @@ underline은 좌우 여백·모서리가 없다.
 
 | 부위 | 상태 | 값 |
 | --- | --- | --- |
-| Root 테두리 (outline) | 기본 | `inset 0 0 0 1px stroke-neutral-weak` (box-shadow), 그림자 `shadow-s1` |
+| Root 테두리 (outline) | 기본 | `inset 0 0 0 1px stroke-neutral-weak` (box-shadow), 그림자 없음 |
 | Root 테두리 (underline) | 기본 | 아래쪽만 `inset 0 -1px 0 0 stroke-neutral-weak` |
 | `::after` 테두리 | focus(포커스 안에 있음) | 2px `stroke-neutral-contrast` (underline은 아래쪽만) |
 | `::after` 테두리 | invalid (포커스 여부 무관) | 2px `stroke-critical-solid` |
@@ -6533,7 +6515,7 @@ Status가 있는 Root에서 지우기 버튼은 입력 중이거나 마우스를
 - 상태는 Value(`disabled`·`readonly`·`aria-invalid`)에 걸고, Root 스타일은 `:has()`로 잡는다. 예: `.dw-text-input:has(.dw-text-input__value:disabled)`.
 - 포커스·오류 테두리는 Root의 `::after`(absolute, `inset: 0`, 투명 2px border)로 그리고 `border-color`를 바꾼다.
 - 지우기 버튼 마크업은 `<button class="dw-text-input__icon" type="button" aria-label="입력 지우기" data-dw-clear>`이고 값이 없으면 `hidden`이다. 터치 화면에서 히트 영역은 44px다.
-- disabled·readonly에서도 `shadow-s1`을 유지한다. disabled와 invalid가 함께 오면 disabled가 이긴다.
+- disabled와 invalid가 함께 오면 disabled가 이긴다.
 - textarea `min-height`는 표의 값을 그대로 쓴다. 줄 높이로 계산한 값과 1px 다를 수 있다.
 
 ## Responsive
@@ -6693,7 +6675,7 @@ Status가 있는 Root에서 지우기 버튼은 입력 중이거나 마우스를
 
 | 상태 | 값 |
 | --- | --- |
-| 기본 | bg `bg-transparent`, 테두리 `inset 0 0 0 1px stroke-neutral-weak`, 그림자 `shadow-s1`, 글자 `fg-neutral`, 고정폭 숫자, Chevron `fg-neutral-muted` |
+| 기본 | bg `bg-transparent`, 테두리 `inset 0 0 0 1px stroke-neutral-weak`, 그림자 없음, 글자 `fg-neutral`, 고정폭 숫자, Chevron `fg-neutral-muted` |
 | 범위 묶음 | 두 칸이 같은 폭, gap 8px `x2`, Separator `fg-neutral-muted` |
 
 ## States
@@ -7976,16 +7958,6 @@ Nielsen 10 휴리스틱을 바탕으로 하고, 10번은 도움말 대신 정보
       "charcoal-800": "oklch(0.38 0.006 240)",
       "charcoal-900": "oklch(0.31 0.006 240)",
       "charcoal-1000": "oklch(0.24 0.005 240)",
-      "teal-100": "oklch(0.965 0.018 205)",
-      "teal-200": "oklch(0.94 0.032 205)",
-      "teal-300": "oklch(0.895 0.058 205)",
-      "teal-400": "oklch(0.84 0.08 205)",
-      "teal-500": "oklch(0.78 0.095 205)",
-      "teal-600": "oklch(0.72 0.1 200)",
-      "teal-700": "oklch(0.62 0.098 205)",
-      "teal-800": "oklch(0.46 0.078 205)",
-      "teal-900": "oklch(0.38 0.065 205)",
-      "teal-1000": "oklch(0.27 0.045 205)",
       "purple-100": "oklch(0.969 0.015 294.5)",
       "purple-200": "oklch(0.947 0.027 297.3)",
       "purple-300": "oklch(0.902 0.054 295.9)",
@@ -8102,16 +8074,6 @@ Nielsen 10 휴리스틱을 바탕으로 하고, 10번은 도움말 대신 정보
       "charcoal-800": "oklch(0.8 0.006 240)",
       "charcoal-900": "oklch(0.88 0.004 240)",
       "charcoal-1000": "oklch(0.95 0.003 240)",
-      "teal-100": "oklch(0.28 0.03 205)",
-      "teal-200": "oklch(0.32 0.04 205)",
-      "teal-300": "oklch(0.38 0.055 205)",
-      "teal-400": "oklch(0.46 0.07 205)",
-      "teal-500": "oklch(0.54 0.085 205)",
-      "teal-600": "oklch(0.63 0.095 205)",
-      "teal-700": "oklch(0.72 0.1 200)",
-      "teal-800": "oklch(0.78 0.09 205)",
-      "teal-900": "oklch(0.86 0.06 205)",
-      "teal-1000": "oklch(0.94 0.025 205)",
       "purple-100": "oklch(0.269 0.048 295.4)",
       "purple-200": "oklch(0.345 0.123 290.1)",
       "purple-300": "oklch(0.379 0.13 290.2)",
@@ -8177,10 +8139,6 @@ Nielsen 10 휴리스틱을 바탕으로 하고, 10번은 도움말 대신 정보
       "bg-brand-secondary-solid-pressed": "{palette.charcoal-800}",
       "bg-brand-secondary-weak": "{palette.charcoal-100}",
       "bg-brand-secondary-weak-pressed": "{palette.charcoal-200}",
-      "bg-brand-tertiary-solid": "{palette.teal-600}",
-      "bg-brand-tertiary-solid-pressed": "{palette.teal-700}",
-      "bg-brand-tertiary-weak": "{palette.teal-100}",
-      "bg-brand-tertiary-weak-pressed": "{palette.teal-200}",
       "bg-critical-solid": "{palette.red-800}",
       "bg-critical-solid-pressed": "{palette.red-900}",
       "bg-critical-weak": "{palette.red-100}",
@@ -8225,8 +8183,6 @@ Nielsen 10 휴리스틱을 바탕으로 하고, 10번은 도움말 대신 정보
       "fg-brand-contrast": "{palette.orange-900}",
       "fg-brand-secondary": "{palette.charcoal-700}",
       "fg-brand-secondary-contrast": "{palette.charcoal-800}",
-      "fg-brand-tertiary": "{palette.teal-800}",
-      "fg-brand-tertiary-contrast": "{palette.teal-900}",
       "fg-critical": "{palette.red-800}",
       "fg-critical-contrast": "{palette.red-900}",
       "fg-disabled": "{palette.gray-500}",
@@ -8238,7 +8194,6 @@ Nielsen 10 휴리스틱을 바탕으로 하고, 10번은 도움말 대신 정보
       "fg-neutral-subtle": "{palette.gray-700}",
       "fg-on-brand-solid": "{palette.static-black}",
       "fg-on-brand-secondary-solid": "{palette.static-white}",
-      "fg-on-brand-tertiary-solid": "{palette.static-black}",
       "fg-on-critical-solid": "{palette.static-white}",
       "fg-on-informative-solid": "{palette.static-white}",
       "fg-on-neutral-solid": "{palette.gray-00}",
@@ -8253,8 +8208,6 @@ Nielsen 10 휴리스틱을 바탕으로 하고, 10번은 도움말 대신 정보
       "stroke-brand-weak": "{palette.orange-300}",
       "stroke-brand-secondary-solid": "{palette.charcoal-700}",
       "stroke-brand-secondary-weak": "{palette.charcoal-300}",
-      "stroke-brand-tertiary-solid": "{palette.teal-700}",
-      "stroke-brand-tertiary-weak": "{palette.teal-300}",
       "stroke-critical-solid": "{palette.red-700}",
       "stroke-critical-weak": "{palette.red-300}",
       "stroke-focus-ring": "{palette.blue-600}",
@@ -8279,10 +8232,6 @@ Nielsen 10 휴리스틱을 바탕으로 하고, 10번은 도움말 대신 정보
       "bg-brand-secondary-solid-pressed": "{palette.charcoal-400}",
       "bg-brand-secondary-weak": "{palette.charcoal-100}",
       "bg-brand-secondary-weak-pressed": "{palette.charcoal-200}",
-      "bg-brand-tertiary-solid": "{palette.teal-700}",
-      "bg-brand-tertiary-solid-pressed": "{palette.teal-800}",
-      "bg-brand-tertiary-weak": "{palette.teal-100}",
-      "bg-brand-tertiary-weak-pressed": "{palette.teal-200}",
       "bg-critical-solid": "{palette.red-500}",
       "bg-critical-solid-pressed": "{palette.red-400}",
       "bg-critical-weak": "{palette.red-100}",
@@ -8327,8 +8276,6 @@ Nielsen 10 휴리스틱을 바탕으로 하고, 10번은 도움말 대신 정보
       "fg-brand-contrast": "{palette.orange-800}",
       "fg-brand-secondary": "{palette.charcoal-800}",
       "fg-brand-secondary-contrast": "{palette.charcoal-900}",
-      "fg-brand-tertiary": "{palette.teal-800}",
-      "fg-brand-tertiary-contrast": "{palette.teal-900}",
       "fg-critical": "{palette.red-700}",
       "fg-critical-contrast": "{palette.red-900}",
       "fg-disabled": "{palette.gray-500}",
@@ -8340,7 +8287,6 @@ Nielsen 10 휴리스틱을 바탕으로 하고, 10번은 도움말 대신 정보
       "fg-neutral-subtle": "{palette.gray-700}",
       "fg-on-brand-solid": "{palette.static-black}",
       "fg-on-brand-secondary-solid": "{palette.static-white}",
-      "fg-on-brand-tertiary-solid": "{palette.static-black}",
       "fg-on-critical-solid": "{palette.static-white}",
       "fg-on-informative-solid": "{palette.static-white}",
       "fg-on-neutral-solid": "{palette.gray-100}",
@@ -8355,8 +8301,6 @@ Nielsen 10 휴리스틱을 바탕으로 하고, 10번은 도움말 대신 정보
       "stroke-brand-weak": "{palette.orange-300}",
       "stroke-brand-secondary-solid": "{palette.charcoal-500}",
       "stroke-brand-secondary-weak": "{palette.charcoal-300}",
-      "stroke-brand-tertiary-solid": "{palette.teal-700}",
-      "stroke-brand-tertiary-weak": "{palette.teal-300}",
       "stroke-critical-solid": "{palette.red-700}",
       "stroke-critical-weak": "{palette.red-300}",
       "stroke-focus-ring": "{palette.blue-600}",

@@ -10,8 +10,8 @@ const tokens: Tokens = JSON.parse(raw)
 // 원본 디자인 시스템의 식별자 — 이 파일에도 글자 그대로 남지 않도록 이스케이프로 적는다
 export const FORBIDDEN = /\u0073eed|\u0063arrot|\u006barrot|\uB2F9\uADFC|\u0064aangn|\u006danner|\uB9E4\uB108\uC628\uB3C4|\uC9C0\uD0B4\uC774|\u006aikimi/i
 
-test('role count is 100', () => {
-  assert.equal(Object.keys(tokens.role.light).length, 100)
+test('role count is 91', () => {
+  assert.equal(Object.keys(tokens.role.light).length, 91)
 })
 
 test('every role has light and dark', () => {
@@ -26,11 +26,11 @@ test('brand ramp exists', () => {
   assert.ok(tokens.palette.light['orange-600'])
 })
 
-test('secondary and tertiary brand roles point to their ramps', () => {
+test('secondary brand role points to charcoal and teal is gone', () => {
   assert.equal(tokens.role.light['bg-brand-secondary-solid'], '{palette.charcoal-700}')
   assert.equal(tokens.role.dark['bg-brand-secondary-solid'], '{palette.charcoal-500}')
-  assert.equal(tokens.role.light['bg-brand-tertiary-solid'], '{palette.teal-600}')
-  assert.equal(tokens.role.dark['bg-brand-tertiary-solid'], '{palette.teal-700}')
+  assert.ok(!Object.keys(tokens.role.light).some((k) => k.includes('tertiary')))
+  assert.ok(!Object.keys(tokens.palette.light).some((k) => k.startsWith('teal-')))
 })
 
 test('brand role points to orange', () => {

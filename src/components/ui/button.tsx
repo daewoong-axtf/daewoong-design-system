@@ -11,12 +11,10 @@ const buttonVariants = cva(
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
         "brand-secondary":
           "bg-[var(--dw-bg-brand-secondary-solid)] text-[var(--dw-fg-on-brand-secondary-solid)] hover:bg-[var(--dw-bg-brand-secondary-solid-pressed)]",
-        "brand-tertiary":
-          "bg-[var(--dw-bg-brand-tertiary-solid)] text-[var(--dw-fg-on-brand-tertiary-solid)] hover:bg-[var(--dw-bg-brand-tertiary-solid-pressed)]",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40",
         outline:
-          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost:

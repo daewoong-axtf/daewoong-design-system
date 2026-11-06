@@ -56,7 +56,7 @@
 
 | 상태 | 값 |
 | --- | --- |
-| 기본 | bg `bg-transparent`, 테두리 `inset 0 0 0 1px stroke-neutral-weak`, 그림자 `shadow-s1`, 글자 `fg-neutral`, 고정폭 숫자, Chevron `fg-neutral-muted` |
+| 기본 | bg `bg-transparent`, 테두리 `inset 0 0 0 1px stroke-neutral-weak`, 그림자 없음, 글자 `fg-neutral`, 고정폭 숫자, Chevron `fg-neutral-muted` |
 | 범위 묶음 | 두 칸이 같은 폭, gap 8px `x2`, Separator `fg-neutral-muted` |
 
 ## States

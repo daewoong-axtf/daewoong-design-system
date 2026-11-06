@@ -14,7 +14,7 @@ function InputGroup({ className, ...props }: React.ComponentProps<'div'>) {
       data-slot='input-group'
       role='group'
       className={cn(
-        'group/input-group relative flex w-full items-center rounded-md border border-input shadow-xs outline-none transition-[color,box-shadow] dark:bg-input/30',
+        'group/input-group relative flex w-full items-center rounded-md border border-input outline-none transition-[color,box-shadow] dark:bg-input/30',
         'h-10 min-w-0 has-[>textarea]:h-auto',
 
         // Variants based on alignment.
@@ -182,7 +182,7 @@ function InputActionButton({ className, type = "button", ...props }: React.Compo
       type={type}
       data-slot="input-action-button"
       className={cn(
-        "relative -ml-px shrink-0 cursor-pointer rounded-r-md border border-input bg-transparent px-4 text-sm font-bold whitespace-nowrap text-[var(--dw-fg-brand-contrast)] shadow-xs outline-none hover:bg-accent focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:bg-[var(--dw-bg-disabled)] disabled:text-[var(--dw-fg-disabled)]",
+        "relative -ml-px shrink-0 cursor-pointer rounded-r-md border border-input bg-transparent px-4 text-sm font-bold whitespace-nowrap text-[var(--dw-fg-brand-contrast)] outline-none hover:bg-accent focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:bg-[var(--dw-bg-disabled)] disabled:text-[var(--dw-fg-disabled)]",
         className
       )}
       {...props}

@@ -90,7 +90,7 @@ underline은 좌우 여백·모서리가 없다.
 
 | 부위 | 상태 | 값 |
 | --- | --- | --- |
-| Root 테두리 (outline) | 기본 | `inset 0 0 0 1px stroke-neutral-weak` (box-shadow), 그림자 `shadow-s1` |
+| Root 테두리 (outline) | 기본 | `inset 0 0 0 1px stroke-neutral-weak` (box-shadow), 그림자 없음 |
 | Root 테두리 (underline) | 기본 | 아래쪽만 `inset 0 -1px 0 0 stroke-neutral-weak` |
 | `::after` 테두리 | focus(포커스 안에 있음) | 2px `stroke-neutral-contrast` (underline은 아래쪽만) |
 | `::after` 테두리 | invalid (포커스 여부 무관) | 2px `stroke-critical-solid` |
@@ -152,7 +152,7 @@ Status가 있는 Root에서 지우기 버튼은 입력 중이거나 마우스를
 - 상태는 Value(`disabled`·`readonly`·`aria-invalid`)에 걸고, Root 스타일은 `:has()`로 잡는다. 예: `.dw-text-input:has(.dw-text-input__value:disabled)`.
 - 포커스·오류 테두리는 Root의 `::after`(absolute, `inset: 0`, 투명 2px border)로 그리고 `border-color`를 바꾼다.
 - 지우기 버튼 마크업은 `<button class="dw-text-input__icon" type="button" aria-label="입력 지우기" data-dw-clear>`이고 값이 없으면 `hidden`이다. 터치 화면에서 히트 영역은 44px다.
-- disabled·readonly에서도 `shadow-s1`을 유지한다. disabled와 invalid가 함께 오면 disabled가 이긴다.
+- disabled와 invalid가 함께 오면 disabled가 이긴다.
 - textarea `min-height`는 표의 값을 그대로 쓴다. 줄 높이로 계산한 값과 1px 다를 수 있다.
 
 ## Responsive

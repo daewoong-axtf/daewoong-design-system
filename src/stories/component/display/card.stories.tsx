@@ -64,19 +64,11 @@ export const Grid: Story = {
 /** 묶음을 색으로 나눌 때 옅은 보조 브랜드 면을 쓴다. 성공·오류 같은 상태 표시에는 쓰지 않는다. */
 export const BrandTone: Story = {
   render: () => (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      <Card tone="brand-secondary">
-        <CardHeader>
-          <CardTitle>운영 공지</CardTitle>
-          <CardDescription>이번 주 변경 사항을 확인합니다.</CardDescription>
-        </CardHeader>
-      </Card>
-      <Card tone="brand-tertiary">
-        <CardHeader>
-          <CardTitle>새 기능 안내</CardTitle>
-          <CardDescription>일정 보기 방식이 늘었습니다.</CardDescription>
-        </CardHeader>
-      </Card>
-    </div>
+    <Card tone="brand-secondary">
+      <CardHeader>
+        <CardTitle>운영 공지</CardTitle>
+        <CardDescription>이번 주 변경 사항을 확인합니다.</CardDescription>
+      </CardHeader>
+    </Card>
   ),
 }

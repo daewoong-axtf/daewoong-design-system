@@ -5,13 +5,13 @@ import { BrandColors, PaletteGrid, RoleTable } from './_components/color-tables'
 
 # Colors
 
-화면은 **역할 토큰**(`bg-*` · `fg-*` · `stroke-*`)만 씁니다. 팔레트는 역할 토큰이 가리키는 원재료이고, 유채색 팔레트(`orange`·`charcoal`·`teal`·`blue`·`green`·`yellow`·`red`·`purple`)는 어디서도 직접 쓰지 않습니다 — 브랜드 교체가 역할 토큰만으로 끝나게 하기 위해서입니다.
+화면은 **역할 토큰**(`bg-*` · `fg-*` · `stroke-*`)만 씁니다. 팔레트는 역할 토큰이 가리키는 원재료이고, 유채색 팔레트(`orange`·`charcoal`·`blue`·`green`·`yellow`·`red`·`purple`)는 어디서도 직접 쓰지 않습니다 — 브랜드 교체가 역할 토큰만으로 끝나게 하기 위해서입니다.
 
 아래 값은 모두 `design/tokens.json`에서 읽습니다. 스와치는 `var(--dw-*)`로 칠해서 툴바에서 다크로 바꾸면 같이 바뀝니다.
 
 ## 브랜드 색
 
-대표 행동은 Primary 하나로 두고, Secondary와 Tertiary로 화면에 변화를 줍니다. 상태 표시(성공·경고·오류·안내)에는 쓰지 않습니다. 버튼 쓰임은 [Button](?path=/docs/component-actions-button--docs)의 `BrandHierarchy`, 화면 예시는 [Brand Color](?path=/docs/patterns-brand-color--docs)에서 볼 수 있습니다.
+대표 행동은 Primary 하나로 두고, Secondary로 화면에 변화를 줍니다. 상태 표시(성공·경고·오류·안내)에는 쓰지 않습니다. 버튼 쓰임은 [Button](?path=/docs/component-actions-button--docs)의 `BrandHierarchy`, 화면 예시는 [Brand Color](?path=/docs/patterns-brand-color--docs)에서 볼 수 있습니다.
 
 <BrandColors />
 

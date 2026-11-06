@@ -24,7 +24,7 @@ function TimeSelect({ value, slots, className, ...props }: TimeSelectProps) {
       <select
         data-slot='time-select'
         value={value ?? ''}
-        className="h-10 w-full cursor-pointer appearance-none rounded-md border border-input bg-transparent py-1 pr-9 pl-3 text-base tabular-nums shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:aria-invalid:ring-destructive/40 [&_option]:bg-popover [&_option]:text-popover-foreground"
+        className="h-10 w-full cursor-pointer appearance-none rounded-md border border-input bg-transparent py-1 pr-9 pl-3 text-base tabular-nums outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:aria-invalid:ring-destructive/40 [&_option]:bg-popover [&_option]:text-popover-foreground"
         {...props}
       >
         {showPlaceholder && (

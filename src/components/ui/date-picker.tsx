@@ -37,7 +37,7 @@ export interface DatePickerProps {
 
 /** Input·SelectTrigger와 같은 상자라 같은 폼 줄에서 높이·테두리가 맞는다 */
 const TRIGGER_CLASS =
-  'flex h-10 w-full min-w-0 cursor-pointer items-center gap-2 rounded-md border border-input bg-transparent px-3 py-1 text-left text-base shadow-xs tabular-nums outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:aria-invalid:ring-destructive/40'
+  'flex h-10 w-full min-w-0 cursor-pointer items-center gap-2 rounded-md border border-input bg-transparent px-3 py-1 text-left text-base tabular-nums outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:aria-invalid:ring-destructive/40'
 
 /**
  * 날짜 선택 — 공용 달력(`Calendar`) 팝오버. (대웅 커스텀 — shadcn Date Picker 패턴)

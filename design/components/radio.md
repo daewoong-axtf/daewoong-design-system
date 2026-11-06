@@ -47,7 +47,7 @@ Root·Control·Label 세로 정렬 규칙은 [Checkbox](checkbox.md)와 같다.
 
 | 상태 | Control bg | Control 테두리 | 점 | Label |
 | --- | --- | --- | --- | --- |
-| 꺼짐 | 투명 | 1px `stroke-neutral-weak`, 그림자 `shadow-s1` (켜짐에도 유지) | — | `fg-neutral` |
+| 꺼짐 | 투명 | 1px `stroke-neutral-weak`, 그림자 없음 | — | `fg-neutral` |
 | 꺼짐 hover·pressed | `bg-transparent-pressed` | 1px `stroke-neutral-weak` | — | |
 | 켜짐(brand) | `bg-brand-solid` | 없음 | `fg-on-brand-solid` | |
 | 켜짐(brand) hover·pressed | `bg-brand-solid-pressed` | 없음 | | |

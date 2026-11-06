@@ -51,7 +51,7 @@
 
 | 상태 | bg | 테두리 |
 | --- | --- | --- |
-| 기본 | 투명 | 1px `stroke-neutral-weak`, `shadow-s1` |
+| 기본 | 투명 | 1px `stroke-neutral-weak` |
 | 선택 | 투명 | 2px `stroke-brand-solid` |
 | 오류 | 투명 | 2px `stroke-critical-solid` |
 | disabled | `bg-disabled` | 1px `stroke-neutral-weak`, 글자 `fg-disabled` |
