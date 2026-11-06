@@ -11,19 +11,6 @@
 
 토큰과 컴포넌트를 한 페이지에서 보는 [온라인 카탈로그](https://daewoong-axtf.github.io/daewoong-design-system/design/catalog.html)다. 원본은 [`design/catalog.html`](design/catalog.html)이다.
 
-## 적용 사례
-
-메모리얼캔버스 관리자(Next.js, Tailwind CSS, shadcn/ui)에 [AI로 설치하기](#ai로-설치하기)로 적용한 결과다. 개별 화면 코드는 고치지 않고 전역 스타일만 연결했다. 캡처의 회원 정보는 샘플 데이터다.
-
-| 화면 | 적용 전 | 적용 후 |
-| --- | --- | --- |
-| 로그인 | ![적용 전 로그인 화면: Noto Sans KR 글꼴과 검은색 로그인 버튼](.github/before-after/login-before.png) | ![적용 후 로그인 화면: Pretendard 글꼴과 주황색 로그인 버튼](.github/before-after/login-after.png) |
-| 회원 관리 | ![적용 전 회원 관리 화면](.github/before-after/members-before.png) | ![적용 후 회원 관리 화면: 글꼴과 사이드바, 입력 테두리에 토큰 적용](.github/before-after/members-after.png) |
-
-토큰을 쓰는 화면은 시스템 설정에 따라 다크 모드로 바뀐다.
-
-![적용 후 다크 모드 로그인 화면](.github/before-after/login-after-dark.png)
-
 ## AI로 설치하기
 
 프롬프트를 AI에게 주면 프로젝트 환경을 확인해 디자인 시스템을 연결하고 프로젝트 규칙까지 저장한다. 서버 템플릿 웹, 프론트엔드 프레임워크, 웹이 아닌 환경을 모두 지원한다. Tailwind와 shadcn은 프로젝트가 이미 쓸 때만 연결한다.
