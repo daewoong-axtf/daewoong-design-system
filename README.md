@@ -33,7 +33,7 @@ AI 도구에서 프로젝트를 열고 아래 프롬프트를 복사해 붙여 �
 
 2. 저장소를 임시 폴더로 받아줘.
    git clone --depth 1 --branch v1.0.0 https://github.com/daewoong-axtf/daewoong-design-system.git <임시 폴더>
-   받은 뒤 `git rev-parse HEAD`로 커밋 값을 적어 둬. 저장소에 접근할 수 없으면 내용을 추측하거나 설치했다고 말하지 말고, 사용자에게 저장소 접근 권한을 요청해줘.
+   받은 뒤 `git rev-parse HEAD`로 커밋 값을 적어 둬. 저장소를 받지 못하면 내용을 추측하거나 설치했다고 말하지 말고, 받지 못한 이유를 사용자에게 알려줘.
 
 3. 받은 `design/README.md`, `design/llms.txt`, `design/design.md` 14장을 읽어줘. `design/` 전체는 참고 문서로 `docs/design-reference/`에 복사해줘. 이 폴더는 사용자에게 공개되는 경로에 두지 않는다. 그다음 아래에서 프로젝트에 맞는 경로 하나를 골라줘. 화면 실행에 쓰는 파일은 `fonts/`, `tokens.css`, `components.css`, `js/components.js`, `icons/`다.
    - 서버가 HTML을 만드는 웹(Django, Flask, Spring, Ktor 등): 실행 파일을 정적 파일 경로 아래 `design/`에 복사하고 `fonts/pretendard.css`, `tokens.css`, `components.css`, `js/components.js`를 공통 템플릿에 연결한다. 경로는 프레임워크의 정적 파일 방식을 따른다. 마크업은 `catalog.html`에서 복사한다.
