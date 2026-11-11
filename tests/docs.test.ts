@@ -47,11 +47,14 @@ test('AI documents are generated from the specs', async () => {
   assert.ok(buildReadme().includes(setupPrompt()))
 })
 
-test('setup prompt fills its placeholders and does not require a stack', async () => {
+test('setup prompt fills its placeholders and requires shadcn only for React', async () => {
   const { setupPrompt } = await import('../scripts/build-llms.ts')
   const prompt = setupPrompt()
   assert.doesNotMatch(prompt, /\{\{/)
   assert.match(prompt, /git clone --depth 1 --branch \S+ https:\/\/github\.com\//)
+  // 설치 명령은 버전마다 바뀌므로 적지 않고, 공식 설치 방법을 따르게 한다
   assert.doesNotMatch(prompt, /shadcn(@latest)? (add|init)|tailwindcss (add|init)/)
+  assert.match(prompt, /React·Next\.js: Tailwind CSS v4와 shadcn\/ui를 쓴다/)
+  assert.match(prompt, /설치하기 전에 사용자에게 물어보고/)
   assert.match(prompt, /새로 설치하지 않는다/)
 })

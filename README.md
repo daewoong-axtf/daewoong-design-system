@@ -17,7 +17,8 @@
 
 | 프로젝트 | 적용 방식 |
 | --- | --- |
-| 프론트엔드 프레임워크 (React, Vue, Svelte 등) | CSS를 연결하고 `dw-*` 클래스를 쓴다. Tailwind와 shadcn은 프로젝트가 이미 쓸 때만 연결한다 |
+| React · Next.js | Tailwind와 shadcn을 쓴다. 없으면 설치하고, 다른 UI 라이브러리를 이미 쓰면 먼저 묻는다 |
+| 그 밖의 프론트엔드 (Vue, Svelte 등) | CSS를 연결하고 `dw-*` 클래스를 쓴다. Tailwind를 권장한다 |
 | 서버 템플릿 웹 (Java Thymeleaf·JSP, Python Django·Flask 등) | CSS와 `components.js`를 연결하고 `dw-*` 클래스를 쓴다 |
 | 웹이 아닌 환경 (Android, iOS, Flutter 등) | `tokens.json`의 값을 가져다 쓰고 컴포넌트는 각 플랫폼에서 구현한다 |
 
@@ -47,14 +48,16 @@ AI 도구에는 프로젝트 파일을 고칠 권한과 저장소를 받을 수 
 
 3. 받은 `design/README.md`, `design/llms.txt`, `design/design.md` 14장을 읽어줘. `design/` 전체는 참고 문서로 `docs/design-reference/`에 복사해줘. 이 폴더는 사용자에게 공개되는 경로에 두지 않는다. 그다음 아래에서 프로젝트에 맞는 경로 하나를 골라줘. 화면 실행에 쓰는 파일은 `fonts/`, `tokens.css`, `components.css`, `js/components.js`, `icons/`다.
    - 서버가 HTML을 만드는 웹(Django, Flask, Spring, Ktor 등): 실행 파일을 정적 파일 경로 아래 `design/`에 복사하고 `fonts/pretendard.css`, `tokens.css`, `components.css`, `js/components.js`를 공통 템플릿에 연결한다. 경로는 프레임워크의 정적 파일 방식을 따른다. 마크업은 `catalog.html`에서 복사한다.
-   - React·Vue·Svelte 등 프론트엔드 프레임워크: 실행 파일 중 `js/components.js`를 뺀 나머지를 번들러가 처리하는 소스 경로(예: `src/design/`)에 복사하고 `fonts/pretendard.css`, `tokens.css`, `components.css`를 전역으로 불러온다. 동작은 그 프레임워크로 구현한다. 프로젝트가 이미 Tailwind와 shadcn을 쓰면 14.1절대로 `shadcn.css`까지 연결한다.
+   - React·Next.js: Tailwind CSS v4와 shadcn/ui를 쓴다. 없으면 각 공식 설치 방법으로 설치한다. 단, 이미 다른 UI 라이브러리(MUI, Chakra, Ant Design, styled-components 등)를 쓰고 있으면 설치하기 전에 사용자에게 물어보고, 쓰지 않기로 하면 아래 Vue·Svelte 경로를 따른다. 실행 파일 중 `fonts/`, `icons/`, `tokens.css`, `shadcn.css`를 소스 경로(예: `src/design/`)에 복사하고 14.1절의 순서로 전역 CSS에서 불러온다.
+   - Vue·Svelte 등 그 밖의 프론트엔드 프레임워크: 실행 파일 중 `js/components.js`를 뺀 나머지를 번들러가 처리하는 소스 경로(예: `src/design/`)에 복사하고 `fonts/pretendard.css`, `tokens.css`, `components.css`를 전역으로 불러온다. 동작은 그 프레임워크로 구현한다. Tailwind를 권장한다. 이미 쓰고 있으면 화면 배치에 그대로 쓰고, 없으면 설치할지 사용자에게 물어본다.
    - 웹이 아닌 환경(Flutter, Android, iOS, 데스크탑, PDF 등): 참고 문서만 두고, 14.3절대로 `tokens.json`을 그 플랫폼의 색·치수 정의로 옮긴다.
 
-   웹이면 전역 스타일의 페이지 바탕을 `--dw-bg-layer-default`, 글자색을 `--dw-fg-neutral`, 글꼴을 `--dw-font-sans`로 지정해줘. 디자인 시스템은 `body`를 스타일하지 않아서 이 지정이 없으면 다크 모드에서 바탕이 바뀌지 않는다.
+   웹이면 전역 스타일의 페이지 바탕을 `--dw-bg-layer-default`, 글자색을 `--dw-fg-neutral`, 글꼴을 `--dw-font-sans`로, 줄바꿈을 `word-break: keep-all`과 `overflow-wrap: break-word`로 지정해줘. 한글이 음절 중간이 아니라 단어 단위로 줄을 바꾼다. 디자인 시스템은 `body`를 스타일하지 않아서 이 지정이 없으면 다크 모드에서 바탕이 바뀌지 않는다.
 
 4. 아래 원칙을 지켜줘.
-   - 디자인 시스템을 적용하려고 Tailwind나 shadcn을 새로 설치하지 않는다. 프레임워크를 바꾸거나 주요 의존성을 올리지 않는다.
+   - React·Next.js의 Tailwind·shadcn과 사용자가 승인한 Tailwind 말고는 디자인 시스템을 적용하려고 라이브러리를 새로 설치하지 않는다. 프레임워크를 바꾸거나 주요 의존성을 올리지 않는다.
    - 프로젝트에 같은 경로의 다른 파일이 있으면 덮어쓰지 말고 다른 경로를 쓰거나 사용자에게 물어본다. 관련 없는 파일과 CSS는 유지한다.
+   - 화면은 반응형이 기본이다. `375 · 768 · 1024px`에서 깨지지 않게 만든다.
    - 색·간격·모서리·글자는 토큰으로 부른다. 라이트·다크 모드를 모두 유지하고, 기본은 시스템 설정을 따른다.
    - 있는 컴포넌트를 다시 만들지 않는다. 없는 컴포넌트는 토큰으로 프로젝트에서 만든다. 키보드 포커스와 접근성을 유지한다.
    - 기존 화면은 이번 설정에서 다시 디자인하지 않는다. 연결 확인에 필요한 만큼만 바꾸고, 나머지는 사용자가 요청할 때 적용한다.
@@ -110,8 +113,8 @@ git clone --depth 1 --branch <태그> https://github.com/daewoong-axtf/daewoong-
 | 환경 | 복사할 파일 | 위치 |
 | --- | --- | --- |
 | 서버가 HTML을 만드는 웹 (Django, Flask, Spring 등) | `fonts/` `icons/` `tokens.css` `components.css` `js/components.js` | 정적 파일 경로 아래 `design/` |
-| 프론트엔드 프레임워크 (React, Vue, Svelte 등) | `fonts/` `icons/` `tokens.css` `components.css` | 소스 경로 아래 `design/` (예: `src/design/`) |
-| 이미 Tailwind·shadcn을 쓰는 React | `fonts/` `icons/` `tokens.css` `shadcn.css` | 소스 경로 아래 `design/` |
+| React · Next.js (Tailwind·shadcn) | `fonts/` `icons/` `tokens.css` `shadcn.css` | 소스 경로 아래 `design/` (예: `src/design/`) |
+| 그 밖의 프론트엔드 (Vue, Svelte 등) | `fonts/` `icons/` `tokens.css` `components.css` | 소스 경로 아래 `design/` (예: `src/design/`) |
 | 웹이 아닌 환경 (Flutter, Android, iOS 등) | `tokens.json` | [14.3절](design/design.md#14-환경별-적용)대로 플랫폼 값으로 옮긴다 |
 
 명세와 가이드를 함께 두려면 `design/` 전체를 공개되지 않는 경로(예: `docs/design-reference/`)에 복사한다.
@@ -127,7 +130,7 @@ git clone --depth 1 --branch <태그> https://github.com/daewoong-axtf/daewoong-
 <script src="/design/js/components.js" defer></script>
 ```
 
-프론트엔드 프레임워크는 전역 CSS에서 불러온다. 동작은 그 프레임워크로 구현한다.
+Vue·Svelte 등 그 밖의 프론트엔드 프레임워크는 전역 CSS에서 불러온다. 동작은 그 프레임워크로 구현한다.
 
 ```css
 @import "./design/fonts/pretendard.css";
@@ -135,7 +138,7 @@ git clone --depth 1 --branch <태그> https://github.com/daewoong-axtf/daewoong-
 @import "./design/components.css";
 ```
 
-Tailwind·shadcn을 쓰는 React는 [14.1절](design/design.md#14-환경별-적용)의 불러오는 순서를 따른다.
+React·Next.js는 Tailwind와 shadcn을 설치한 뒤 [14.1절](design/design.md#14-환경별-적용)의 불러오는 순서를 따른다.
 
 ### 4. 페이지 바탕 지정하기
 
@@ -169,7 +172,7 @@ body {
 | [`design/`](design/) | 개발자·AI 에이전트 | 언어 무관 정본 — 토큰, 컴포넌트 명세, 순수 HTML/CSS 레퍼런스, 가이드 |
 | [`design/ai/setup-prompt.md`](design/ai/setup-prompt.md) · [`design/llms.txt`](design/llms.txt) | 현업·AI 에이전트 | 복사해서 쓰는 설정 프롬프트와 AI용 문서 |
 
-프로젝트에 붙이는 방법(Tailwind·shadcn을 쓰는 React는 `tokens.css` + `shadcn.css`, 그 밖의 웹은 `tokens.css` + `components.css`, 웹이 아닌 곳은 `tokens.json`)은 [`design/design.md` 14장](design/design.md#14-환경별-적용)에 있다.
+프로젝트에 붙이는 방법(React·Next.js는 Tailwind·shadcn + `tokens.css` + `shadcn.css`, 그 밖의 웹은 `tokens.css` + `components.css`, 웹이 아닌 곳은 `tokens.json`)은 [`design/design.md` 14장](design/design.md#14-환경별-적용)에 있다.
 
 ## 정본 우선순위
 
