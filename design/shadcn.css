@@ -109,5 +109,7 @@
   }
   body {
     @apply bg-background text-foreground font-sans;
+    word-break: keep-all; /* 단어 단위 줄바꿈 — design.md 3.4 */
+    overflow-wrap: break-word;
   }
 }

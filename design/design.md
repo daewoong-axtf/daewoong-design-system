@@ -11,6 +11,7 @@
 - **브랜드 색은 꼭 필요한 곳에만 쓴다.** 화면의 주된 행동 1개, 선택 상태, 강조 링크 정도로 제한한다.
 - **상태를 색 하나로만 알리지 않는다.** 오류·경고·성공에는 항상 아이콘이나 텍스트를 함께 붙인다(WCAG 1.4.1).
 - **임의의 수치를 만들지 않는다.** 간격·크기·모서리·그림자·모션은 아래 스케일 안에서만 고른다.
+- **반응형이 기본이다.** 따로 요청이 없어도 모든 화면은 9장의 브레이크포인트 전 구간에서 깨지지 않게 만든다. 고정 폭으로 두는 화면은 그 이유를 명세에 적는다.
 
 ## 2. 색
 
@@ -213,6 +214,20 @@ CSS 변수: `--dw-font-<t>-size`, `--dw-font-<t>-line-height`. 글자 간격(let
 | `label-sm` | t3 (13/18) | medium | 작은 버튼, 칩, 뱃지 |
 | `caption` | t2 (12/16) | regular | 타임스탬프, 각주 |
 
+### 3.4 줄바꿈
+
+글이 화면 폭에 맞춰 줄을 바꿀 때 **단어(어절) 단위로 바꾸는 것이 기본값이다.** 한글이 음절 중간에서 끊기지 않게 한다.
+
+```css
+word-break: keep-all;        /* 한글도 띄어쓰기 기준으로 줄을 바꾼다 */
+overflow-wrap: break-word;   /* 띄어쓰기 없는 긴 문자열만 넘칠 때 끊는다 */
+```
+
+- 웹은 전역 스타일의 `body`에 위 두 줄을 지정한다(14장). 컴포넌트는 이 값을 상속받는다.
+- URL·이메일·파일 이름·코드처럼 띄어쓰기 없이 긴 값이 좁은 칸(표 셀, 칩, 플렉스 항목)에 들어가면 그 요소에 `overflow-wrap: anywhere`를 준다.
+- 글자 단위로 끊는 `word-break: break-all`은 자릿수·코드 값처럼 단어 개념이 없는 곳에만 쓴다.
+- 제목에서 한 단어만 다음 줄로 떨어지면 `text-wrap: balance`를 쓸 수 있다. 줄바꿈 위치를 `<br>`로 고정하지 않는다. 폭이 바뀌면 어색한 자리에서 끊긴다.
+
 ## 4. 브랜드 교체
 
 브랜드 램프 `orange-*`는 대웅 오렌지(`#F18A00`, `oklch(0.729 0.169 61.3)`)를 라이트 600·다크 700에 둔 램프다. 밝은 오렌지라 흰 글자는 대비가 모자라므로(2.5:1) `fg-on-brand-solid`는 `static-black`(8.4:1), 흰 바탕 위 `fg-brand`는 `orange-800`(5.2:1)을 쓴다. 다시 바꿀 때의 절차:
@@ -376,7 +391,7 @@ CSS 변수: `--dw-spacing-<토큰>` (예: `--dw-spacing-x4`).
 
 - CSS `@media`에는 변수를 쓸 수 없다. 위 숫자를 그대로 적는다. `--dw-breakpoint-*`는 JS에서 값을 읽을 때 쓴다.
 - 위로 올라가는 기준은 `min-width: <값>`, 아래를 뜻할 때는 `max-width: <값 - 1>`이다. 예: `md` 미만은 `max-width: 767px`. 다른 숫자는 만들지 않는다.
-- `sm`~`2xl`은 Tailwind 기본값과 같다. `xs`·`3xl`·`4xl`은 `shadcn.css`에 추가해 두어 React에서 `md:`·`3xl:`처럼 그대로 쓴다.
+- `sm`~`2xl`은 Tailwind 기본값과 같다. `xs`·`3xl`·`4xl`은 `shadcn.css`에 추가해 두어 React에서 `md:`·`3xl:`처럼 그대로 쓴다. `shadcn.css`를 쓰지 않는 Tailwind 프로젝트는 같은 값을 `@theme`에 추가한다.
 - `xs`·`3xl`·`4xl`은 컴포넌트 기본 동작을 바꾸지 않는다. 서비스 화면 배치에서 필요할 때 쓴다.
 - "모바일"은 `md`(768px) 미만을 뜻한다.
 
@@ -486,21 +501,27 @@ outline-offset: 2px;
 
 ## 14. 환경별 적용
 
-백엔드 언어가 무엇이든 **화면이 브라우저에 뜨면 스타일은 CSS로 들어간다.** 정본은 토큰과 컴포넌트 명세이고, Tailwind와 shadcn은 프로젝트가 이미 쓸 때만 연결한다. 디자인 시스템을 쓰려고 새로 설치하지 않는다.
+백엔드 언어가 무엇이든 **화면이 브라우저에 뜨면 스타일은 CSS로 들어간다.** 정본은 토큰과 컴포넌트 명세이고, Tailwind와 shadcn은 그 값을 쓰는 방법이다.
+
+- **React·Next.js는 Tailwind CSS v4 + shadcn/ui가 기본이다.** 없으면 설치한다. 다만 이미 다른 UI 라이브러리(MUI · Chakra · Ant Design · styled-components 등)를 쓰는 프로젝트는 설치하기 전에 묻는다. 섞으면 스타일이 충돌한다.
+- **Vue·Svelte 등 그 밖의 프론트엔드는 Tailwind를 권장한다.** 컴포넌트는 `components.css`의 `dw-*` 클래스를 쓰고, 화면 배치를 Tailwind로 짠다. Tailwind가 없는 프로젝트에 새로 넣을지는 프로젝트가 정한다.
+- **서버 템플릿 웹은 `components.css`의 `dw-*` 클래스가 기본이다.** Tailwind는 템플릿을 읽어 CSS를 만드는 빌드 단계가 따로 필요해서 선택으로 둔다.
 
 | 환경 | 쓰는 것 | 컴포넌트 |
 | --- | --- | --- |
-| Tailwind·shadcn을 쓰는 React | `tokens.css` + `shadcn.css` + Tailwind CSS v4 | shadcn/ui |
-| 그 밖의 프론트엔드 (React · Vue · Svelte · Angular 등) | `tokens.css` + `components.css` | `dw-*` 클래스, 동작은 각 프레임워크로 구현 |
+| React · Next.js | `tokens.css` + `shadcn.css` + Tailwind CSS v4 | shadcn/ui |
+| 다른 UI 라이브러리를 이미 쓰는 React | `tokens.css` + `components.css` | `dw-*` 클래스, 동작은 React로 구현 |
+| 그 밖의 프론트엔드 (Vue · Svelte · Angular 등) | `tokens.css` + `components.css` (+ Tailwind 권장) | `dw-*` 클래스, 동작은 각 프레임워크로 구현 |
 | 서버가 HTML을 만드는 웹 (Python: Django·Flask·FastAPI + Jinja, Java·Kotlin: Spring + Thymeleaf·JSP, Kotlin: Ktor + FreeMarker 등) | `tokens.css` + `components.css` + `js/components.js` | `catalog.html`의 `dw-*` 클래스 |
 | 웹이 아닌 곳 (Android(Kotlin) · iOS · Flutter · JavaFX · PDF 리포트) | `tokens.json`의 값 | 각 플랫폼 방식으로 구현, 치수는 `components/<name>.md` |
 
 어느 갈래든 색·간격·모서리는 토큰으로만 부른다(1장). 다크 모드는 `<html data-theme="dark">`이고, 속성이 없으면 OS 설정을 따른다(2.1).
 
-디자인 시스템은 `body`를 스타일하지 않는다. 웹에서는 전역 스타일의 페이지 바탕을 `bg-layer-default`, 글자색을 `fg-neutral`, 글꼴을 `--dw-font-sans`로 지정한다. 지정하지 않으면 다크 모드에서 바탕이 바뀌지 않는다.
+디자인 시스템은 `body`를 스타일하지 않는다. 웹에서는 전역 스타일의 페이지 바탕을 `bg-layer-default`, 글자색을 `fg-neutral`, 글꼴을 `--dw-font-sans`로 지정하고, 줄바꿈은 `word-break: keep-all` · `overflow-wrap: break-word`로 둔다(3.4). 바탕을 지정하지 않으면 다크 모드에서 바탕이 바뀌지 않는다.
 
-### 14.1 Tailwind·shadcn을 쓰는 React
+### 14.1 React · Next.js — Tailwind + shadcn
 
+0. Tailwind CSS v4와 shadcn/ui가 없으면 각 공식 설치 방법으로 설치한다. shadcn 설치가 만든 전역 CSS의 색 변수는 아래 `shadcn.css`가 덮어쓴다.
 1. 필요한 컴포넌트를 `npx shadcn add <name>`으로 가져온다. **컴포넌트 소스의 구조·변형 이름·색 클래스는 고치지 않는다.**
 2. `design/tokens.css`와 `design/shadcn.css`를 프로젝트에 복사하고 전역 CSS에서 순서대로 불러온다.
 
