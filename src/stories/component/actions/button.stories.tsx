@@ -90,6 +90,7 @@ export const WithIcon: Story = {
 export const Loading: Story = {
   args: {
     disabled: true,
+    'aria-busy': true,
     children: (
       <>
         <Spinner /> 저장 중

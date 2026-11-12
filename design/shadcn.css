@@ -112,4 +112,19 @@
     word-break: keep-all; /* 단어 단위 줄바꿈 — design.md 3.4 */
     overflow-wrap: break-word;
   }
+
+  /* 커서 — design.md 11.1. Tailwind v4는 버튼 커서를 default로 되돌리므로 여기서 다시 정한다.
+     base 층이라 컴포넌트의 cursor-* 클래스가 있으면 그쪽이 이긴다. */
+  :where(button, summary, select, a[href], [role="button"], [role="link"], [role="tab"], [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [role="option"], [role="checkbox"], [role="radio"], [role="switch"], [role="slider"], input:is([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="file"], [type="color"], [type="range"])) {
+    cursor: pointer;
+  }
+  :where(button, [role="button"], [role="combobox"])[aria-readonly="true"] {
+    cursor: default;
+  }
+  :where(button, select, input, textarea, a, label, [role], [tabindex]):is(:disabled, [aria-disabled="true"], [data-disabled]:not(:where([data-disabled="false"]))) {
+    cursor: not-allowed;
+  }
+  :where(button, [role="button"]):is([aria-busy="true"], [data-loading]) {
+    cursor: progress;
+  }
 }
