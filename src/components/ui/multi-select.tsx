@@ -99,7 +99,7 @@ function MultiSelect({
                   value={option.value}
                   disabled={option.disabled}
                   data-slot="multi-select-item"
-                  className="relative flex cursor-default items-center rounded-sm py-1.5 pr-8 pl-2 text-sm outline-none select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground"
+                  className="relative flex cursor-pointer items-center rounded-sm py-1.5 pr-8 pl-2 text-sm outline-none select-none data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground"
                 >
                   <SelectPrimitive.ItemText>{option.label}</SelectPrimitive.ItemText>
                   <SelectPrimitive.ItemIndicator className="absolute right-2 flex size-3.5 items-center justify-center">

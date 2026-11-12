@@ -114,3 +114,18 @@ test('design.md lists every grid and ratio token', () => {
     for (const name of Object.keys(tokens[group])) assert.ok(doc.includes(`${group}-${name}`), name)
   }
 })
+
+test('React components leave cursor states visible', () => {
+  for (const f of readdirSync('src/components/ui').filter((f) => f.endsWith('.tsx'))) {
+    const src = readFileSync(`src/components/ui/${f}`, 'utf8')
+    assert.doesNotMatch(src, /(?:^|["'\s]|data-\[disabled\]:|data-|has-)disabled:pointer-events-none/m, `${f}: 비활성에 pointer-events-none을 쓰면 not-allowed 커서가 가려진다 (design.md 11.1)`)
+    assert.doesNotMatch(src, /cursor-default[^"']*(?:data-highlighted|focus:bg-accent)/, `${f}: 메뉴·선택 항목은 cursor-pointer (design.md 11.1)`)
+  }
+})
+
+test('shadcn.css and components.css share the cursor defaults', () => {
+  for (const file of ['shadcn.css', 'components.css']) {
+    const css = read(file)
+    for (const cursor of ['pointer', 'not-allowed', 'progress']) assert.match(css, new RegExp(`:where\\(button[^{]*\\{\\s*cursor: ${cursor};`), `${file}: ${cursor}`)
+  }
+})

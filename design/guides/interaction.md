@@ -37,6 +37,8 @@
 | Focus-visible | 지연 없이 표시한다([design.md 11장](../design.md#11-포커스)) |
 | Disabled | `bg-disabled` + `fg-disabled`, `cursor: not-allowed`, 전환 없음. 컴포넌트별 표현은 명세를 따른다 |
 
+커서 모양은 [design.md 11.1](../design.md#111-커서)에서 정한다. 누를 수 있으면 `pointer`, 지금 못 누르면 `not-allowed`다.
+
 ## 4. 로딩 피드백
 
 | 상황 | 사용 |
