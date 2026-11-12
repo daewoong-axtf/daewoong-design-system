@@ -92,7 +92,7 @@ AI 도구에는 프로젝트 파일을 고칠 권한과 저장소를 받을 수 
 
 ### 버전
 
-설치한 저장소·ref·커밋은 프로젝트의 `docs/design-system.md`에 남는다. 이미 설치한 프로젝트는 자동으로 바뀌지 않는다. 올릴 때는 [업데이트 기록](https://daewoong-axtf.github.io/daewoong-design-system/design/catalog.html#page-history-title)을 확인하고, 프로젝트에서 고친 파일을 덮어쓰지 않는지 비교한다.
+설치한 저장소·ref·커밋은 프로젝트의 `docs/design-system.md`에 남는다. 이미 설치한 프로젝트는 자동으로 바뀌지 않는다. [자동 반영](#릴리즈와-자동-반영)에 등록한 저장소만 새 릴리즈가 PR로 온다. 올릴 때는 [업데이트 기록](https://daewoong-axtf.github.io/daewoong-design-system/design/catalog.html#page-history-title)을 확인하고, 프로젝트에서 고친 파일을 덮어쓰지 않는지 비교한다.
 
 ## 직접 설치하기
 
@@ -188,6 +188,27 @@ pnpm build:icons    # lucide-react → design/icons/ (*.svg · sprite.svg · ico
 pnpm build:llms     # AI용 문서 → design/llms.txt · llms-full.txt, README 프롬프트
 pnpm test               # 토큰·가드 테스트
 ```
+
+## 릴리즈와 자동 반영
+
+`main`에 머지하면 `.github/workflows/release.yml`이 커밋 타입으로 버전을 정해 태그·`CHANGELOG.md`·GitHub Release(`design.zip`)를 만든다. `feat:`은 마이너, `fix:`·`perf:`는 패치를 올리고 `docs:`·`chore:`·`ci:`는 릴리즈하지 않는다.
+
+새 릴리즈가 나오면 등록한 저장소에 알린다. 받는 저장소가 알아서 반영한다.
+
+```
+main 머지 → 릴리즈 vX.Y.Z → GitHub App이 받는 저장소에 repository_dispatch(design-system-released, tag)
+                                   ↓
+                     받는 저장소의 워크플로가 새 판을 가져와 PR을 만든다
+```
+
+| 항목 | 내용 |
+| --- | --- |
+| 받는 저장소 | `daewoong-axtf/ax-desk-fe` — `.github/workflows/design-system-sync.yml` |
+| 알리는 계정 | 조직 GitHub App `daewoong-design-system-sync`. 권한은 Contents 쓰기 하나이고 받는 저장소에만 설치한다 |
+| 이 저장소 설정 | 변수 `DOWNSTREAM_APP_ID`, 시크릿 `DOWNSTREAM_APP_PRIVATE_KEY`(App 개인 키). 없으면 경고만 남기고 넘어간다 |
+| 놓쳤을 때 | 받는 저장소가 하루 한 번 최신 릴리즈를 직접 확인한다 |
+
+받는 저장소를 늘리려면 App을 그 저장소에도 설치하고, `release.yml`의 `DOWNSTREAM`에 추가한다. 받는 쪽 워크플로는 ax-desk-fe의 것을 참고한다. 개인 키를 바꿀 때는 App 설정의 Credentials에서 새 키를 만들어 시크릿을 갈고 예전 키를 지운다.
 
 ## 라이선스
 
